@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "stdint.h": "c",
+        "sprite.h": "c",
+        "item.h": "c",
+        "battle.h": "c",
+        "hold_item_effects.h": "c",
+        "pokemon.h": "c",
+        "global.h": "c",
+        "archive.h": "c",
+        "config.h": "c",
+        "abilities.h": "c"
+    }
+}
