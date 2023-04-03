@@ -9,6 +9,10 @@
         "global.h": "c",
         "archive.h": "c",
         "config.h": "c",
-        "abilities.h": "c"
+        "abilities.h": "c",
+        "generated": "c",
+        "species.h": "c",
+        "misc.h": "c",
+        "tm_learnsets.h": "c"
     }
 }

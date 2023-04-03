@@ -24,22 +24,21 @@ struct BaseStats {
     u8 catchRate;
     u8 expYield;
 
-    u16 evYieldHP       :2;
-    u16 evYieldAttack   :2;
-    u16 evYieldDefense  :2;
-    u16 evYieldSpeed    :2;
-    u16 evYieldSpAttack :2;
-    u16 evYieldSpDef    :2;
+    u16 evYieldHP           :2,
+        evYieldAttack       :2,
+        evYieldDefense      :2,
+        evYieldSpeed        :2,
+        evYieldSpAttack     :2,
+        evYieldSpDefense    :2,
+        _evPadding          :4;
 
-    u16 _evPadding      :4;
-
-    u16 item1;      // 50% item
-    u16 item2;      //  5% item
+    u16 itemUncommon;       // 50% item
+    u16 itemRare;           //  5% item
 
     u8 genderRatio;
     u8 eggCycles;
     u8 baseFriendship;
-    u8 growthRate;
+    u8 expCurve;
     u8 eggGroup1;
     u8 eggGroup2;
 
@@ -47,8 +46,8 @@ struct BaseStats {
     u8 ability2;
 
     u8 fleeRate;
-    u8 color            :7;
-    u8 reverse          :1;
+    u8 bodyColor        :7,
+       reverse          :1;
 
     // Vanilla Platinum's structure here represents the TM learnset for any
     // given Pokemon species as a quartet of consecutive bitflags, each bit
@@ -56,10 +55,7 @@ struct BaseStats {
     // 
     // Only 100 of these bits are actually used in vanilla code; the remaining
     // 28 bits are unused.
-    u32 tmLearnsetFlags1; // learnable flags for TMs  1 - 32
-    u32 tmLearnsetFlags2; // learnable flags for TMs 33 - 64
-    u32 tmLearnsetFlags3; // learnable flags for TMs 65 - 92, HMs 1 - 4
-    u32 tmLearnsetFlags4; // learnable flags for HMs  5 -  8 + extra space for TM expansion
+    u32 tmLearnsets[4];
 };
 
 struct PokemonDataBlockA {
@@ -105,7 +101,7 @@ struct PokemonDataBlockB {
         sex                 :2,
         formNumber          :5;
 
-    u8  _dummy2_1;            // 24 bits of unused space
+    u8  _dummy2_1;          // 24 bits of unused space
     u16 _dummy2_2;
 
     u16 newCatchLocation;   // These fields are only used for riddles (Trick House?)
