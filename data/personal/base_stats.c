@@ -56,6 +56,7 @@ const struct BaseStats __data[] = {
             TM_LEARNSET_4_NONE
         },
     },
+    
     [SPECIES_BULBASAUR] = {
         .baseHP        = 45,
         .baseAttack    = 49,
