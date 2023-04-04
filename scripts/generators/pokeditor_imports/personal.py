@@ -55,8 +55,8 @@ TM_LEARNSETS_TEMPLATE = """
 #define TM_LEARNSET_4_{species} ({learnset_4})
 """
 
-POKEDITOR_PERSONAL_SHEET = "Personal.csv"
-POKEDTIOR_TMS_SHEET = "TM Learnsets.csv"
+POKEDITOR_PERSONAL_SHEET = "../Personal.csv"
+POKEDTIOR_TMS_SHEET = "../TM Learnsets.csv"
 
 IRREGULAR_NAMES = {
     '-----': 'NONE',
@@ -103,8 +103,8 @@ def sanitize_ability(ability: str) -> str:
     if snake in IRREGULAR_ABILITIES:
         return IRREGULAR_ABILITIES[snake]
     
-    if snake in IDENTICAL_ABILITIES:
-        return IDENTICAL_ABILITIES[snake]
+    #if snake in IDENTICAL_ABILITIES:
+    #    return IDENTICAL_ABILITIES[snake]
 
     return snake
 
@@ -145,9 +145,9 @@ def generate_base_stats():
             item2=sanitize_item(row[19]),
 
             ev_hp=row[12],
-            ev_attack=row[14],
-            ev_defense=row[15],
-            ev_speed=row[13],
+            ev_attack=row[13],
+            ev_defense=row[14],
+            ev_speed=row[15],
             ev_spatk=row[16],
             ev_spdef=row[17],
 

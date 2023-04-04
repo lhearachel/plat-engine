@@ -55,6 +55,11 @@ dkms.conf
 *.pyc
 *.sav
 
+# generator stuff
+__pycache__/*
+*.csv
+*generated
+
 /build/*
 /base/*
 /narc/*

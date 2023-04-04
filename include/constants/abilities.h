@@ -74,11 +74,11 @@
 #define ABILITY_ROCK_HEAD           0x45
 #define ABILITY_DROUGHT             0x46
 #define ABILITY_ARENA_TRAP          0x47
-//#define ABILITY_VITAL_SPIRIT        0x48
-//#define ABILITY_WHITE_SMOKE         0x49
-//#define ABILITY_PURE_POWER          0x4A
-//#define ABILITY_SHELL_ARMOR         0x4B
-//#define ABILITY_AIR_LOCK            0x4C
+#define ABILITY_VITAL_SPIRIT        0x48
+#define ABILITY_WHITE_SMOKE         0x49
+#define ABILITY_PURE_POWER          0x4A
+#define ABILITY_SHELL_ARMOR         0x4B
+#define ABILITY_AIR_LOCK            0x4C
 
 // GENERATION 4 ABILITIES
 #define ABILITY_TANGLED_FEET        0x4D
@@ -120,7 +120,7 @@
 #define ABILITY_SCRAPPY             0x71
 #define ABILITY_STORM_DRAIN         0x72
 #define ABILITY_ICE_BODY            0x73
-//#define ABILITY_SOLID_ROCK          0x74 // identical to Filter
+#define ABILITY_SOLID_ROCK          0x74 // identical to Filter
 #define ABILITY_SNOW_WARNING        0x75
 #define ABILITY_HONEY_GATHER        0x76
 #define ABILITY_FRISK               0x77

@@ -208,8 +208,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -252,8 +252,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -339,8 +339,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -383,8 +383,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -515,8 +515,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -604,8 +604,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -647,8 +647,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -691,9 +691,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_POISON_BARB,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
 
@@ -736,8 +736,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -780,8 +780,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -824,8 +824,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 3,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 3,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -868,8 +868,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -912,8 +912,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -956,8 +956,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1000,8 +1000,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1043,9 +1043,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1087,9 +1087,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1132,8 +1132,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1176,8 +1176,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 3,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 3,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1219,8 +1219,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_QUICK_CLAW,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -1263,8 +1263,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_QUICK_CLAW,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -1439,9 +1439,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1483,9 +1483,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1527,9 +1527,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1660,8 +1660,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1704,8 +1704,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
 
@@ -1836,8 +1836,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -1880,8 +1880,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2055,9 +2055,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_BIG_MUSHROOM,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2099,9 +2099,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_BIG_MUSHROOM,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldAttack    = 2,
+        .evYieldDefense   = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2188,8 +2188,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -2232,8 +2232,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2276,8 +2276,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2320,8 +2320,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2364,8 +2364,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2488,16 +2488,16 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_FIGHTING,
         .type2 = TYPE_FIGHTING,
 
-        .ability1 = ABILITY_INSOMNIA,
+        .ability1 = ABILITY_VITAL_SPIRIT,
         .ability2 = ABILITY_ANGER_POINT,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_PAYAPA_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2532,16 +2532,16 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_FIGHTING,
         .type2 = TYPE_FIGHTING,
 
-        .ability1 = ABILITY_INSOMNIA,
+        .ability1 = ABILITY_VITAL_SPIRIT,
         .ability2 = ABILITY_ANGER_POINT,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_PAYAPA_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2583,9 +2583,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_RAWST_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2627,9 +2627,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_RAWST_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2672,8 +2672,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2716,8 +2716,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2759,8 +2759,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_KINGS_ROCK,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 3,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 3,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -2935,9 +2935,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -2979,9 +2979,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3023,9 +3023,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3067,9 +3067,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3111,9 +3111,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3155,9 +3155,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3287,8 +3287,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_EVERSTONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -3331,8 +3331,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_EVERSTONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -3375,8 +3375,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_EVERSTONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 3,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 3,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -3420,8 +3420,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3464,8 +3464,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3551,8 +3551,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_KINGS_ROCK,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -3683,9 +3683,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_STICK,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3727,9 +3727,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SHARP_BEAK,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3771,9 +3771,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SHARP_BEAK,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3947,9 +3947,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NUGGET,
 
         .evYieldHP        = 1,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -3984,15 +3984,15 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_WATER,
         .type2 = TYPE_WATER,
 
-        .ability1 = ABILITY_BATTLE_ARMOR,
+        .ability1 = ABILITY_SHELL_ARMOR,
         .ability2 = ABILITY_SKILL_LINK,
 
         .itemUncommon = ITEM_PEARL,
         .itemRare     = ITEM_BIG_PEARL,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -4028,15 +4028,15 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_WATER,
         .type2 = TYPE_ICE,
 
-        .ability1 = ABILITY_BATTLE_ARMOR,
+        .ability1 = ABILITY_SHELL_ARMOR,
         .ability2 = ABILITY_SKILL_LINK,
 
         .itemUncommon = ITEM_PEARL,
         .itemRare     = ITEM_BIG_PEARL,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -4211,8 +4211,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -4337,15 +4337,15 @@ const struct BaseStats __data[] = {
         .type2 = TYPE_WATER,
 
         .ability1 = ABILITY_HYPER_CUTTER,
-        .ability2 = ABILITY_BATTLE_ARMOR,
+        .ability2 = ABILITY_SHELL_ARMOR,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -4381,15 +4381,15 @@ const struct BaseStats __data[] = {
         .type2 = TYPE_WATER,
 
         .ability1 = ABILITY_HYPER_CUTTER,
-        .ability2 = ABILITY_BATTLE_ARMOR,
+        .ability2 = ABILITY_SHELL_ARMOR,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -4432,8 +4432,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -4476,8 +4476,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -4519,8 +4519,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -4607,8 +4607,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_THICK_CLUB,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -4651,8 +4651,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_THICK_CLUB,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -4695,9 +4695,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -4827,8 +4827,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SMOKE_BALL,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -4871,8 +4871,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SMOKE_BALL,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -4915,8 +4915,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -4959,9 +4959,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5047,8 +5047,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -5179,8 +5179,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DRAGON_SCALE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
@@ -5223,9 +5223,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5267,9 +5267,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5312,8 +5312,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5356,8 +5356,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5443,9 +5443,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5532,8 +5532,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5619,9 +5619,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5663,8 +5663,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
+        .evYieldAttack    = 1,
+        .evYieldDefense   = 0,
         .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -5708,8 +5708,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5751,9 +5751,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -5789,7 +5789,7 @@ const struct BaseStats __data[] = {
         .type2 = TYPE_ICE,
 
         .ability1 = ABILITY_WATER_ABSORB,
-        .ability2 = ABILITY_BATTLE_ARMOR,
+        .ability2 = ABILITY_SHELL_ARMOR,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
@@ -5972,8 +5972,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -6015,9 +6015,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -6097,14 +6097,14 @@ const struct BaseStats __data[] = {
         .type2 = TYPE_WATER,
 
         .ability1 = ABILITY_SWIFT_SWIM,
-        .ability2 = ABILITY_BATTLE_ARMOR,
+        .ability2 = ABILITY_SHELL_ARMOR,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -6141,14 +6141,14 @@ const struct BaseStats __data[] = {
         .type2 = TYPE_WATER,
 
         .ability1 = ABILITY_SWIFT_SWIM,
-        .ability2 = ABILITY_BATTLE_ARMOR,
+        .ability2 = ABILITY_SHELL_ARMOR,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -6191,8 +6191,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -6235,9 +6235,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -6280,8 +6280,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -6499,9 +6499,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DRAGON_SCALE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -6543,9 +6543,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DRAGON_SCALE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -6587,9 +6587,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DRAGON_SCALE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -6763,8 +6763,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -6807,8 +6807,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 2,
@@ -6852,8 +6852,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -6896,8 +6896,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -6983,9 +6983,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -7028,8 +7028,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldDefense   = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -7071,9 +7071,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldAttack    = 2,
+        .evYieldDefense   = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -7115,9 +7115,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_ORAN_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -7160,8 +7160,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -7379,9 +7379,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -7423,9 +7423,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -7468,8 +7468,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 3,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 3,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -7600,8 +7600,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -7864,8 +7864,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -8171,8 +8171,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -8304,8 +8304,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -8348,8 +8348,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 3,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 3,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -8392,8 +8392,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -8524,8 +8524,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -8744,8 +8744,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -8875,9 +8875,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -9007,8 +9007,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -9051,8 +9051,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -9139,8 +9139,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -9183,8 +9183,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_METAL_COAT,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -9227,9 +9227,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9271,9 +9271,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9315,9 +9315,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_POISON_BARB,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9359,9 +9359,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9403,8 +9403,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_ORAN_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -9447,9 +9447,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9492,8 +9492,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9535,9 +9535,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9579,9 +9579,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9667,8 +9667,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -9711,9 +9711,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9755,9 +9755,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 1,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -9799,8 +9799,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_HARD_STONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -9887,9 +9887,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -9924,7 +9924,7 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_ICE,
         .type2 = TYPE_FLYING,
 
-        .ability1 = ABILITY_INSOMNIA,
+        .ability1 = ABILITY_VITAL_SPIRIT,
         .ability2 = ABILITY_HUSTLE,
 
         .itemUncommon = ITEM_NONE,
@@ -9932,8 +9932,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10019,8 +10019,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -10151,9 +10151,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DRAGON_SCALE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 1,
 
@@ -10240,8 +10240,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldDefense   = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10327,9 +10327,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10372,8 +10372,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10415,9 +10415,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10548,8 +10548,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10592,8 +10592,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10635,8 +10635,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_MOOMOO_MILK,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -10724,8 +10724,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -10767,9 +10767,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 1,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10811,8 +10811,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 2,
@@ -10855,9 +10855,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10899,9 +10899,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -10943,9 +10943,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11120,8 +11120,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11164,8 +11164,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11208,8 +11208,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 3,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 3,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11295,9 +11295,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -11339,9 +11339,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11383,9 +11383,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11427,9 +11427,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11471,9 +11471,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11515,9 +11515,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_PECHA_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11559,9 +11559,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_PECHA_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11604,8 +11604,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11648,8 +11648,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -11735,8 +11735,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -11823,8 +11823,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -12043,8 +12043,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -12087,9 +12087,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -12131,9 +12131,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -12176,8 +12176,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -12220,8 +12220,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -12264,8 +12264,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -12307,8 +12307,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -12484,8 +12484,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -12615,9 +12615,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_KEBIA_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -12696,7 +12696,7 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_NORMAL,
         .type2 = TYPE_NORMAL,
 
-        .ability1 = ABILITY_INSOMNIA,
+        .ability1 = ABILITY_VITAL_SPIRIT,
         .ability2 = ABILITY_NONE,
 
         .itemUncommon = ITEM_NONE,
@@ -12704,8 +12704,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -12791,8 +12791,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -12836,8 +12836,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13187,8 +13187,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_HARD_STONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -13232,8 +13232,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13276,8 +13276,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 1,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13320,8 +13320,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldDefense   = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13364,8 +13364,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldDefense   = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13407,8 +13407,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_HARD_STONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -13451,8 +13451,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_HARD_STONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -13495,8 +13495,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_HARD_STONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 3,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 3,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -13532,7 +13532,7 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_FIGHTING,
         .type2 = TYPE_PSYCHIC,
 
-        .ability1 = ABILITY_HUGE_POWER,
+        .ability1 = ABILITY_PURE_POWER,
         .ability2 = ABILITY_NONE,
 
         .itemUncommon = ITEM_NONE,
@@ -13540,8 +13540,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13576,7 +13576,7 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_FIGHTING,
         .type2 = TYPE_PSYCHIC,
 
-        .ability1 = ABILITY_HUGE_POWER,
+        .ability1 = ABILITY_PURE_POWER,
         .ability2 = ABILITY_NONE,
 
         .itemUncommon = ITEM_NONE,
@@ -13584,8 +13584,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13628,8 +13628,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13672,8 +13672,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13716,8 +13716,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13760,8 +13760,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13804,8 +13804,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -13848,8 +13848,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -14023,9 +14023,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DEEP_SEA_TOOTH,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -14067,9 +14067,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DEEP_SEA_TOOTH,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -14237,15 +14237,15 @@ const struct BaseStats __data[] = {
         .type2 = TYPE_GROUND,
 
         .ability1 = ABILITY_MAGMA_ARMOR,
-        .ability2 = ABILITY_FILTER,
+        .ability2 = ABILITY_SOLID_ROCK,
 
         .itemUncommon = ITEM_RAWST_BERRY,
         .itemRare     = ITEM_RAWST_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -14280,15 +14280,15 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_FIRE,
         .type2 = TYPE_FIRE,
 
-        .ability1 = ABILITY_CLEAR_BODY,
+        .ability1 = ABILITY_WHITE_SMOKE,
         .ability2 = ABILITY_NONE,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -14463,9 +14463,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SOFT_SAND,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -14507,8 +14507,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
+        .evYieldAttack    = 1,
+        .evYieldDefense   = 0,
         .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -14551,9 +14551,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 1,
+        .evYieldAttack    = 1,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -14639,9 +14639,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_STICKY_BARB,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -14771,9 +14771,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_QUICK_CLAW,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -14815,9 +14815,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -14903,9 +14903,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SUN_STONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -15029,15 +15029,15 @@ const struct BaseStats __data[] = {
         .type2 = TYPE_WATER,
 
         .ability1 = ABILITY_HYPER_CUTTER,
-        .ability2 = ABILITY_BATTLE_ARMOR,
+        .ability2 = ABILITY_SHELL_ARMOR,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -15073,15 +15073,15 @@ const struct BaseStats __data[] = {
         .type2 = TYPE_DARK,
 
         .ability1 = ABILITY_HYPER_CUTTER,
-        .ability2 = ABILITY_BATTLE_ARMOR,
+        .ability2 = ABILITY_SHELL_ARMOR,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -15299,9 +15299,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -15343,9 +15343,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -15388,8 +15388,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -15563,9 +15563,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SPELL_TAG,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -15607,9 +15607,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SPELL_TAG,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -15695,8 +15695,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_KASIB_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -15827,9 +15827,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -16128,15 +16128,15 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_WATER,
         .type2 = TYPE_WATER,
 
-        .ability1 = ABILITY_BATTLE_ARMOR,
+        .ability1 = ABILITY_SHELL_ARMOR,
         .ability2 = ABILITY_NONE,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_BIG_PEARL,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -16180,8 +16180,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldDefense   = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -16267,8 +16267,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DEEP_SEA_SCALE,
 
         .evYieldHP        = 1,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -16312,8 +16312,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -16355,9 +16355,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DRAGON_FANG,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -16399,8 +16399,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DRAGON_FANG,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -16443,9 +16443,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_DRAGON_FANG,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -16487,8 +16487,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_METAL_COAT,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -16531,8 +16531,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_METAL_COAT,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -16575,8 +16575,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_METAL_COAT,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 3,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 3,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -16619,8 +16619,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 3,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 3,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -16707,8 +16707,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -16883,9 +16883,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -16920,16 +16920,16 @@ const struct BaseStats __data[] = {
         .type1 = TYPE_DRAGON,
         .type2 = TYPE_FLYING,
 
-        .ability1 = ABILITY_CLOUD_NINE,
+        .ability1 = ABILITY_AIR_LOCK,
         .ability2 = ABILITY_NONE,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -17015,8 +17015,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
+        .evYieldAttack    = 1,
+        .evYieldDefense   = 0,
         .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
@@ -17059,9 +17059,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17104,8 +17104,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldDefense   = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17147,9 +17147,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldAttack    = 2,
+        .evYieldDefense   = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17192,8 +17192,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17236,8 +17236,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -17279,8 +17279,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
+        .evYieldAttack    = 1,
+        .evYieldDefense   = 0,
         .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
@@ -17456,8 +17456,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17500,8 +17500,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17543,9 +17543,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_YACHE_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17631,9 +17631,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SITRUS_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17675,8 +17675,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_METRONOME,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -17719,9 +17719,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_METRONOME,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17763,9 +17763,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17807,9 +17807,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17851,9 +17851,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -17983,9 +17983,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18027,9 +18027,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18071,8 +18071,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -18115,8 +18115,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -18247,9 +18247,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SILVER_POWDER,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -18292,8 +18292,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18335,8 +18335,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_POISON_BARB,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -18380,8 +18380,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18424,8 +18424,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18468,8 +18468,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18688,8 +18688,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18820,8 +18820,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18864,8 +18864,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18951,9 +18951,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -18996,8 +18996,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -19040,8 +19040,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -19128,8 +19128,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -19215,8 +19215,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_METAL_COAT,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -19259,8 +19259,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_METAL_COAT,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -19303,8 +19303,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -19435,9 +19435,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_METRONOME,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -19479,8 +19479,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -19523,9 +19523,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_HABAN_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -19567,9 +19567,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_HABAN_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -19611,9 +19611,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_HABAN_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -19699,9 +19699,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -19743,9 +19743,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -19787,8 +19787,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -19831,8 +19831,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -19875,8 +19875,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_POISON_BARB,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -19919,8 +19919,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_POISON_BARB,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -19963,9 +19963,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_BLACK_SLUDGE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20007,9 +20007,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_BLACK_SLUDGE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20051,9 +20051,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20096,8 +20096,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20140,8 +20140,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20227,9 +20227,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NEVER_MELT_ICE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20271,9 +20271,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NEVER_MELT_ICE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -20315,8 +20315,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_QUICK_CLAW,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
+        .evYieldAttack    = 1,
+        .evYieldDefense   = 0,
         .evYieldSpeed     = 1,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -20441,15 +20441,15 @@ const struct BaseStats __data[] = {
         .type2 = TYPE_ROCK,
 
         .ability1 = ABILITY_LIGHTNING_ROD,
-        .ability2 = ABILITY_FILTER,
+        .ability2 = ABILITY_SOLID_ROCK,
 
         .itemUncommon = ITEM_NONE,
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20491,8 +20491,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -20535,9 +20535,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_ELECTIRIZER,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20667,9 +20667,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_WIDE_LENS,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20711,8 +20711,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -20799,8 +20799,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -20843,9 +20843,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20931,9 +20931,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -20975,8 +20975,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_HARD_STONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 2,
@@ -21019,8 +21019,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_KASIB_BERRY,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 2,
@@ -21064,8 +21064,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 2,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 2,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -21108,8 +21108,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -21151,8 +21151,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -21195,9 +21195,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 1,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 1,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 1,
 
@@ -21239,9 +21239,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -21415,9 +21415,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 3,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 3,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -21636,8 +21636,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 2,
         .evYieldSpDefense = 0,
 
@@ -21855,9 +21855,9 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 0,
+        .evYieldAttack    = 2,
         .evYieldDefense   = 0,
-        .evYieldSpeed     = 2,
+        .evYieldSpeed     = 0,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -21899,8 +21899,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_NONE,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -21944,8 +21944,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 3,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 3,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -21987,8 +21987,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SILVER_POWDER,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 2,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 2,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
@@ -22031,8 +22031,8 @@ const struct BaseStats __data[] = {
         .itemRare     = ITEM_SILVER_POWDER,
 
         .evYieldHP        = 0,
-        .evYieldAttack    = 1,
-        .evYieldDefense   = 0,
+        .evYieldAttack    = 0,
+        .evYieldDefense   = 1,
         .evYieldSpeed     = 0,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 1,
@@ -22120,8 +22120,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 3,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 3,
         .evYieldSpAttack  = 0,
         .evYieldSpDefense = 0,
 
@@ -22164,8 +22164,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -22208,8 +22208,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -22252,8 +22252,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -22296,8 +22296,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
@@ -22340,8 +22340,8 @@ const struct BaseStats __data[] = {
 
         .evYieldHP        = 0,
         .evYieldAttack    = 0,
-        .evYieldDefense   = 1,
-        .evYieldSpeed     = 0,
+        .evYieldDefense   = 0,
+        .evYieldSpeed     = 1,
         .evYieldSpAttack  = 1,
         .evYieldSpDefense = 0,
 
