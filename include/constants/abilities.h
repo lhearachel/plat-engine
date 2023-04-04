@@ -166,11 +166,11 @@
 #define ABILITY_SAP_SIPPER          0x9D
 #define ABILITY_PRANKSTER           0x9E
 #define ABILITY_SAND_FORCE          0x9F
-//#define ABILITY_IRON_BARBS          0xA0
+#define ABILITY_IRON_BARBS          0xA0
 #define ABILITY_ZEN_MODE            0xA1
 #define ABILITY_VICTORY_STAR        0xA2
-//#define ABILITY_TURBOBLAZE          0xA3    // identical to Mold Breaker
-//#define ABILITY_TERAVOLT            0xA4    // identical to Mold Breaker
+#define ABILITY_TURBOBLAZE          0xA3    // identical to Mold Breaker
+#define ABILITY_TERAVOLT            0xA4    // identical to Mold Breaker
 
 // GENERATION 6 ABILITIES
 #define ABILITY_AROMA_VEIL          0xA5
@@ -203,7 +203,7 @@
 
 // GENERATION 7 ABILITIES
 #define ABILITY_STAMINA	            0xC0
-//#define ABILITY_WIMP_OUT            0xC1
+#define ABILITY_WIMP_OUT            0xC1
 #define ABILITY_EMERGENCY_EXIT      0xC2 // + Wimp Out
 #define ABILITY_WATER_COMPACTION	0xC3
 #define ABILITY_MERCILESS           0xC4
@@ -224,16 +224,16 @@
 #define ABILITY_POWER_CONSTRUCT     0xD3
 #define ABILITY_CORROSION           0xD4
 #define ABILITY_COMATOSE            0xD5
-//#define ABILITY_QUEENLY_MAJESTY     0xD6
+#define ABILITY_QUEENLY_MAJESTY     0xD6
 #define ABILITY_INNARDS_OUT         0xD7
 #define ABILITY_DANCER              0xD8
 #define ABILITY_BATTERY             0xD9
 #define ABILITY_FLUFFY              0xDA
 #define ABILITY_DAZZLING            0xDB // + Queenly Majesty
 #define ABILITY_SOUL_HEART          0xDC
-//#define ABILITY_TANGLING_HAIR       0xDD // identical to Gooey
+#define ABILITY_TANGLING_HAIR       0xDD // identical to Gooey
 #define ABILITY_RECEIVER            0xDE // + Power of Alchemy
-//#define ABILITY_POWER_OF_ALCHEMY    0xDF // identical to Receiver
+#define ABILITY_POWER_OF_ALCHEMY    0xDF // identical to Receiver
 #define ABILITY_BEAST_BOOST         0xE0
 #define ABILITY_RKS_SYSTEM          0xE1
 #define ABILITY_ELECTRIC_SURGE      0xE2
@@ -248,10 +248,10 @@
 // GENERATION 8 ABILITIES
 #define ABILITY_INTREPID_SWORD      0xEA
 #define ABILITY_DAUNTLESS_SHIELD    0xEB
-//#define ABILITY_LIBERO              0xEC
+#define ABILITY_LIBERO              0xEC
 #define ABILITY_BALL_FETCH          0xED
 #define ABILITY_COTTON_DOWN         0xEE
-//#define ABILITY_PROPELLER_TAIL      0xEF
+#define ABILITY_PROPELLER_TAIL      0xEF
 #define ABILITY_MIRROR_ARMOR        0xF0
 #define ABILITY_GULP_MISSILE        0xF1
 #define ABILITY_STALWART            0xF2 // + Propeller Tail
@@ -276,10 +276,10 @@
 #define ABILITY_CURIOUS_MEDICINE    0x105
 #define ABILITY_TRANSISTOR          0x106
 #define ABILITY_DRAGONS_MAW         0x107
-//#define ABILITY_CHILLING_NEIGH      0x108
+#define ABILITY_CHILLING_NEIGH      0x108
 #define ABILITY_GRIM_NEIGH          0x109
-#define ABILITY_AS_ONE_CHILLING     0x10A
-#define ABILITY_AS_ONE_GRIM         0x10B
+#define ABILITY_AS_ONE_GLASTRIER    0x10A
+#define ABILITY_AS_ONE_SPECTRIER    0x10B
 
 // GENERATION 9 ABILITIES
 #define ABILITY_LINGERING_AROMA     0x10C

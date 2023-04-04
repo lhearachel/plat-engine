@@ -6,9 +6,9 @@ BASE_STATS_TEMPLATE = """
         .baseHP        = {base_hp},
         .baseAttack    = {base_attack},
         .baseDefense   = {base_defense},
-        .baseSpeed     = {base_speed},
         .baseSpAttack  = {base_spatk},
         .baseSpDefense = {base_spdef},
+        .baseSpeed     = {base_speed},
         
         .type1 = TYPE_{type_1},
         .type2 = TYPE_{type_2},
