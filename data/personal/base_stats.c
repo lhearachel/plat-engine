@@ -546,7 +546,7 @@ const struct BaseStats __data[] = {
         .baseAttack    = 45,
         .baseDefense   = 50,
         .baseSpeed     = 70,
-        .baseSpAttack  = 80,
+        .baseSpAttack  = 90,
         .baseSpDefense = 80,
         
         .type1 = TYPE_BUG,
@@ -675,7 +675,7 @@ const struct BaseStats __data[] = {
 
     [SPECIES_BEEDRILL] = {
         .baseHP        = 65,
-        .baseAttack    = 80,
+        .baseAttack    = 90,
         .baseDefense   = 40,
         .baseSpeed     = 75,
         .baseSpAttack  = 45,
@@ -809,7 +809,7 @@ const struct BaseStats __data[] = {
         .baseHP        = 83,
         .baseAttack    = 80,
         .baseDefense   = 75,
-        .baseSpeed     = 91,
+        .baseSpeed     = 101,
         .baseSpAttack  = 70,
         .baseSpDefense = 70,
         
@@ -1071,7 +1071,7 @@ const struct BaseStats __data[] = {
 
     [SPECIES_ARBOK] = {
         .baseHP        = 60,
-        .baseAttack    = 85,
+        .baseAttack    = 95,
         .baseDefense   = 69,
         .baseSpeed     = 80,
         .baseSpAttack  = 65,
@@ -1116,10 +1116,10 @@ const struct BaseStats __data[] = {
     [SPECIES_PIKACHU] = {
         .baseHP        = 35,
         .baseAttack    = 55,
-        .baseDefense   = 30,
+        .baseDefense   = 40,
         .baseSpeed     = 90,
         .baseSpAttack  = 50,
-        .baseSpDefense = 40,
+        .baseSpDefense = 50,
         
         .type1 = TYPE_ELECTRIC,
         .type2 = TYPE_ELECTRIC,
@@ -1161,7 +1161,7 @@ const struct BaseStats __data[] = {
         .baseHP        = 60,
         .baseAttack    = 90,
         .baseDefense   = 55,
-        .baseSpeed     = 100,
+        .baseSpeed     = 110,
         .baseSpAttack  = 90,
         .baseSpDefense = 80,
         
@@ -1379,7 +1379,7 @@ const struct BaseStats __data[] = {
 
     [SPECIES_NIDOQUEEN] = {
         .baseHP        = 90,
-        .baseAttack    = 82,
+        .baseAttack    = 92,
         .baseDefense   = 87,
         .baseSpeed     = 76,
         .baseSpAttack  = 75,
@@ -1511,7 +1511,7 @@ const struct BaseStats __data[] = {
 
     [SPECIES_NIDOKING] = {
         .baseHP        = 81,
-        .baseAttack    = 92,
+        .baseAttack    = 102,
         .baseDefense   = 77,
         .baseSpeed     = 85,
         .baseSpAttack  = 85,
@@ -1561,8 +1561,8 @@ const struct BaseStats __data[] = {
         .baseSpAttack  = 60,
         .baseSpDefense = 65,
         
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type1 = TYPE_FAIRY,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_CUTE_CHARM,
         .ability2 = ABILITY_MAGIC_GUARD,
@@ -1602,11 +1602,11 @@ const struct BaseStats __data[] = {
         .baseAttack    = 70,
         .baseDefense   = 73,
         .baseSpeed     = 60,
-        .baseSpAttack  = 85,
+        .baseSpAttack  = 95,
         .baseSpDefense = 90,
         
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type1 = TYPE_FAIRY,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_CUTE_CHARM,
         .ability2 = ABILITY_MAGIC_GUARD,
@@ -1738,7 +1738,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 25,
         
         .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_CUTE_CHARM,
         .ability2 = ABILITY_NONE,
@@ -1778,11 +1778,11 @@ const struct BaseStats __data[] = {
         .baseAttack    = 70,
         .baseDefense   = 45,
         .baseSpeed     = 45,
-        .baseSpAttack  = 75,
+        .baseSpAttack  = 85,
         .baseSpDefense = 50,
         
         .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_CUTE_CHARM,
         .ability2 = ABILITY_NONE,
@@ -1998,7 +1998,7 @@ const struct BaseStats __data[] = {
         .baseAttack    = 80,
         .baseDefense   = 85,
         .baseSpeed     = 50,
-        .baseSpAttack  = 100,
+        .baseSpAttack  = 110,
         .baseSpDefense = 90,
         
         .type1 = TYPE_GRASS,
@@ -2259,7 +2259,7 @@ const struct BaseStats __data[] = {
 
     [SPECIES_DUGTRIO] = {
         .baseHP        = 35,
-        .baseAttack    = 80,
+        .baseAttack    = 100,
         .baseDefense   = 50,
         .baseSpeed     = 120,
         .baseSpAttack  = 50,
@@ -2743,7 +2743,7 @@ const struct BaseStats __data[] = {
 
     [SPECIES_POLIWRATH] = {
         .baseHP        = 90,
-        .baseAttack    = 85,
+        .baseAttack    = 95,
         .baseDefense   = 95,
         .baseSpeed     = 70,
         .baseSpAttack  = 70,
@@ -2879,7 +2879,7 @@ const struct BaseStats __data[] = {
         .baseDefense   = 45,
         .baseSpeed     = 120,
         .baseSpAttack  = 135,
-        .baseSpDefense = 85,
+        .baseSpDefense = 95,
         
         .type1 = TYPE_PSYCHIC,
         .type2 = TYPE_PSYCHIC,
@@ -3143,7 +3143,7 @@ const struct BaseStats __data[] = {
         .baseDefense   = 65,
         .baseSpeed     = 70,
         .baseSpAttack  = 100,
-        .baseSpDefense = 60,
+        .baseSpDefense = 70,
         
         .type1 = TYPE_GRASS,
         .type2 = TYPE_POISON,
@@ -3359,7 +3359,7 @@ const struct BaseStats __data[] = {
 
     [SPECIES_GOLEM] = {
         .baseHP        = 80,
-        .baseAttack    = 110,
+        .baseAttack    = 120,
         .baseDefense   = 130,
         .baseSpeed     = 45,
         .baseSpAttack  = 55,
@@ -3667,7 +3667,7 @@ const struct BaseStats __data[] = {
 
     [SPECIES_FARFETCHD] = {
         .baseHP        = 52,
-        .baseAttack    = 65,
+        .baseAttack    = 90,
         .baseDefense   = 55,
         .baseSpeed     = 60,
         .baseSpAttack  = 58,
@@ -3757,7 +3757,7 @@ const struct BaseStats __data[] = {
         .baseHP        = 60,
         .baseAttack    = 110,
         .baseDefense   = 70,
-        .baseSpeed     = 100,
+        .baseSpeed     = 110,
         .baseSpAttack  = 60,
         .baseSpDefense = 60,
         
@@ -4461,7 +4461,7 @@ const struct BaseStats __data[] = {
         .baseHP        = 60,
         .baseAttack    = 50,
         .baseDefense   = 70,
-        .baseSpeed     = 140,
+        .baseSpeed     = 150,
         .baseSpAttack  = 80,
         .baseSpDefense = 80,
         
@@ -4551,7 +4551,7 @@ const struct BaseStats __data[] = {
         .baseDefense   = 85,
         .baseSpeed     = 55,
         .baseSpAttack  = 125,
-        .baseSpDefense = 65,
+        .baseSpDefense = 75,
         
         .type1 = TYPE_GRASS,
         .type2 = TYPE_PSYCHIC,
@@ -5390,7 +5390,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 120,
         
         .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_SOUNDPROOF,
         .ability2 = ABILITY_FILTER,
@@ -7234,7 +7234,7 @@ const struct BaseStats __data[] = {
         .baseAttack    = 50,
         .baseDefense   = 50,
         .baseSpeed     = 70,
-        .baseSpAttack  = 76,
+        .baseSpAttack  = 86,
         .baseSpDefense = 96,
         
         .type1 = TYPE_NORMAL,
@@ -7411,7 +7411,7 @@ const struct BaseStats __data[] = {
         .baseDefense   = 70,
         .baseSpeed     = 40,
         .baseSpAttack  = 60,
-        .baseSpDefense = 60,
+        .baseSpDefense = 70,
         
         .type1 = TYPE_BUG,
         .type2 = TYPE_POISON,
@@ -7633,8 +7633,8 @@ const struct BaseStats __data[] = {
         .baseSpAttack  = 45,
         .baseSpDefense = 55,
         
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type1 = TYPE_FAIRY,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_CUTE_CHARM,
         .ability2 = ABILITY_MAGIC_GUARD,
@@ -7678,7 +7678,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 20,
         
         .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_CUTE_CHARM,
         .ability2 = ABILITY_NONE,
@@ -7721,8 +7721,8 @@ const struct BaseStats __data[] = {
         .baseSpAttack  = 40,
         .baseSpDefense = 65,
         
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type1 = TYPE_FAIRY,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_HUSTLE,
         .ability2 = ABILITY_SERENE_GRACE,
@@ -7765,7 +7765,7 @@ const struct BaseStats __data[] = {
         .baseSpAttack  = 80,
         .baseSpDefense = 105,
         
-        .type1 = TYPE_NORMAL,
+        .type1 = TYPE_FAIRY,
         .type2 = TYPE_FLYING,
 
         .ability1 = ABILITY_HUSTLE,
@@ -7980,7 +7980,7 @@ const struct BaseStats __data[] = {
     [SPECIES_AMPHAROS] = {
         .baseHP        = 90,
         .baseAttack    = 75,
-        .baseDefense   = 75,
+        .baseDefense   = 85,
         .baseSpeed     = 55,
         .baseSpAttack  = 115,
         .baseSpDefense = 90,
@@ -8024,7 +8024,7 @@ const struct BaseStats __data[] = {
     [SPECIES_BELLOSSOM] = {
         .baseHP        = 75,
         .baseAttack    = 80,
-        .baseDefense   = 85,
+        .baseDefense   = 95,
         .baseSpeed     = 50,
         .baseSpAttack  = 90,
         .baseSpDefense = 100,
@@ -8074,7 +8074,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 50,
         
         .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_THICK_FAT,
         .ability2 = ABILITY_HUGE_POWER,
@@ -8114,11 +8114,11 @@ const struct BaseStats __data[] = {
         .baseAttack    = 50,
         .baseDefense   = 80,
         .baseSpeed     = 50,
-        .baseSpAttack  = 50,
+        .baseSpAttack  = 60,
         .baseSpDefense = 80,
         
         .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_THICK_FAT,
         .ability2 = ABILITY_HUGE_POWER,
@@ -8335,7 +8335,7 @@ const struct BaseStats __data[] = {
         .baseDefense   = 70,
         .baseSpeed     = 110,
         .baseSpAttack  = 55,
-        .baseSpDefense = 85,
+        .baseSpDefense = 95,
         
         .type1 = TYPE_GRASS,
         .type2 = TYPE_FLYING,
@@ -9217,8 +9217,8 @@ const struct BaseStats __data[] = {
         .baseSpAttack  = 40,
         .baseSpDefense = 40,
         
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type1 = TYPE_FAIRY,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_INTIMIDATE,
         .ability2 = ABILITY_RUN_AWAY,
@@ -9261,8 +9261,8 @@ const struct BaseStats __data[] = {
         .baseSpAttack  = 60,
         .baseSpDefense = 60,
         
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type1 = TYPE_FAIRY,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_INTIMIDATE,
         .ability2 = ABILITY_QUICK_FEET,
@@ -9300,7 +9300,7 @@ const struct BaseStats __data[] = {
     [SPECIES_QWILFISH] = {
         .baseHP        = 65,
         .baseAttack    = 95,
-        .baseDefense   = 75,
+        .baseDefense   = 85,
         .baseSpeed     = 85,
         .baseSpAttack  = 55,
         .baseSpDefense = 55,
@@ -9650,11 +9650,11 @@ const struct BaseStats __data[] = {
     },
 
     [SPECIES_MAGCARGO] = {
-        .baseHP        = 50,
+        .baseHP        = 60,
         .baseAttack    = 50,
         .baseDefense   = 120,
         .baseSpeed     = 30,
-        .baseSpAttack  = 80,
+        .baseSpAttack  = 90,
         .baseSpDefense = 80,
         
         .type1 = TYPE_FIRE,
@@ -9782,12 +9782,12 @@ const struct BaseStats __data[] = {
     },
 
     [SPECIES_CORSOLA] = {
-        .baseHP        = 55,
+        .baseHP        = 65,
         .baseAttack    = 55,
-        .baseDefense   = 85,
+        .baseDefense   = 95,
         .baseSpeed     = 35,
         .baseSpAttack  = 65,
-        .baseSpDefense = 85,
+        .baseSpDefense = 95,
         
         .type1 = TYPE_WATER,
         .type2 = TYPE_ROCK,
@@ -9958,7 +9958,7 @@ const struct BaseStats __data[] = {
     },
 
     [SPECIES_MANTINE] = {
-        .baseHP        = 65,
+        .baseHP        = 85,
         .baseAttack    = 40,
         .baseDefense   = 70,
         .baseSpeed     = 70,
@@ -11766,7 +11766,7 @@ const struct BaseStats __data[] = {
         .baseAttack    = 70,
         .baseDefense   = 50,
         .baseSpeed     = 65,
-        .baseSpAttack  = 90,
+        .baseSpAttack  = 100,
         .baseSpDefense = 50,
         
         .type1 = TYPE_BUG,
@@ -12206,7 +12206,7 @@ const struct BaseStats __data[] = {
         .baseAttack    = 85,
         .baseDefense   = 60,
         .baseSpeed     = 125,
-        .baseSpAttack  = 50,
+        .baseSpAttack  = 75,
         .baseSpDefense = 50,
         
         .type1 = TYPE_NORMAL,
@@ -12294,7 +12294,7 @@ const struct BaseStats __data[] = {
         .baseAttack    = 50,
         .baseDefense   = 100,
         .baseSpeed     = 65,
-        .baseSpAttack  = 85,
+        .baseSpAttack  = 95,
         .baseSpDefense = 70,
         
         .type1 = TYPE_WATER,
@@ -12342,7 +12342,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 35,
         
         .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_SYNCHRONIZE,
         .ability2 = ABILITY_TRACE,
@@ -12386,7 +12386,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 55,
         
         .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_SYNCHRONIZE,
         .ability2 = ABILITY_TRACE,
@@ -12430,7 +12430,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 115,
         
         .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_SYNCHRONIZE,
         .ability2 = ABILITY_TRACE,
@@ -12513,8 +12513,8 @@ const struct BaseStats __data[] = {
         .baseHP        = 70,
         .baseAttack    = 60,
         .baseDefense   = 62,
-        .baseSpeed     = 60,
-        .baseSpAttack  = 80,
+        .baseSpeed     = 80,
+        .baseSpAttack  = 100,
         .baseSpDefense = 82,
         
         .type1 = TYPE_BUG,
@@ -12999,7 +12999,7 @@ const struct BaseStats __data[] = {
         .baseDefense   = 63,
         .baseSpeed     = 68,
         .baseSpAttack  = 91,
-        .baseSpDefense = 63,
+        .baseSpDefense = 73,
         
         .type1 = TYPE_NORMAL,
         .type2 = TYPE_NORMAL,
@@ -13134,7 +13134,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 40,
         
         .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_THICK_FAT,
         .ability2 = ABILITY_HUGE_POWER,
@@ -13261,7 +13261,7 @@ const struct BaseStats __data[] = {
         .baseHP        = 70,
         .baseAttack    = 65,
         .baseDefense   = 65,
-        .baseSpeed     = 70,
+        .baseSpeed     = 90,
         .baseSpAttack  = 55,
         .baseSpDefense = 55,
         
@@ -13354,7 +13354,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 55,
         
         .type1 = TYPE_STEEL,
-        .type2 = TYPE_STEEL,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_HYPER_CUTTER,
         .ability2 = ABILITY_INTIMIDATE,
@@ -13788,10 +13788,10 @@ const struct BaseStats __data[] = {
     [SPECIES_VOLBEAT] = {
         .baseHP        = 65,
         .baseAttack    = 73,
-        .baseDefense   = 55,
+        .baseDefense   = 75,
         .baseSpeed     = 85,
         .baseSpAttack  = 47,
-        .baseSpDefense = 75,
+        .baseSpDefense = 85,
         
         .type1 = TYPE_BUG,
         .type2 = TYPE_BUG,
@@ -13832,10 +13832,10 @@ const struct BaseStats __data[] = {
     [SPECIES_ILLUMISE] = {
         .baseHP        = 65,
         .baseAttack    = 47,
-        .baseDefense   = 55,
+        .baseDefense   = 75,
         .baseSpeed     = 85,
         .baseSpAttack  = 73,
-        .baseSpDefense = 75,
+        .baseSpDefense = 85,
         
         .type1 = TYPE_BUG,
         .type2 = TYPE_BUG,
@@ -14842,7 +14842,7 @@ const struct BaseStats __data[] = {
     },
 
     [SPECIES_LUNATONE] = {
-        .baseHP        = 70,
+        .baseHP        = 90,
         .baseAttack    = 55,
         .baseDefense   = 65,
         .baseSpeed     = 70,
@@ -14886,7 +14886,7 @@ const struct BaseStats __data[] = {
     },
 
     [SPECIES_SOLROCK] = {
-        .baseHP        = 70,
+        .baseHP        = 90,
         .baseAttack    = 95,
         .baseDefense   = 85,
         .baseSpeed     = 70,
@@ -15766,12 +15766,12 @@ const struct BaseStats __data[] = {
     },
 
     [SPECIES_CHIMECHO] = {
-        .baseHP        = 65,
+        .baseHP        = 75,
         .baseAttack    = 50,
-        .baseDefense   = 70,
+        .baseDefense   = 80,
         .baseSpeed     = 65,
         .baseSpAttack  = 95,
-        .baseSpDefense = 80,
+        .baseSpDefense = 90,
         
         .type1 = TYPE_PSYCHIC,
         .type2 = TYPE_PSYCHIC,
@@ -17531,7 +17531,7 @@ const struct BaseStats __data[] = {
         .baseDefense   = 70,
         .baseSpeed     = 100,
         .baseSpAttack  = 50,
-        .baseSpDefense = 50,
+        .baseSpDefense = 60,
         
         .type1 = TYPE_NORMAL,
         .type2 = TYPE_FLYING,
@@ -17924,7 +17924,7 @@ const struct BaseStats __data[] = {
     [SPECIES_ROSERADE] = {
         .baseHP        = 60,
         .baseAttack    = 70,
-        .baseDefense   = 55,
+        .baseDefense   = 65,
         .baseSpeed     = 90,
         .baseSpAttack  = 125,
         .baseSpDefense = 105,
@@ -19338,7 +19338,7 @@ const struct BaseStats __data[] = {
         .baseSpDefense = 90,
         
         .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        .type2 = TYPE_FAIRY,
 
         .ability1 = ABILITY_SOUNDPROOF,
         .ability2 = ABILITY_FILTER,
@@ -20613,7 +20613,7 @@ const struct BaseStats __data[] = {
         .baseSpAttack  = 120,
         .baseSpDefense = 115,
         
-        .type1 = TYPE_NORMAL,
+        .type1 = TYPE_FAIRY,
         .type2 = TYPE_FLYING,
 
         .ability1 = ABILITY_HUSTLE,
