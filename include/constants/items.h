@@ -1,5 +1,5 @@
-#ifndef __CONSTANTS_ITEM_H
-#define __CONSTANTS_ITEM_H
+#ifndef __CONSTANTS_ITEMS_H
+#define __CONSTANTS_ITEMS_H
 
 #define ITEM_NONE            0
 #define ITEM_MASTER_BALL     1
