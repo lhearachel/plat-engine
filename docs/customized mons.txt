@@ -1,0 +1,197 @@
+This is the structure that we'll want to use for supporting AI trainers with custom IV/EV spreads
+We'll probably want to make macros of some sort for common spreads, e.g.:
+- maxed IVs
+- 15 IVs
+- trick room IVs (0 speed)
+- showdown EV spreads
+
+struct _B_TOWER_POKEMON {
+	union{
+		struct{
+			u16	speciesNum :11;	// species ID
+			u16	formNum    :5;	// form number (rotom, deoxys, giratina, wormadam)
+		};
+		u16	monParam;
+	};
+	u16	heldItemNum;
+
+	u16	moves[4];		///<所持技
+
+	u32	id;				///<IDNo
+	u32	pid;			///<個性乱数
+
+	union{
+		struct{
+		u32	hpIV		:5;		///<HPパワー乱数
+		u32	atkIV		:5;		///<POWパワー乱数
+		u32	defIV		:5;		///<DEFパワー乱数
+		u32	speIV		:5;		///<AGIパワー乱数
+		u32	spaIV   	:5;		///<SPEPOWパワー乱数
+		u32	spdIV   	:5;		///<SPEDEFパワー乱数
+		u32	nicknamed	:1;		
+		u32	_padding	:1;		//1ch 余り
+		};
+		u32 ivs;
+	};
+
+	union{
+		struct{
+		u8	hpEV;				///<HP努力値
+		u8	atkEV;			///<POW努力値
+		u8	defEV;			///<DEF努力値
+		u8	speEV;			///<AGI努力値
+		u8	spaEV;			///<SPEPOW努力値
+		u8	spdEV;			///<SPEDEF努力値
+		};
+		u8 evs[6];
+	};
+	union{
+		struct{
+		u8	ppCount0:2;	///<技1ポイントアップ
+		u8	ppCount1:2;	///<技2ポイントアップ
+		u8	ppCount2:2;	///<技3ポイントアップ
+		u8	ppCount3:2;	///<技4ポイントアップ
+		};
+		u8 ppCounts;
+	};
+
+	u8	countryCode;			///<国コード
+
+	u8	ability;				///<特性
+	u8	friendship;				///<なつき度
+
+	///ニックネーム ((MONS_NAME_SIZE:10)+(EOM_SIZE:1))*(STRCODE:u16)=22
+	STRCODE	nickname[MONS_NAME_SIZE+EOM_SIZE];
+};
+
+
+We'll also need to modify how trainers/encounters are loaded to use this structure instead of the
+typical process
+
+- poke_tool::PokePasoParaSet(BoxMon *newBoxMon, int species, int level, int iv, int randomizeFlag, u32 randomizeValue, int idFlag, u32 id)
+    - probably wanna leave this mostly alone for wild mons
+    - this gets called by poke_tool::PokeParaSet
+- b_tower_fld::BtlTower_PokeParaMake(const TowerMon *src, PartyMon *dst)
+    - this is the routine we wanna use for all trainers where possible
+- ev_pokemon::EvPoke_Add(int heapID, SaveData *sav, u16 species, u8 level, u16 heldItem, int placeId, int groundId)
+    - think this is for scripted wilds (legendaries)
+- tr_tool::TT_EncountTrainerPokeDataMake(BATLE_PARAM *bp, int num, int heapID)
+    - looks like this is the actual trainer generation routine, nice
+    - only called by tr_tool::TT_EncountTrainerDataMake, which initializes all the trainers for a fight (and does rival name substitution)
+    - data loading is split into 4 possible options:
+        - standard trainers (no items, level-up learnsets)
+        - trainers with items (level-up learnsets)
+        - trainers with movesets (no items)
+        - trainers with both items and movesets
+    - TT_EncountTrainerDataMake invokes tr_tool::TT_TrainerDataGet, which is what actually loads the trainer data
+    - trainers 0 and 1 are stand-ins for the player character
+
+		{
+			POKEDATA_TYPE_MULTI	*ptm;
+			u16					monsno;
+			u8					form_no;
+
+			ptm=(POKEDATA_TYPE_MULTI *)buf;
+			for(i=0;i<bp->trainer_data[num].poke_count;i++){
+				monsno=ptm[i].monsno&0x03ff;                                        // truncate species to 10 bits (why 10 instead of 11?)
+				form_no=(ptm[i].monsno&0xfc00)>>10;                                 // shift form num to the last 6 bits (why 6 instead of 5?)
+				rnd=ptm[i].pow+ptm[i].level+monsno+bp->trainer_id[num];             // random seed = DV + level + species + trainerID
+				gf_srand(rnd);
+				for(j=0;j<bp->trainer_data[num].tr_type;j++){                       // generate a random val according to the trainer class
+					rnd=gf_rand();                                                  // basically the trainer class ID is the iteration into the RNG sequence
+				}
+				rnd=(rnd<<8)+rnd_tmp;                                               // shift random over by 8 bits, then add 120 for female trainer or 136 for male trainer
+				pow=ptm[i].pow*31/255;                                              // set IVs to DV * 31 / 255
+				PokeParaSet(pp,monsno,ptm[i].level,pow,RND_SET,rnd,ID_NO_RARE,0);   // generate the mon with IVs, nature, etc.
+				PokeParaPut(pp,ID_PARA_item,(u8 *)&ptm[i].itemno);                  // assign items to mons from the NARC
+				for(j=0;j<4;j++){
+					PokeWazaSetPos(pp,ptm[i].waza[j],j);                            // assign moves to the mons from the NARC
+				}
+				TrainerCBSet(ptm[i].custom,pp,heapID);                              // set any ball seals
+				PokeParaPut(pp,ID_PARA_form_no,&form_no);                           // set the form number
+				PokeParty_Add(bp->poke_party[num],pp);                              // add the finished mon to the trainer's party
+			}
+		}
+
+    - can make four separate new functions and branch into them instead of using the vanilla processes:
+        - TrainerTool_MakeParty
+        - TrainerTool_MakePartyWithMoves
+        - TrainerTool_MakePartyWithHeldItems
+        - TrainerTool_MakePartyWithMovesAndHeldItems
+    - supporting totally custom spreads probably means destroying the entire existing structure, actually...
+    - actually, I think it just means re-specifying the allocation size for the buffer at tr_tool:284
+
+new structure:
+
+struct TrainerMon {
+    // vanilla structure
+    u8  difficultyValue;        // original IV generation specification
+                                // you should use this if you want to use the original mon generation routine
+                                // that generates IVs and nature based on a scaling formula from 0 to 255
+
+    u8  abilitySlot;            // second half of the original IV specification
+    u16 level;                  // level of the mon
+    u16 species     :11,        // what mon this is -- 11 bits for species, 5 for form
+        form        :5;
+    u16 heldItem;               // held item index
+    u16 moves[4];               // moves indices
+
+    // new stuff
+    u16 flags;                  // special flags defining how to read the rest of this structure
+                                // - are IVs customized per stat?
+                                // - are EVs enabled?
+                                // - should the mon be forced to be shiny?
+                                // - is the mon's nature customized?
+                                // - is the mon pre-statused?
+                                // - are moves given PP Ups for individual slots?
+                                // - are moves given PP Ups for all slots? (supersedes the former flag)
+                                // - is the mon nicknamed?
+
+    // Define macros for this for:
+    // - 31 all
+    // - 24 all
+    // - 20 all
+    // - 15 all
+    // - 12 all
+    // -  8 all
+    // -  0 all
+    // - 31 all + 0 speed
+    // -  0 atk + 0 speed
+    // -  0 spa + 0 speed
+    struct {
+        u8  hp;                 // let the dev specify IVs per stat
+        u8  attack;
+        u8  defense;
+        u8  speed;
+        u8  spAttack;
+        u8  spDefense;
+    } ivs;
+    
+    // Define macros for this for various common spreads
+    struct {
+        u8  hp;                 // let the dev specify EVs per stat
+        u8  attack;             // no checks are done here to stop you from super-charging a mon
+        u8  defense;
+        u8  speed;
+        u8  spAttack;
+        u8  spDefense;
+    } evs;
+
+    u8  nature;                 // specify the mon's nature
+    u8  status;                 // specify a pre-status
+
+    union {
+        struct {
+            u8  ppUpCount0  :2, // let the dev specify PP Up counts for each move slot
+                ppUpCount1  :2,
+                ppUpCount2  :2,
+                ppUpCount3  :2;
+        };
+        u8 ppUps;               // or specify them as a single 0 for none
+    }
+    
+    u16 nickname[11];           // 10 characters + 1 terminator
+
+    // resume vanilla structure
+    u16 ballSeal;               // custom ball seal -- this HAS to be last in the structure, fuck GF
+}
