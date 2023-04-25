@@ -42,10 +42,10 @@ OUTPUT = 'build/output.bin'
 OUTPUT_FIELD = 'build/output_field.bin'
 OUTPUT_BATTLE = 'build/output_battle.bin'
 BYTE_REPLACEMENT = 'bytereplacement'
-HOOKS = 'hooks'
-ARM_HOOKS = 'armhooks'
-REPOINTS = 'repoints'
-ROUTINE_POINTERS = 'routinepointers'
+HOOKS = 'buildsys/hooks'
+ARM_HOOKS = 'buildsys/armhooks'
+REPOINTS = 'buildsys/repoints'
+ROUTINE_POINTERS = 'buildsys/routinepointers'
 
 LINKED_SECTIONS = ['build/linked.o', 'build/battle_linked.o', 'build/field_linked.o']
 OFFSET_START_IN_122 = 0x023C8000 + 0x1000

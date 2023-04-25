@@ -1,0 +1,8 @@
+armhooks
+bytereplacement
+charmap.txt
+hooks
+offset_def.s
+repoints
+rom.ld              -> addresses of funcs from vanilla rom
+routinepointers
