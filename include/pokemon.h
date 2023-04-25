@@ -499,12 +499,12 @@ enum {
 /*
  * Unmodified functions from vanilla game code
  */
-u32  __attribute__((long_call)) GetBoxMonData(void *boxMon, int id, void *buf);     // PokePasoParaGet
-void __attribute__((long_call)) SetBoxMonData(void *boxMon, int id, void *buf);     // PokePasoParaPut
-int  __attribute__((long_call)) GetSpeciesForForm(int species, int form);           // PokeOtherFormMonsNoGet
-u32  __attribute__((long_call)) GetBaseStatsData(int species, int form, int param); // PokeFormNoPersonalParaGet
-BOOL __attribute__((long_call)) BoxMonSetFastModeOn(void *boxMon);                  // PokePasoParaFastModeOn
-BOOL __attribute__((long_call)) BoxMonSetFastModeOff(void *boxMon);                 // PokePasoParaFastModeOff
+u32  __attribute__((long_call)) GetBoxMonData(void *boxMon, int id, void *buf);     // GetBoxPkmnData @ 0x02074570
+void __attribute__((long_call)) SetBoxMonData(void *boxMon, int id, void *buf);     // SetBoxPkmnData @ 0x02074C60
+int  __attribute__((long_call)) GetSpeciesForForm(int species, int form);           // Function_2078740 (arm9)
+u32  __attribute__((long_call)) GetBaseStatsData(int species, int form, int param); // GetPkmnBaseData2 @ 0x020759CC
+BOOL __attribute__((long_call)) BoxMonSetFastModeOn(void *boxMon);                  // InitEncryptPkmnData_Part1 @ 0x02073D20
+BOOL __attribute__((long_call)) BoxMonSetFastModeOff(void *boxMon);                 // InitEncryptPkmnData_Part1Again @ 0x02073D48
 
 /*
  * New code
