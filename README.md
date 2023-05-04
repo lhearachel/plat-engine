@@ -1,4 +1,4 @@
-# Complete Platinum Upgrade Engine
+# Platinum Engine
 
 ## About
 
