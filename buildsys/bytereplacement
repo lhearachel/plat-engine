@@ -1,0 +1,11 @@
+# This is empty for now; it will be filled in as functions are built
+
+# bytereplacement specifies the overlay, offset, and bytes you want to write there:
+#
+#   0012 0801F738 60 B4 C0 46
+#
+# opens up overlay 12, jumps to the file offset 0x1F738, and writes 60 B4 C0 46 there
+#
+#   arm9 020CA054 60 00 2D E9
+#
+# opens up the arm9, jumps to the offset that would be in memory at 020CA054, and writes 60 00 2D E9 there

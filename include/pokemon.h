@@ -6,23 +6,22 @@
 #include "custom_ball.h"
 #include "mail.h"
 
-/*
- * This is the basic structure of data that all Pokemon of a particular species inherit. It defines
- * what parameters a given individual can have as far as stats, type, and ability.
+/**
+ * @brief Base Stats data structure for all data unique to a particular species.
  */
 struct BaseStats {
-    u8 baseHP;
-    u8 baseAttack;
-    u8 baseDefense;
-    u8 baseSpeed;
-    u8 baseSpAttack;
-    u8 baseSpDefense;
+    u8 baseHP;                      ///< Base HP stat
+    u8 baseAttack;                  ///< Base Attack stat
+    u8 baseDefense;                 ///< Base Defense stat
+    u8 baseSpeed;                   ///< Base Speed stat
+    u8 baseSpAttack;                ///< Base Special Attack stat
+    u8 baseSpDefense;               ///< Base Special Defense stat
 
-    u8 type1;
-    u8 type2;
+    u8 type1;                       ///< Type 1
+    u8 type2;                       ///< Type 2; always equivalent to Type 1 if mono-type
 
-    u8 catchRate;
-    u8 expYield;
+    u8 catchRate;                   ///< Catch rate constant; see [here](https://bulbapedia.bulbagarden.net/wiki/Catch_rate)
+    u8 expYield;                    ///< Base experience yield
 
     u16 evYieldHP           :2,
         evYieldAttack       :2,
@@ -32,22 +31,22 @@ struct BaseStats {
         evYieldSpDefense    :2,
         _evPadding          :4;
 
-    u16 itemUncommon;       // 50% item
-    u16 itemRare;           //  5% item
+    u16 itemUncommon;               ///< 50% held item in the wild
+    u16 itemRare;                   ///<  5% held item in the wild
 
-    u8 genderRatio;
-    u8 eggCycles;
-    u8 baseFriendship;
-    u8 expCurve;
-    u8 eggGroup1;
-    u8 eggGroup2;
+    u8 genderRatio;                 ///< Gender ratio; see [here](https://bulbapedia.bulbagarden.net/wiki/Gender#Generations_III_to_V)
+    u8 eggCycles;                   ///< Egg hatch rate, 255 steps per cycle; see [here](https://bulbapedia.bulbagarden.net/wiki/Egg_cycle)
+    u8 baseFriendship;              ///< Base friendship when meeting an individual of a species
+    u8 expCurve;                    ///< Experience curve; curves are defined in constants/misc.h; see [here](https://bulbapedia.bulbagarden.net/wiki/Experience)
+    u8 eggGroup1;                   ///< First egg group
+    u8 eggGroup2;                   ///< Second egg group
 
-    u8 ability1;
-    u8 ability2;
+    u8 ability1;                    ///< First possible ability; values defined in constants/abilities.h
+    u8 ability2;                    ///< Second possible ability; may be None (0)
 
-    u8 fleeRate;
-    u8 bodyColor        :7,
-       reverse          :1;
+    u8 fleeRate;                    ///< Chance to flee; only applies in Safari Zone
+    u8 bodyColor        :7,         ///< Body color; definitions in constants/misc.h
+       reverse          :1;         ///< Flip the sprite or not
 
     // Vanilla Platinum's structure here represents the TM learnset for any
     // given Pokemon species as a quartet of consecutive bitflags, each bit
@@ -63,29 +62,29 @@ struct PokemonDataBlockA {
     u16 heldItem;
     u32 otID;       // low half: visible ID; high half: secret ID
     u32 exp;
-    u8 friendship;
-    u8 ability;
-    u8 markings;    // circle, triangle, square, heart, star, diamond
-    u8 countryCode;
-    u8 hpEV;
-    u8 attackEV;
-    u8 defenseEV;
-    u8 speedEV;
-    u8 spAttackEV;
-    u8 spDefenseEV;
-    u8 coolStat;
-    u8 beautyStat;
-    u8 cuteStat;
-    u8 smartStat;
-    u8 toughStat;
-    u8 sheen;
+    u8  friendship;
+    u8  ability;
+    u8  markings;    // circle, triangle, square, heart, star, diamond
+    u8  countryCode;
+    u8  hpEV;
+    u8  attackEV;
+    u8  defenseEV;
+    u8  speedEV;
+    u8  spAttackEV;
+    u8  spDefenseEV;
+    u8  coolStat;
+    u8  beautyStat;
+    u8  cuteStat;
+    u8  smartStat;
+    u8  toughStat;
+    u8  sheen;
     u32 sinnohRibbons;
 };
 
 struct PokemonDataBlockB {
     u16 moves[4];
-    u8 movePP[4];
-    u8 movePPUps[4];
+    u8  movePP[4];
+    u8  movePPUps[4];
 
     u32 hpIV        :5,
         attackIV    :5,
@@ -95,14 +94,14 @@ struct PokemonDataBlockB {
         spDefenseIV :5,
         isEgg       :1,
         isNicknamed :1;
-    u32 oldRibbons;
+    u32 oldRibbons;         // ribbons from gen 3
 
     u8  eventDistributed    :1,
         sex                 :2,
         formNumber          :5;
 
-    u8  _dummy2_1;          // 24 bits of unused space
-    u16 _dummy2_2;
+    u8  _dummyB_1;          // 24 bits of unused space
+    u16 _dummyB_2;
 
     u16 newCatchLocation;   // These fields are only used for riddles (Trick House?)
     u16 newHatchLocation;
@@ -112,7 +111,7 @@ struct PokemonDataBlockC {
     u16 nickname[11];
     u8  originCountryCode;
     u8  originGame;
-    u64 sinnohRibbons2;
+    u64 sinnohContestRibbons;
 };
 
 struct PokemonDataBlockD {
@@ -135,7 +134,7 @@ struct PokemonDataBlockD {
         metGender:1;
     u8  encounterType;
 
-    u16 _dummy;             // 16 bits of unused space
+    u16 _dummyC;            // 16 bits of unused space
 };
 
 typedef union {
@@ -150,7 +149,7 @@ struct BoxPokemon {
     u16 partyLock:1,
         boxLock:1,
         badEgg:1,
-        _dummy:13;      // maybe used for some validation checks?
+        _dummyD:13;     // maybe used for some validation checks?
     u16 checksum;       // stored checksum
     PokemonDataBlock substructs[4];
 };
@@ -180,7 +179,7 @@ struct Party {
     s32 count;
 };
 
-enum {
+enum PokemonField {
     // BoxPokemon header fields
 	MON_PARAM_PID = 0,
 	MON_PARAM_PARTY_LOCK,
@@ -188,12 +187,8 @@ enum {
 	MON_PARAM_BAD_EGG,
 	MON_PARAM_CHECKSUM,
 
-    MON_PARAM_HEADER_MAX,
-};
-
-// BoxPokemon data block A fields
-enum {
-    MON_PARAM_SPECIES = MON_PARAM_HEADER_MAX,
+    // BoxPokemon Block A data
+    MON_PARAM_SPECIES,
 	MON_PARAM_HELD_ITEM,
 	MON_PARAM_OT_ID,
 	MON_PARAM_EXP,
@@ -223,35 +218,31 @@ enum {
 	MON_PARAM_SINNOH_BATTLE_TOWER_MULTI_ABILITY,    // start a multi battle set with an NPC partner at 49+ battle streak
 	MON_PARAM_SINNOH_BATTLE_TOWER_PAIR_ABILITY,     // start a multi battle set by connecting to another game at 49+ battle streak
 	MON_PARAM_SINNOH_BATTLE_TOWER_WORLD_ABILITY,    // win a set of seven battles in a wi-fi room at Battle Tower
-	ID_PARA_sinou_syakki_ribbon,				//シンオウしゃっきリボン
-	ID_PARA_sinou_dokki_ribbon,					//シンオウどっきリボン
-	ID_PARA_sinou_syonbo_ribbon,				//シンオウしょんぼリボン
-	ID_PARA_sinou_ukka_ribbon,					//シンオウうっかリボン
-	ID_PARA_sinou_sukki_ribbon,					//シンオウすっきリボン
-	ID_PARA_sinou_gussu_ribbon,					//シンオウぐっすリボン
-	ID_PARA_sinou_nikko_ribbon,					//シンオウにっこリボン
-	ID_PARA_sinou_gorgeous_ribbon,				//シンオウゴージャスリボン
-	ID_PARA_sinou_royal_ribbon,					//シンオウロイヤルリボン
-	ID_PARA_sinou_gorgeousroyal_ribbon,			//シンオウゴージャスロイヤルリボン
-	ID_PARA_sinou_ashiato_ribbon,				//シンオウあしあとリボン
-	ID_PARA_sinou_record_ribbon,				//シンオウレコードリボン
-	ID_PARA_sinou_history_ribbon,				//シンオウヒストリーリボン
-	ID_PARA_sinou_legend_ribbon,				//シンオウレジェンドリボン
-	ID_PARA_sinou_red_ribbon,					//シンオウレッドリボン
-	ID_PARA_sinou_green_ribbon,					//シンオウグリーンリボン
-	ID_PARA_sinou_blue_ribbon,					//シンオウブルーリボン
-	ID_PARA_sinou_festival_ribbon,				//シンオウフェスティバルリボン
-	ID_PARA_sinou_carnival_ribbon,				//シンオウカーニバルリボン
-	ID_PARA_sinou_classic_ribbon,				//シンオウクラシックリボン
-	ID_PARA_sinou_premiere_ribbon,				//シンオウプレミアリボン
-	ID_PARA_sinou_amari_ribbon,					//あまり
+	MON_PARAM_SINNOH_ALERT_RIBBON,                  // given on Mondays to the first slot in the party
+    MON_PARAM_SINNOH_SHOCK_RIBBON,                  // given on Tuesdays to the first slot in the party
+	MON_PARAM_SINNOH_DOWNCAST_RIBBON,               // given on Wednesdays to the first slot in the party
+	MON_PARAM_SINNOH_CARELESS_RIBBON,               // given on Thursdays to the first slot in the party
+	MON_PARAM_SINNOH_RELAX_RIBBON,                  // given on Fridays to the first slot in the party
+	MON_PARAM_SINNOH_SNOOZE_RIBBON,                 // given on Saturdays to the first slot in the party
+	MON_PARAM_SINNOH_SMILE_RIBBON,                  // given on Sundays to the first slot in the party
+	MON_PARAM_SINNOH_GORGEOUS_RIBBON,               // buy for $10,000
+	MON_PARAM_SINNOH_ROUAL_RIBBON,                  // buy for $100,000
+	MON_PARAM_SINNOH_GORGEOUS_ROYAL_RIBBON,         // buy for $999,999
+	MON_PARAM_SINNOH_FOOTPRINT_RIBBON,              // maximum friendship
+	MON_PARAM_SINNOH_RECORD_RIBBON,                 // unobtainable
+	MON_PARAM_SINNOH_HISTORY_RIBBON,                // unobtainable; Event Ribbon in gen5
+	MON_PARAM_SINNOH_LEGEND_RIBBON,                 // defeat Red at Mt. Silver
+	MON_PARAM_SINNOH_RED_RIBBON,                    // unobtainable; World Champion Ribbon in gen5
+	MON_PARAM_SINNOH_GREEN_RIBBON,                  // unobtainable; Birthday Ribbon in gen5
+	MON_PARAM_SINNOH_BLUE_RIBBON,                   // unobtainable; Special Ribbon in gen5
+	MON_PARAM_SINNOH_SOUVENIR_RIBBON,               // unobtainable; Festival Ribbon in gen5
+	MON_PARAM_SINNOH_CARNIVAL_RIBBON,               // unobtainable; Wishing Ribbon in gen5
+    MON_PARAM_SINNOH_CLASSIC_RIBBON,                // obtain the mon via Mystery Gift
+    MON_PARAM_SINNOH_PREMIER_RIBBON,                // obtain an Event Mew
+	MON_PARAM_SINNOH_PADDING_RIBBONS,               // leftover space in the bitfield
 
-    MON_PARAM_BLOCK_A_MAX,
-};
-
-// BoxPokemon data block B fields
-enum {
-	MON_PARAM_MOVE_1 = MON_PARAM_BLOCK_A_MAX,   // move IDs
+    // BoxPokemon Block B data
+	MON_PARAM_MOVE_1,   // move IDs
 	MON_PARAM_MOVE_2,
 	MON_PARAM_MOVE_3,
 	MON_PARAM_MOVE_4,
@@ -281,87 +272,78 @@ enum {
 	MON_PARAM_IS_EGG,
 	MON_PARAM_IS_NICKNAMED,
 
-	ID_PARA_stylemedal_normal,					// old ribbons
-	ID_PARA_stylemedal_super,					//かっこよさ勲章(スーパー)AGBコンテスト
-	ID_PARA_stylemedal_hyper,					//かっこよさ勲章(ハイパー)AGBコンテスト
-	ID_PARA_stylemedal_master,					//かっこよさ勲章(マスター)AGBコンテスト
-	ID_PARA_beautifulmedal_normal,				//うつくしさ勲章(ノーマル)AGBコンテスト
-	ID_PARA_beautifulmedal_super,				//うつくしさ勲章(スーパー)AGBコンテスト
-	ID_PARA_beautifulmedal_hyper,				//うつくしさ勲章(ハイパー)AGBコンテスト
-	ID_PARA_beautifulmedal_master,				//うつくしさ勲章(マスター)AGBコンテスト
-	ID_PARA_cutemedal_normal,					//かわいさ勲章(ノーマル)AGBコンテスト
-	ID_PARA_cutemedal_super,					//かわいさ勲章(スーパー)AGBコンテスト
-	ID_PARA_cutemedal_hyper,					//かわいさ勲章(ハイパー)AGBコンテスト
-	ID_PARA_cutemedal_master,					//かわいさ勲章(マスター)AGBコンテスト
-	ID_PARA_clevermedal_normal,					//かしこさ勲章(ノーマル)AGBコンテスト
-	ID_PARA_clevermedal_super,					//かしこさ勲章(スーパー)AGBコンテスト
-	ID_PARA_clevermedal_hyper,					//かしこさ勲章(ハイパー)AGBコンテスト
-	ID_PARA_clevermedal_master,					//かしこさ勲章(マスター)AGBコンテスト
-	ID_PARA_strongmedal_normal,					//たくましさ勲章(ノーマル)AGBコンテスト
-	ID_PARA_strongmedal_super,					//たくましさ勲章(スーパー)AGBコンテスト
-	ID_PARA_strongmedal_hyper,					//たくましさ勲章(ハイパー)AGBコンテスト
-	ID_PARA_strongmedal_master,					//たくましさ勲章(マスター)AGBコンテスト
-	ID_PARA_champ_ribbon,						//チャンプリボン
-	ID_PARA_winning_ribbon,						//ウィニングリボン
-	ID_PARA_victory_ribbon,						//ビクトリーリボン
-	ID_PARA_bromide_ribbon,						//ブロマイドリボン
-	ID_PARA_ganba_ribbon,						//がんばリボン
-	ID_PARA_marine_ribbon,						//マリンリボン
-	ID_PARA_land_ribbon,						//ランドリボン
-	ID_PARA_sky_ribbon,							//スカイリボン
-	ID_PARA_country_ribbon,						//カントリーリボン
-	ID_PARA_national_ribbon,					//ナショナルリボン
-	ID_PARA_earth_ribbon,						//アースリボン
-	ID_PARA_world_ribbon,						//ワールドリボン
+	MON_PARAM_HOENN_COOL_RIBBON,                // win a Hoenn Cool contest
+	MON_PARAM_HOENN_COOL_RIBBON_SUPER,          // win a Hoenn Cool Super Rank contest
+	MON_PARAM_HOENN_COOL_RIBBON_HYPER,          // win a Hoenn Cool Hyper Rank contest
+	MON_PARAM_HOENN_COOL_RIBBON_MASTER,         // win a Hoenn Cool Master Rank contest
+	MON_PARAM_HOENN_BEAUTY_RIBBON,              // ... etc.
+	MON_PARAM_HOENN_BEAUTY_RIBBON_SUPER,
+	MON_PARAM_HOENN_BEAUTY_RIBBON_HYPER,
+	MON_PARAM_HOENN_BEAUTY_RIBBON_MASTER,
+	MON_PARAM_HOENN_CUTE_RIBBON,
+	MON_PARAM_HOENN_CUTE_RIBBON_SUPER,
+	MON_PARAM_HOENN_CUTE_RIBBON_HYPER,
+	MON_PARAM_HOENN_CUTE_RIBBON_MASTER,
+	MON_PARAM_HOENN_SMART_RIBBON,
+	MON_PARAM_HOENN_SMART_RIBBON_SUPER,
+	MON_PARAM_HOENN_SMART_RIBBON_HYPER,
+	MON_PARAM_HOENN_SMART_RIBBON_MASTER,
+	MON_PARAM_HOENN_TOUGH_RIBBON,
+	MON_PARAM_HOENN_TOUGH_RIBBON_SUPER,
+	MON_PARAM_HOENN_TOUGH_RIBBON_HYPER,
+	MON_PARAM_HOENN_TOUGH_RIBBON_MASTER,
+	MON_PARAM_HOENN_CHAMPION_RIBBON,            // enter a gen3 league hall of fame (Hoenn, Kanto)
+	MON_PARAM_HOENN_BATTLE_TOWER_WINNER,        // clear level 50 of the Hoenn Battle Tower
+	MON_PARAM_HOENN_BATTLE_TOWER_VICTORY,       // clear level 100 of the Hoenn Battle Tower
+	MON_PARAM_HOENN_ARTIST_RIBBON,              // win a Master Rank Hoenn contest with a high score and have the Pokemon's portrait painted
+	MON_PARAM_HOENN_EFFORT_RIBBON,              // have 510 total EVs
+	MON_PARAM_HOENN_MARINE_RIBBON,              // unobtainable; Battle Champion Ribbon in gen5
+	MON_PARAM_HOENN_LAND_RIBBON,                // unobtainable; Regional Champion Ribbon in gen5
+	MON_PARAM_HOENN_SKY_RIBBON,                 // unobtainable; National Champion Ribbon in gen5
+	MON_PARAM_HOENN_COUNTRY_RIBBON,             // win a Pokemon Festa in 2004 or 2005
+	MON_PARAM_HOENN_NATIONAL_RIBBON,            // purify a Shadow Pokemon (Colosseum)
+	MON_PARAM_HOENN_EARTH_RIBBON,               // win 100 consecutive times at Mt. Battle (Colosseum)
+	MON_PARAM_HOENN_WORLD_RIBBON,               // win a Pokemon Festa in 2004 or 2005
 
 	MON_PARAM_IS_EVENT_DISTRIBUTED,
 	MON_PARAM_GENDER,
 	MON_PARAM_FORM_NUMBER,
-	MON_PARAM_DUMMY_2_1,
-	MON_PARAM_DUMMY_2_2,
+	MON_PARAM_DUMMY_BLOCK_B_1,
+	MON_PARAM_DUMMY_BLOCK_B_2,
 	MON_PARAM_NEW_CATCH_LOCATION,
 	MON_PARAM_NEW_HATCH_LOCATION,
 
-    MON_PARAM_BLOCK_B_MAX,
-};
-
-// BoxPokemon data block C fields
-enum {
-    MON_PARAM_NICKNAME = MON_PARAM_BLOCK_B_MAX,
+    // BoxPokemon Block C data
+    MON_PARAM_NICKNAME,
     MON_PARAM_NICKNAME_AS_CHARS_WITH_FLAG,
     MON_PARAM_NICKNAME_AS_STRBUF,
     MON_PARAM_NICKNAME_AS_STRBUF_WITH_FLAG,
 	MON_PARAM_ORIGIN_COUNTRY_CODE,
 	MON_PARAM_ORIGIN_GAME,
 
-    // sinnoh ribbons part 2
-	ID_PARA_trial_stylemedal_normal,			//かっこよさ勲章(ノーマル)トライアル
-	ID_PARA_trial_stylemedal_super,				//かっこよさ勲章(スーパー)トライアル
-	ID_PARA_trial_stylemedal_hyper,				//かっこよさ勲章(ハイパー)トライアル
-	ID_PARA_trial_stylemedal_master,			//かっこよさ勲章(マスター)トライアル
-	ID_PARA_trial_beautifulmedal_normal,		//うつくしさ勲章(ノーマル)トライアル
-	ID_PARA_trial_beautifulmedal_super,			//うつくしさ勲章(スーパー)トライアル
-	ID_PARA_trial_beautifulmedal_hyper,			//うつくしさ勲章(ハイパー)トライアル
-	ID_PARA_trial_beautifulmedal_master,		//うつくしさ勲章(マスター)トライアル
-	ID_PARA_trial_cutemedal_normal,				//かわいさ勲章(ノーマル)トライアル
-	ID_PARA_trial_cutemedal_super,				//かわいさ勲章(スーパー)トライアル
-	ID_PARA_trial_cutemedal_hyper,				//かわいさ勲章(ハイパー)トライアル
-	ID_PARA_trial_cutemedal_master,				//かわいさ勲章(マスター)トライアル
-	ID_PARA_trial_clevermedal_normal,			//かしこさ勲章(ノーマル)トライアル
-	ID_PARA_trial_clevermedal_super,			//かしこさ勲章(スーパー)トライアル
-	ID_PARA_trial_clevermedal_hyper,			//かしこさ勲章(ハイパー)トライアル
-	ID_PARA_trial_clevermedal_master,			//かしこさ勲章(マスター)トライアル
-	ID_PARA_trial_strongmedal_normal,			//たくましさ勲章(ノーマル)トライアル
-	ID_PARA_trial_strongmedal_super,			//たくましさ勲章(スーパー)トライアル
-	ID_PARA_trial_strongmedal_hyper,			//たくましさ勲章(ハイパー)トライアル
-	ID_PARA_trial_strongmedal_master,			//たくましさ勲章(マスター)トライアル
-	ID_PARA_amari_ribbon,						//余りリボン
+	MON_PARAM_SINNOH_COOL_RIBBON,               // win a Sinnoh Cool Super Contest
+	MON_PARAM_SINNOH_COOL_RIBBON_GREAT,         // win a Sinnoh Cool Great Rank Super Contest
+	MON_PARAM_SINNOH_COOL_RIBBON_ULTRA,         // win a Sinnoh Cool Ultra Rank Super Contest
+	MON_PARAM_SINNOH_COOL_RIBBON_MASTER,        // win a Sinnoh Cool Master Rank Super Contest
+	MON_PARAM_SINNOH_BEAUTY_RIBBON,             // ... etc.
+	MON_PARAM_SINNOH_BEAUTY_RIBBON_GREAT,
+	MON_PARAM_SINNOH_BEAUTY_RIBBON_ULTRA,
+	MON_PARAM_SINNOH_BEAUTY_RIBBON_MASTER,
+	MON_PARAM_SINNOH_CUTE_RIBBON,
+	MON_PARAM_SINNOH_CUTE_RIBBON_GREAT,
+	MON_PARAM_SINNOH_CUTE_RIBBON_ULTRA,
+	MON_PARAM_SINNOH_CUTE_RIBBON_MASTER,
+	MON_PARAM_SINNOH_SMART_RIBBON,
+	MON_PARAM_SINNOH_SMART_RIBBON_GREAT,
+	MON_PARAM_SINNOH_SMART_RIBBON_ULTRA,
+	MON_PARAM_SINNOH_SMART_RIBBON_MASTER,
+	MON_PARAM_SINNOH_TOUGH_RIBBON,
+	MON_PARAM_SINNOH_TOUGH_RIBBON_GREAT,
+	MON_PARAM_SINNOH_TOUGH_RIBBON_ULTRA,
+	MON_PARAM_SINNOH_TOUGH_RIBBON_MASTER,
+	MON_PARAM_SINNOH_PADDING_CONTEST_RIBBONS,   // leftover space in the bitfield
 
-    MON_PARAM_BLOCK_C_MAX,
-};
-
-// BoxPokemon data block D fields
-enum {
+    // BoxPokemon Block D data
     MON_PARAM_OT_NAME,
     MON_PARAM_OT_NAME_AS_STRBUF,
 
@@ -380,14 +362,10 @@ enum {
 	MON_PARAM_MET_LEVEL,
 	MON_PARAM_MET_GENDER,
     MON_PARAM_ENCOUNTER_TYPE,
-    MON_PARAM_DUMMY_4_1,
+    MON_PARAM_DUMMY_BLOCK_D,
 
-    MON_PARAM_BLOCK_D_MAX,
-};
-
-// PartyPokemon fields
-enum {
-    MON_PARAM_CONDITION = MON_PARAM_BLOCK_D_MAX,
+    // PartyPokemon data
+    MON_PARAM_CONDITION,
     MON_PARAM_LEVEL,
     MON_PARAM_CUSTOM_BALL_ID,
     MON_PARAM_CURRENT_HP,
@@ -401,11 +379,9 @@ enum {
     MON_PARAM_CUSTOM_BALLS,
 
     MON_PARAM_PARTYPOKEMON_MAX,
-};	
 
-// Extra fields
-enum {
-	MON_PARAM_DOES_SPECIES_EXIST = MON_PARAM_PARTYPOKEMON_MAX,
+    // Extra data param definitions
+	MON_PARAM_DOES_SPECIES_EXIST,
 	MON_PARAM_MAYBE_EGG,                        // returns the bad egg flag if flipped, else the value of the egg flag
 
     MON_PARAM_SPECIES_OR_EGG,                   // returns the species number, or the egg species (if this is an egg)
@@ -421,8 +397,7 @@ enum {
 	MON_PARAM_END,
 };
 
-// personal narc fields
-enum {
+enum BaseStatsField {
     PERSONAL_BASE_HP = 0,
     PERSONAL_BASE_ATTACK,
     PERSONAL_BASE_DEFENSE,
@@ -485,31 +460,113 @@ enum {
 #define NATURE_QUIRKY   24
 
 // Hidden Ability stuff
-#define DUMMY_2_1_HIDDEN_ABILITY_MASK (0x01)
+#define DUMMY_BLOCK_B_1_HIDDEN_ABILITY_MASK (0x01)
 
 #define BOX_MON_IS_HIDDEN_ABILITY(boxMon) ( \
-    GetBoxMonData(boxMon, MON_PARAM_DUMMY_2_1, NULL) & DUMMY_2_1_HIDDEN_ABILITY_MASK \
+    GetBoxMonData(boxMon, MON_PARAM_DUMMY_BLOCK_B_1, NULL) & DUMMY_BLOCK_B_1_HIDDEN_ABILITY_MASK \
 )
 #define SET_BOX_MON_HIDDEN_ABILITY_BIT(boxMon) { \
-    u16 temp = GetBoxMonData(boxMon, MON_PARAM_DUMMY_2_1, NULL); \
-    temp |= DUMMY_P2_1_HIDDEN_ABILITY_MASK; \
-    SetBoxMonData(boxMon, MON_PARAM_DUMMY_2_1, (u8*) &temp); \
+    u16 tempassumeunused = GetBoxMonData(boxMon, MON_PARAM_DUMMY_BLOCK_B_1, NULL); \
+    tempassumeunused |= DUMMY_P2_1_HIDDEN_ABILITY_MASK; \
+    SetBoxMonData(boxMon, MON_PARAM_DUMMY_BLOCK_B_1, (u8*) &tempassumeunused) \
 }
 
-/*
- * Unmodified functions from vanilla game code
- */
-u32  __attribute__((long_call)) GetBoxMonData(void *boxMon, int id, void *buf);     // GetBoxPkmnData @ 0x02074570
-void __attribute__((long_call)) SetBoxMonData(void *boxMon, int id, void *buf);     // SetBoxPkmnData @ 0x02074C60
-int  __attribute__((long_call)) GetSpeciesForForm(int species, int form);           // Function_2078740 (arm9)
-u32  __attribute__((long_call)) GetBaseStatsData(int species, int form, int param); // GetPkmnBaseData2 @ 0x020759CC
-BOOL __attribute__((long_call)) BoxMonSetFastModeOn(void *boxMon);                  // InitEncryptPkmnData_Part1 @ 0x02073D20
-BOOL __attribute__((long_call)) BoxMonSetFastModeOff(void *boxMon);                 // InitEncryptPkmnData_Part1Again @ 0x02073D48
+// ===== BASE GAME CODE FUNCTIONS (UNMODIFIED) ===== //
 
-/*
- * New code
+/**
+ * @brief Get data from the BoxPokemon structure.
+ * 
+ * Original Function: [`GetBoxPkmnData @ 0x02074570` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L1376)
+ * 
+ * @param[in]  boxMon   The BoxPokemon structure from which to pull data.
+ * @param[in]  field    Field ID of the data to be pulled from the structure.
+ * @param[out] buf      Buffer output, for array output.
+ * @return              Result data.
  */
-u16  __attribute__((long_call)) GetMonHiddenAbility(u16 species, u32 form);
-void __attribute__((long_call)) SetBoxMonAbility(void *boxMon);
+u32  __attribute__((long_call)) BoxPokemon_Get(struct BoxPokemon *boxMon, enum PokemonField field, void *buf);
+
+/**
+ * @brief Set data in the BoxPokemon structure.
+ * 
+ * Original Function: [`SetBoxPkmnData @ 0x02074C60` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L2509)
+ * 
+ * @param[in,out] boxMon    The BoxPokemon structure to be modified.
+ * @param[in]     field     Field ID of the data to be set within the structure.
+ * @param[in]     buf       Data to be set into the structure.
+ */
+void __attribute__((long_call)) BoxPokemon_Set(struct BoxPokemon *boxMon, enum PokemonField field, void *buf);
+
+/**
+ * @brief Attempts to lock the BoxPokemon structure, designating to any other
+ * competing threads that it is undergoing a read/write.
+ * 
+ * Original Function: [`InitEncryptPkmnData_Part1 @ 0x02073D20` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L166)
+ * 
+ * @param[in,out] boxMon    The BoxPokemon structure to be locked.
+ * @return                  TRUE if the lock was acquired, FALSE otherwise.
+ */
+BOOL __attribute__((long_call)) BoxPokemon_Lock(struct BoxPokemon *boxMon);
+
+/**
+ * @brief Attempts to unlock the BoxPokemon structure, permitting other threads
+ * to perform read/write operations.
+ * 
+ * Original Function: [`InitEncryptPkmnData_Part1Again @ 0x02073D48` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L193)
+ * 
+ * @param[in,out] boxMon    The BoxPokemon structure to be unlocked.
+ * @return                  TRUE if the lock was released, FALSE otherwise.
+ */
+BOOL __attribute__((long_call)) BoxPokemon_Unlock(struct BoxPokemon *boxMon);
+
+/**
+ * @brief Get a data element from the base stats data for a particular species.
+ * 
+ * Original Function: [`GetPkmnBaseData1 @ 0x020759F0` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L4605)
+ * 
+ * @param[in] species   The "true" species ID of the Pokemon.
+ * @param[in] field     Field ID of the data to be pulled from the structure.
+ * @return              Retrieved data.
+ */
+u32 __attribute__((long_call)) PokemonBaseStats_Get(int species, enum BaseStatsField field);
+
+/**
+ * @brief Get a data element from the base stats data for a particular species
+ * + form.
+ * 
+ * In essence, this calls Form_GetTrueSpecies, then passes the result to PokemonBaseStats_Get.
+ * 
+ * Original Function: [`GetPkmnBaseData2 @ 0x020759CC` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L4582)
+ * 
+ * @param[in] species   The National Dex species ID of the Pokemon.
+ * @param[in] form      The form ID.
+ * @param[in] field     Field ID of the data to be pulled from the structure.
+ * @return              Retrieved data.
+ */
+u32  __attribute__((long_call)) PokemonBaseStats_GetWithForm(int species, int form, enum BaseStatsField field);
+
+// ===== BASE GAME CODE FUNCTIONS (MODIFIED) ===== //
+
+/**
+ * @brief Get the special species-designation for a particular species and form.
+ * 
+ * The value returned here is the "true" species identifier, which is used to
+ * point to data specific to that form, i.e., base stats, sprite data, etc.
+ * 
+ * In vanilla Gen4, this is used for stuff like Wormadam, Rotom, Deoxys, Shaymin,
+ * and Giratina. The engine expands this to apply to regional, aesthetic, and
+ * gendered forms (e.g. Alolan/Galarian/Hisuian, Pikachu, Meowstic).
+ * 
+ * Original Function: [`Function_2078740` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L12072)
+ * 
+ * @param[in] species   The National Dex species ID of the Pokemon.
+ * @param[in] form      The form ID.
+ * @return              The true species ID of the Pokemon's form.
+ */
+int  __attribute__((long_call)) Form_GetTrueSpecies(int species, int form);
+
+// ===== NOVEL FUNCTIONS ===== //
+
+u16  __attribute__((long_call)) Pokemon_GetHiddenAbility(u16 species, u32 form);
+void __attribute__((long_call)) BoxPokemon_ToggleHiddenAbility(void *boxMon);
 
 #endif // __POKEMON_H

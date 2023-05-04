@@ -13,6 +13,7 @@
         "generated": "c",
         "species.h": "c",
         "misc.h": "c",
-        "tm_learnsets.h": "c"
+        "tm_learnsets.h": "c",
+        "types.h": "c"
     }
 }

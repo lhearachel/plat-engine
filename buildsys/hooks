@@ -1,0 +1,19 @@
+# This is empty for now; it will be filled in as functions are built
+
+# hooks jumps from the code to your code, overwriting 8-10 bytes of code to do so.  an example:
+#
+#   0002 AddWildPartyPokemon_hook 080029E0 5
+#
+# this opens up overlay 2, jumps to file offset 0x29E0, and assembles this at that offset:
+#
+#   ldr r5, =AddWildPartyPokemon_hook|1 // (|1 only if in thumb mode)
+#   bx r5
+#   .pool
+#
+# you can link directly to c code if there is a free register to do so.  the standard for arm
+# assembly specifies that r0-r3 are arguments to a function and are not preserved across function
+# calls, so if your function has less than 4 arguments, you can use r3 as a hook register and
+# replace the entire thing
+# 
+# otherwise you have to link to a "hook" to the c code where you write custom assembly to make
+# the game feel okay about what it's doing

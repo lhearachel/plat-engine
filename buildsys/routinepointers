@@ -1,0 +1,9 @@
+# This is empty for now; it will be filled in as functions are built
+
+# routinepointers will write a pointer to the function at the offset specified:
+#
+#    0012 Task_DistributeExp_Extend 0223E858
+#
+# this opens up overlay 12, jumps to the offset that would be in memory at 0223E858,
+# and writes a pointer to Task_DistributeExp_Extend there. if the function is thumb,
+# it automatically add's +1 to the offset
