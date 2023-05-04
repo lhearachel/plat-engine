@@ -1,0 +1,15 @@
+# This is empty for now; it will be filled in as functions are built
+
+# then there is repoints, which intends to rewrite data pointers to data that you define in assembly or c
+#
+#   0012 SkillMenuPaletteNo 0226E938
+#
+# this opens up overlay 12, jumps to the offset that would be in memory at 0226E938, and writes a pointer to
+# SkillMenuPaletteNo there. repoints specifically also supports repointing to the data table + an offset,
+# specified as so:
+#
+#   arm9 MainTableCombo 080517C8
+#   arm9 MainTableCombo+2 080517E4
+#
+# the code uses MainTableCombo+2 as a direct pointer at 0x517E4 of the arm9, so we specify that it can repoint
+# to that instead of the base table offset

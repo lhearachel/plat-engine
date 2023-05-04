@@ -2,10 +2,9 @@
 
 import os
 import subprocess
-import shutil
 import struct
 import sys
-from datetime import datetime
+import typing
 import _io
 import ndspy.codeCompression
 
@@ -43,16 +42,16 @@ OUTPUT = 'build/output.bin'
 OUTPUT_FIELD = 'build/output_field.bin'
 OUTPUT_BATTLE = 'build/output_battle.bin'
 BYTE_REPLACEMENT = 'bytereplacement'
-HOOKS = 'hooks'
-ARM_HOOKS = 'armhooks'
-REPOINTS = 'repoints'
-ROUTINE_POINTERS = 'routinepointers'
+HOOKS = 'buildsys/hooks'
+ARM_HOOKS = 'buildsys/armhooks'
+REPOINTS = 'buildsys/repoints'
+ROUTINE_POINTERS = 'buildsys/routinepointers'
 
 LINKED_SECTIONS = ['build/linked.o', 'build/battle_linked.o', 'build/field_linked.o']
-OFFSET_START_IN_129 = 0x023C8000 + 0x1000
+OFFSET_START_IN_122 = 0x023C8000 + 0x1000
 OFFSET_START = [0x023C8000, 0x023D0000, 0x023D0000]
 
-def ExtractPointer(byteList: [bytes]):
+def ExtractPointer(byteList: list[bytes]):
     pointer = 0
     for a in range(len(byteList)):
         pointer += (int(byteList[a])) << (8 * a)
@@ -81,7 +80,7 @@ def GetTextSection(section=0) -> int:
         sys.exit(1)
 
 
-def GetSymbols() -> {str: int}:
+def GetSymbols() -> dict[str, int]:
     ret = {}
 
     for section in LINKED_SECTIONS:
@@ -192,7 +191,7 @@ def TryProcessFileInclusion(line: str, definesDict: dict) -> bool:
     return False
 
 
-def TryProcessConditionalCompilation(line: str, definesDict: dict, conditionals: [(str, bool)]) -> bool:
+def TryProcessConditionalCompilation(line: str, definesDict: dict, conditionals: list[tuple[str, bool]]) -> bool:
     line = line.strip()
     upperLine = line.upper()
     numWordsOnLine = len(line.split())
@@ -251,7 +250,7 @@ def install():
                     offset = int(line[4:13], 16) - 0x02000000 if int(line[4:13], 16) & 0x02000000 else int(line[4:13], 16) - 0x08000000
                 else:
                     rom2 = open("base/overlay/overlay_" + openbin + ".bin", 'rb+')
-                    with open("base/overarm9.bin", 'rb+') as y9Table:
+                    with open("base/y9.bin", 'rb+') as y9Table:
                         y9Table.seek((int(openbin)*0x20)+0x4) # read the overlay memory address for offset calculation
                         offset = int(line[4:13], 16) - struct.unpack_from("<I", y9Table.read(4))[0] if int(line[4:13], 16) & 0x02000000 else int(line[4:13], 16) - 0x08000000
                 try:
@@ -268,105 +267,68 @@ def install():
                 rom2.close()
 
 
+def _hook(file_name: str, hook_func: typing.Callable, register_override: bool=False, try_offset: bool=False):
+    if os.path.isfile(file_name):
+        table = GetSymbols()
+        with open(file_name, 'r') as hookList:
+            definesDict = {}
+            conditionals = []
+            for line in hookList:
+                if TryProcessFileInclusion(line, definesDict):
+                    continue
+                if TryProcessConditionalCompilation(line, definesDict, conditionals):
+                    continue
+                if line.strip().startswith('#') or line.strip() == '':
+                    continue
+
+                if register_override:
+                    files, symbol, address = line.split()
+                else:
+                    files, symbol, address, register = line.split()
+
+                try:
+                    if try_offset:
+                        register = 0
+                        if '+' in symbol:
+                            symbol, add_offset_str = symbol.split('+')
+                            register = int(add_offset_str, 16)
+                    code = table[symbol]
+                except KeyError:
+                    print('Symbol missing:', symbol)
+                    continue
+                if files == "arm9":
+                    rom2 = open("base/arm9.bin", 'rb+')
+                    offset = int(address, 16) - 0x02000000 if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
+                else:
+                    rom2 = open("base/overlay/overlay_" + files + ".bin", 'rb+')
+                    with open("base/y9.bin", 'rb+') as y9Table:
+                        y9Table.seek((int(files)*0x20)+0x4) # read the overlay memory address for offset calculation
+                        offset = int(address, 16) - struct.unpack_from("<I", y9Table.read(4))[0] if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
+                hook_func(rom2, code, offset, int(register))
+                rom2.close()
+
+
 def hook():
-    if os.path.isfile(HOOKS):
-        table = GetSymbols()
-        with open(HOOKS, 'r') as hookList:
-            definesDict = {}
-            conditionals = []
-            for line in hookList:
-                if TryProcessFileInclusion(line, definesDict):
-                    continue
-                if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                    continue
-                if line.strip().startswith('#') or line.strip() == '':
-                    continue
-
-                files, symbol, address, register = line.split()
-                #offset = int(address, 16) - 0x08000000
-                try:
-                    code = table[symbol]
-                except KeyError:
-                    print('Symbol missing:', symbol)
-                    continue
-                if files == "arm9":
-                    rom2 = open("base/arm9.bin", 'rb+')
-                    offset = int(address, 16) - 0x02000000 if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
-                else:
-                    rom2 = open("base/overlay/overlay_" + files + ".bin", 'rb+')
-                    with open("base/overarm9.bin", 'rb+') as y9Table:
-                        y9Table.seek((int(files)*0x20)+0x4) # read the overlay memory address for offset calculation
-                        offset = int(address, 16) - struct.unpack_from("<I", y9Table.read(4))[0] if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
-                Hook(rom2, code, offset, int(register))
-                rom2.close()
+    _hook(HOOKS, Hook)
+    _hook(ARM_HOOKS, HookARM)
 
 
-    if os.path.isfile(ARM_HOOKS):
-        table = GetSymbols()
-        with open(ARM_HOOKS, 'r') as hookList:
-            definesDict = {}
-            conditionals = []
-            for line in hookList:
-                if TryProcessFileInclusion(line, definesDict):
-                    continue
-                if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                    continue
-                if line.strip().startswith('#') or line.strip() == '':
-                    continue
-
-                files, symbol, address, register = line.split()
-                #offset = int(address, 16) - 0x08000000
-                try:
-                    code = table[symbol]
-                except KeyError:
-                    print('Symbol missing:', symbol)
-                    continue
-                if files == "arm9":
-                    rom2 = open("base/arm9.bin", 'rb+')
-                    offset = int(address, 16) - 0x02000000 if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
-                else:
-                    rom2 = open("base/overlay/overlay_" + files + ".bin", 'rb+')
-                    with open("base/overarm9.bin", 'rb+') as y9Table:
-                        y9Table.seek((int(files)*0x20)+0x4) # read the overlay memory address for offset calculation
-                        offset = int(address, 16) - struct.unpack_from("<I", y9Table.read(4))[0] if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
-                HookARM(rom2, code, offset, int(register))
-                rom2.close()
-
-def writeall():
-    OFFECTSFILES = "base/overlay/overlay_0129.bin"
-    with open(OFFECTSFILES, 'wb+') as rom:
-        print("Inserting code.")
+def _write(offects_file: str, offset: int=0):
+    with open(offects_file, 'wb+') as rom:
+        print(f'Inserting code to {offects_file}.')
         table = GetSymbols()
         with open(OUTPUT, 'rb') as binary:
-            rom.seek(OFFSET_START_IN_129 - OFFSET_START[0])
+            rom.seek(offset)
             rom.write(binary.read())
             binary.close()
         rom.close()
+    return table
 
-        #for entry in table:
-        #    table[entry] += OFFSET_START
 
-    OFFECTSFILES = "base/overlay/overlay_0130.bin"
-    with open(OFFECTSFILES, 'wb+') as rom:
-        with open(OUTPUT_BATTLE, 'rb') as binary:
-            rom.seek(0)
-            rom.write(binary.read())
-            binary.close()
-        rom.close()
-
-        #for entry in table:
-        #    table[entry] += OFFSET_START
-
-    OFFECTSFILES = "base/overlay/overlay_0131.bin"
-    with open(OFFECTSFILES, 'wb+') as rom:
-        with open(OUTPUT_FIELD, 'rb') as binary:
-            rom.seek(0)
-            rom.write(binary.read())
-            binary.close()
-        rom.close()
-
-        #for entry in table:
-        #    table[entry] += OFFSET_START
+def writeall():
+    table = _write("base/overlay/overlay_0122.bin", OFFSET_START_IN_122 - OFFSET_START[0])
+    table = _write("base/overlay/overlay_0123.bin")
+    table = _write("base/overlay/overlay_0124.bin")
 
     width = max(map(len, table.keys())) + 1
     if os.path.isfile('offsets.ini'):
@@ -377,150 +339,19 @@ def writeall():
     offsetIni.truncate()
     for key in sorted(table.keys()):
         fstr = ('{:' + str(width) + '} {:08X}')
-        #offsetIni.write(fstr.format(key + ':', table[key]) + " /" + fstr.format(key + ':', table[key] - OFFSET_START) + '\n')
         offsetIni.write(fstr.format(key + ':', table[key]) + '\n')
     offsetIni.close()
 
 
 def repoint():
-    if os.path.isfile(ROUTINE_POINTERS):
-        table = GetSymbols()
-        with open(ROUTINE_POINTERS, 'r') as pointerlist:
-            definesDict = {}
-            conditionals = []
-            for line in pointerlist:
-                if TryProcessFileInclusion(line, definesDict):
-                    continue
-                if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                    continue
-                if line.strip().startswith('#') or line.strip() == '':
-                    continue
-
-                files, symbol, address = line.split()
-                #offset = int(address, 16) - 0x08000000
-                try:
-                    code = table[symbol]
-                except KeyError:
-                    print('Symbol missing:', symbol)
-                    continue
-                if files == "arm9":
-                    rom2 = open("base/arm9.bin", 'rb+')
-                    offset = int(address, 16) - 0x02000000 if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
-                else:
-                    rom2 = open("base/overlay/overlay_" + files + ".bin", 'rb+')
-                    with open("base/overarm9.bin", 'rb+') as y9Table:
-                        y9Table.seek((int(files)*0x20)+0x4) # read the overlay memory address for offset calculation
-                        offset = int(address, 16) - struct.unpack_from("<I", y9Table.read(4))[0] if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
-                Repoint(rom2, code, offset, 1)
-                rom2.close()
+    _hook(ROUTINE_POINTERS, Repoint, register_override=True)
 
 
 def offset():
-    if os.path.isfile(REPOINTS):
-        table = GetSymbols()
-        with open(REPOINTS, 'r') as repointList:
-            definesDict = {}
-            conditionals = []
-            for line in repointList:
-                if TryProcessFileInclusion(line, definesDict):
-                    continue
-                if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                    continue
-                if line.strip().startswith('#') or line.strip() == '':
-                    continue
-
-                files, symbol, address = line.split()
-                #offset = int(address, 16) - 0x08000000
-                try:
-                    addOffset = 0
-                    if '+' in symbol:
-                        symbol, addOffsetStr = symbol.split('+')
-                        addOffset = int(addOffsetStr, 16)
-                    code = table[symbol]
-                except KeyError:
-                    print('Symbol missing:', symbol)
-                    continue
-                if files == "arm9":
-                    rom = open("base/arm9.bin", 'rb+')
-                    offset = int(address, 16) - 0x02000000 if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
-                else:
-                    rom = open("base/overlay/overlay_" + files + ".bin", 'rb+')
-                    with open("base/overarm9.bin", 'rb+') as y9Table:
-                        y9Table.seek((int(files)*0x20)+0x4) # read the overlay memory address for offset calculation
-                        offset = int(address, 16) - struct.unpack_from("<I", y9Table.read(4))[0] if int(address, 16) & 0x02000000 else int(address, 16) - 0x08000000
-                Repoint(rom, code, offset, addOffset)
-                rom.close()
-
-
-def decompress():
-    if os.path.exists("build/arm9.bin"):
-        os.remove("build/arm9.bin")
-    shutil.copyfile("base/arm9.bin", "build/arm9.bin")
-    arm9 = open("build/arm9.bin", "wb+")
-    FNULL = open(os.devnull, 'w')
-    with open("base/arm9.bin", 'rb') as rom:
-        bin = rom.read()
-        if len(bin) < 0xBC000:
-            print("Decompress arm9.")
-            dec = bytearray(ndspy.codeCompression.decompress(bin))
-            dec[0xbb4] = 0
-            dec[0xbb5] = 0
-            dec[0xbb6] = 0
-            dec[0xbb7] = 0
-            arm9.write(dec)
-            shutil.copyfile("build/arm9.bin", "base/arm9.bin")
-        rom.close()
-        arm9.close()
-    with open("base/overarm9.bin", 'rb+') as rom:
-        rom.seek((1*0x20)+0x1C) #write 00 00 00 00 to (num*0x20)+0x1C to make game consider overlay num decompressed (and call decompress below)
-        bunh = bytes([0x0, 0x0, 0x0, 0x0])
-        rom.write(bytes(bunh))
-        rom.seek((2*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.seek((6*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.seek((7*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.seek((10*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.seek((12*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.seek((14*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.seek((15*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.seek((18*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.seek((63*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.seek((96*0x20)+0x1C)
-        rom.write(bytes(bunh))
-        rom.close()
-    decompress_file("base/overlay/overlay_0001.bin")
-    decompress_file("base/overlay/overlay_0002.bin")
-    decompress_file("base/overlay/overlay_0006.bin")
-    decompress_file("base/overlay/overlay_0007.bin")
-    decompress_file("base/overlay/overlay_0010.bin")
-    decompress_file("base/overlay/overlay_0012.bin")
-    decompress_file("base/overlay/overlay_0014.bin")
-    decompress_file("base/overlay/overlay_0015.bin")
-    decompress_file("base/overlay/overlay_0018.bin")
-    decompress_file("base/overlay/overlay_0063.bin")
-    decompress_file("base/overlay/overlay_0096.bin")
-
-
-def decompress_file(path):
-    try:
-        with open(path, 'rb') as f:
-            dec = ndspy.codeCompression.decompress(f.read())
-        with open(path, 'wb') as f:
-            f.write(dec)
-    except ValueError: # do nothing, file is already decompressed
-        print("")
+    _hook(REPOINTS, Repoint, try_offset=True)
 
 
 if __name__ == '__main__':
-    decompress()
     writeall()
     install()
     hook()

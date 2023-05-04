@@ -26,6 +26,10 @@ WAV2SWAV := wine tools/wav2swav.exe
 SWAV2SWAR := mono tools/swav2swar.exe
 endif
 
+default: all
+
+ROMNAME = rom.nds
+BUILDROM = test.nds
 ####################### Tools #########################
 PYTHON = python3
 O2NARC = tools/o2narc
@@ -64,7 +68,11 @@ INCLUDE_SUBDIR = include
 BUILD := build
 BUILD_NARC := $(BUILD)/narc
 BASE := base
-FILESYS := $(BASE)/root
+FILESYS := $(BASE)/data
+
+SYNTH_NARC_NAME := weather_sys
+SYNTH_NARC_PATH := $(FILESYS)/data/$(SYNTH_NARC_NAME)
+SYNTH_NARC_BUILD_TARGET := $(BUILD)/$(SYNTH_NARC_NAME)/$(SYNTH_NARC_NAME).narc_09
 
 
 INCLUDE_SRCS := $(wildcard $(INCLUDE_SUBDIR)/*.h)
@@ -121,6 +129,29 @@ $(BATTLE_OUTPUT):$(BATTLE_LINK)
 
 generate_output:$(OUTPUT)
 	$(PYTHON) scripts/generate_ld.py
+
+
+test_build:
+	rm -rf $(BASE) $(BUILD)
+	mkdir -p $(BASE)
+	mkdir -p $(BUILD)
+
+	$(NDSTOOL) -x $(ROMNAME) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
+	@echo " === ROM decompression successful! === "
+
+	$(NARCHIVE) extract $(SYNTH_NARC_PATH).narc -o $(BUILD)/data -nf
+	@echo " == Synthetic NARC files extracted! == "
+
+	# $(PYTHON) scripts/make.py
+	# $(ARMIPS) armips/global.s
+	# $(MAKE) move_narcs
+	$(NARCHIVE) create $(SYNTH_NARC_PATH).narc $(BUILD)/data -nf
+	
+	@echo " =========== Making ROM... =========== "
+	$(NDSTOOL) -c $(BUILDROM) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
+	@echo " =============== Done! =============== "
+
+	
 
 
 all: $(BATTLE_OUTPUT) $(FIELD_OUTPUT)
