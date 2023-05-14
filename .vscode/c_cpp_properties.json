@@ -1,18 +1,32 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/include/**"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "cStandard": "c17",
-            "intelliSenseMode": "windows-msvc-x64",
-            "configurationProvider": "ms-vscode.makefile-tools"
+            "cStandard": "c99",
+            "intelliSenseMode": "linux-gcc-arm",
+            "compilerPath": "/usr/bin/arm-none-eabi-gcc",
+            "compilerArgs": [
+                "-I ./include",
+                "-mthumb",
+                "-mno-thumb-interwork",
+                "-mcpu=arm7tdmi",
+                "-mtune=arm7tdmi",
+                "-mno-long-calls",
+                "-march=armv4t",
+                "-Wall",
+                "-Wextra",
+                "-Os",
+                "-fira-loop-pressure",
+                "-fipa-pta"
+            ]
         },
         {
             "name": "cpu",
