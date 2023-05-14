@@ -102,7 +102,7 @@ From here, continue to [Build Instructions](#Build-Instructions).
    4. `brew install automake`
    5. `pip3 install ndspy`
 4. Download and install Mono.
-   1. Use the instructions [here](echo "export DEVKITARM=$DEVKITARM" >> ~/.bashrc).
+   1. Use the instructions [here](https://www.mono-project.com/docs/getting-started/install/mac/).
 5. Finish setting up devkitPro.
    1. In Terminal, run `dkp-pacman -S gba-dev`, then press **Enter** when prompted to choose what to download from the `gba-dev` library.
    2. Close and re-open Terminal so that changes applied by `dkp-pacman` will be loaded.
