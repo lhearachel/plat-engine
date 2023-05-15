@@ -345,7 +345,7 @@ enum PokemonField {
 
     // BoxPokemon Block D data
     MON_PARAM_OT_NAME,
-    MON_PARAM_OT_NAME_AS_STRBUF,
+    MON_PARAM_OT_NAME_AS_STRING,
 
     MON_PARAM_CAUGHT_YEAR,
     MON_PARAM_CAUGHT_MONTH,
@@ -360,7 +360,7 @@ enum PokemonField {
 	MON_PARAM_POKERUS,
 	MON_PARAM_POKEBALL,
 	MON_PARAM_MET_LEVEL,
-	MON_PARAM_MET_GENDER,
+	MON_PARAM_OT_GENDER,
     MON_PARAM_ENCOUNTER_TYPE,
     MON_PARAM_DUMMY_BLOCK_D,
 
@@ -433,31 +433,33 @@ enum BaseStatsField {
     PERSONAL_TM_ARRAY_4,
 };
 
-#define NATURE_HARDY     0
-#define NATURE_LONELY    1
-#define NATURE_BRAVE     2
-#define NATURE_ADAMANT   3
-#define NATURE_NAUGHTY   4
-#define NATURE_BOLD      5
-#define NATURE_DOCILE    6
-#define NATURE_RELAXED   7
-#define NATURE_IMPISH    8
-#define NATURE_LAX       9
-#define NATURE_TIMID    10
-#define NATURE_HASTY    11
-#define NATURE_SERIOUS  12
-#define NATURE_JOLLY    13
-#define NATURE_NAIVE    14
-#define NATURE_MODEST   15
-#define NATURE_MILD     16
-#define NATURE_QUIET    17
-#define NATURE_BASHFUL  18
-#define NATURE_RASH     19
-#define NATURE_CALM     20
-#define NATURE_GENTLE   21
-#define NATURE_SASSY    22
-#define NATURE_CAREFUL  23
-#define NATURE_QUIRKY   24
+enum PokemonNature {
+    NATURE_HARDY,
+    NATURE_LONELY,
+    NATURE_BRAVE,
+    NATURE_ADAMANT,
+    NATURE_NAUGHTY,
+    NATURE_BOLD,
+    NATURE_DOCILE,
+    NATURE_RELAXED,
+    NATURE_IMPISH,
+    NATURE_LAX,
+    NATURE_TIMID,
+    NATURE_HASTY,
+    NATURE_SERIOUS,
+    NATURE_JOLLY,
+    NATURE_NAIVE,
+    NATURE_MODEST,
+    NATURE_MILD,
+    NATURE_QUIET,
+    NATURE_BASHFUL,
+    NATURE_RASH,
+    NATURE_CALM,
+    NATURE_GENTLE,
+    NATURE_SASSY,
+    NATURE_CAREFUL,
+    NATURE_QUIRKY,
+};
 
 // Hidden Ability stuff
 #define DUMMY_BLOCK_B_1_HIDDEN_ABILITY_MASK (0x01)
@@ -514,9 +516,151 @@ BOOL __attribute__((long_call)) BoxPokemon_Lock(struct BoxPokemon *boxMon);
  * Original Function: [`InitEncryptPkmnData_Part1Again @ 0x02073D48` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L193)
  * 
  * @param[in,out] boxMon    The BoxPokemon structure to be unlocked.
+ * @param[in]     flag      If set to TRUE, will perform the unlock.
  * @return                  TRUE if the lock was released, FALSE otherwise.
  */
-BOOL __attribute__((long_call)) BoxPokemon_Unlock(struct BoxPokemon *boxMon);
+BOOL __attribute__((long_call)) BoxPokemon_Unlock(struct BoxPokemon *boxMon, BOOL flag);
+
+/**
+ * @brief Get data from the Pokemon structure.
+ * 
+ * Original Function: [`GetPkmnData @ 0x02074470` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L1198)
+ * 
+ * @param[in]  pokemon  The Pokemon structure from which to pull data.
+ * @param[in]  field    Field ID of the data to be pulled from the structure.
+ * @param[out] buf      Buffer output, for array output.
+ * @return              Result data.
+ */
+u32  __attribute__((long_call)) Pokemon_Get(struct Pokemon *pokemon, enum PokemonField field, void *buf);
+
+/**
+ * @brief Compute the gender of a Pokemon.
+ * 
+ * The gender of a given Pokemon is based on the gender ratio of its species
+ * (specified in its base stats) and the individual's personality value (PID).
+ * The lowest byte of the PID is pulled and then compared against the species
+ * gender ratio:
+ * 
+ * | Gender Ratio | Nominal Ratio | Male Freq. | Female Freq. |
+ * | -----------: | ------------- | ---------- | ------------ |
+ * |          255 | No Gender     | N/A        | N/A          |
+ * |          254 | All Female    | 0%         | 100%         |
+ * |          225 | 1 : 7         | 12.11%     | 87.89%       |
+ * |          191 | 1 : 3         | 25.39%     | 74.61%       |
+ * |          127 | 1 : 1         | 50.39%     | 49.61%       |
+ * |           63 | 3 : 1         | 75.39%     | 24.61%       |
+ * |           31 | 7 : 1         | 87.89%     | 12.11%       |
+ * |            0 | All Male      | 100%       | 0%           |
+ * 
+ * Original Function: [`Call_DecidePkmnGender @ 0x02075D6C` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L5180)
+ * See Also: [Bulbapedia Article](https://bulbapedia.bulbagarden.net/wiki/Personality_value#Gender)
+ * 
+ * @param[in] pokemon
+ * @return              Computed gender from the Pokemon's PID; 0 == Male, 1 == Female, 2 == None.
+ */
+u8   __attribute__((long_call)) Pokemon_CalcGender(struct Pokemon *pokemon);
+
+/**
+ * @brief Compute the nature of a Pokemon.
+ * 
+ * The nature of a given Pokemon is determined by computing the remainder of
+ * its personality value (PID) when divided by 25.
+ * 
+ * See `enum PokemonNature` for the correspondence of raw result values to
+ * true natures.
+ * 
+ * Original Function: [`Function_2075BCC` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L4914)
+ * See Also: [Bulbapedia Article](https://bulbapedia.bulbagarden.net/wiki/Personality_value#Nature)
+ * 
+ * @param[in] pokemon
+ * @return              Computed nature from the Pokemon's PID
+ */
+u8   __attribute__((long_call)) Pokemon_CalcNature(struct Pokemon *pokemon);
+
+/**
+ * @brief Compute the shininess of a Pokemon.
+ * 
+ * The shininess of a given Pokemon is determined by the following computation:
+ * 
+ * OT_ID ^ OT_SecretID ^ PID[31..16] ^ PID[15..0]
+ *
+ * Original Function: [`Call_CheckIfShinyPkmn_2 @ 0x02075E0C` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L5295)
+ * See Also: [Bulbapedia Article](https://bulbapedia.bulbagarden.net/wiki/Personality_value#Shininess)
+ * 
+ * @param[in] pokemon
+ * @return              Computed shininess from the Pokemon's PID; 1 == Shiny, 0 otherwise.
+ */
+u8   __attribute__((long_call)) Pokemon_CalcShiny(struct Pokemon *pokemon);
+
+/**
+ * @brief Compute the amount of experience needed for a Pokemon to reach a
+ * given level.
+ * 
+ * The value returned is absolute; it represents the raw experience value
+ * required to reach the input level, not how much is needed to reach the
+ * level from any present value.
+ * 
+ * Original Function: [`GetBaseExpPts @ 0x02075AD0` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L4742)
+ * 
+ * @param[in] species   The species of a particular Pokemon.
+ * @param[in] level     The level to be reached.
+ * @return              The amount of experienced needed to reach the input level.
+ */
+u32  __attribute__((long_call)) Pokemon_CalcExpForLevel(int species, int level);
+
+/**
+ * @brief Determine if a given Pokemon likes a particular flavor.
+ * 
+ * Original Function: [`Call_GetPkmnNatureData @ 0x0207762C` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L9112)
+ * 
+ * @param[in] pokemon
+ * @param[in] flavor    The flavor to test; see constants/misc.h for definitions.
+ * @return              -1 if the flavor is disliked, 1 if the flavor is liked, 0 otherwise.
+ */
+s8   __attribute__((long_call)) Pokemon_CalcFlavorAffinity(struct Pokemon *pokemon, int flavor);
+
+/**
+ * @brief Check if a given Pokemon is immune to Pokerus (i.e. has had it before).
+ * 
+ * Original Function: [`Function_20778f8` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L9537)
+ * 
+ * @param[in] pokemon
+ * @return              TRUE if the Pokemon has previously contracted Pokerus, FALSE otherwise.
+ */
+BOOL __attribute__((long_call)) Pokemon_CheckPokerusImmune(struct Pokemon *pokemon);
+
+/**
+ * @brief Check if a given Pokemon is currently infected with Pokerus.
+ * 
+ * Original Function: [`Function_20778d8` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L9508)
+ * 
+ * @param[in] pokemon
+ * @return              TRUE if the Pokemon is currently infected with Pokerus, FALSE otherwise.
+ */
+BOOL __attribute__((long_call)) Pokemon_CheckPokerus(struct Pokemon *pokemon);
+
+/**
+ * @brief Attempts to lock the Pokemon structure, designating to any other
+ * competing threads that it is undergoing a read/write.
+ * 
+ * Original Function: [`InitEncryptPkmnData @ 0x02073C88` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L72)
+ * 
+ * @param[in,out] pokemon   The Pokemon structure to be locked.
+ * @return                  TRUE if the lock was acquired, FALSE otherwise.
+ */
+BOOL __attribute__((long_call)) Pokemon_Lock(struct Pokemon *pokemon);
+
+/**
+ * @brief Attempts to unlock the Pokemon structure, permitting other threads
+ * to perform read/write operations.
+ * 
+ * Original Function: [`InitEncryptPkmnData_Part1And2 @ 0x02073CD4` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L118)
+ * 
+ * @param[in,out] pokemon   The Pokemon structure to be unlocked.
+ * @param[in]     flag      If set to TRUE, will perform the unlock.
+ * @return                  TRUE if the lock was released, FALSE otherwise.
+ */
+BOOL __attribute__((long_call)) Pokemon_Unlock(struct Pokemon *pokemon, BOOL flag);
 
 /**
  * @brief Get a data element from the base stats data for a particular species.

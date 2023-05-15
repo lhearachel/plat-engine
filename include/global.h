@@ -3,7 +3,7 @@
 
 #include "archive.h"
 #include "config.h"
-#include "types.h"
+#include "typedefs.h"
 
 #define NELEMS(array)       (sizeof(array) / sizeof(array[0]))
 #define OFFSET_OF(st, m)    ((u32) &(((st *) 0)->m))
