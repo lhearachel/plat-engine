@@ -1,80 +1,125 @@
 #include "global.h"
 #include "summary.h"
 
-#include "constants/misc.h"
+#define SUMMARY_SCREEN_HEAP_ID  19
 
-void Summary_SetPokemonData(void *summary, struct Pokemon *pokemon, struct SummaryPokemonData *data)
+typedef u32 (*PokemonDataFunc)(void*, int, void*);
+
+static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
 {
-    BOOL locked = Pokemon_Lock(pokemon);
-    struct BoxPokemon *boxMon = &pokemon->boxParams;
+    void *rawPokemon = Summary_GetPokemonData(summary);
 
-    // TODO: build strings
+    PokemonDataFunc dataFunc = &Pokemon_Get;
+    if (summary->baseData->dataType == 2) {
+        dataFunc = &BoxPokemon_Get;
+    }
 
-    data->species   = (u16) Pokemon_Get(pokemon, MON_PARAM_SPECIES,     NULL);
-    data->heldItem  = (u16) Pokemon_Get(pokemon, MON_PARAM_HELD_ITEM,   NULL);
-    data->level     =  (u8) Pokemon_Get(pokemon, MON_PARAM_LEVEL,       NULL);
-    data->isEgg     =       Pokemon_Get(pokemon, MON_PARAM_IS_EGG,      NULL);
-    data->ballType  =  (u8) Pokemon_Get(pokemon, MON_PARAM_POKEBALL,    NULL);
-    data->type1     =  (u8) Pokemon_Get(pokemon, MON_PARAM_TYPE1,       NULL);
-    data->type2     =  (u8) Pokemon_Get(pokemon, MON_PARAM_TYPE2,       NULL);
-    data->otID      =       Pokemon_Get(pokemon, MON_PARAM_OT_ID,       NULL);
-    data->otGender  =       Pokemon_Get(pokemon, MON_PARAM_OT_GENDER,   NULL);
-    data->ability   =  (u8) Pokemon_Get(pokemon, MON_PARAM_ABILITY,     NULL);
-    data->curExp    =       Pokemon_Get(pokemon, MON_PARAM_EXP,         NULL);
-    data->mark      =       Pokemon_Get(pokemon, MON_PARAM_MARKINGS,    NULL);
-    data->form      =       Pokemon_Get(pokemon, MON_PARAM_FORM_NUMBER, NULL);
-
-    data->hp        = (u16) Pokemon_Get(pokemon, MON_PARAM_CURRENT_HP,  NULL);
-    data->maxHP     = (u16) Pokemon_Get(pokemon, MON_PARAM_MAX_HP,      NULL);
-    data->attack    = (u16) Pokemon_Get(pokemon, MON_PARAM_ATTACK,      NULL);
-    data->defense   = (u16) Pokemon_Get(pokemon, MON_PARAM_DEFENSE,     NULL);
-    data->spAttack  = (u16) Pokemon_Get(pokemon, MON_PARAM_SPATTACK,    NULL);
-    data->spDefense = (u16) Pokemon_Get(pokemon, MON_PARAM_SPDEFENSE,   NULL);
-    data->speed     = (u16) Pokemon_Get(pokemon, MON_PARAM_SPEED,       NULL);
-
-    data->cool      =  (u8) Pokemon_Get(pokemon, MON_PARAM_COOL,        NULL);
-    data->beauty    =  (u8) Pokemon_Get(pokemon, MON_PARAM_BEAUTY,      NULL);
-    data->cute      =  (u8) Pokemon_Get(pokemon, MON_PARAM_CUTE,        NULL);
-    data->smart     =  (u8) Pokemon_Get(pokemon, MON_PARAM_SMART,       NULL);
-    data->tough     =  (u8) Pokemon_Get(pokemon, MON_PARAM_TOUGH,       NULL);
-    data->sheen     =  (u8) Pokemon_Get(pokemon, MON_PARAM_SHEEN,       NULL);
-
-    data->gender      = Pokemon_CalcGender(pokemon);
-    data->nature      = Pokemon_CalcNature(pokemon);
-    data->isShiny     = Pokemon_CalcShiny(pokemon);
-    data->curLevelExp = Pokemon_CalcExpForLevel(data->species, data->level);
-
-    // Don't show gender marker for hatched Nidorans
-    data->showGender  = Pokemon_Get(pokemon, MON_PARAM_NIDORAN_NICKNAME, NULL) == FALSE;
-
-    // Handle level 100 mons' next-level values
-    if (data->level == 100) {
-        data->nextLevelExp = 0;
+    int paramStart = MON_PARAM_MAX_HP;
+    if (mode == 0) {
+        summary->pokemonData.hp = (u16) dataFunc(rawPokemon, MON_PARAM_CURRENT_HP, NULL);
     } else {
-        data->nextLevelExp = Pokemon_CalcLevelExp(data->species, data->level + 1);
+        if (mode == 1) {
+            paramStart = MON_PARAM_HP_EV;
+        } else if (mode == 2) {
+            paramStart = MON_PARAM_HP_IV;
+        }
+
+        summary->pokemonData.hp = (u16) dataFunc(rawPokemon, paramStart, NULL);
     }
 
-    // Compute the mon's favorite flavor
-    data->favoriteFlavor = FLAVOR_NONE;
-    for (int i = 0; i < 5; i++) {
-        if (Pokemon_CalcFlavorAffinity(pokemon, i) == 1) {
-            data->favoriteFlavor = i;
-            break;
-        }
+    summary->pokemonData.attack    = (u16) dataFunc(rawPokemon, paramStart + 1, NULL);
+    summary->pokemonData.defense   = (u16) dataFunc(rawPokemon, paramStart + 2, NULL);
+    summary->pokemonData.spAttack  = (u16) dataFunc(rawPokemon, paramStart + 3, NULL);
+    summary->pokemonData.spDefense = (u16) dataFunc(rawPokemon, paramStart + 4, NULL);
+    summary->pokemonData.speed     = (u16) dataFunc(rawPokemon, paramStart + 5, NULL);
+}
+
+#define COLOR(l, s, g) ((u32)(((l & 0xFF) << 16) | ((s & 0xFF) << 8) | ((g & 0xFF) << 0)))
+#define BLACK          (COLOR(1, 2, 0))
+#define BLUE           (COLOR(3, 4, 0))
+#define RED            (COLOR(5, 6, 0))
+
+void Summary_ChangeStatScreenState(struct SummaryState *summary, u8 mode)
+{
+    for (int i = 0; i < 6; i++) {
+        Window_FillWithColor(&summary->addlWindows[i], 0);
     }
 
-    // Compute any status icon for the display
-    data->status = Summary_PickStatusIcon(pokemon);
-    if (Pokemon_CheckPokerusImmune(pokemon)) {
-        data->pokerus = 2;
-    } else if (Pokemon_CheckPokerus(pokemon)) {
-        data->pokerus = 1;
-        if (data->status == STATUS_ICON_NONE) {
-            data->status =  STATUS_ICON_POKERUS;
-        }
+    UpdatePokemonData(summary, mode);
+
+    if (mode) {
+        // Print IVs or EVs
+        Summary_NumberToString(summary, 119, summary->pokemonData.hp, 3, 1);
+        PrintStatNumberWithColor(summary, 0, JUSTIFY_CENTER);
     } else {
-        data->pokerus = 0;
+        // Print cur and max
+        u8 xsize = summary->addlWindows[0].sizX * 8;
+        Summary_PrintCurrentOverMax(
+            summary,
+            0,
+            117, 119, 118,
+            summary->pokemonData.hp,
+            summary->pokemonData.maxHP,
+            3,
+            xsize / 2, 0
+        );
     }
 
-    // TODO: Compute ribbons for display
+    Summary_NumberToString(summary, 120, summary->pokemonData.attack, 3, 0);
+    PrintStatNumberWithColor(summary, 1, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 121, summary->pokemonData.defense, 3, 0);
+    PrintStatNumberWithColor(summary, 2, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 122, summary->pokemonData.spAttack, 3, 0);
+    PrintStatNumberWithColor(summary, 3, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 123, summary->pokemonData.spDefense, 3, 0);
+    PrintStatNumberWithColor(summary, 4, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 124, summary->pokemonData.speed, 3, 0);
+    PrintStatNumberWithColor(summary, 5, JUSTIFY_RIGHT);
+
+    for (int i = 0; i < 6; i++) {
+        Window_ToVRAM(&summary->addlWindows[i]);
+    }
+
+    UpdatePokemonData(summary, 0);      // Recover old data for page change
+}
+
+static s8 sNatureStatEffects[25][6] = {
+    // atk, def, spatk, spdef, speed
+    {  0,  0,  0,  0,  0,  0  },    // Hardy
+    {  0,  1, -1,  0,  0,  0  },    // Lonely
+    {  0,  1,  0,  0,  0, -1  },    // Brave
+    {  0,  1,  0, -1,  0,  0  },    // Adamant
+    {  0,  1,  0,  0, -1,  0  },    // Naughty
+    {  0, -1,  1,  0,  0,  0  },    // Bold
+    {  0,  0,  0,  0,  0,  0  },    // Docile
+    {  0,  0,  1,  0,  0, -1  },    // Relaxed
+    {  0,  0,  1, -1,  0,  0  },    // Impish
+    {  0,  0,  1,  0, -1,  0  },    // Lax
+    {  0, -1,  0,  0,  0,  1  },    // Timid
+    {  0,  0, -1,  0,  0,  1  },    // Hasty
+    {  0,  0,  0,  0,  0,  0  },    // Serious
+    {  0,  0,  0, -1,  0,  1  },    // Jolly
+    {  0,  0,  0,  0, -1,  1  },    // Naive
+    {  0, -1,  0,  1,  0,  0  },    // Modest
+    {  0,  0, -1,  1,  0,  0  },    // Mild
+    {  0,  0,  0,  1,  0, -1  },    // Quiet
+    {  0,  0,  0,  0,  0,  0  },    // Bashful
+    {  0,  0,  0,  1, -1,  0  },    // Rash
+    {  0, -1,  0,  0,  1,  0  },    // Calm
+    {  0,  0, -1,  0,  1,  0  },    // Gentle
+    {  0,  0,  0,  0,  1,  1  },    // Sassy
+    {  0,  0,  0, -1,  1,  0  },    // Careful
+    {  0,  0,  0,  0,  0,  0  },    // Quirky
+};
+
+static inline PrintStatNumberWithColor(struct SummaryState *summary, u8 windowIdx, u32 justify)
+{
+    u32 color = BLACK;
+    if (sNatureStatEffects[summary->pokemonData.nature][windowIdx] > 0) {
+        color = RED;
+    } else if (sNatureStatEffects[summary->pokemonData.nature][windowIdx] < 0) {
+        color = BLUE;
+    }
+
+    Summary_PrintString(summary, &summary->addlWindows[windowIdx], color, justify);
 }

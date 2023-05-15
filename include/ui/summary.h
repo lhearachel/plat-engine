@@ -6,16 +6,49 @@
 #include "global.h"
 #include "pokemon.h"
 
-enum SummaryStatusIcon {
-    STATUS_ICON_POKERUS,
-    STATUS_ICON_PARALYZED,
-    STATUS_ICON_FROZEN,
-    STATUS_ICON_ASLEEP,
-    STATUS_ICON_POISONED,
-    STATUS_ICON_BURNED,
-    STATUS_ICON_FAINTED,
+#include "ui/window.h"
 
-    STATUS_ICON_NONE,
+struct SummaryState {
+    void *bgl;
+    struct Window defnWindows[36];
+    struct Window *addlWindows;
+    u32 addlWindowCount;
+
+    struct SummaryBaseData    *baseData;
+    struct SummaryPokemonData pokemonData;
+
+    // rest of the hooked struct from here is undocumented
+};
+
+enum SummaryStringJustify {
+    JUSTIFY_LEFT,
+    JUSTIFY_RIGHT,
+    JUSTIFY_CENTER,
+};
+
+struct SummaryBaseData {
+    void *ppd;                  /* 0x00 */
+    void *config;               /* 0x04 */
+    u16  *playerName;           /* 0x08 */
+    u32  playerID;              /* 0x0C */
+    u8   playerGender;          /* 0x10 */
+    u8   dataType;              /* 0x11 */
+    u8   mode;
+    u8   limit;
+    u8   pos;
+    u8   pageFlag;
+
+    u8   selectedMoveOut;
+    u8   selectedModeOut;
+    u16  move;
+
+    u32  dexDisplayMode;
+
+    void *ribbons;
+    void *pokeblocks;
+    void *cry;
+
+    BOOL contest;
 };
 
 struct SummaryPokemonData {
@@ -94,5 +127,49 @@ u32  __attribute__((long_call)) Summary_PickStatusIcon(struct Pokemon *pokemon);
  * @param[in,out] data
  */
 void __attribute__((long_call)) Summary_SetPokemonData(void *summary, struct Pokemon *pokemon, struct SummaryPokemonData *data);
+
+/**
+ * @brief Returns the underlying Pokemon struct attached to this summary.
+ * 
+ * This can be either a BoxPokemon or a Pokemon struct; which of them it is
+ * depends on the source of the summary screen (since it can be accessed
+ * from the PC).
+ * 
+ * Original Function: `Function_208dd48` (ARM9)
+ * 
+ * @param[in] summary
+ * @return              The Pokemon struct attached to the summary.
+ */
+void* __attribute__((long_call)) Summary_GetPokemonData(struct SummaryState *summary);
+
+/**
+ * @brief Converts a number input to a displayable string and stores it in
+ * the summary's holding buffer.
+ * 
+ * Original Function: `Function_2090184` (ARM9)
+ * 
+ * @param[in,out] summary
+ * @param[in]     arcMessageID  ID of the string to be pulled from text archive 455.
+ * @param[in]     num           The number to be converted.
+ * @param[in]     digits        The maximum number of digits permitted.
+ * @param[in]     displayType   0 == left-justified; 1 == left-padded by spaces; 2 == left-padded by zeroes.
+ */
+void  __attribute__((long_call)) Summary_NumberToString(struct SummaryState *summary, u32 arcMessageID, u32 num, u8 digits, u8 displayType);
+
+/**
+ * @brief Prints the string in the summary's holding buffer to the given window.
+ * 
+ * Original Function: `Function_20900d8` (ARM9)
+ */
+void  __attribute__((long_call)) Summary_PrintString(struct SummaryState *summary, struct Window *window, u32 color, u32 justify);
+
+// pst_bmp::NumSraMaxStrPut
+void  __attribute__((long_call)) Summary_PrintCurrentOverMax(struct SummaryState *summary, u32 windowIdx, u32 idSep, u32 idCur, u32 idMax, u16 cur, u16 max, u8 digits, u8 x, u8 y);
+
+/**
+ * @brief Updates the state necessary for the stats page of the summary.
+ * 
+ */
+void  __attribute__((long_call)) Summary_ChangeStatScreenState(struct SummaryState *summary, u8 mode);
 
 #endif // __UI_SUMMARY_H

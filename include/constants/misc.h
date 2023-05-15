@@ -67,6 +67,7 @@
 #define EGG_GROUP_UNDISCOVERED  0xF
 
 // ===== Flavors =====
+
 #define FLAVOR_SPICY    0
 #define FLAVOR_DRY      1
 #define FLAVOR_SWEET    2
