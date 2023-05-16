@@ -66,4 +66,13 @@
 #define EGG_GROUP_DRAGON        0xE
 #define EGG_GROUP_UNDISCOVERED  0xF
 
+// ===== Flavors =====
+
+#define FLAVOR_SPICY    0
+#define FLAVOR_DRY      1
+#define FLAVOR_SWEET    2
+#define FLAVOR_BITTER   3
+#define FLAVOR_SOUR     4
+#define FLAVOR_NONE     5
+
 #endif // __CONSTANTS_MISC_H

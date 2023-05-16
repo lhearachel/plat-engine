@@ -41,13 +41,13 @@ else:  # Linux, OSX, etc.
 OUTPUT = 'build/output.bin'
 OUTPUT_FIELD = 'build/output_field.bin'
 OUTPUT_BATTLE = 'build/output_battle.bin'
-BYTE_REPLACEMENT = 'bytereplacement'
+BYTE_REPLACEMENT = 'buildsys/bytereplacement'
 HOOKS = 'buildsys/hooks'
 ARM_HOOKS = 'buildsys/armhooks'
 REPOINTS = 'buildsys/repoints'
 ROUTINE_POINTERS = 'buildsys/routinepointers'
 
-LINKED_SECTIONS = ['build/linked.o', 'build/battle_linked.o', 'build/field_linked.o']
+LINKED_SECTIONS = ['build/linked.o']#, 'build/battle_linked.o', 'build/field_linked.o']
 OFFSET_START_IN_122 = 0x023C8000 + 0x1000
 OFFSET_START = [0x023C8000, 0x023D0000, 0x023D0000]
 
@@ -313,11 +313,11 @@ def hook():
     _hook(ARM_HOOKS, HookARM)
 
 
-def _write(offects_file: str, offset: int=0):
+def _write(offects_file: str, binary_file: str, offset: int=0):
     with open(offects_file, 'wb+') as rom:
         print(f'Inserting code to {offects_file}.')
         table = GetSymbols()
-        with open(OUTPUT, 'rb') as binary:
+        with open(binary_file, 'rb') as binary:
             rom.seek(offset)
             rom.write(binary.read())
             binary.close()
@@ -326,9 +326,9 @@ def _write(offects_file: str, offset: int=0):
 
 
 def writeall():
-    table = _write("base/overlay/overlay_0122.bin", OFFSET_START_IN_122 - OFFSET_START[0])
-    table = _write("base/overlay/overlay_0123.bin")
-    table = _write("base/overlay/overlay_0124.bin")
+    table = _write("base/overlay/overlay_0122.bin", OUTPUT, OFFSET_START_IN_122 - OFFSET_START[0])
+    #table = _write("base/overlay/overlay_0123.bin", OUTPUT_BATTLE)
+    #table = _write("base/overlay/overlay_0124.bin", OUTPUT_FIELD)
 
     width = max(map(len, table.keys())) + 1
     if os.path.isfile('offsets.ini'):

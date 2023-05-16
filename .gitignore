@@ -66,6 +66,15 @@ __pycache__/*
 *.nds
 *.xmap
 
+# ghidra stuff
+/platinum.gpr
+/platinum.lock
+/platinum.lock~
+/platinum.rep/
+
+/offsets.ini
+/buildsys/rom_gen.ld
+
 /armips/asm/offset.s
 /tools/genleveldatatxt
 /tools/gengfxnarc.exe

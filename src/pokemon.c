@@ -55,5 +55,5 @@ void __attribute__((long_call)) BoxPokemon_ToggleHiddenAbility(void *boxMon)
         BoxPokemon_Set(boxMon, MON_PARAM_ABILITY, (u8*) &ability1);
     }
 
-    BoxPokemon_Unlock(boxMon);
+    BoxPokemon_Unlock(boxMon, fastMode);
 }
