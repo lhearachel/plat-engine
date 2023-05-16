@@ -88,7 +88,7 @@ static inline PrintStatNumberWithColor(struct SummaryState *summary, u8 windowId
 void Summary_ChangeStatScreenState(struct SummaryState *summary, u8 mode)
 {
     u8 buf[32];
-    sprintf(buf, "Hit the routine, mode=%d", mode);
+    sprintf(buf, "Hit the routine, mode=%d\n", mode);
     debugsyscall(buf);
 
     for (int i = 0; i < 6; i++) {
