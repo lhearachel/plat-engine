@@ -27,11 +27,13 @@ static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
             summary->pokemonData.hp = (u16) dataFunc(rawPokemon, paramStart, NULL);
     }
 
+    // Pokemon struct orders all data parameters as such:
+    // Attack -> Defense -> Speed -> SpAttack -> SpDefense
     summary->pokemonData.attack    = (u16) dataFunc(rawPokemon, paramStart + 1, NULL);
     summary->pokemonData.defense   = (u16) dataFunc(rawPokemon, paramStart + 2, NULL);
-    summary->pokemonData.spAttack  = (u16) dataFunc(rawPokemon, paramStart + 3, NULL);
-    summary->pokemonData.spDefense = (u16) dataFunc(rawPokemon, paramStart + 4, NULL);
-    summary->pokemonData.speed     = (u16) dataFunc(rawPokemon, paramStart + 5, NULL);
+    summary->pokemonData.speed     = (u16) dataFunc(rawPokemon, paramStart + 3, NULL);
+    summary->pokemonData.spAttack  = (u16) dataFunc(rawPokemon, paramStart + 4, NULL);
+    summary->pokemonData.spDefense = (u16) dataFunc(rawPokemon, paramStart + 5, NULL);
 }
 
 #define COLOR(l, s, g) ((u32)(((l & 0xFF) << 16) | ((s & 0xFF) << 8) | ((g & 0xFF) << 0)))
