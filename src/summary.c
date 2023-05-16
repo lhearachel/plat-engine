@@ -8,8 +8,9 @@ typedef u32 (*PokemonDataFunc)(void*, int, void*);
 
 static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
 {
-    void *rawPokemon = Summary_GetPokemonData(summary);
+    void *pokemon = Summary_GetPokemonData(summary);
 
+    // Use a different data accessor for summary screens from a PC box
     PokemonDataFunc dataFunc = &Pokemon_Get;
     if (summary->baseData->dataType == 2) {
         dataFunc = &BoxPokemon_Get;
@@ -19,7 +20,7 @@ static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
 
     // Pokemon struct orders current HP before max HP, so need to handle mode == 0 as a special case
     if (mode == 0) {
-        summary->pokemonData.hp = (u16) dataFunc(rawPokemon, MON_PARAM_CURRENT_HP, NULL);
+        summary->pokemonData.hp = (u16) dataFunc(pokemon, MON_PARAM_CURRENT_HP, NULL);
     } else {
         if (mode == 1) {
             paramStart = MON_PARAM_HP_EV;
@@ -27,22 +28,28 @@ static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
             paramStart = MON_PARAM_HP_IV;
         }
 
-        summary->pokemonData.hp = (u16) dataFunc(rawPokemon, paramStart, NULL);
+        summary->pokemonData.hp = (u16) dataFunc(pokemon, paramStart, NULL);
     }
 
     // Pokemon struct orders all data parameters as such:
     // Attack -> Defense -> Speed -> SpAttack -> SpDefense
-    summary->pokemonData.attack    = (u16) dataFunc(rawPokemon, paramStart + 1, NULL);
-    summary->pokemonData.defense   = (u16) dataFunc(rawPokemon, paramStart + 2, NULL);
-    summary->pokemonData.speed     = (u16) dataFunc(rawPokemon, paramStart + 3, NULL);
-    summary->pokemonData.spAttack  = (u16) dataFunc(rawPokemon, paramStart + 4, NULL);
-    summary->pokemonData.spDefense = (u16) dataFunc(rawPokemon, paramStart + 5, NULL);
+    summary->pokemonData.attack    = (u16) dataFunc(pokemon, paramStart + 1, NULL);
+    summary->pokemonData.defense   = (u16) dataFunc(pokemon, paramStart + 2, NULL);
+    summary->pokemonData.speed     = (u16) dataFunc(pokemon, paramStart + 3, NULL);
+    summary->pokemonData.spAttack  = (u16) dataFunc(pokemon, paramStart + 4, NULL);
+    summary->pokemonData.spDefense = (u16) dataFunc(pokemon, paramStart + 5, NULL);
 }
 
+// Components here are indices into the system font palette.
+//   l == index of the color to use for the letter itself
+//   s == index of the color to use for the shadow of the letter
+//   g == index of the color to use for the background of the letter (0 == transparent)
 #define COLOR(l, s, g) ((u32)(((l & 0xFF) << 16) | ((s & 0xFF) << 8) | ((g & 0xFF) << 0)))
-#define BLACK          (COLOR(1, 2, 0))
-#define BLUE           (COLOR(3, 4, 0))
-#define RED            (COLOR(5, 6, 0))
+#define BLACK          (COLOR(1,  2, 0))
+#define BLUE           (COLOR(3,  4, 0))
+#define RED            (COLOR(5,  6, 0))
+#define PINK           (COLOR(7,  8, 0))
+#define GREEN          (COLOR(9, 10, 0))
 
 static s8 sNatureStatEffects[25][6] = {
     // atk, def, spatk, spdef, speed
@@ -85,12 +92,22 @@ static inline PrintStatNumberWithColor(struct SummaryState *summary, u8 windowId
     Summary_PrintString(summary, &summary->addlWindows[windowIdx], color, justify);
 }
 
+void Summary_ColorizeStatScreen(struct SummaryState *summary)
+{
+    Summary_NumberToString(summary, 120, summary->pokemonData.attack, 3, 0);
+    PrintStatNumberWithColor(summary, 1, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 121, summary->pokemonData.defense, 3, 0);
+    PrintStatNumberWithColor(summary, 2, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 122, summary->pokemonData.spAttack, 3, 0);
+    PrintStatNumberWithColor(summary, 3, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 123, summary->pokemonData.spDefense, 3, 0);
+    PrintStatNumberWithColor(summary, 4, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 124, summary->pokemonData.speed, 3, 0);
+    PrintStatNumberWithColor(summary, 5, JUSTIFY_RIGHT);
+}
+
 void Summary_ChangeStatScreenState(struct SummaryState *summary, u8 mode)
 {
-    u8 buf[32];
-    sprintf(buf, "Hit the routine, mode=%d\n", mode);
-    debugsyscall(buf);
-
     for (int i = 0; i < 6; i++) {
         Window_FillWithColor(&summary->addlWindows[i], 0);
     }
@@ -114,17 +131,8 @@ void Summary_ChangeStatScreenState(struct SummaryState *summary, u8 mode)
             xsize / 2, 0
         );
     }
-
-    Summary_NumberToString(summary, 120, summary->pokemonData.attack, 3, 0);
-    PrintStatNumberWithColor(summary, 1, JUSTIFY_RIGHT);
-    Summary_NumberToString(summary, 121, summary->pokemonData.defense, 3, 0);
-    PrintStatNumberWithColor(summary, 2, JUSTIFY_RIGHT);
-    Summary_NumberToString(summary, 122, summary->pokemonData.spAttack, 3, 0);
-    PrintStatNumberWithColor(summary, 3, JUSTIFY_RIGHT);
-    Summary_NumberToString(summary, 123, summary->pokemonData.spDefense, 3, 0);
-    PrintStatNumberWithColor(summary, 4, JUSTIFY_RIGHT);
-    Summary_NumberToString(summary, 124, summary->pokemonData.speed, 3, 0);
-    PrintStatNumberWithColor(summary, 5, JUSTIFY_RIGHT);
+    
+    Summary_ColorizeStatScreen(summary);
 
     for (int i = 0; i < 6; i++) {
         Window_ToVRAM(&summary->addlWindows[i]);

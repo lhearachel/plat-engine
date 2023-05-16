@@ -103,7 +103,7 @@ struct SummaryState {
     struct SummaryBaseData    *baseData;
     struct SummaryPokemonData pokemonData;
 
-    // rest of the hooked struct from here is undocumented
+    // rest of the hooked struct from here is undocumented, glhf
 };
 
 /**
@@ -189,6 +189,14 @@ void  __attribute__((long_call)) Summary_PrintCurrentOverMax(struct SummaryState
 // ========================================================================= //
 //                      NOVEL FUNCTIONS START HERE                           //
 // ========================================================================= //
+
+/**
+ * @brief Prints values onto the stat screen with appropriate colors based on
+ * the input Pokemon's nature.
+ * 
+ * @param[in,out] summary
+ */
+void __attribute__((long_call)) Summary_ColorizeStatScreen(struct SummaryState *summary);
 
 /**
  * @brief Updates the state necessary for the stats page of the summary.
