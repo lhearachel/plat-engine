@@ -16,15 +16,18 @@ static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
     }
 
     int paramStart = MON_PARAM_MAX_HP;
-    switch (mode) {
-        case 0:
-            summary->pokemonData.hp = (u16) dataFunc(rawPokemon, MON_PARAM_CURRENT_HP, NULL);
-            break;
-        case 1:
-            paramStart = MON_PARAM_HP_EV;   // fall through
-        case 2:
+
+    // Pokemon struct orders current HP before max HP, so need to handle mode == 0 as a special case
+    if (mode == 0) {
+        summary->pokemonData.hp = (u16) dataFunc(rawPokemon, MON_PARAM_CURRENT_HP, NULL);
+    } else {
+        if (mode == 1) {
+            paramStart = MON_PARAM_HP_EV;
+        } else {
             paramStart = MON_PARAM_HP_IV;
-            summary->pokemonData.hp = (u16) dataFunc(rawPokemon, paramStart, NULL);
+        }
+
+        summary->pokemonData.hp = (u16) dataFunc(rawPokemon, paramStart, NULL);
     }
 
     // Pokemon struct orders all data parameters as such:
