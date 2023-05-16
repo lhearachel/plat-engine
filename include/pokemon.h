@@ -465,12 +465,12 @@ enum PokemonNature {
 #define DUMMY_BLOCK_B_1_HIDDEN_ABILITY_MASK (0x01)
 
 #define BOX_MON_IS_HIDDEN_ABILITY(boxMon) ( \
-    GetBoxMonData(boxMon, MON_PARAM_DUMMY_BLOCK_B_1, NULL) & DUMMY_BLOCK_B_1_HIDDEN_ABILITY_MASK \
+    BoxPokemon_Get(boxMon, MON_PARAM_DUMMY_BLOCK_B_1, NULL) & DUMMY_BLOCK_B_1_HIDDEN_ABILITY_MASK \
 )
 #define SET_BOX_MON_HIDDEN_ABILITY_BIT(boxMon) { \
-    u16 tempassumeunused = GetBoxMonData(boxMon, MON_PARAM_DUMMY_BLOCK_B_1, NULL); \
+    u16 tempassumeunused = BoxPokemon_Get(boxMon, MON_PARAM_DUMMY_BLOCK_B_1, NULL); \
     tempassumeunused |= DUMMY_P2_1_HIDDEN_ABILITY_MASK; \
-    SetBoxMonData(boxMon, MON_PARAM_DUMMY_BLOCK_B_1, (u8*) &tempassumeunused) \
+    BoxPokemon_Set(boxMon, MON_PARAM_DUMMY_BLOCK_B_1, (u8*) &tempassumeunused) \
 }
 
 // ===== BASE GAME CODE FUNCTIONS (UNMODIFIED) ===== //

@@ -17,3 +17,5 @@
 # 
 # otherwise you have to link to a "hook" to the c code where you write custom assembly to make
 # the game feel okay about what it's doing
+
+arm9 Summary_IVEV 0808C1A4 1

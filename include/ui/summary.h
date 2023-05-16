@@ -8,18 +8,6 @@
 
 #include "ui/window.h"
 
-struct SummaryState {
-    void *bgl;
-    struct Window defnWindows[36];
-    struct Window *addlWindows;
-    u32 addlWindowCount;
-
-    struct SummaryBaseData    *baseData;
-    struct SummaryPokemonData pokemonData;
-
-    // rest of the hooked struct from here is undocumented
-};
-
 enum SummaryStringJustify {
     JUSTIFY_LEFT,
     JUSTIFY_RIGHT,
@@ -52,9 +40,9 @@ struct SummaryBaseData {
 };
 
 struct SummaryPokemonData {
-    struct String *speciesName;
-    struct String *nickname;
-    struct String *otName;
+    void *speciesName;
+    void *nickname;
+    void *otName;
 
     u16  species;
     u16  heldItem;
@@ -64,7 +52,7 @@ struct SummaryPokemonData {
     u8   level      :7,
          showGender :1;
     u8   gender     :2,
-         ballType   :6;             // oh fuck this is going to break with new balls huh
+         ballType   :6;
         
     u32 otID;
     u32 curExp;
@@ -104,6 +92,18 @@ struct SummaryPokemonData {
         pokerus     :2;
     
     u32 ribbons[4];
+};
+
+struct SummaryState {
+    void *bgl;
+    struct Window defnWindows[36];
+    struct Window *addlWindows;
+    u32 addlWindowCount;
+
+    struct SummaryBaseData    *baseData;
+    struct SummaryPokemonData pokemonData;
+
+    // rest of the hooked struct from here is undocumented
 };
 
 /**
@@ -160,15 +160,48 @@ void  __attribute__((long_call)) Summary_NumberToString(struct SummaryState *sum
  * @brief Prints the string in the summary's holding buffer to the given window.
  * 
  * Original Function: `Function_20900d8` (ARM9)
+ * 
+ * @param[in,out] summary
+ * @param[in,out] window    The window to print the string into.
+ * @param[in]     color     The color to print the font in.
+ * @param[in]     justify   Justification mode; see enum SummaryStringJustify.
  */
 void  __attribute__((long_call)) Summary_PrintString(struct SummaryState *summary, struct Window *window, u32 color, u32 justify);
 
-// pst_bmp::NumSraMaxStrPut
+/**
+ * @brief Print a string for a `current / max` visualization.
+ * 
+ * Original Function: `Function_20901d0` (ARM9)
+ * 
+ * @param[in,out] summary
+ * @param[in]     windowIdx Index of the window to print the constructed string into.
+ * @param[in]     idSep     ID of the separator string within text archive 455.
+ * @param[in]     idCur     ID of the placeholder string within text archive 455 for the value of `current`.
+ * @param[in]     idMax     ID of the placeholder string within text archive 455 for the value of `max`.
+ * @param[in]     cur
+ * @param[in]     max
+ * @param[in]     digits    The maximum number of digits permitted.
+ * @param[in]     x
+ * @param[in]     y
+ */
 void  __attribute__((long_call)) Summary_PrintCurrentOverMax(struct SummaryState *summary, u32 windowIdx, u32 idSep, u32 idCur, u32 idMax, u16 cur, u16 max, u8 digits, u8 x, u8 y);
+
+// ========================================================================= //
+//                      NOVEL FUNCTIONS START HERE                           //
+// ========================================================================= //
 
 /**
  * @brief Updates the state necessary for the stats page of the summary.
  * 
+ * Accepted modes are as follows:
+ * - `0`: Display the calculated stats page (including current and max HP).
+ * - `1`: Display EVs for the Pokemon.
+ * - `2`: Display IVs for the Pokemon.
+ * 
+ * Output will be color-coded according to the Pokemon's nature.
+ * 
+ * @param[in,out] summary
+ * @param[in]     mode      Determines which page of the stat screen to show.
  */
 void  __attribute__((long_call)) Summary_ChangeStatScreenState(struct SummaryState *summary, u8 mode);
 

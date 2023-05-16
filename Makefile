@@ -49,9 +49,11 @@ LD = $(DEVKITARM)/$(PREFIX)ld
 OBJCOPY = $(DEVKITARM)/$(PREFIX)objcopy
 CSC = csc$(EXE)
 
-LDFLAGS = rom.ld -T linker.ld
-LDFLAGS_FIELD = rom_gen.ld -T linker_field.ld
-LDFLAGS_BATTLE = rom_gen.ld -T linker_battle.ld
+BUILDSYS := buildsys
+
+LDFLAGS = $(BUILDSYS)/rom.ld -T $(BUILDSYS)/linker.ld
+LDFLAGS_FIELD = $(BUILDSYS)/rom_gen.ld -T $(BUILDSYS)/linker_field.ld
+LDFLAGS_BATTLE = $(BUILDSYS)/rom_gen.ld -T $(BUILDSYS)/linker_battle.ld
 ASFLAGS = -mthumb -I ./data
 CFLAGS = -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta
 
@@ -100,6 +102,10 @@ FIELD_OBJS   := $(FIELD_C_OBJS) $(FIELD_ASM_OBJS) build/thumb_help.d
 include data/personal/personal.mk
 
 ####################### Build #########################
+rom_gen.ld:$(LINK) $(OUTPUT) $(BUILDSYS)/rom.ld
+	cp $(BUILDSYS)/rom.ld $(BUILDSYS)/rom_gen.ld
+	$(PYTHON) scripts/generate_ld.py
+
 $(BUILD)/%.d:asm/%.s
 	$(AS) $(ASFLAGS) -c $< -o $@
 
@@ -131,49 +137,21 @@ generate_output:$(OUTPUT)
 	$(PYTHON) scripts/generate_ld.py
 
 
-test_build:
-	rm -rf $(BASE) $(BUILD)
+all: generate_output
+	rm -rf $(BASE)
 	mkdir -p $(BASE)
 	mkdir -p $(BUILD)
 
 	$(NDSTOOL) -x $(ROMNAME) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
 	@echo " === ROM decompression successful! === "
+	@echo " ==== Starting code injection... ===== "
 
-	$(NARCHIVE) extract $(SYNTH_NARC_PATH).narc -o $(BUILD)/data -nf
-	@echo " == Synthetic NARC files extracted! == "
-
-	# $(PYTHON) scripts/make.py
-	# $(ARMIPS) armips/global.s
-	# $(MAKE) move_narcs
-	$(NARCHIVE) create $(SYNTH_NARC_PATH).narc $(BUILD)/data -nf
+	$(PYTHON) scripts/make.py
+	$(ARMIPS) armips/global.s
 	
 	@echo " =========== Making ROM... =========== "
 	$(NDSTOOL) -c $(BUILDROM) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
 	@echo " =============== Done! =============== "
-
-	
-
-
-all: $(BATTLE_OUTPUT) $(FIELD_OUTPUT)
-	rm -rf $(BASE)
-	mkdir -p $(BASE)
-	mkdir -p $(BUILD)
-	mkdir -p $(BUILD)/narc $(BUILD)/pl_personal
-
-	###The line below is because of junk files that macOS can create which will interrupt the build process###
-	find . -name '*.DS_Store' -execdir rm -f {} \;
-
-	$(NDSTOOL) -x $(ROMNAME) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/overarm9.bin -y7 $(BASE)/overarm7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
-	@echo -e "$(ROMNAME) Decompression successful!!"
-	
-	$(NARCHIVE) extract $(FILESYS)/a/0/2/8 -o $(BUILD)/a028/ -nf
-	$(PYTHON) scripts/make.py
-	$(ARMIPS) armips/global.s
-	$(MAKE) move_narc
-	$(NARCHIVE) create $(FILESYS)/a/0/2/8 $(BUILD)/a028/ -nf
-	@echo -e "Making ROM.."
-	$(NDSTOOL) -c $(BUILDROM) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/overarm9.bin -y7 $(BASE)/overarm7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
-	@echo -e "Done."
 
 
 build_tools:

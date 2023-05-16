@@ -66,6 +66,9 @@ __pycache__/*
 *.nds
 *.xmap
 
+/offsets.ini
+/buildsys/rom_gen.ld
+
 /armips/asm/offset.s
 /tools/genleveldatatxt
 /tools/gengfxnarc.exe

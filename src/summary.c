@@ -1,5 +1,6 @@
 #include "global.h"
-#include "summary.h"
+
+#include "ui/summary.h"
 
 #define SUMMARY_SCREEN_HEAP_ID  19
 
@@ -15,16 +16,15 @@ static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
     }
 
     int paramStart = MON_PARAM_MAX_HP;
-    if (mode == 0) {
-        summary->pokemonData.hp = (u16) dataFunc(rawPokemon, MON_PARAM_CURRENT_HP, NULL);
-    } else {
-        if (mode == 1) {
-            paramStart = MON_PARAM_HP_EV;
-        } else if (mode == 2) {
+    switch (mode) {
+        case 0:
+            summary->pokemonData.hp = (u16) dataFunc(rawPokemon, MON_PARAM_CURRENT_HP, NULL);
+            break;
+        case 1:
+            paramStart = MON_PARAM_HP_EV;   // fall through
+        case 2:
             paramStart = MON_PARAM_HP_IV;
-        }
-
-        summary->pokemonData.hp = (u16) dataFunc(rawPokemon, paramStart, NULL);
+            summary->pokemonData.hp = (u16) dataFunc(rawPokemon, paramStart, NULL);
     }
 
     summary->pokemonData.attack    = (u16) dataFunc(rawPokemon, paramStart + 1, NULL);
@@ -38,50 +38,6 @@ static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
 #define BLACK          (COLOR(1, 2, 0))
 #define BLUE           (COLOR(3, 4, 0))
 #define RED            (COLOR(5, 6, 0))
-
-void Summary_ChangeStatScreenState(struct SummaryState *summary, u8 mode)
-{
-    for (int i = 0; i < 6; i++) {
-        Window_FillWithColor(&summary->addlWindows[i], 0);
-    }
-
-    UpdatePokemonData(summary, mode);
-
-    if (mode) {
-        // Print IVs or EVs
-        Summary_NumberToString(summary, 119, summary->pokemonData.hp, 3, 1);
-        PrintStatNumberWithColor(summary, 0, JUSTIFY_CENTER);
-    } else {
-        // Print cur and max
-        u8 xsize = summary->addlWindows[0].sizX * 8;
-        Summary_PrintCurrentOverMax(
-            summary,
-            0,
-            117, 119, 118,
-            summary->pokemonData.hp,
-            summary->pokemonData.maxHP,
-            3,
-            xsize / 2, 0
-        );
-    }
-
-    Summary_NumberToString(summary, 120, summary->pokemonData.attack, 3, 0);
-    PrintStatNumberWithColor(summary, 1, JUSTIFY_RIGHT);
-    Summary_NumberToString(summary, 121, summary->pokemonData.defense, 3, 0);
-    PrintStatNumberWithColor(summary, 2, JUSTIFY_RIGHT);
-    Summary_NumberToString(summary, 122, summary->pokemonData.spAttack, 3, 0);
-    PrintStatNumberWithColor(summary, 3, JUSTIFY_RIGHT);
-    Summary_NumberToString(summary, 123, summary->pokemonData.spDefense, 3, 0);
-    PrintStatNumberWithColor(summary, 4, JUSTIFY_RIGHT);
-    Summary_NumberToString(summary, 124, summary->pokemonData.speed, 3, 0);
-    PrintStatNumberWithColor(summary, 5, JUSTIFY_RIGHT);
-
-    for (int i = 0; i < 6; i++) {
-        Window_ToVRAM(&summary->addlWindows[i]);
-    }
-
-    UpdatePokemonData(summary, 0);      // Recover old data for page change
-}
 
 static s8 sNatureStatEffects[25][6] = {
     // atk, def, spatk, spdef, speed
@@ -122,4 +78,52 @@ static inline PrintStatNumberWithColor(struct SummaryState *summary, u8 windowId
     }
 
     Summary_PrintString(summary, &summary->addlWindows[windowIdx], color, justify);
+}
+
+void Summary_ChangeStatScreenState(struct SummaryState *summary, u8 mode)
+{
+    u8 buf[32];
+    sprintf(buf, "Hit the routine, mode=%d", mode);
+    debugsyscall(buf);
+
+    for (int i = 0; i < 6; i++) {
+        Window_FillWithColor(&summary->addlWindows[i], 0);
+    }
+
+    UpdatePokemonData(summary, mode);
+
+    if (mode) {
+        // Print IVs or EVs
+        Summary_NumberToString(summary, 119, summary->pokemonData.hp, 3, 1);
+        PrintStatNumberWithColor(summary, 0, JUSTIFY_CENTER);
+    } else {
+        // Print cur and max
+        u8 xsize = summary->addlWindows[0].sizX * 8;
+        Summary_PrintCurrentOverMax(
+            summary,
+            0,
+            117, 119, 118,
+            summary->pokemonData.hp,
+            summary->pokemonData.maxHP,
+            3,
+            xsize / 2, 0
+        );
+    }
+
+    Summary_NumberToString(summary, 120, summary->pokemonData.attack, 3, 0);
+    PrintStatNumberWithColor(summary, 1, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 121, summary->pokemonData.defense, 3, 0);
+    PrintStatNumberWithColor(summary, 2, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 122, summary->pokemonData.spAttack, 3, 0);
+    PrintStatNumberWithColor(summary, 3, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 123, summary->pokemonData.spDefense, 3, 0);
+    PrintStatNumberWithColor(summary, 4, JUSTIFY_RIGHT);
+    Summary_NumberToString(summary, 124, summary->pokemonData.speed, 3, 0);
+    PrintStatNumberWithColor(summary, 5, JUSTIFY_RIGHT);
+
+    for (int i = 0; i < 6; i++) {
+        Window_ToVRAM(&summary->addlWindows[i]);
+    }
+
+    UpdatePokemonData(summary, 0);      // Recover old data for page change
 }

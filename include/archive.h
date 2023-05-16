@@ -15,7 +15,7 @@
  * @param[in]  archiveID    ID of the NARC from which to load data.
  * @param[in]  dataID       ID of data within the NARC to be loaded.
  */
-void  longcall LoadFromNARC(void *data, int archiveID, int dataID);
+void  __attribute__((long_call)) LoadFromNARC(void *data, int archiveID, int dataID);
 
 /**
  * @brief Load data from an archive, allocate a buffer for it, and return the
@@ -28,7 +28,7 @@ void  longcall LoadFromNARC(void *data, int archiveID, int dataID);
  * @param[in]  heapID       ID of the heap which will own the allocated memory.
  * @return                  Address of allocated memory block containing the data.
  */
-void* longcall LoadFromNARC_Malloc(int archiveID, int dataID, int heapID);
+void* __attribute__((long_call)) LoadFromNARC_Malloc(int archiveID, int dataID, int heapID);
 
 /**
  * @brief Load data from an archive with a specified offset into an allocated
