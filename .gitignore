@@ -54,6 +54,7 @@ dkms.conf
 # pycache files
 *.pyc
 *.sav
+/venv/
 
 # generator stuff
 __pycache__/*
