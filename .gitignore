@@ -91,7 +91,6 @@ __pycache__/*
 /tools/genheightdata
 /tools/genmondatatxt
 /tools/geniconnarc.exe
-/tools/narcpy.py
 /tools/ncgrtopng.exe
 /tools/nitrogfx
 /tools/pngtobtx0.exe
