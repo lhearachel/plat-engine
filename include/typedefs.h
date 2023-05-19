@@ -1,5 +1,5 @@
-#ifndef __TYPES_H
-#define __TYPES_H
+#ifndef __TYPEDEFS_H
+#define __TYPEDEFS_H
 
 #include <stdint.h>
 
@@ -21,4 +21,4 @@ typedef u16         bool16;
 typedef u32         bool32;
 typedef int         BOOL;
 
-#endif // __TYPES_H
+#endif // __TYPEDEFS_H

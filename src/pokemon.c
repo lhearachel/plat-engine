@@ -1,5 +1,9 @@
 #include "constants/abilities.h"
+
+#include "archive.h"
 #include "pokemon.h"
+
+#if 0
 
 u16 __attribute__((long_call)) Pokemon_GetHiddenAbility(u16 species, u32 form)
 {
@@ -57,3 +61,5 @@ void __attribute__((long_call)) BoxPokemon_ToggleHiddenAbility(void *boxMon)
 
     BoxPokemon_Unlock(boxMon, fastMode);
 }
+
+#endif

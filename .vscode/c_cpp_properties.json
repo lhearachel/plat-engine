@@ -12,7 +12,7 @@
             ],
             "cStandard": "c99",
             "intelliSenseMode": "linux-gcc-arm",
-            "compilerPath": "/usr/bin/arm-none-eabi-gcc",
+            "compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc",
             "compilerArgs": [
                 "-I ./include",
                 "-mthumb",
@@ -28,31 +28,6 @@
                 "-fipa-pta"
             ]
         },
-        {
-            "name": "cpu",
-            "includePath": [
-                "${workspaceFolder}/include/**"
-            ],
-            "defines": [],
-            "compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc",
-            "cStandard": "c11",
-            "cppStandard": "c++11",
-            "intelliSenseMode": "linux-gcc-arm",
-            "compilerArgs": [
-                "-I ./include",
-                "-mthumb",
-                "-mno-thumb-interwork",
-                "-mcpu=arm7tdmi",
-                "-mtune=arm7tdmi",
-                "-mno-long-calls",
-                "-march=armv4t",
-                "-Wall",
-                "-Wextra",
-                "-Os",
-                "-fira-loop-pressure",
-                "-fipa-pta"
-            ]
-        }
     ],
     "version": 4
 }

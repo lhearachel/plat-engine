@@ -1,7 +1,6 @@
 #ifndef __GLOBAL_H
 #define __GLOBAL_H
 
-#include "archive.h"
 #include "config.h"
 #include "typedefs.h"
 
