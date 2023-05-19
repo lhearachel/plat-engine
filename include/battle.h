@@ -336,10 +336,10 @@ struct __attribute__((packed)) BattleServer {
     int     abilityCheckClient;
     int     magicCoatClient;
 
-    int     tsuika_type;        // todo: document
-    int     tsuika_para;
-    int     tsuika_flag;
-    int     tsuika_client;
+    int     addlEffectType;
+    int     addlEffectParam;
+    int     addlEffectFlags;
+    int     addlEffectClient;
 
     int     clientStorage;
 
