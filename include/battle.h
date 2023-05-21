@@ -94,7 +94,7 @@ struct __attribute__((packed)) MoveEffects {
         flashFireActive         :1;
     
     u32 lockOnTarget            :2,
-        mimicData               :4,     // TODO: research what the fuck this does
+        mimicSlot               :4,     // Bitmask for which move slots are Mimic'd slots (why the fuck is this a mask???)
         boundTarget             :2,
         meanLookTarget          :2,     // TODO: no longer maintains trap after a Baton Pass
         lastResortCount         :3,
@@ -109,7 +109,7 @@ struct __attribute__((packed)) MoveEffects {
         meFirstActive           :1,
         _padding                :1;
     
-    int recoilTurnCount;                // stores turn that recoil occurred; only receive recoil when the turn is 1 higher
+    int rechargeTurnCount;              // stores the turn counter for recharging after Hyper Beam
     int fakeOutTurnCount;
     int slowStartTurnCount;
     int meFirstTurnCount;
