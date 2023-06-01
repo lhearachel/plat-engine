@@ -1,5 +1,5 @@
-#ifndef __BATTLE_H
-#define __BATTLE_H
+#ifndef __BATTLE_SERVER_H
+#define __BATTLE_SERVER_H
 
 #include "global.h"
 #include "item.h"
@@ -33,7 +33,7 @@ struct __attribute__((packed)) SingleTurnEffects {
         helpingHand     :1,
         magicCoat       :1,
         snatching       :1,
-        splashing       :1, // not sure if this is right; haneyasume
+        roosting        :1,
         fleeing         :2,
         enduring        :1,
         _padding        :22;
@@ -43,7 +43,7 @@ struct __attribute__((packed)) SingleTurnEffects {
     
     int lastDamageDealt;    // This is for all damage types
     int lastDamagingClient;
-    int allDamageReceived;
+    int assuranceDamageReceived;
 };
 
 struct __attribute__((packed)) SelfSingleTurnEffects {
@@ -97,11 +97,11 @@ struct __attribute__((packed)) MoveEffects {
         mimicSlot               :4,     // Bitmask for which move slots are Mimic'd slots (why the fuck is this a mask???)
         boundTarget             :2,
         meanLookTarget          :2,     // TODO: no longer maintains trap after a Baton Pass
-        lastResortCount         :3,
+        lastResortMask          :3,
         magnetRiseTurns         :3,
         healBlockTurns          :3,
         embargoTurns            :3,
-        unburdenFlag            :1,     // TODO: make sure this interacts correctly with Neutralizing Gas
+        unburdenActive          :1,     // TODO: make sure this interacts correctly with Neutralizing Gas
         metronome               :4,
         oneTimeAccuracyMax      :1,     // micle berry
         oneTimeSpeedMax         :1,     // custap berry
@@ -497,4 +497,4 @@ struct __attribute__((packed)) BattleServer {
     struct BattleMove moveTable[TOTAL_NUM_MOVES];
 };
 
-#endif // __BATTLE_H
+#endif // __BATTLE_SERVER_H
