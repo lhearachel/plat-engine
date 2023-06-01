@@ -9,20 +9,29 @@
     .word 0x00
 .endmacro
 
-BATTLER_ALL             equ 0
-BATTLER_ATTACKER        equ 1
-BATTLER_DEFENDER        equ 2
-BATTLER_ME              equ 3
-BATTLER_ENEMY           equ 4
-BATTLER_FAINTING        equ 5
-BATTLER_SWITCHING       equ 6
-BATTLER_EFFECTSRC       equ 7
-BATTLER_ABILITYSRC      equ 8
-BATTLER_ME_SLOT_1       equ 9
-BATTLER_ENEMY_SLOT_1    equ 10
-BATTLER_ME_SLOT_2       equ 11
-BATTLER_ENEMY_SLOT_2    equ 12
-BATTLER_WORKING         equ 0xFF
+BATTLER_ALL                 equ 0
+BATTLER_ATTACKER            equ 1
+BATTLER_DEFENDER            equ 2
+BATTLER_ME                  equ 3
+BATTLER_ENEMY               equ 4
+BATTLER_FAINTING            equ 5
+BATTLER_SWITCHING           equ 6
+BATTLER_EFFECTSRC           equ 7
+BATTLER_ABILITYSRC          equ 8
+BATTLER_ME_SLOT_1           equ 9
+BATTLER_ENEMY_SLOT_1        equ 10
+BATTLER_ME_SLOT_2           equ 11
+BATTLER_ENEMY_SLOT_2        equ 12
+BATTLER_ATTACKER_WORK       equ 14
+BATTLER_DEFENDER_WORK       equ 15
+BATTLER_ATTACKER_PARTNER    equ 16
+BATTLER_DEFENDER_PARTNER    equ 17
+BATTLER_FORCED_OUT          equ 18
+BATTLER_ATTACKER_ENEMY      equ 19
+BATTLER_DEFENDER_ENEMY      equ 20
+BATTLER_CLIENT_WORK         equ 21
+BATTLER_AFTER_SWITCHING     equ 22
+BATTLER_WORKING             equ 0xFF
 
 /*
  * Sets the Pokemon for a wild encounter.
@@ -217,7 +226,7 @@ POS_DOUBLES_ENEMY_2 equ 5
  */
 .macro Message,msg_id,tag,param1,param2,param3,param4,param5,param6
     .word 0x12, msg_id, tag
-    .if tag == 0
+    .if tag == TAG_NONE
     .elseif tag < TAG_NICK_NICK
         .word param1
     .elseif tag < TAG_NICK_NICK_MOVE
@@ -391,8 +400,8 @@ FLAG_AND    equ 6
  *      If  EQUAL, value_1, value_2, jump_to_if_equal
  *      If  GREATER, value_1, value_2, jump_to_if_greater
  */
-.macro If,condition,source,compare_to,jump_if_true
-    .word 0x20, condition, source, compare_to
+.macro If,condition,source_var,compare_to,jump_if_true
+    .word 0x20, condition, source_var, compare_to
     .word ((jump_if_true - org()) / 4) - 1
 .endmacro
 

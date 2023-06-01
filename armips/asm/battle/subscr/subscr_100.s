@@ -1,0 +1,15 @@
+.nds
+.thumb
+
+.include "armips/include/battle_scrcmd.s"
+.include "armips/include/abilities.s"
+.include "armips/include/moves.s"
+
+.create "build/move/battle/skill/subscr/subscr_100.s", 0
+
+subscr_100:
+    SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_CONDITION_2, 536870912
+    Message                             432, TAG_NICK_NICK, BATTLER_ATTACKER, BATTLER_DEFENDER
+    Wait                                
+    WaitFrames                          30
+    End                                 

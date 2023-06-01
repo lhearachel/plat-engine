@@ -1,4 +1,5 @@
 TAG_NONE                        equ (0)
+
 TAG_NONE_DIR                    equ (1)
 TAG_NICK                        equ (2)
 TAG_MOVE                        equ (3)
