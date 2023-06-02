@@ -7,7 +7,9 @@ DECOMP_TEMPLATE = '''.nds
 .thumb
 
 .include "armips/include/battle_scrcmd.s"
+
 .include "armips/include/abilities.s"
+.include "armips/include/battle_consts.s"
 .include "armips/include/moves.s"
 
 .create "build/move/battle/skill/{dump_folder}/{prefix}_{index}.s", 0
