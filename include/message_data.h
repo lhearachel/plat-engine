@@ -3,6 +3,12 @@
 
 #include "global.h"
 
+struct MessageData {
+    u16 sentenceType;
+    u16 sentenceID;
+    u16 words[2];
+};
+
 typedef union {
     struct {
         u16 cgxID   :12,
@@ -10,12 +16,6 @@ typedef union {
     };
     u16 dat;
 } MailIcon;
-
-struct MessageData {
-    u16 sentenceType;
-    u16 sentenceID;
-    u16 words[2];
-};
 
 struct MailData {
     u32 writerID;

@@ -4,7 +4,7 @@
 #include "global.h"
 
 #include "custom_ball.h"
-#include "mail.h"
+#include "message_data.h"
 
 /**
  * @brief Base Stats data structure for all data unique to a particular species.
