@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_69.s", 0
+.create "build/battle/scr/subscr/sub_seq_69.bin", 0
 
 subscr_069:
     SetStatusEffectMulti                BATTLER_ATTACKER_WORK, BATTLER_DEFENDER_WORK, 32
@@ -30,25 +31,27 @@ subscr_069:
     IfMonData                           NOT_EQUAL, BATTLER_WORKING, BATTLE_MON_HEAL_BLOCK_TURNS, 0, 14
     SetVar                              OP_MUL, VAR_HP_TEMP, 4294967295
     JumpToSubscript                     2
-    Message                             296, TAG_NICK, BATTLER_DEFENDER_WORK
+    Message                             296, TAG_NICK, BATTLER_DEFENDER_WORK, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     SetVar                              OP_SET, VAR_MOVE_TEMP, 377
-    Message                             1054, TAG_NICK_MOVE, BATTLER_WORKING, BATTLER_WORKING
+    Message                             1054, TAG_NICK_MOVE, BATTLER_WORKING, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     CheckAbility                        MODE_HAVE, BATTLER_ATTACKER_WORK, ABILITY_MAGIC_GUARD, 9
     JumpToSubscript                     2
-    Message                             720, TAG_NONE
+    Message                             720, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
-    Message                             720, TAG_NONE
+    Message                             720, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
-    Message                             727, TAG_NICK_ABILITY_NICK_ABILITY, BATTLER_ATTACKER_WORK, BATTLER_ATTACKER_WORK, BATTLER_DEFENDER_WORK, BATTLER_DEFENDER_WORK
+    WaitTime                            30
+    Message                             727, TAG_NICK_ABILITY_NICK_ABILITY, BATTLER_ATTACKER_WORK, BATTLER_ATTACKER_WORK, BATTLER_DEFENDER_WORK, BATTLER_DEFENDER_WORK, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

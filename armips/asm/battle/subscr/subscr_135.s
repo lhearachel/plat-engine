@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_135.s", 0
+.create "build/battle/scr/subscr/sub_seq_135.bin", 0
 
 subscr_135:
     If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, 65537, 87
@@ -27,9 +28,11 @@ subscr_135:
     SetMonDataFromVar                   OP_SET, 1, BATTLE_MON_SLOW_START_TURNS, VAR_TEMP_WORK
     SetMonData                          OP_SET, BATTLER_ATTACKER, BATTLE_MON_SLOW_START_ACTIVE, 0
     SetMonData                          OP_SET, BATTLER_ATTACKER, BATTLE_MON_SLOW_START_ENDED, 0
-    Message                             523, TAG_NICK_NICK_ABILITY, BATTLER_ATTACKER, BATTLER_DEFENDER, BATTLER_DEFENDER
+    Message                             523, TAG_NICK_NICK_ABILITY, BATTLER_ATTACKER, BATTLER_DEFENDER, BATTLER_DEFENDER, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 64
     End                                 
+
+.close

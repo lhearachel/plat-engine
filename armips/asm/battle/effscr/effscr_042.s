@@ -5,12 +5,15 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_42.s", 0
+.create "build/battle/scr/effscr/be_seq_42.bin", 0
 
 effscr_042:
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, 2181038093
     CriticalCalc                        
     DamageCalc                          
     End                                 
+
+.close

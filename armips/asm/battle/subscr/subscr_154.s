@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_154.s", 0
+.create "build/battle/scr/subscr/sub_seq_154.bin", 0
 
 subscr_154:
     SetMonDataFromVar                   OP_GET, 1, BATTLE_MON_MAX_HP, VAR_HP_TEMP
@@ -19,3 +20,5 @@ subscr_154:
     If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, 2147483648, 4
     SetOneTurnFlag                      BATTLER_ATTACKER, 6, 1
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_246.s", 0
+.create "build/battle/scr/subscr/sub_seq_246.bin", 0
 
 subscr_246:
     CheckAbility                        MODE_HAVE, BATTLER_ATTACKER, ABILITY_ROCK_HEAD, 34
@@ -18,7 +19,9 @@ subscr_246:
     DamageDiv                           VAR_HP_TEMP, 2
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 64
     JumpToSubscript                     2
-    Message                             279, TAG_NICK, BATTLER_ATTACKER
+    Message                             279, TAG_NICK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_14.s", 0
+.create "build/battle/scr/subscr/sub_seq_14.bin", 0
 
 subscr_014:
     CheckMoveFinished                   BATTLER_EFFECTSRC, 23
@@ -19,10 +20,12 @@ subscr_014:
     End                                 
     If                                  EQUAL, VAR_CURRENT_MOVE, 252, 5
     If                                  NOT_EQUAL, VAR_EFFECT_TYPE, 1, 8
-    Message                             737, TAG_NICK_ABILITY, BATTLER_EFFECTSRC, BATTLER_EFFECTSRC
+    Message                             737, TAG_NICK_ABILITY, BATTLER_EFFECTSRC, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     If                                  NOT_EQUAL, VAR_EFFECT_TYPE, 1, 4
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 64
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_175.s", 0
+.create "build/battle/scr/subscr/sub_seq_175.bin", 0
 
 subscr_175:
     CheckWhiteOut                       BATTLER_DEFENDER, 170
@@ -20,7 +21,7 @@ subscr_175:
     IfMonData                           FLAG_NEQ, BATTLER_DEFENDER, BATTLE_MON_CONDITION_2, 33554432, 53
     CheckSameSide                       BATTLER_ATTACKER, BATTLER_DEFENDER, 49
     IfMonData                           EQUAL, BATTLER_ATTACKER, BATTLE_MON_HP, 0, 43
-    Message                             391, TAG_NICK_NICK, BATTLER_DEFENDER, BATTLER_ATTACKER
+    Message                             391, TAG_NICK_NICK, BATTLER_DEFENDER, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
     SetMonDataFromVar                   OP_GET, 1, BATTLE_MON_HP, VAR_HP_TEMP
     SetVar                              OP_MUL, VAR_HP_TEMP, 4294967295
     SetVarFromVar                       OP_SET, VAR_BATTLER_WORK, VAR_ATTACKER
@@ -29,24 +30,24 @@ subscr_175:
     FaintAnimation                      
     Wait                                
     HPGaugeSlideOut                     BATTLER_FAINTING
-    Message                             30, TAG_NICK, BATTLER_FAINTING
+    Message                             30, TAG_NICK, BATTLER_FAINTING, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     IncGameStat                         BATTLER_FAINTING, 1, 41
     IncGameStat                         BATTLER_FAINTING, 0, 96
     SetVarFromVar                       OP_GET, VAR_FAINTED_BATTLER, VAR_PUSH_CLIENT
     SetVarFromVar                       OP_SET, VAR_FAINTED_BATTLER, VAR_DEFENDER
     IfMonData                           NOT_EQUAL, BATTLER_DEFENDER, BATTLE_MON_HP, 0, 10
     TryGrudge                           8
-    Message                             568, TAG_NICK_MOVE, BATTLER_ATTACKER, BATTLER_WORKING
+    Message                             568, TAG_NICK_MOVE, BATTLER_ATTACKER, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVarFromVar                       OP_SET, VAR_FAINTED_BATTLER, VAR_PUSH_CLIENT
     IfMonData                           EQUAL, BATTLER_ATTACKER, BATTLE_MON_HP, 0, 59
     SetVarFromVar                       OP_SET, VAR_SWITCHED_BATTLER, VAR_ATTACKER
-    Message                             1067, TAG_NICK_TRNAME, BATTLER_SWITCHING, BATTLER_SWITCHING
+    Message                             1067, TAG_NICK_TRNAME, BATTLER_SWITCHING, BATTLER_SWITCHING, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     JumpToSubscript                     153
     IfMonData                           EQUAL, BATTLER_ATTACKER, BATTLE_MON_HP, 0, 39
     TryNaturalCure                      BATTLER_ATTACKER, 5
@@ -62,5 +63,7 @@ subscr_175:
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG2, 16
     SetVar                              OP_CLEAR_FLAG, VAR_SERVER_STATUS_FLAG, 128
     SetVar                              OP_SET, VAR_ATTACKER_ONE_TURN_STATUS_FLAGS, 0
-    JumpToSubscript                     10
+    JumpTo                              10
     End                                 
+
+.close

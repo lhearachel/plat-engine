@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_263.s", 0
+.create "build/battle/scr/effscr/be_seq_263.bin", 0
 
 effscr_263:
     IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_CONDITION_2, 4096, 39
@@ -27,3 +28,5 @@ effscr_263:
     SetMonData                          OP_CLEAR_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, 537133248
     JumpToSubscript                     259
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_141.s", 0
+.create "build/battle/scr/subscr/sub_seq_141.bin", 0
 
 subscr_141:
     MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_INSOMNIA, 62
@@ -26,21 +27,23 @@ subscr_141:
     TryYawn                             23
     PlayAnimation                       BATTLER_ATTACKER
     Wait                                
-    Message                             545, TAG_NICK_NICK, BATTLER_ATTACKER, BATTLER_EFFECTSRC
+    Message                             545, TAG_NICK_NICK, BATTLER_ATTACKER, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     AttackMessage                       
     Wait                                
-    WaitFrames                          30
-    Message                             734, TAG_NICK_ABILITY, BATTLER_EFFECTSRC, BATTLER_EFFECTSRC
-    Jump                                12
-    WaitFrames                          30
+    WaitTime                            30
+    Message                             734, TAG_NICK_ABILITY, BATTLER_EFFECTSRC, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN
+    Branch                              12
+    WaitTime                            30
     JumpToSubscript                     75
-    Jump                                13
-    WaitFrames                          30
-    Message                             200, TAG_NICK, BATTLER_EFFECTSRC
+    Branch                              13
+    WaitTime                            30
+    Message                             200, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 2147483648
     End                                 
+
+.close

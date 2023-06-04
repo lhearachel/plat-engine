@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_59.s", 0
+.create "build/battle/scr/subscr/sub_seq_59.bin", 0
 
 subscr_059:
     CheckAbility                        MODE_HAVE, BATTLER_WORKING, ABILITY_MAGIC_GUARD, 78
@@ -18,22 +19,24 @@ subscr_059:
     If                                  EQUAL, VAR_MOVE_TEMP, 250, 30
     If                                  EQUAL, VAR_MOVE_TEMP, 328, 30
     SetStatusEffect                     BATTLER_WORKING, 33
-    Jump                                28
+    Branch                              28
     SetStatusEffect                     BATTLER_WORKING, 34
-    Jump                                23
+    Branch                              23
     SetStatusEffect                     BATTLER_WORKING, 35
-    Jump                                18
+    Branch                              18
     SetStatusEffect                     BATTLER_WORKING, 36
-    Jump                                13
+    Branch                              13
     SetStatusEffect                     BATTLER_WORKING, 37
-    Jump                                8
+    Branch                              8
     SetStatusEffect                     BATTLER_WORKING, 38
-    Jump                                3
+    Branch                              3
     SetStatusEffect                     BATTLER_WORKING, 39
     Wait                                
-    Message                             262, TAG_NICK_MOVE, BATTLER_WORKING, BATTLER_WORKING
+    Message                             262, TAG_NICK_MOVE, BATTLER_WORKING, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 64
-    JumpToSubscript                     2
+    JumpTo                              2
     End                                 
+
+.close

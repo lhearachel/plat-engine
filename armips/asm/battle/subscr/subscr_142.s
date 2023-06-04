@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_142.s", 0
+.create "build/battle/scr/subscr/sub_seq_142.bin", 0
 
 subscr_142:
     CheckSubstitute                     BATTLER_DEFENDER, 30
@@ -18,5 +19,7 @@ subscr_142:
     TryKnockOff                         4
     MessagePrepared                     
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

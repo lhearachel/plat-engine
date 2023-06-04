@@ -5,9 +5,12 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/movscr/movscr_422.s", 0
+.create "build/battle/scr/movscr/waza_seq_422.bin", 0
 
 movscr_422:
     JumpToMoveEffectScript              
+
+.close

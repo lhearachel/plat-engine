@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_151.s", 0
+.create "build/battle/scr/effscr/be_seq_151.bin", 0
 
 effscr_151:
     CheckCloudNine                      5
@@ -23,3 +24,5 @@ effscr_151:
     DamageCalc                          
     JumpToSubscript                     259
     End                                 
+
+.close

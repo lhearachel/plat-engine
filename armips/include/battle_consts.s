@@ -156,7 +156,7 @@ ADDL_EFFECT_FLAG_UPDATE                 equ (0x20000000)
 ADDL_EFFECT_ATTACKER                    equ (0x40000000)
 ADDL_EFFECT_DEFENDER                    equ (0x80000000)
 
-ADDL_EFFECT_NONE                        equ (0)
+ADDL_EFFECT_NO_SOURCE                   equ (0)
 ADDL_EFFECT_DIRECT                      equ (1)
 ADDL_EFFECT_INDIRECT                    equ (2)
 ADDL_EFFECT_FROM_ABILITY                equ (3)

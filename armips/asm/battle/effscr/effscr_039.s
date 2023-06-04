@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_39.s", 0
+.create "build/battle/scr/effscr/be_seq_39.bin", 0
 
 effscr_039:
     IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_CONDITION_2, 4096, 26
@@ -23,3 +24,5 @@ effscr_039:
     DamageCalc                          
     JumpToSubscript                     259
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_0.s", 0
+.create "build/battle/scr/subscr/sub_seq_0.bin", 0
 
 subscr_000:
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 1, 114
@@ -24,22 +25,22 @@ subscr_000:
     If                                  FLAG_EQ, VAR_BATTLE_STATUS_FLAG, 1, 16
     If                                  FLAG_EQ, VAR_BATTLE_STATUS_FLAG, 2, 17
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 2, 30
-    MessageNoBattler                    965, TAG_NICK, BATTLER_ENEMY
-    Jump                                29
-    MessageNoBattler                    1167, TAG_NICK, BATTLER_ENEMY
-    Jump                                23
-    MessageNoBattler                    968, TAG_NICK, BATTLER_ENEMY
-    Jump                                17
-    MessageNoBattler                    1246, TAG_NICK, BATTLER_ENEMY
-    Jump                                11
-    MessageNoBattler                    1268, TAG_NICK, BATTLER_ENEMY
-    Jump                                5
-    MessageNoBattler                    967, TAG_NICK_NICK, BATTLER_ENEMY_SLOT_1, BATTLER_ENEMY_SLOT_2
+    MessageNoBattler                    965, TAG_NICK, BATTLER_ENEMY, NaN, NaN, NaN, NaN, NaN
+    Branch                              29
+    MessageNoBattler                    1167, TAG_NICK, BATTLER_ENEMY, NaN, NaN, NaN, NaN, NaN
+    Branch                              23
+    MessageNoBattler                    968, TAG_NICK, BATTLER_ENEMY, NaN, NaN, NaN, NaN, NaN
+    Branch                              17
+    MessageNoBattler                    1246, TAG_NICK, BATTLER_ENEMY, NaN, NaN, NaN, NaN, NaN
+    Branch                              11
+    MessageNoBattler                    1268, TAG_NICK, BATTLER_ENEMY, NaN, NaN, NaN, NaN, NaN
+    Branch                              5
+    MessageNoBattler                    967, TAG_NICK_NICK, BATTLER_ENEMY_SLOT_1, BATTLER_ENEMY_SLOT_2, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 8, 6
-    Message                             979, TAG_NICK, BATTLER_ME
-    Jump                                2
+    Message                             979, TAG_NICK, BATTLER_ME, NaN, NaN, NaN, NaN, NaN
+    Branch                              2
     EncounterSendOutMessage             BATTLER_ME
     SpriteToOAM                         BATTLER_ENEMY
     Wait                                
@@ -50,7 +51,7 @@ subscr_000:
     Wait                                
     OAMToSprite                         BATTLER_ENEMY
     Wait                                
-    Jump                                140
+    Branch                              140
     If                                  FLAG_EQ, VAR_BATTLE_STATUS_FLAG, 32, 46
     SetEncounterEffects                 
     SetTrainersForEncounter             BATTLER_ALL
@@ -60,7 +61,7 @@ subscr_000:
     ShowStartBallGauge                  BATTLER_ME
     EncounterStartMessage               BATTLER_ENEMY
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     EncounterSendOutMessage             BATTLER_ENEMY
     HideStartBallGauge                  BATTLER_ENEMY
     Throw                               BATTLER_ENEMY, THROW_POKE_BALL
@@ -76,7 +77,7 @@ subscr_000:
     HPGaugeSlideWait                    BATTLER_ME
     Wait                                
     FreeBallGaugeGraphics               
-    Jump                                89
+    Branch                              89
     SetEncounterEffects                 
     SetTrainersForEncounter             BATTLER_ALL
     WaitFrames                          96
@@ -85,7 +86,7 @@ subscr_000:
     ShowStartBallGauge                  BATTLER_ME
     EncounterStartMessage               BATTLER_ENEMY
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     EncounterSendOutMessage             BATTLER_ME
     HideStartBallGauge                  BATTLER_ME
     Throw                               BATTLER_ME, THROW_POKE_BALL
@@ -101,29 +102,31 @@ subscr_000:
     HPGaugeSlideWait                    BATTLER_ENEMY
     Wait                                
     FreeBallGaugeGraphics               
-    Jump                                43
+    Branch                              43
     SetPokemonForEncounter              BATTLER_ENEMY
     SetTrainersForEncounter             BATTLER_ME
     SetEncounterEffects                 
     WaitFrames                          122
     HPGaugeSlideWait                    BATTLER_ENEMY
     Wait                                
-    MessageNoBattler                    965, TAG_NICK, BATTLER_ENEMY
+    MessageNoBattler                    965, TAG_NICK, BATTLER_ENEMY, NaN, NaN, NaN, NaN, NaN
     Wait                                
     HPGaugeSlideIn                      BATTLER_ME
-    WaitFrames                          7
+    WaitTime                            7
     Wait                                
-    Jump                                21
+    Branch                              21
     SetPokemonForEncounter              BATTLER_ENEMY
     SetTrainersForEncounter             BATTLER_ME
     SetEncounterEffects                 
     WaitFrames                          122
     HPGaugeSlideWait                    BATTLER_ENEMY
     Wait                                
-    MessageNoBattler                    1219, TAG_TRNAME_NICK, BATTLER_ENEMY, BATTLER_ENEMY
+    MessageNoBattler                    1219, TAG_TRNAME_NICK, BATTLER_ENEMY, BATTLER_ENEMY, NaN, NaN, NaN, NaN
     Wait                                
     HPGaugeSlideIn                      BATTLER_ME
-    WaitFrames                          7
+    WaitTime                            7
     Wait                                
     ChangeBackground                    
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_293.s", 0
+.create "build/battle/scr/subscr/sub_seq_293.bin", 0
 
 subscr_293:
     If                                  EQUAL, VAR_DEFENDER, 255, 93
@@ -19,7 +20,7 @@ subscr_293:
     SetVar                              OP_SET, VAR_TEMP_WORK, 0
     IfMonData                           FLAG_EQ, BATTLER_DEFENDER, BATTLE_MON_PID, 1, 6
     GetBaseStatsData                    492, 43, 24
-    Jump                                13
+    Branch                              13
     GetBaseStatsData                    492, 43, 25
     If                                  NOT_EQUAL, VAR_TEMP_WORK, 0, 4
     GetBaseStatsData                    492, 43, 24
@@ -33,3 +34,5 @@ subscr_293:
     JumpToSubscript                     262
     RefreshMonData                      BATTLER_DEFENDER
     End                                 
+
+.close

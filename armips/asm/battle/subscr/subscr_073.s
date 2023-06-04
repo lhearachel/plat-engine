@@ -5,14 +5,17 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_73.s", 0
+.create "build/battle/scr/subscr/sub_seq_73.bin", 0
 
 subscr_073:
     TryEncore                           9
     JumpToSubscript                     76
-    Message                             372, TAG_NICK, BATTLER_DEFENDER
+    Message                             372, TAG_NICK, BATTLER_DEFENDER, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

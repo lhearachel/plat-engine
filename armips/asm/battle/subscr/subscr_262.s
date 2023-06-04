@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_262.s", 0
+.create "build/battle/scr/subscr/sub_seq_262.bin", 0
 
 subscr_262:
     IfMonData                           FLAG_NEQ, BATTLER_WORKING, BATTLE_MON_CONDITION_2, 16777216, 11
@@ -24,9 +25,9 @@ subscr_262:
     PlaySound                           BATTLER_WORKING, 1984
     Mosaic                              BATTLER_WORKING, 0, 1
     Wait                                
-    Message                             721, TAG_NICK, BATTLER_WORKING
+    Message                             721, TAG_NICK, BATTLER_WORKING, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     IfMonData                           FLAG_NEQ, BATTLER_WORKING, BATTLE_MON_CONDITION_2, 16777216, 11
     SetStatusEffect                     BATTLER_WORKING, 15
     Wait                                
@@ -35,3 +36,5 @@ subscr_262:
     SetStatusEffect                     BATTLER_WORKING, 16
     Wait                                
     End                                 
+
+.close

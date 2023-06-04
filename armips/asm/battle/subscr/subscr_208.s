@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_208.s", 0
+.create "build/battle/scr/subscr/sub_seq_208.bin", 0
 
 subscr_208:
     SetStatusEffect                     BATTLER_WORKING, 10
@@ -19,3 +20,5 @@ subscr_208:
     JumpToSubscript                     12
     JumpToSubscript                     290
     End                                 
+
+.close

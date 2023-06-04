@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_10.s", 0
+.create "build/battle/scr/subscr/sub_seq_10.bin", 0
 
 subscr_010:
     ShowMonList                         
@@ -30,3 +31,5 @@ subscr_010:
     JumpToSubscript                     6
     JumpIfAnySwitching                  4294967265
     End                                 
+
+.close

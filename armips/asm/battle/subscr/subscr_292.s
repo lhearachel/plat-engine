@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_292.s", 0
+.create "build/battle/scr/subscr/sub_seq_292.bin", 0
 
 subscr_292:
     PlayAnimation                       BATTLER_ATTACKER
@@ -16,16 +17,18 @@ subscr_292:
     ToggleVanish                        1, 1
     MessagePrepared                     
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVarFromVar                       OP_SET, VAR_EFFECTSRC, VAR_ATTACKER
     SetVar                              OP_SET, VAR_EFFECT_PARAMS, 16
     SetVar                              OP_SET, VAR_EFFECT_TYPE, 2
     JumpToSubscript                     12
     SetStatusEffect                     BATTLER_ATTACKER, 10
     Wait                                
-    Message                             1251, TAG_NICK_ITEM, BATTLER_ATTACKER, BATTLER_ATTACKER
+    Message                             1251, TAG_NICK_ITEM, BATTLER_ATTACKER, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     RemoveItem                          BATTLER_ATTACKER
     SetVar                              OP_CLEAR_FLAG, VAR_SERVER_STATUS_FLAG, 16384
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_120.s", 0
+.create "build/battle/scr/subscr/sub_seq_120.bin", 0
 
 subscr_120:
     IfMonData                           EQUAL, BATTLER_ATTACKER, BATTLE_MON_ATK_STAGE, 12, 47
@@ -22,9 +23,11 @@ subscr_120:
     JumpToSubscript                     2
     SetStatusEffect                     BATTLER_ATTACKER, 12
     Wait                                
-    Message                             449, TAG_NICK, BATTLER_ATTACKER
+    Message                             449, TAG_NICK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 64
     End                                 
+
+.close

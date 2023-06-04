@@ -5,10 +5,13 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/movscr/movscr_20.s", 0
+.create "build/battle/scr/movscr/waza_seq_20.bin", 0
 
 movscr_020:
-    PrepareMessage                      235, TAG_NICK_NICK, BATTLER_DEFENDER, BATTLER_ATTACKER
+    PrepareMessage                      235, TAG_NICK_NICK, BATTLER_DEFENDER, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
     JumpToMoveEffectScript              
+
+.close

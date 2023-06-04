@@ -5,19 +5,20 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_264.s", 0
+.create "build/battle/scr/subscr/sub_seq_264.bin", 0
 
 subscr_264:
     If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, 34816, 258
     If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, 32, 253
     CheckAbility                        MODE_NOT_HAVE, BATTLER_ATTACKER, ABILITY_NORMALIZE, 6
     SetVar                              OP_SET, VAR_CALC_WORK, 0
-    Jump                                13
+    Branch                              13
     If                                  EQUAL, VAR_MOVE_TYPE, 0, 6
     SetVarFromVar                       OP_GET, VAR_MOVE_TYPE, VAR_CALC_WORK
-    Jump                                2
+    Branch                              2
     GetCurrentMoveData                  MOVE_PARAM_TYPE
     GetItemEffect                       BATTLER_WORKING, VAR_TEMP_WORK
     If                                  EQUAL, VAR_TEMP_WORK, 35, 87
@@ -38,45 +39,47 @@ subscr_264:
     If                                  EQUAL, VAR_TEMP_WORK, 32, 110
     If                                  EQUAL, VAR_TEMP_WORK, 33, 112
     If                                  EQUAL, VAR_TEMP_WORK, 34, 114
-    Jump                                134
+    Branch                              134
     If                                  EQUAL, VAR_CALC_WORK, 0, 112
-    Jump                                127
+    Branch                              127
     If                                  EQUAL, VAR_CALC_WORK, 10, 105
-    Jump                                120
+    Branch                              120
     If                                  EQUAL, VAR_CALC_WORK, 11, 98
-    Jump                                113
+    Branch                              113
     If                                  EQUAL, VAR_CALC_WORK, 13, 91
-    Jump                                106
+    Branch                              106
     If                                  EQUAL, VAR_CALC_WORK, 12, 84
-    Jump                                99
+    Branch                              99
     If                                  EQUAL, VAR_CALC_WORK, 15, 77
-    Jump                                92
+    Branch                              92
     If                                  EQUAL, VAR_CALC_WORK, 1, 70
-    Jump                                85
+    Branch                              85
     If                                  EQUAL, VAR_CALC_WORK, 3, 63
-    Jump                                78
+    Branch                              78
     If                                  EQUAL, VAR_CALC_WORK, 4, 56
-    Jump                                71
+    Branch                              71
     If                                  EQUAL, VAR_CALC_WORK, 2, 49
-    Jump                                64
+    Branch                              64
     If                                  EQUAL, VAR_CALC_WORK, 14, 42
-    Jump                                57
+    Branch                              57
     If                                  EQUAL, VAR_CALC_WORK, 6, 35
-    Jump                                50
+    Branch                              50
     If                                  EQUAL, VAR_CALC_WORK, 5, 28
-    Jump                                43
+    Branch                              43
     If                                  EQUAL, VAR_CALC_WORK, 7, 21
-    Jump                                36
+    Branch                              36
     If                                  EQUAL, VAR_CALC_WORK, 16, 14
-    Jump                                29
+    Branch                              29
     If                                  EQUAL, VAR_CALC_WORK, 17, 7
-    Jump                                22
+    Branch                              22
     If                                  NOT_EQUAL, VAR_CALC_WORK, 8, 17
     SetStatusEffect                     BATTLER_WORKING, 10
     Wait                                
     DamageDiv                           VAR_HP_TEMP, 2
-    Message                             1131, TAG_ITEM_MOVE, BATTLER_CLIENT_WORK, BATTLER_ATTACKER
+    Message                             1131, TAG_ITEM_MOVE, BATTLER_CLIENT_WORK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     RemoveItem                          BATTLER_WORKING
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_3.s", 0
+.create "build/battle/scr/subscr/sub_seq_3.bin", 0
 
 subscr_003:
     TryNaturalCure                      BATTLER_ME_SLOT_1, 5
@@ -19,28 +20,30 @@ subscr_003:
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 4, 48
     CheckAbility                        MODE_HAVE, BATTLER_ATTACKER, ABILITY_RUN_AWAY, 10
     CheckItemEffect                     MODE_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_ESCAPE_ENCOUNTER, 12
-    Message                             781, TAG_NONE
-    Jump                                12
-    Message                             783, TAG_NICK_ABILITY, BATTLER_ATTACKER, BATTLER_ATTACKER
-    Jump                                5
-    Message                             782, TAG_NICK_ITEM, BATTLER_ATTACKER, BATTLER_ATTACKER
+    Message                             781, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
+    Branch                              12
+    Message                             783, TAG_NICK_ABILITY, BATTLER_ATTACKER, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
+    Branch                              5
+    Message                             782, TAG_NICK_ITEM, BATTLER_ATTACKER, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     FadeOut                             
     Wait                                
     SetVar                              OP_SET_FLAG, VAR_BATTLE_RESULT, 5
     End                                 
     GiveUpMessage                       
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     FadeOut                             
     Wait                                
     SetVar                              OP_CLEAR_FLAG, VAR_BATTLE_RESULT, 64
     End                                 
     EscapeMessage                       
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     FadeOut                             
     Wait                                
     SetVar                              OP_CLEAR_FLAG, VAR_BATTLE_RESULT, 64
     End                                 
+
+.close

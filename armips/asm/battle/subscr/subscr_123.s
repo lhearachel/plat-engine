@@ -5,16 +5,19 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_123.s", 0
+.create "build/battle/scr/subscr/sub_seq_123.bin", 0
 
 subscr_123:
     AttackMessage                       
     Wait                                
-    WaitFrames                          15
+    WaitTime                            15
     MessagePrepared                     
     Wait                                
     PlayAnimation                       BATTLER_ATTACKER
     Wait                                
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_209.s", 0
+.create "build/battle/scr/effscr/be_seq_209.bin", 0
 
 effscr_209:
     SetVar                              OP_ADD, VAR_CRITICAL_CHANCE, 1
@@ -15,3 +16,5 @@ effscr_209:
     CriticalCalc                        
     DamageCalc                          
     End                                 
+
+.close

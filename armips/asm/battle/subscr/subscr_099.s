@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_99.s", 0
+.create "build/battle/scr/subscr/sub_seq_99.bin", 0
 
 subscr_099:
     CheckAbility                        MODE_HAVE, BATTLER_SWITCHING, ABILITY_MAGIC_GUARD, 101
@@ -20,25 +21,27 @@ subscr_099:
     CheckToxicSpikes                    BATTLER_SWITCHING, 25
     If                                  EQUAL, VAR_CALC_WORK, 2, 18
     If                                  EQUAL, VAR_CALC_WORK, 1, 9
-    Message                             1065, TAG_NONE_DIR, BATTLER_SWITCHING
+    Message                             1065, TAG_NONE_DIR, BATTLER_SWITCHING, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
-    Jump                                6
+    WaitTime                            30
+    Branch                              6
     JumpToSubscript                     22
-    Jump                                2
+    Branch                              2
     JumpToSubscript                     47
     CheckSpikes                         BATTLER_SWITCHING, 17
     SetVarFromVar                       OP_SET, VAR_BATTLER_WORK, VAR_SWITCHED_BATTLER
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 64
     JumpToSubscript                     2
-    Message                             429, TAG_NICK, BATTLER_SWITCHING
+    Message                             429, TAG_NICK, BATTLER_SWITCHING, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     CheckStealthRock                    BATTLER_SWITCHING, 17
     SetVarFromVar                       OP_SET, VAR_BATTLER_WORK, VAR_SWITCHED_BATTLER
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 64
     JumpToSubscript                     2
-    Message                             1079, TAG_NICK, BATTLER_SWITCHING
+    Message                             1079, TAG_NICK, BATTLER_SWITCHING, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

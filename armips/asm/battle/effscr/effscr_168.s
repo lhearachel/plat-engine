@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_168.s", 0
+.create "build/battle/scr/effscr/be_seq_168.bin", 0
 
 effscr_168:
     SetVar                              OP_SET, VAR_CALC_WORK, 268435456
@@ -19,3 +20,5 @@ effscr_168:
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 524316
     SetVar                              OP_SET, VAR_ADD_STATUS_DIRECT, 2684354667
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_123.s", 0
+.create "build/battle/scr/effscr/be_seq_123.bin", 0
 
 effscr_123:
     SetMonDataFromVar                   OP_GET, 1, BATTLE_MON_FRIENDSHIP, VAR_DAMAGE_POWER
@@ -17,3 +18,5 @@ effscr_123:
     CriticalCalc                        
     DamageCalc                          
     End                                 
+
+.close

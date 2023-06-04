@@ -5,30 +5,31 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_231.s", 0
+.create "build/battle/scr/subscr/sub_seq_231.bin", 0
 
 subscr_231:
     If                                  EQUAL, VAR_TEMP_WORK, 1, 30
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 1, 9
-    Message                             11, TAG_NONE
+    Message                             11, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
     YesNoBox                            YES_NO_NEXT_MON
     YesNoWait                           0, 6
     ShowMonList                         
     WaitForMonSelection                 
     SwitchInAndUpdate                   BATTLER_SWITCHING
-    Jump                                40
+    Branch                              40
     TryEscape                           BATTLER_ME, 4
     JumpToSubscript                     8
-    Jump                                4294967283
+    Branch                              4294967283
     JumpToSubscript                     3
     End                                 
     ShowMonList                         
     WaitForMonSelection                 
     SwitchInAndUpdate                   BATTLER_SWITCHING
-    Message                             835, TAG_TRTYPE_TRNAME_NICK_TRNAME, BATTLER_SWITCHING, BATTLER_SWITCHING, BATTLER_SWITCHING, BATTLER_ME
+    Message                             835, TAG_TRTYPE_TRNAME_NICK_TRNAME, BATTLER_SWITCHING, BATTLER_SWITCHING, BATTLER_SWITCHING, BATTLER_ME, NaN, NaN
     Wait                                
     YesNoBox                            YES_NO_CHANGE_MON
     YesNoWait                           0, 13
@@ -54,3 +55,5 @@ subscr_231:
     JumpToSubscript                     6
     JumpIfAnySwitching                  4294967239
     End                                 
+
+.close

@@ -5,11 +5,14 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_56.s", 0
+.create "build/battle/scr/effscr/be_seq_56.bin", 0
 
 effscr_056:
     CriticalCalc                        
     DamageCalc                          
     End                                 
+
+.close

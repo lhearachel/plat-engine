@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_149.s", 0
+.create "build/battle/scr/subscr/sub_seq_149.bin", 0
 
 subscr_149:
     IfMonData                           NOT_EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_DEF_STAGE, 12, 6
@@ -25,9 +26,11 @@ subscr_149:
     End                                 
     AttackMessage                       
     Wait                                
-    WaitFrames                          30
-    Message                             768, TAG_NICK, BATTLER_EFFECTSRC
+    WaitTime                            30
+    Message                             768, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 2147483648
     End                                 
+
+.close

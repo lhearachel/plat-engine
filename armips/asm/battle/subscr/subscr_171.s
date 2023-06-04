@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_171.s", 0
+.create "build/battle/scr/subscr/sub_seq_171.bin", 0
 
 subscr_171:
     CheckSideCondition                  BATTLER_DEFENDER, SIDE_CONDITION_MODE_CHECK_ON, SIDE_CONDITION_LIGHT_SCREEN_COUNT, 37
@@ -18,7 +19,7 @@ subscr_171:
     CheckSideCondition                  BATTLER_DEFENDER, SIDE_CONDITION_MODE_CHECK_ON, SIDE_CONDITION_TOXIC_SPIKES_COUNT, 12
     If                                  FLAG_EQ, VAR_DEFENDER_SIDE_CONDITIONS, 128, 7
     If                                  FLAG_EQ, VAR_FIELD_CONDITIONS, 32768, 2
-    Jump                                2
+    Branch                              2
     JumpToSubscript                     76
     SetVar                              OP_SET, VAR_EFFECT_PARAMS, 28
     JumpToSubscript                     12
@@ -53,7 +54,9 @@ subscr_171:
     JumpToSubscript                     172
     If                                  FLAG_NEQ, VAR_FIELD_CONDITIONS, 32768, 12
     SetVar                              OP_CLEAR_FLAG, VAR_FIELD_CONDITIONS, 32768
-    Message                             1045, TAG_NICK_MOVE, BATTLER_ATTACKER, BATTLER_ATTACKER
+    Message                             1045, TAG_NICK_MOVE, BATTLER_ATTACKER, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

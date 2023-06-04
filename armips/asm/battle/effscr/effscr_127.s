@@ -5,10 +5,13 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_127.s", 0
+.create "build/battle/scr/effscr/be_seq_127.bin", 0
 
 effscr_127:
     SetVar                              OP_SET, VAR_ADD_STATUS_DIRECT, 536871011
     End                                 
+
+.close

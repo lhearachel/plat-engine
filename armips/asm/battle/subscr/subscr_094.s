@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_94.s", 0
+.create "build/battle/scr/subscr/sub_seq_94.bin", 0
 
 subscr_094:
     CheckAbility                        MODE_HAVE, BATTLER_WORKING, ABILITY_MAGIC_GUARD, 29
@@ -16,9 +17,11 @@ subscr_094:
     SetMonDataFromVar                   OP_GET, 255, BATTLE_MON_MAX_HP, VAR_HP_TEMP
     DamageDiv                           VAR_HP_TEMP, 4
     SetVar                              OP_MUL, VAR_HP_TEMP, 4294967295
-    Message                             414, TAG_NICK, BATTLER_WORKING
+    Message                             414, TAG_NICK, BATTLER_WORKING, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 64
-    JumpToSubscript                     2
+    JumpTo                              2
     End                                 
+
+.close

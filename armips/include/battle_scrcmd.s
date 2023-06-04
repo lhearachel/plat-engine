@@ -1,5 +1,5 @@
 .include "armips/include/battle_pokemon_params.s"
-.include "armips/include/message_tag.s"
+.include "armips/include/message_tags.s"
 
 /*
  * Starts an encounter with the appropriate encounter effects.
@@ -226,16 +226,16 @@ POS_DOUBLES_ENEMY_2 equ 5
  */
 .macro Message,msg_id,tag,param1,param2,param3,param4,param5,param6
     .word 0x12, msg_id, tag
-    .if tag == TAG_NONE
-    .elseif tag < TAG_NICK_NICK
+    .if tag == 0
+    .elseif tag < 9
         .word param1
-    .elseif tag < TAG_NICK_NICK_MOVE
+    .elseif tag < 31
         .word param1, param2
-    .elseif tag < TAG_NICK_ABILITY_NICK_MOVE
+    .elseif tag < 52
         .word param1, param2, param3
-    .elseif tag < TAG_TRTYPE_TRNAME_NICKx2
+    .elseif tag < 60
         .word param1, param2, param3, param4
-    .elseif
+    .else
         .word param1, param2, param3, param4, param5, param6
     .endif
 .endmacro
@@ -249,15 +249,15 @@ POS_DOUBLES_ENEMY_2 equ 5
 .macro MessageNoBattler,msg_id,tag,param1,param2,param3,param4,param5,param6
     .word 0x13, msg_id, tag
     .if tag == 0
-    .elseif tag < TAG_NICK_NICK
+    .elseif tag < 9
         .word param1
-    .elseif tag < TAG_NICK_NICK_MOVE
+    .elseif tag < 31
         .word param1, param2
-    .elseif tag < TAG_NICK_ABILITY_NICK_MOVE
+    .elseif tag < 52
         .word param1, param2, param3
-    .elseif tag < TAG_TRTYPE_TRNAME_NICKx2
+    .elseif tag < 60
         .word param1, param2, param3, param4
-    .elseif
+    .else
         .word param1, param2, param3, param4, param5, param6
     .endif
 .endmacro
@@ -279,15 +279,15 @@ POS_DOUBLES_ENEMY_2 equ 5
 .macro PrepareMessage,msg_id,tag,param1,param2,param3,param4,param5,param6
     .word 0x15, msg_id, tag
     .if tag == 0
-    .elseif tag < TAG_NICK_NICK
+    .elseif tag < 9
         .word param1
-    .elseif tag < TAG_NICK_NICK_MOVE
+    .elseif tag < 31
         .word param1, param2
-    .elseif tag < TAG_NICK_ABILITY_NICK_MOVE
+    .elseif tag < 52
         .word param1, param2, param3
-    .elseif tag < TAG_TRTYPE_TRNAME_NICKx2
+    .elseif tag < 60
         .word param1, param2, param3, param4
-    .elseif
+    .else
         .word param1, param2, param3, param4, param5, param6
     .endif
 .endmacro
@@ -300,15 +300,15 @@ POS_DOUBLES_ENEMY_2 equ 5
 .macro MessageWithBattler,battler,msg_id,tag,param1,param2,param3,param4,param5,param6
     .word 0x16, battler, msg_id, tag
     .if tag == 0
-    .elseif tag < TAG_NICK_NICK
+    .elseif tag < 9
         .word param1
-    .elseif tag < TAG_NICK_NICK_MOVE
+    .elseif tag < 31
         .word param1, param2
-    .elseif tag < TAG_NICK_ABILITY_NICK_MOVE
+    .elseif tag < 52
         .word param1, param2, param3
-    .elseif tag < TAG_TRTYPE_TRNAME_NICKx2
+    .elseif tag < 60
         .word param1, param2, param3, param4
-    .elseif
+    .else
         .word param1, param2, param3, param4, param5, param6
     .endif
 .endmacro
@@ -402,7 +402,7 @@ FLAG_AND    equ 6
  */
 .macro If,condition,source_var,compare_to,jump_if_true
     .word 0x20, condition, source_var, compare_to
-    .word ((jump_if_true - org()) / 4) - 1
+    .word jump_if_true //.word ((jump_if_true - org()) / 4) - 1
 .endmacro
 
 /*
@@ -412,7 +412,7 @@ FLAG_AND    equ 6
  */
 .macro IfMonData,condition,battler,mon_param,compare_to,jump_if_true
     .word 0x21, condition, battler, mon_param, compare_to
-    .word ((jump_if_true - org()) / 4) - 1
+    .word jump_if_true //.word ((jump_if_true - org()) / 4) - 1
 .endmacro
 
 /*
@@ -425,7 +425,7 @@ FLAG_AND    equ 6
 /*
  * Jump to a specific subscript.
  */
-.macro JumpToSubscript,num
+.macro JumpTo,num
     .word 0x23, num
 .endmacro
 
@@ -455,7 +455,7 @@ FLAG_AND    equ 6
  */
 .macro ShouldGetExp,jump_if_no_exp
     .word 0x27
-    .word ((jump_if_no_exp - org()) / 4) - 1
+    .word jump_if_no_exp //.word ((jump_if_no_exp - org()) / 4) - 1
 .endmacro
 
 /*
@@ -477,7 +477,7 @@ FLAG_AND    equ 6
  */
 .macro ExpLoopback,jump_to
     .word 0x2A
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 /*
@@ -507,7 +507,7 @@ FLAG_AND    equ 6
  */
 .macro JumpIfAnySwitching,jump_to
     .word 0x2E
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 CAPTURE_NORMAL  equ 0
@@ -652,9 +652,9 @@ VAR_CLIENT_WORKING_COUNT                equ 69
  */
 .macro StatBoostChange,jump_if_no_change,jump_if_blocked,jump_if_blocked_by_substitute
     .word 0x33
-    .word ((jump_if_no_change - org()) / 4) - 3
-    .word ((jump_if_blocked - org()) / 4) - 2
-    .word ((jump_if_blocked_by_substitute - org()) / 4) - 1
+    .word jump_if_no_change //.word ((jump_if_no_change - org()) / 4) - 3
+    .word jump_if_blocked //.word ((jump_if_blocked - org()) / 4) - 2
+    .word jump_if_blocked_by_substitute //.word ((jump_if_blocked_by_substitute - org()) / 4) - 1
 .endmacro
 
 /*
@@ -701,7 +701,7 @@ MODE_NOT_HAVE   equ 1
  */
 .macro CheckAbility,mode,battler,ability,jump_to
     .word 0x37, mode, battler, ability
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 /*
@@ -731,11 +731,11 @@ MODE_NOT_HAVE   equ 1
 .endmacro
 
 /*
- * Jump to an address.
+ * Branch to an address.
  */
-.macro Jump,jump_to
+.macro Branch,jump_to
     .word 0x3B
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 /*
@@ -879,7 +879,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryConversion,jump_on_failure
     .word 0x4D
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -887,7 +887,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro JumpIf,operator,source,compare_to,jump_to
     .word 0x4E, operator, source, compare_to
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 /*
@@ -896,7 +896,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro JumpIfMonData,operator,battler,mon_param,compare_to,jump_to
     .word 0x4F, operator, battler, mon_param, compare_to
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 /*
@@ -911,7 +911,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro SetLightScreen,jump_on_failure
     .word 0x51
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -919,7 +919,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro SetReflect,jump_on_failure
     .word 0x52
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -927,7 +927,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro SetMist,jump_on_failure
     .word 0x53
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -956,7 +956,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryMimic,jump_on_failure
     .word 0x57
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -971,7 +971,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryDisable,jump_on_failure
     .word 0x59
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -993,7 +993,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryEncore,jump_on_failure
     .word 0x5C
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1001,7 +1001,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryConversion2,jump_on_failure
     .word 0x5D
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1009,7 +1009,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TrySketch,jump_on_failure
     .word 0x5E
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1017,7 +1017,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TrySleepTalk,jump_on_failure
     .word 0x5F
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1032,7 +1032,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TrySpite,jump_on_failure
     .word 0x61
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1047,8 +1047,8 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryThief,jump_on_failure,jump_if_sticky_hold
     .word 0x63
-    .word ((jump_on_failure - org()) / 4) - 2
-    .word ((jump_if_sticky_hold - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 2
+    .word jump_if_sticky_hold //.word ((jump_if_sticky_hold - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1056,7 +1056,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryProtect,jump_on_failure
     .word 0x64
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1064,7 +1064,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TrySubstitute,jump_on_failure
     .word 0x65
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1072,7 +1072,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryWhirlwind,jump_on_failure
     .word 0x66
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1087,7 +1087,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TrySpikes,jump_on_failure
     .word 0x68
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1095,7 +1095,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro CheckSpikes,battler,jump_on_failure
     .word 0x69, battler
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1103,7 +1103,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryPerishSong,jump_on_failure
     .word 0x6A
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1127,7 +1127,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro JumpIfValidBattler,var,jump_to
     .word 0x6C, var
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1156,7 +1156,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryAttract,jump_on_failure
     .word 0x70
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1164,7 +1164,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TrySafeguard,jump_on_failure
     .word 0x71
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1172,7 +1172,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryPresent,jump_on_failure
     .word 0x72
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1189,7 +1189,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TrySwitchInMon,battler,open_party_flag,jump_on_failure
     .word 0x74, battler, open_party_flag
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1225,7 +1225,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryFutureSight,jump_on_failure
     .word 0x79
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1233,7 +1233,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro CheckHit,attacker,defender,move_id,jump_on_failure
     .word 0x7A, attacker, defender, move_id
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1241,7 +1241,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryTeleport,jump_on_failure
     .word 0x7B
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1263,7 +1263,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryHelpingHand,jump_on_failure
     .word 0x7E
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1271,8 +1271,8 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryTrick,jump_on_failure,jump_if_sticky_hold
     .word 0x7F
-    .word ((jump_on_failure - org()) / 4) - 2
-    .word ((jump_if_sticky_hold - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 2
+    .word jump_if_sticky_hold //.word ((jump_if_sticky_hold - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1280,7 +1280,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryWish,jump_on_failure
     .word 0x80
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1288,7 +1288,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryAssist,jump_on_failure
     .word 0x81
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1296,7 +1296,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TrySetMagicCoat,jump_on_failure
     .word 0x82
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1318,7 +1318,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryBreakScreens,jump_on_failure
     .word 0x85
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1326,7 +1326,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryYawn,jump_on_failure
     .word 0x86
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1334,7 +1334,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryKnockOff,jump_on_failure
     .word 0x87
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1349,7 +1349,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryImprison,jump_on_failure
     .word 0x89
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1357,7 +1357,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryGrudge,jump_on_failure
     .word 0x8A
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1365,7 +1365,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TrySnatch,jump_on_failure
     .word 0x8B
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1373,7 +1373,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro LowKickDamageCalc,jump_on_failure
     .word 0x8C
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1388,7 +1388,7 @@ TRAINER_MESSAGE_WIN     equ 100
  */
 .macro TryPursuit,jump_on_failure
     .word 0x8E
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1417,7 +1417,7 @@ OTF_ENDURING        equ 8
  */
 .macro CheckOneTurnFlag,battler,flag,compare_to,jump_if_equal
     .word 0x90, battler, flag, compare_to
-    .word ((jump_if_equal - org()) / 4) - 1
+    .word jump_if_equal //.word ((jump_if_equal - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1439,7 +1439,7 @@ OTF_ENDURING        equ 8
  */
 .macro MetalBurstDamageCalc,jump_on_failure
     .word 0x93
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1468,7 +1468,7 @@ OTF_ENDURING        equ 8
  */
 .macro TryMeFirst,jump_on_failure
     .word 0x97
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1476,7 +1476,7 @@ OTF_ENDURING        equ 8
  */
 .macro TryCopycat,jump_on_failure
     .word 0x98
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1491,7 +1491,7 @@ OTF_ENDURING        equ 8
  */
 .macro TrySuckerPunch,jump_on_failure
     .word 0x9A
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 SIDE_CONDITION_MODE_CHECK_OFF   equ 0
@@ -1510,7 +1510,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro CheckSideCondition,battler,mode,condition_flag,jump_to
     .word 0x9B, battler, mode, condition_flag
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1518,7 +1518,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro TryFeint,jump_if_no_protect
     .word 0x9C
-    .word ((jump_if_no_protect - org()) / 4) - 1
+    .word jump_if_no_protect //.word ((jump_if_no_protect - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1526,7 +1526,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro TryPsychoShift,jump_on_failure
     .word 0x9D
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1534,7 +1534,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro TryLastResort,jump_on_failure
     .word 0x9E
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1542,15 +1542,15 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro TryToxicSpikes,jump_on_failure
     .word 0x9F
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
  * Perform entry checks for Toxic Spikes for a battler.
  */
 .macro CheckToxicSpikes,battler,jump_on_failure
-    .word 0xA0
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word 0xA0, battler
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1558,7 +1558,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro MoldBreakerAbilityCheck,mode,battler,ability,jump_to
     .word 0xA1, mode, battler, ability
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1566,7 +1566,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro CheckSameSide,mon1,mon2,jump_if_not_equal
     .word 0xA2, mon1, mon2
-    .word ((jump_if_not_equal - org()) / 4) - 1
+    .word jump_if_not_equal //.word ((jump_if_not_equal - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1588,7 +1588,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro CheckMoveFinished,battler,jump_if_done
     .word 0xA5, battler
-    .word ((jump_if_done - org()) / 4) - 1
+    .word jump_if_done //.word ((jump_if_done - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1596,7 +1596,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro CheckItemEffect,mode,battler,item_effect,jump_to
     .word 0xA6, mode, battler, item_effect
-    .word ((jump_to - org()) / 4) - 1
+    .word jump_to //.word ((jump_to - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1618,7 +1618,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro TryCamouflage,jump_on_failure
     .word 0xA9
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1640,7 +1640,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro TryNaturalGift,jump_on_failure
     .word 0xAC
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1648,8 +1648,8 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro TryPluck,jump_if_sticky_hold,jump_if_no_effect
     .word 0xAD
-    .word ((jump_if_sticky_hold - org()) / 4) - 2
-    .word ((jump_if_no_effect - org()) / 4) - 1
+    .word jump_if_sticky_hold //.word ((jump_if_sticky_hold - org()) / 4) - 2
+    .word jump_if_no_effect //.word ((jump_if_no_effect - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1657,7 +1657,7 @@ SIDE_CONDITION_TOXIC_SPIKES_COUNT   equ 5
  */
 .macro TryFling,jump_on_failure
     .word 0xAE
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 YES_NO_BASIC            equ 0
@@ -1679,8 +1679,8 @@ YES_NO_GIVE_NICKNAME    equ 5
  */
 .macro YesNoWait,jump_if_yes,jump_if_no
     .word 0xB0
-    .word ((jump_if_yes - org()) / 4) - 2
-    .word ((jump_if_no - org()) / 4) - 1
+    .word jump_if_yes //.word ((jump_if_yes - org()) / 4) - 2
+    .word jump_if_no //.word ((jump_if_no - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1696,7 +1696,7 @@ YES_NO_GIVE_NICKNAME    equ 5
  */
 .macro WaitPartyList,jump_if_canceled
     .word 0xB2
-    .word ((jump_if_canceled - org()) / 4) - 1
+    .word jump_if_canceled //.word ((jump_if_canceled - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1711,7 +1711,7 @@ YES_NO_GIVE_NICKNAME    equ 5
  */
 .macro CheckStealthRock,battler,jump_if_no_effect
     .word 0xB4, battler
-    .word ((jump_if_no_effect - org()) / 4) - 1
+    .word jump_if_no_effect //.word ((jump_if_no_effect - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1719,7 +1719,7 @@ YES_NO_GIVE_NICKNAME    equ 5
  */
 .macro CheckSecondaryEffectActivation,jump_to_effect
     .word 0xB5
-    .word ((jump_to_effect - org()) / 4) - 1
+    .word jump_to_effect //.word ((jump_to_effect - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1727,7 +1727,7 @@ YES_NO_GIVE_NICKNAME    equ 5
  */
 .macro CheckChatterActivation,jump_if_no_effect
     .word 0xB6
-    .word ((jump_if_no_effect - org()) / 4) - 1
+    .word jump_if_no_effect //.word ((jump_if_no_effect - org()) / 4) - 1
 .endmacro
 
 MOVE_PARAM_EFFECT           equ 0
@@ -1775,7 +1775,7 @@ MOVE_PARAM_CONTEST_TYPE     equ 11
  * Recover the status on a battler.
  */
 .macro RecoverStatus,battler
-    .word 0xBB
+    .word 0xBB, battler
 .endmacro
 
 /*
@@ -1783,7 +1783,7 @@ MOVE_PARAM_CONTEST_TYPE     equ 11
  */
 .macro TryEscape,battler,jump_if_success
     .word 0xBC, battler
-    .word ((jump_if_success - org()) / 4) - 1
+    .word jump_if_success //.word ((jump_if_success - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1851,7 +1851,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro CheckAbilityEffectOnHit,jump_if_no_effect
     .word 0xC5
-    .word ((jump_if_no_effect - org()) / 4) - 1
+    .word jump_if_no_effect //.word ((jump_if_no_effect - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1873,7 +1873,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro CheckWhiteOut,battler,jump_if_white_out
     .word 0xC8, battler
-    .word ((jump_if_white_out - org()) / 4) - 1
+    .word jump_if_white_out //.word ((jump_if_white_out - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1881,7 +1881,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro TryAcupressure,jump_on_failure
     .word 0xC9
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1896,7 +1896,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro TryRecycle,jump_if_no_item
     .word 0xCB
-    .word ((jump_if_no_item - org()) / 4) - 1
+    .word jump_if_no_item //.word ((jump_if_no_item - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1904,7 +1904,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro CheckItemEffectOnHit,jump_if_no_effect
     .word 0xCC
-    .word ((jump_if_no_effect - org()) / 4) - 1
+    .word jump_if_no_effect //.word ((jump_if_no_effect - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1940,7 +1940,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro TryNaturalCure,battler,jump_on_failure
     .word 0xD1, battler
-    .word ((jump_on_failure - org()) / 4) - 1
+    .word jump_on_failure //.word ((jump_on_failure - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1948,7 +1948,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro CheckSubstitute,battler,jump_if_sub_active
     .word 0xD2, battler
-    .word ((jump_if_sub_active - org()) / 4) - 1
+    .word jump_if_sub_active //.word ((jump_if_sub_active - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1956,7 +1956,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro CheckCloudNine,jump_if_active
     .word 0xD3
-    .word ((jump_if_active - org()) / 4) - 1
+    .word jump_if_active //.word ((jump_if_active - org()) / 4) - 1
 .endmacro
 
 /*
@@ -1971,7 +1971,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro CheckUturnItemEffect,jump_if_no_effect
     .word 0xD5
-    .word ((jump_if_no_effect - org()) / 4) - 1
+    .word jump_if_no_effect //.word ((jump_if_no_effect - org()) / 4) - 1
 .endmacro
 
 /*
@@ -2000,7 +2000,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro CheckSafariDone,jump_if_not_done
     .word 0xD9
-    .word ((jump_if_not_done - org()) / 4) - 1
+    .word jump_if_not_done //.word ((jump_if_not_done - org()) / 4) - 1
 .endmacro
 
 /*
@@ -2015,7 +2015,7 @@ CLIENT_TYPE_NOT_MINE    equ 1
  */
 .macro CheckMoveIsType,type,jump_if_equal
     .word 0xDB, type
-    .word ((jump_if_equal - org()) / 4) - 1
+    .word jump_if_equal //.word ((jump_if_equal - org()) / 4) - 1
 .endmacro
 
 /*

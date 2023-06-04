@@ -5,15 +5,16 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_36.s", 0
+.create "build/battle/scr/subscr/sub_seq_36.bin", 0
 
 subscr_036:
     IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_CONDITION_2, 768, 33
-    Message                             335, TAG_NICK, BATTLER_ATTACKER
+    Message                             335, TAG_NICK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET, VAR_MOVE_EFFECT, 1
     SetMonData                          OP_CLEAR_FLAG, BATTLER_ATTACKER, BATTLE_MON_CONDITION_2, 4096
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 512
@@ -22,7 +23,9 @@ subscr_036:
     JumpToSubscript                     75
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 2147483648
     End                                 
-    Message                             332, TAG_NICK, BATTLER_ATTACKER
+    Message                             332, TAG_NICK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

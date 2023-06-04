@@ -5,12 +5,13 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_186.s", 0
+.create "build/battle/scr/subscr/sub_seq_186.bin", 0
 
 subscr_186:
-    WaitFrames                          15
+    WaitTime                            15
     SetVar                              OP_SET, VAR_NTH_BATTLER_BY_SPEED, 0
     SetVarFromVar                       OP_SET, VAR_PUSH_CLIENT, VAR_ATTACKER
     SetVarFromVar                       OP_SET, VAR_ATTACKER, VAR_BATTLER_WORK
@@ -25,3 +26,5 @@ subscr_186:
     JumpIfValidBattler                  VAR_NTH_BATTLER_BY_SPEED, 4294967264
     SetVarFromVar                       OP_SET, VAR_ATTACKER, VAR_PUSH_CLIENT
     End                                 
+
+.close

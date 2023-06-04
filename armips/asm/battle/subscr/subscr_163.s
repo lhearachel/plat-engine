@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_163.s", 0
+.create "build/battle/scr/subscr/sub_seq_163.bin", 0
 
 subscr_163:
     CheckSubstitute                     BATTLER_DEFENDER, 32
@@ -16,9 +17,11 @@ subscr_163:
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, 121, 15
     JumpToSubscript                     76
     SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, 2097152
-    Message                             1012, TAG_NICK, BATTLER_DEFENDER
+    Message                             1012, TAG_NICK, BATTLER_DEFENDER, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 64
     End                                 
+
+.close

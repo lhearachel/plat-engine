@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_162.s", 0
+.create "build/battle/scr/effscr/be_seq_162.bin", 0
 
 effscr_162:
     IfMonData                           EQUAL, BATTLER_ATTACKER, BATTLE_MON_STOCKPILE_COUNT, 0, 73
@@ -30,9 +31,11 @@ effscr_162:
     End                                 
     AttackMessage                       
     Wait                                
-    WaitFrames                          30
-    Message                             815, TAG_NONE
+    WaitTime                            30
+    Message                             815, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 2147483648
     End                                 
+
+.close

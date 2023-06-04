@@ -5,12 +5,15 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_143.s", 0
+.create "build/battle/scr/effscr/be_seq_143.bin", 0
 
 effscr_143:
     PsychUp                             
-    PrepareMessage                      452, TAG_NICK_NICK, BATTLER_ATTACKER, BATTLER_DEFENDER
+    PrepareMessage                      452, TAG_NICK_NICK, BATTLER_ATTACKER, BATTLER_DEFENDER, NaN, NaN, NaN, NaN
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, 536871002
     End                                 
+
+.close

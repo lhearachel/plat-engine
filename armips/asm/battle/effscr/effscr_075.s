@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_75.s", 0
+.create "build/battle/scr/effscr/be_seq_75.bin", 0
 
 effscr_075:
     IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_CONDITION_2, 4096, 21
@@ -23,3 +24,5 @@ effscr_075:
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, 2147483656
     JumpToSubscript                     259
     End                                 
+
+.close

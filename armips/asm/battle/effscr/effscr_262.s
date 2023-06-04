@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_262.s", 0
+.create "build/battle/scr/effscr/be_seq_262.bin", 0
 
 effscr_262:
     CheckAbility                        MODE_NOT_HAVE, BATTLER_ATTACKER, ABILITY_RECKLESS, 4
@@ -16,3 +17,5 @@ effscr_262:
     CriticalCalc                        
     DamageCalc                          
     End                                 
+
+.close

@@ -5,33 +5,34 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_5.s", 0
+.create "build/battle/scr/subscr/sub_seq_5.bin", 0
 
 subscr_005:
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 128, 64
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 4, 56
-    Message                             36, TAG_TRNAME, BATTLER_ME
+    Message                             36, TAG_TRNAME, BATTLER_ME, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 128, 29
     CalcMoney                           
     If                                  EQUAL, VAR_PREPARED_MESSAGE, 0, 23
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 1, 10
-    Message                             34, TAG_TRNAME_NUM, BATTLER_ME, BATTLER_WORKING
+    Message                             34, TAG_TRNAME_NUM, BATTLER_ME, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
-    Jump                                8
-    Message                             35, TAG_TRNAME_NUM, BATTLER_ME, BATTLER_WORKING
+    WaitTime                            30
+    Branch                              8
+    Message                             35, TAG_TRNAME_NUM, BATTLER_ME, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
-    Message                             38, TAG_NONE
+    WaitTime                            30
+    Message                             38, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
-    Message                             37, TAG_NONE
+    WaitTime                            30
+    Message                             37, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     FadeOut                             
     Wait                                
     End                                 
@@ -49,7 +50,7 @@ subscr_005:
     Wait                                
     TrainerMessage                      BATTLER_ENEMY_SLOT_1, TRAINER_MESSAGE_WIN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     If                                  FLAG_NEQ, VAR_BATTLE_TYPE, 8, 15
     TrainerSlideOut                     10
     Wait                                
@@ -57,10 +58,12 @@ subscr_005:
     Wait                                
     TrainerMessage                      BATTLER_ENEMY_SLOT_2, TRAINER_MESSAGE_WIN
     Wait                                
-    WaitFrames                          60
-    Jump                                2
-    WaitFrames                          30
+    WaitTime                            60
+    Branch                              2
+    WaitTime                            30
     SetBattleResult                     
     FadeOut                             
     Wait                                
     End                                 
+
+.close

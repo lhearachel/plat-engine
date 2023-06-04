@@ -5,15 +5,18 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_51.s", 0
+.create "build/battle/scr/subscr/sub_seq_51.bin", 0
 
 subscr_051:
     SetVar                              OP_SET, VAR_EFFECT_TYPE, 4
     JumpToSubscript                     37
     IfMonData                           FLAG_NEQ, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION_2, 7, 7
-    Message                             338, TAG_NICK, BATTLER_EFFECTSRC
+    Message                             338, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

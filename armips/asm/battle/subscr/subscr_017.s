@@ -5,13 +5,16 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_17.s", 0
+.create "build/battle/scr/subscr/sub_seq_17.bin", 0
 
 subscr_017:
     If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, 65536, 7
-    Message                             46, TAG_NUM, BATTLER_WORKING
+    Message                             46, TAG_NUM, BATTLER_WORKING, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_223.s", 0
+.create "build/battle/scr/effscr/be_seq_223.bin", 0
 
 effscr_223:
     TryFeint                            7
@@ -17,3 +18,5 @@ effscr_223:
     End                                 
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 64
     End                                 
+
+.close

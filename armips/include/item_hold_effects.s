@@ -145,17 +145,17 @@ HOLD_EFFECT_EVOLVE_ELECTABUZZ                   equ 143
 HOLD_EFFECT_EVOLVE_MAGMAR                       equ 144
 HOLD_EFFECT_EVOLVE_PORYGON2                     equ 145
 HOLD_EFFECT_EVOLVE_DUSKNOIR                     equ 146
-HOLD_EFFECT_BOOST_SPA_ON_WATER_HIT              147     // Absorb equ Bulb
-HOLD_EFFECT_UNGROUND_DESTROYED_ON_HIT           148     // Air Balloon  -> DamageCalc, equ ItemEffectCheckOnHit
-HOLD_EFFECT_INCREASE_TRAPPING_DAMAGE            149     // Binding Band -> end of turn condition check (equ ServerPokeConditionCheck)
-HOLD_EFFECT_BOOST_ATK_ON_ELECTRIC_HIT           150     // Cell equ Battery
-HOLD_EFFECT_SWITCH_OUT_WHEN_HIT                 151     // Eject equ Button
-HOLD_EFFECT_EVIOLITE                            152     // Eviolite     -> general damage equ calc
-HOLD_EFFECT_HALVE_WEIGHT                        153     // Float Stone  -> equ GetBattleMonWeight
-HOLD_EFFECT_EVOLVE_FEEBAS                       154     // Prism equ Scale
-HOLD_EFFECT_FORCE_SWITCH_ON_DAMAGE              155     // Red equ Card
-HOLD_EFFECT_REMOVE_IMMUNITIES                   156     // Ring Target  -> general damage equ calc
-HOLD_EFFECT_DAMAGE_ON_CONTACT                   157     // Rocky equ Helmet
+HOLD_EFFECT_BOOST_SPA_ON_WATER_HIT              equ 147
+HOLD_EFFECT_UNGROUND_DESTROYED_ON_HIT           equ 148
+HOLD_EFFECT_INCREASE_TRAPPING_DAMAGE            equ 149
+HOLD_EFFECT_BOOST_ATK_ON_ELECTRIC_HIT           equ 150
+HOLD_EFFECT_SWITCH_OUT_WHEN_HIT                 equ 151
+HOLD_EFFECT_EVIOLITE                            equ 152
+HOLD_EFFECT_HALVE_WEIGHT                        equ 153
+HOLD_EFFECT_EVOLVE_FEEBAS                       equ 154
+HOLD_EFFECT_FORCE_SWITCH_ON_DAMAGE              equ 155
+HOLD_EFFECT_REMOVE_IMMUNITIES                   equ 156
+HOLD_EFFECT_DAMAGE_ON_CONTACT                   equ 157
 HOLD_EFFECT_BURN_DRIVE                          equ 158
 HOLD_EFFECT_CHILL_DRIVE                         equ 159
 HOLD_EFFECT_DOUSE_DRIVE                         equ 160
@@ -178,24 +178,24 @@ HOLD_EFFECT_GEM_PSYCHIC                         equ 176
 HOLD_EFFECT_GEM_ROCK                            equ 177
 HOLD_EFFECT_GEM_STEEL                           equ 178
 HOLD_EFFECT_GEM_WATER                           equ 179
-HOLD_EFFECT_BOOST_SPD_NO_STATUS_MOVES           180     // Assault Vest     -> general damage calc, move equ selection
-HOLD_EFFECT_BOOST_DEF_ON_PHYSICAL_HIT           181     // Kee equ Berry
-HOLD_EFFECT_BOOST_SPD_ON_WATER_HIT              182     // Luminous equ Moss
-HOLD_EFFECT_BOOST_SPD_ON_SPECIAL_HIT            183     // Maranga equ Berry
-HOLD_EFFECT_BOOST_FAIRY_PLATE                   184     // Pixie Plate      -> general damage equ calc
-HOLD_EFFECT_WEAKEN_SE_FAIRY                     185     // Roseli Berry     -> equ sub_264
-HOLD_EFFECT_EVOLVE_SPRITZEE                     186     // equ Sachet
-HOLD_EFFECT_SAFETY_GOGGLES                      187     // Safety Goggles   -> equ WeatherDamageCalc
-HOLD_EFFECT_BOOST_ATK_ON_ICE_HIT                188     // equ Snowball
-HOLD_EFFECT_BOOST_ATK_AND_SPATK_ON_SE           189     // Weakness Policy  -> equ ItemEffectCheckOnHit
-HOLD_EFFECT_EVOLVE_SWIRLIX                      190     // Whipped equ Dream
-HOLD_EFFECT_BOOST_SPEED_AFTER_INTIMIDATE        191     // Adrenaline Orb   -> intimidate check (wherever that equ is)
-HOLD_EFFECT_PREVENT_CONTACT_EFFECTS             192     // Protective Pads  -> probably equ AbilityEffectCheckOnHit
-HOLD_EFFECT_EXTEND_TERRAIN                      193     // Terrain Extender -> (new) equ SetTerrain
-HOLD_EFFECT_SEED_ELECTRIC                       194     // Electric Seed    -> equ CheckItemEffect
-HOLD_EFFECT_SEED_GRASSY                         195     // Grassy equ Seed
-HOLD_EFFECT_SEED_MISTY                          196     // Misty equ Seed
-HOLD_EFFECT_SEED_PSYCHIC                        197     // Psychic equ Seed
+HOLD_EFFECT_BOOST_SPD_NO_STATUS_MOVES           equ 180
+HOLD_EFFECT_BOOST_DEF_ON_PHYSICAL_HIT           equ 181
+HOLD_EFFECT_BOOST_SPD_ON_WATER_HIT              equ 182
+HOLD_EFFECT_BOOST_SPD_ON_SPECIAL_HIT            equ 183
+HOLD_EFFECT_BOOST_FAIRY_PLATE                   equ 184
+HOLD_EFFECT_WEAKEN_SE_FAIRY                     equ 185
+HOLD_EFFECT_EVOLVE_SPRITZEE                     equ 186
+HOLD_EFFECT_SAFETY_GOGGLES                      equ 187
+HOLD_EFFECT_BOOST_ATK_ON_ICE_HIT                equ 188
+HOLD_EFFECT_BOOST_ATK_AND_SPATK_ON_SE           equ 189
+HOLD_EFFECT_EVOLVE_SWIRLIX                      equ 190
+HOLD_EFFECT_BOOST_SPEED_AFTER_INTIMIDATE        equ 191
+HOLD_EFFECT_PREVENT_CONTACT_EFFECTS             equ 192
+HOLD_EFFECT_EXTEND_TERRAIN                      equ 193
+HOLD_EFFECT_SEED_ELECTRIC                       equ 194
+HOLD_EFFECT_SEED_GRASSY                         equ 195
+HOLD_EFFECT_SEED_MISTY                          equ 196
+HOLD_EFFECT_SEED_PSYCHIC                        equ 197
 HOLD_EFFECT_MEMORY_BUG                          equ 198
 HOLD_EFFECT_MEMORY_DARK                         equ 199
 HOLD_EFFECT_MEMORY_DRAGON                       equ 200
@@ -214,16 +214,16 @@ HOLD_EFFECT_MEMORY_PSYCHIC                      equ 212
 HOLD_EFFECT_MEMORY_ROCK                         equ 213
 HOLD_EFFECT_MEMORY_STEEL                        equ 214
 HOLD_EFFECT_MEMORY_WATER                        equ 215
-HOLD_EFFECT_BOOST_SPEED_ON_MISS                 216     // Blunder Policy   -> equ CheckItemEffect
-HOLD_EFFECT_SWITCH_ON_STAT_REDUCTION            217     // Eject Pack       -> equ StatBuffChange
-HOLD_EFFECT_IGNORE_ENTRY_HAZARDS                218     // Heavy-Duty Boots -> CheckStealthRock, CheckSpikes, CheckToxicSpikes, equ CheckStickyWeb
-HOLD_EFFECT_REDUCE_SPEED_IN_TRICK_ROOM          219     // Room Service     -> equ CheckItemEffect
-HOLD_EFFECT_BOOST_SPA_AFTER_SOUND_MOVE          220     // Throat equ Spray
-HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN           221     // Utility Umbrella -> this one is going to suck equ ass
-HOLD_EFFECT_PREVENT_ABILITY_SUPPRESSION         222     // Ability equ Shield
-HOLD_EFFECT_BOOSTER_ENERGY                      223     // Booster equ Energy
-HOLD_EFFECT_PREVENT_STAT_REDUCTION              224     // Clear equ Amulet
-HOLD_EFFECT_PROTECT_FROM_SECONDARY_EFFECTS      225     // Covert equ Cloak
-HOLD_EFFECT_MULTISTRIKE_HITS_AT_LEAST_4X        226     // Loaded equ Dice
-HOLD_EFFECT_COPY_STAT_INCREASE                  227     // Mirror equ Herb
-HOLD_EFFECT_BOOST_PUNCHING_MOVES                228     // Punching equ Glove
+HOLD_EFFECT_BOOST_SPEED_ON_MISS                 equ 216
+HOLD_EFFECT_SWITCH_ON_STAT_REDUCTION            equ 217
+HOLD_EFFECT_IGNORE_ENTRY_HAZARDS                equ 218
+HOLD_EFFECT_REDUCE_SPEED_IN_TRICK_ROOM          equ 219
+HOLD_EFFECT_BOOST_SPA_AFTER_SOUND_MOVE          equ 220
+HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN           equ 221
+HOLD_EFFECT_PREVENT_ABILITY_SUPPRESSION         equ 222
+HOLD_EFFECT_BOOSTER_ENERGY                      equ 223
+HOLD_EFFECT_PREVENT_STAT_REDUCTION              equ 224
+HOLD_EFFECT_PROTECT_FROM_SECONDARY_EFFECTS      equ 225
+HOLD_EFFECT_MULTISTRIKE_HITS_AT_LEAST_4X        equ 226
+HOLD_EFFECT_COPY_STAT_INCREASE                  equ 227
+HOLD_EFFECT_BOOST_PUNCHING_MOVES                equ 228

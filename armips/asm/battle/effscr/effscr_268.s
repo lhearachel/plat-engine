@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_268.s", 0
+.create "build/battle/scr/effscr/be_seq_268.bin", 0
 
 effscr_268:
     CheckItemEffect                     MODE_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_BOOST_FIGHTING_PLATE, 77
@@ -26,38 +27,40 @@ effscr_268:
     CheckItemEffect                     MODE_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_BOOST_ICE_PLATE, 90
     CheckItemEffect                     MODE_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_BOOST_DRAGON_PLATE, 91
     CheckItemEffect                     MODE_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_BOOST_DARK_PLATE, 92
-    Jump                                94
+    Branch                              94
     SetVar                              OP_SET, VAR_MOVE_TYPE, 1
-    Jump                                88
+    Branch                              88
     SetVar                              OP_SET, VAR_MOVE_TYPE, 2
-    Jump                                82
+    Branch                              82
     SetVar                              OP_SET, VAR_MOVE_TYPE, 3
-    Jump                                76
+    Branch                              76
     SetVar                              OP_SET, VAR_MOVE_TYPE, 4
-    Jump                                70
+    Branch                              70
     SetVar                              OP_SET, VAR_MOVE_TYPE, 5
-    Jump                                64
+    Branch                              64
     SetVar                              OP_SET, VAR_MOVE_TYPE, 6
-    Jump                                58
+    Branch                              58
     SetVar                              OP_SET, VAR_MOVE_TYPE, 7
-    Jump                                52
+    Branch                              52
     SetVar                              OP_SET, VAR_MOVE_TYPE, 8
-    Jump                                46
+    Branch                              46
     SetVar                              OP_SET, VAR_MOVE_TYPE, 10
-    Jump                                40
+    Branch                              40
     SetVar                              OP_SET, VAR_MOVE_TYPE, 11
-    Jump                                34
+    Branch                              34
     SetVar                              OP_SET, VAR_MOVE_TYPE, 12
-    Jump                                28
+    Branch                              28
     SetVar                              OP_SET, VAR_MOVE_TYPE, 13
-    Jump                                22
+    Branch                              22
     SetVar                              OP_SET, VAR_MOVE_TYPE, 14
-    Jump                                16
+    Branch                              16
     SetVar                              OP_SET, VAR_MOVE_TYPE, 15
-    Jump                                10
+    Branch                              10
     SetVar                              OP_SET, VAR_MOVE_TYPE, 16
-    Jump                                4
+    Branch                              4
     SetVar                              OP_SET, VAR_MOVE_TYPE, 17
     CriticalCalc                        
     DamageCalc                          
     End                                 
+
+.close

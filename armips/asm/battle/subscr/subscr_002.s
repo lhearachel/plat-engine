@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_2.s", 0
+.create "build/battle/scr/subscr/sub_seq_2.bin", 0
 
 subscr_002:
     If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, 64, 12
@@ -24,3 +25,5 @@ subscr_002:
     If                                  GREATER, VAR_HP_TEMP, 0, 4
     SetVarFromVar                       OP_SET, VAR_ATTACKER_ASSURANCE_DAMAGE, VAR_HP_TEMP
     End                                 
+
+.close

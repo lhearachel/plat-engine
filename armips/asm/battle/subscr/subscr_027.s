@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_27.s", 0
+.create "build/battle/scr/subscr/sub_seq_27.bin", 0
 
 subscr_027:
     MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_MAGMA_ARMOR, 124
@@ -32,31 +33,33 @@ subscr_027:
     Wait                                
     SetMonData                          OP_SET_FLAG, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION, 32
     ClearContinuation                   BATTLER_EFFECTSRC
-    Message                             101, TAG_NICK, BATTLER_EFFECTSRC
+    Message                             101, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
     Wait                                
     SetStatusIcon                       BATTLER_EFFECTSRC, STATUS_FROZEN
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     If                                  EQUAL, VAR_EFFECT_TYPE, 2, 57
-    WaitFrames                          30
+    WaitTime                            30
     JumpToSubscript                     75
-    Jump                                51
+    Branch                              51
     If                                  EQUAL, VAR_EFFECT_TYPE, 2, 46
-    WaitFrames                          30
-    Jump                                35
+    WaitTime                            30
+    Branch                              35
     If                                  EQUAL, VAR_EFFECT_TYPE, 2, 37
-    WaitFrames                          30
-    Message                             27, TAG_NICK, BATTLER_EFFECTSRC
-    Jump                                22
+    WaitTime                            30
+    Message                             27, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
+    Branch                              22
     If                                  EQUAL, VAR_EFFECT_TYPE, 2, 24
     AttackMessage                       
     Wait                                
-    WaitFrames                          30
-    Jump                                11
+    WaitTime                            30
+    Branch                              11
     If                                  EQUAL, VAR_EFFECT_TYPE, 2, 13
-    WaitFrames                          30
-    Message                             200, TAG_NICK, BATTLER_EFFECTSRC
+    WaitTime                            30
+    Message                             200, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 2147483648
     End                                 
+
+.close

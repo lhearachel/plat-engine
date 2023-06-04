@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_44.s", 0
+.create "build/battle/scr/effscr/be_seq_44.bin", 0
 
 effscr_044:
     SetMultiHit                         2, MULTI_HIT_FLAGS
@@ -15,3 +16,5 @@ effscr_044:
     CriticalCalc                        
     DamageCalc                          
     End                                 
+
+.close

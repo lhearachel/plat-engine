@@ -10,13 +10,15 @@ DECOMP_TEMPLATE = '''.nds
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/{dump_folder}/{prefix}_{index}.s", 0
+.create "build/battle/scr/{dump_folder}/{pl_prefix}_{index}.bin", 0
 
 {prefix}_{index:03}:
 {commands}
-'''
+
+.close'''
 
 CMD_TEMPLATE = '    {command} {params}'
 
@@ -39,7 +41,7 @@ CMD_DICT = [
     Command('HPGaugeSlideOut',                  1),
     Command('Wait',                             0),
     Command('DamageCalc',                       0),
-    Command('DamageCalcNoLoss',                 0),
+    Command('DamageCalcMaximum',                0),
     Command('AttackMessage',                    0),
     Command('Message',                          2),
     Command('MessageNoBattler',                 2),
@@ -53,12 +55,12 @@ CMD_DICT = [
     Command('UpdateHPGauge',                    1),
     Command('TryFaintMon',                      1),
     Command('FaintAnimation',                   0),
-    Command('WaitFrames',                       1),
+    Command('WaitTime',                         1),
     Command('PlaySound',                        2),
     Command('If',                               4),
     Command('IfMonData',                        5),
     Command('FadeOut',                          0),
-    Command('JumpToSubscript',                  1),
+    Command('JumpTo',                           1),
     Command('JumpToMoveEffectScript',           0),
     Command('JumpToEffectScript',               1),
     Command('CriticalCalc',                     0),
@@ -82,7 +84,7 @@ CMD_DICT = [
     Command('Random',                           2),
     Command('SetVarFromVar',                    3),
     Command('SetMonDataFromVar',                4),
-    Command('Jump',                             1),
+    Command('Branch',                           1),
     Command('JumpToSubscript',                  1),
     Command('JumpToSubscriptFromVar',           1),
     Command('SetMirrorMove',                    0),
@@ -1610,6 +1612,10 @@ def translate_tags(cmd: str, raw_params: list[int], translated: list[str]) -> li
     for i in range(addl_param_count):
         translated[i + tag_i + 1] = BATTLER_CONSTS[raw_params[i + tag_i + 1]]
     
+    # the macro always takes 8 params; fill out any that are missing with "NaN"
+    for i in range(addl_param_count, 6):
+        translated.append('NaN')
+    
     return translated
 
 
@@ -1642,7 +1648,7 @@ def translate_params(cmd: str, params: list[int]) -> list[str]:
 
     return translated
 
-def decompile(data: bytes, index: int, prefix: str, dump_dir: str) -> str:
+def decompile(data: bytes, index: int, prefix: str, dump_dir: str, pl_prefix: str) -> str:
     output_cmds = []
     words = iter(data[i:i+4] for i in range(0, len(data), 4))
     for word in words:
@@ -1671,10 +1677,10 @@ def decompile(data: bytes, index: int, prefix: str, dump_dir: str) -> str:
         str_params = translate_params(cmd.name, params)
         output_cmds.append(CMD_TEMPLATE.format(command=cmd.name.ljust(35, ' '), params=', '.join(str_params)))
     
-    return DECOMP_TEMPLATE.format(index=index, commands='\n'.join(output_cmds), prefix=prefix, dump_folder=dump_dir)
+    return DECOMP_TEMPLATE.format(index=index, commands='\n'.join(output_cmds), prefix=prefix, dump_folder=dump_dir, pl_prefix=pl_prefix)
 
 
-def dump_narc(narc_path: str, prefix: str, dump_path: str):
+def dump_narc(narc_path: str, prefix: str, dump_path: str, pl_prefix: str):
     if not path.isdir(dump_path):
         makedirs(dump_path)
 
@@ -1683,11 +1689,11 @@ def dump_narc(narc_path: str, prefix: str, dump_path: str):
         dump = path.basename(dump_path)
         name = path.join(dump_path, f'{prefix}_{i:03}.s')
         data = narc.files[i]
-        dcmp = decompile(data, i, prefix, dump)
+        dcmp = decompile(data, i, prefix, dump, pl_prefix)
         with open(name, 'w') as out:
             out.write(dcmp)
 
 def dump_all():
-    dump_narc('base/data/battle/skill/be_seq.narc',   'effscr', 'armips/asm/battle/effscr')
-    dump_narc('base/data/battle/skill/sub_seq.narc',  'subscr', 'armips/asm/battle/subscr')
-    dump_narc('base/data/battle/skill/waza_seq.narc', 'movscr', 'armips/asm/battle/movscr')
+    dump_narc('base/data/battle/skill/be_seq.narc',   'effscr', 'armips/asm/battle/effscr', 'be_seq')
+    dump_narc('base/data/battle/skill/sub_seq.narc',  'subscr', 'armips/asm/battle/subscr', 'sub_seq')
+    dump_narc('base/data/battle/skill/waza_seq.narc', 'movscr', 'armips/asm/battle/movscr', 'waza_seq')

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_161.s", 0
+.create "build/battle/scr/effscr/be_seq_161.bin", 0
 
 effscr_161:
     IfMonData                           EQUAL, BATTLER_ATTACKER, BATTLE_MON_STOCKPILE_COUNT, 0, 59
@@ -21,16 +22,18 @@ effscr_161:
     SetMonData                          OP_SET, BATTLER_ATTACKER, BATTLE_MON_STOCKPILE_DEF_BOOSTS, 0
     SetMonData                          OP_SET, BATTLER_ATTACKER, BATTLE_MON_STOCKPILE_SPD_BOOSTS, 0
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 262144
-    PrepareMessage                      994, TAG_NICK, BATTLER_ATTACKER
+    PrepareMessage                      994, TAG_NICK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN, NaN
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, 536871002
     CriticalCalc                        
-    DamageCalcNoLoss                    
+    DamageCalcMaximum                   
     End                                 
     AttackMessage                       
     Wait                                
-    WaitFrames                          30
-    Message                             814, TAG_NONE
+    WaitTime                            30
+    Message                             814, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 2147483648
     End                                 
+
+.close

@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_12.s", 0
+.create "build/battle/scr/subscr/sub_seq_12.bin", 0
 
 subscr_012:
     StatBoostChange                     38, 56, 57
@@ -24,16 +25,18 @@ subscr_012:
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG2, 2
     MessagePrepared                     
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     If                                  NOT_EQUAL, VAR_EFFECT_TYPE, 1, 2
     AttackMessage                       
     Wait                                
     If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, 2097152, 6
-    WaitFrames                          30
+    WaitTime                            30
     MessagePrepared                     
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 64
     End                                 
+
+.close

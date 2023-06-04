@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_18.s", 0
+.create "build/battle/scr/subscr/sub_seq_18.bin", 0
 
 subscr_018:
     If                                  EQUAL, VAR_EFFECT_TYPE, 7, 143
@@ -21,7 +22,7 @@ subscr_018:
     CheckAbility                        MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_SOUNDPROOF, 5
     If                                  FLAG_EQ, VAR_FIELD_CONDITIONS, 3840, 245
     IfMonData                           NOT_EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION, 0, 184
-    Jump                                92
+    Branch                              92
     MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_INSOMNIA, 142
     MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_VITAL_SPIRIT, 137
     CheckCloudNine                      10
@@ -49,16 +50,16 @@ subscr_018:
     Random                              3, 2
     SetMonDataFromVar                   OP_SET_FLAG, 7, BATTLE_MON_CONDITION, VAR_CALC_WORK
     If                                  EQUAL, VAR_EFFECT_TYPE, 3, 6
-    Message                             47, TAG_NICK, BATTLER_EFFECTSRC
-    Jump                                6
-    Message                             50, TAG_NICK_ABILITY_NICK, BATTLER_WORKING, BATTLER_CLIENT_WORK, BATTLER_EFFECTSRC
+    Message                             47, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
+    Branch                              6
+    Message                             50, TAG_NICK_ABILITY_NICK, BATTLER_WORKING, BATTLER_CLIENT_WORK, BATTLER_EFFECTSRC, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetStatusIcon                       BATTLER_EFFECTSRC, STATUS_ASLEEP
     Wait                                
     IfMonData                           FLAG_EQ, BATTLER_EFFECTSRC, BATTLE_MON_MOVE_EFFECTS, 537133248, 4
     ClearContinuation                   BATTLER_EFFECTSRC
-    Jump                                8
+    Branch                              8
     ClearContinuation                   BATTLER_EFFECTSRC
     SetVarFromVar                       OP_SET, VAR_BATTLER_WORK, VAR_EFFECTSRC
     JumpToSubscript                     287
@@ -68,39 +69,41 @@ subscr_018:
     If                                  EQUAL, VAR_EFFECT_TYPE, 4, 4
     AttackMessage                       
     Wait                                
-    WaitFrames                          30
-    Message                             329, TAG_NICK_ABILITY, BATTLER_EFFECTSRC, BATTLER_EFFECTSRC
-    Jump                                102
-    Message                             727, TAG_NICK_ABILITY_NICK_ABILITY, BATTLER_EFFECTSRC, BATTLER_EFFECTSRC, BATTLER_WORKING, BATTLER_CLIENT_WORK
-    Jump                                93
+    WaitTime                            30
+    Message                             329, TAG_NICK_ABILITY, BATTLER_EFFECTSRC, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN
+    Branch                              102
+    Message                             727, TAG_NICK_ABILITY_NICK_ABILITY, BATTLER_EFFECTSRC, BATTLER_EFFECTSRC, BATTLER_WORKING, BATTLER_CLIENT_WORK, NaN, NaN
+    Branch                              93
     If                                  EQUAL, VAR_EFFECT_TYPE, 2, 95
     If                                  EQUAL, VAR_EFFECT_TYPE, 3, 90
     If                                  EQUAL, VAR_EFFECT_TYPE, 4, 85
-    WaitFrames                          30
+    WaitTime                            30
     GetCurrentMoveData                  MOVE_PARAM_RANGE
     If                                  EQUAL, VAR_CALC_WORK, 4, 9
     If                                  EQUAL, VAR_CALC_WORK, 8, 4
     JumpToSubscript                     75
-    Jump                                67
+    Branch                              67
     JumpToSubscript                     176
-    Jump                                63
+    Branch                              63
     If                                  EQUAL, VAR_EFFECT_TYPE, 2, 58
     If                                  EQUAL, VAR_EFFECT_TYPE, 3, 53
-    WaitFrames                          30
-    Message                             57, TAG_NICK, BATTLER_EFFECTSRC
-    Jump                                38
+    WaitTime                            30
+    Message                             57, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
+    Branch                              38
     If                                  EQUAL, VAR_EFFECT_TYPE, 2, 40
     IfMonData                           FLAG_EQ, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION_2, 112, 8
-    WaitFrames                          30
-    Message                             326, TAG_NICK, BATTLER_EFFECTSRC
-    Jump                                19
-    WaitFrames                          30
-    Message                             323, TAG_NICK, BATTLER_EFFECTSRC
-    Jump                                11
+    WaitTime                            30
+    Message                             326, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
+    Branch                              19
+    WaitTime                            30
+    Message                             323, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
+    Branch                              11
     If                                  EQUAL, VAR_EFFECT_TYPE, 2, 13
-    WaitFrames                          30
-    Message                             200, TAG_NICK, BATTLER_EFFECTSRC
+    WaitTime                            30
+    Message                             200, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 2147483648
     End                                 
+
+.close

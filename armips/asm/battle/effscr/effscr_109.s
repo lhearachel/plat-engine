@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_109.s", 0
+.create "build/battle/scr/effscr/be_seq_109.bin", 0
 
 effscr_109:
     IfMonData                           EQUAL, BATTLER_ATTACKER, BATTLE_MON_TYPE_1, 7, 11
@@ -19,3 +20,5 @@ effscr_109:
     SetVar                              OP_SET, VAR_ADD_STATUS_DIRECT, 536871001
     SetVar                              OP_SET, VAR_MOVE_EFFECT, 1
     End                                 
+
+.close

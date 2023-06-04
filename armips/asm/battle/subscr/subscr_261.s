@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_261.s", 0
+.create "build/battle/scr/subscr/sub_seq_261.bin", 0
 
 subscr_261:
     SetMonData                          OP_SET, BATTLER_ATTACKER, BATTLE_MON_HP, 0
@@ -35,7 +36,7 @@ subscr_261:
     SetVar                              OP_CLEAR_FLAG, VAR_SERVER_STATUS_FLAG2, 4026531840
     JumpToSubscript                     276
     TrySwitchInMon                      BATTLER_ATTACKER, 1, 64
-    Jump                                4294967257
+    Branch                              4294967257
     SetMonData                          OP_SET, BATTLER_ATTACKER, BATTLE_MON_CONDITION, 0
     SetStatusIcon                       BATTLER_ATTACKER, STATUS_NORMAL
     SetMonDataFromVar                   OP_GET, 1, BATTLE_MON_PP_MAX_1, VAR_CALC_WORK
@@ -48,6 +49,8 @@ subscr_261:
     SetMonDataFromVar                   OP_SET, 1, BATTLE_MON_PP_CUR_4, VAR_CALC_WORK
     SetMonDataFromVar                   OP_GET, 1, BATTLE_MON_MAX_HP, VAR_HP_TEMP
     SetVarFromVar                       OP_SET, VAR_BATTLER_WORK, VAR_ATTACKER
-    PrepareMessage                      1006, TAG_NONE
+    PrepareMessage                      1006, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     JumpToSubscript                     136
     End                                 
+
+.close

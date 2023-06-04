@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_4.s", 0
+.create "build/battle/scr/subscr/sub_seq_4.bin", 0
 
 subscr_004:
     TryNaturalCure                      BATTLER_ME_SLOT_1, 5
@@ -19,54 +20,56 @@ subscr_004:
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 4, 123
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 8, 52
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 16, 47
-    Message                             839, TAG_TRTYPE_TRNAME, BATTLER_ENEMY_SLOT_1, BATTLER_ENEMY_SLOT_1
+    Message                             839, TAG_TRTYPE_TRNAME, BATTLER_ENEMY_SLOT_1, BATTLER_ENEMY_SLOT_1, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          15
+    WaitTime                            15
     TrainerSlideIn                      BATTLER_ENEMY_SLOT_1, POS_SINGLES_ENEMY
     Wait                                
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 2, 8
     TrainerMessage                      BATTLER_ENEMY_SLOT_1, TRAINER_MESSAGE_LOSE
     Wait                                
-    WaitFrames                          60
-    Jump                                56
+    WaitTime                            60
+    Branch                              56
     TrainerMessage                      BATTLER_ENEMY_SLOT_1, TRAINER_MESSAGE_LOSE_1
     Wait                                
-    WaitFrames                          60
+    WaitTime                            60
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 128, 45
     TrainerMessage                      BATTLER_ENEMY_SLOT_1, TRAINER_MESSAGE_LOSE_2
     Wait                                
-    WaitFrames                          60
-    Jump                                37
+    WaitTime                            60
+    Branch                              37
     PlayMusic                           BATTLER_ME_SLOT_1, 1128
-    Message                             953, TAG_TRTYPE_TRNAME_TRTYPE_TRNAME, BATTLER_ENEMY_SLOT_1, BATTLER_ENEMY_SLOT_1, BATTLER_ENEMY_SLOT_2, BATTLER_ENEMY_SLOT_2
+    Message                             953, TAG_TRTYPE_TRNAME_TRTYPE_TRNAME, BATTLER_ENEMY_SLOT_1, BATTLER_ENEMY_SLOT_1, BATTLER_ENEMY_SLOT_2, BATTLER_ENEMY_SLOT_2, NaN, NaN
     Wait                                
-    WaitFrames                          15
+    WaitTime                            15
     TrainerSlideIn                      BATTLER_ENEMY_SLOT_1, POS_SINGLES_ENEMY
     Wait                                
     TrainerMessage                      BATTLER_ENEMY_SLOT_1, TRAINER_MESSAGE_LOSE
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     TrainerSlideOut                     10
     Wait                                
     TrainerSlideIn                      BATTLER_ENEMY_SLOT_2, POS_SINGLES_ENEMY
     Wait                                
     TrainerMessage                      BATTLER_ENEMY_SLOT_2, TRAINER_MESSAGE_LOSE
     Wait                                
-    WaitFrames                          60
+    WaitTime                            60
     SetBattleResult                     
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, 128, 24
     CalcMoney                           
-    Message                             33, TAG_TRNAME_NUM, BATTLER_ME, BATTLER_WORKING
+    Message                             33, TAG_TRNAME_NUM, BATTLER_ME, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          60
+    WaitTime                            60
     PickupItem                          
     AddPayDayMoney                      
     If                                  EQUAL, VAR_PREPARED_MESSAGE, 0, 8
-    Message                             341, TAG_TRNAME_NUM, BATTLER_ME, BATTLER_WORKING
+    Message                             341, TAG_TRNAME_NUM, BATTLER_ME, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          60
+    WaitTime                            60
     FadeOut                             
     Wait                                
     End                                 
     JumpToSubscript                     283
     End                                 
+
+.close

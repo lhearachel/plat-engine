@@ -5,12 +5,13 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_11.s", 0
+.create "build/battle/scr/subscr/sub_seq_11.bin", 0
 
 subscr_011:
-    Message                             857, TAG_TRNAME_ITEM, BATTLER_ATTACKER, BATTLER_WORKING
+    Message                             857, TAG_TRNAME_ITEM, BATTLER_ATTACKER, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
     InitCapture                         CAPTURE_NORMAL
     Capture                             
@@ -20,3 +21,5 @@ subscr_011:
     TryNaturalCure                      BATTLER_ME, 5
     SetMonData                          OP_SET, BATTLER_ME, BATTLE_MON_CONDITION, 0
     End                                 
+
+.close

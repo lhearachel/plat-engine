@@ -5,12 +5,15 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_251.s", 0
+.create "build/battle/scr/subscr/sub_seq_251.bin", 0
 
 subscr_251:
-    MessageNoBattler                    1076, TAG_NONE
+    MessageNoBattler                    1076, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

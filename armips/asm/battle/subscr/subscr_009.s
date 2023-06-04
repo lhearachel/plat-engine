@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_9.s", 0
+.create "build/battle/scr/subscr/sub_seq_9.bin", 0
 
 subscr_009:
     TryNaturalCure                      BATTLER_SWITCHING, 5
@@ -16,7 +17,7 @@ subscr_009:
     Wait                                
     JumpToSubscript                     153
     IfMonData                           NOT_EQUAL, BATTLER_SWITCHING, BATTLE_MON_HP, 0, 2
-    Jump                                6
+    Branch                              6
     PokemonReturn                       BATTLER_SWITCHING
     Wait                                
     HPGaugeSlideOut                     BATTLER_SWITCHING
@@ -27,8 +28,8 @@ subscr_009:
     Wait                                
     If                                  EQUAL, VAR_TEMP_WORK, 1, 4
     SendOutMessage                      BATTLER_SWITCHING
-    Jump                                4
-    Message                             979, TAG_NICK, BATTLER_SWITCHING
+    Branch                              4
+    Message                             979, TAG_NICK, BATTLER_SWITCHING, NaN, NaN, NaN, NaN, NaN
     Wait                                
     HideBallGauge                       BATTLER_SWITCHING
     Wait                                
@@ -44,3 +45,5 @@ subscr_009:
     JumpIf                              FLAG_NEQ, VAR_SERVER_STATUS_FLAG, VAR_TEMP_WORK, 2
     JumpToSubscript                     6
     End                                 
+
+.close

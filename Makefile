@@ -99,7 +99,7 @@ FIELD_ASM_OBJS := $(patsubst $(ASM_SUBDIR)/%.s,$(BUILD)/%.d,$(FIELD_ASM_SRCS))
 FIELD_OBJS   := $(FIELD_C_OBJS) $(FIELD_ASM_OBJS) build/thumb_help.d
 
 ###################### Includes #######################
-include data/personal/personal.mk
+include narcs.mk
 
 ####################### Build #########################
 rom_gen.ld:$(LINK) $(OUTPUT) $(BUILDSYS)/rom.ld
@@ -201,3 +201,7 @@ clean_tools:
 	rm -f tools/ndstool
 	rm -f tools/armips
 	rm -f tools/nitrogfx
+
+
+narcs: $(NARC_FILES)
+	@echo "make narcs"

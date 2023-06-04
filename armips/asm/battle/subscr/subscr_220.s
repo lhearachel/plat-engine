@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_220.s", 0
+.create "build/battle/scr/subscr/sub_seq_220.bin", 0
 
 subscr_220:
     If                                  EQUAL, VAR_FLING_SUBSCRIPT, 0, 15
@@ -16,3 +17,5 @@ subscr_220:
     SetVarFromVar                       OP_SET, VAR_HP_TEMP, VAR_FLING_TEMP
     JumpToSubscriptFromVar              VAR_FLING_SUBSCRIPT
     End                                 
+
+.close

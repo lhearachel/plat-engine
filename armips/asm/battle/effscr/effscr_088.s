@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/effscr/effscr_88.s", 0
+.create "build/battle/scr/effscr/be_seq_88.bin", 0
 
 effscr_088:
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 2048
@@ -19,3 +20,5 @@ effscr_088:
     SetVar                              OP_SET, VAR_DAMAGE, 1
     SetVar                              OP_MUL, VAR_DAMAGE, 4294967295
     End                                 
+
+.close

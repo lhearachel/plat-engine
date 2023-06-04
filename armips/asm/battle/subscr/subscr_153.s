@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_153.s", 0
+.create "build/battle/scr/subscr/sub_seq_153.bin", 0
 
 subscr_153:
     JumpToSubscript                     279
@@ -28,7 +29,7 @@ subscr_153:
     SetVar                              OP_MUL, VAR_TEMP_WORK, 4294967295
     JumpIfMonData                       LESSER, BATTLER_DEFENDER, BATTLE_MON_HP, VAR_TEMP_WORK, 6
     SetVarFromVar                       OP_SET, VAR_ATTACKER_SHELL_BELL_DAMAGE, VAR_DAMAGE
-    Jump                                9
+    Branch                              9
     SetMonDataFromVar                   OP_GET, 2, BATTLE_MON_HP, VAR_ATTACKER_SHELL_BELL_DAMAGE
     SetVar                              OP_MUL, VAR_ATTACKER_SHELL_BELL_DAMAGE, 4294967295
     SetVarFromVar                       OP_SET, VAR_HP_TEMP, VAR_DAMAGE
@@ -47,12 +48,12 @@ subscr_153:
     CheckUturnItemEffect                2
     JumpToSubscriptFromVar              VAR_TEMP_WORK
     SetVar                              OP_CLEAR_FLAG, VAR_SERVER_STATUS_FLAG, 8192
-    Jump                                50
+    Branch                              50
     SetVarFromVar                       OP_SET, VAR_TEMP_WORK, VAR_DAMAGE
     SetVar                              OP_MUL, VAR_TEMP_WORK, 4294967295
     JumpIfMonData                       LESSER, BATTLER_DEFENDER, BATTLE_MON_SUBSTITUTE_HP, VAR_TEMP_WORK, 6
     SetVarFromVar                       OP_SET, VAR_ATTACKER_SHELL_BELL_DAMAGE, VAR_DAMAGE
-    Jump                                14
+    Branch                              14
     SetMonData                          OP_CLEAR_FLAG, BATTLER_DEFENDER, BATTLE_MON_CONDITION_2, 16777216
     SetMonDataFromVar                   OP_GET, 2, BATTLE_MON_SUBSTITUTE_HP, VAR_ATTACKER_SHELL_BELL_DAMAGE
     SetVar                              OP_MUL, VAR_ATTACKER_SHELL_BELL_DAMAGE, 4294967295
@@ -60,12 +61,12 @@ subscr_153:
     JumpToSubscript                     90
     JumpToSubscript                     16
     JumpToSubscript                     21
-    Jump                                4
-    WaitFrames                          15
+    Branch                              4
+    WaitTime                            15
     JumpToSubscript                     7
     JumpToSubscript                     280
     SetVarFromVar                       OP_GET, VAR_MOVE_NUM_WORK, VAR_CURRENT_MOVE
-    Jump                                4294967131
+    Branch                              4294967131
     JumpToSubscript                     83
     CheckAbilityEffectOnHit             2
     JumpToSubscriptFromVar              VAR_TEMP_WORK
@@ -89,3 +90,5 @@ subscr_153:
     JumpToSubscript                     280
     SetVarFromVar                       OP_GET, VAR_MOVE_NUM_WORK, VAR_CURRENT_MOVE
     End                                 
+
+.close

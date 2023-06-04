@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_24.s", 0
+.create "build/battle/scr/subscr/sub_seq_24.bin", 0
 
 subscr_024:
     SetVarFromVar                       OP_SET, VAR_HP_TEMP, VAR_HIT_DAMAGE
@@ -24,18 +25,20 @@ subscr_024:
     IfMonData                           NOT_EQUAL, BATTLER_ATTACKER, BATTLE_MON_HEAL_BLOCK_TURNS, 0, 14
     SetVar                              OP_MUL, VAR_HP_TEMP, 4294967295
     JumpToSubscript                     2
-    Message                             82, TAG_NICK, BATTLER_DEFENDER
+    Message                             82, TAG_NICK, BATTLER_DEFENDER, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     SetVar                              OP_SET, VAR_MOVE_TEMP, 377
-    Message                             1054, TAG_NICK_MOVE, BATTLER_ATTACKER, BATTLER_WORKING
+    Message                             1054, TAG_NICK_MOVE, BATTLER_ATTACKER, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
     CheckAbility                        MODE_HAVE, BATTLER_ATTACKER, ABILITY_MAGIC_GUARD, 8
     JumpToSubscript                     2
-    Message                             720, TAG_NONE
+    Message                             720, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     End                                 
+
+.close

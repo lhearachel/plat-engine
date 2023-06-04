@@ -5,9 +5,10 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/move/battle/skill/subscr/subscr_91.s", 0
+.create "build/battle/scr/subscr/sub_seq_91.bin", 0
 
 subscr_091:
     If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, 65536, 70
@@ -29,9 +30,9 @@ subscr_091:
     WaitFrames                          72
     HPGaugeSlideIn                      BATTLER_DEFENDER
     Wait                                
-    Message                             603, TAG_NICK, BATTLER_DEFENDER
+    Message                             603, TAG_NICK, BATTLER_DEFENDER, NaN, NaN, NaN, NaN, NaN
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVarFromVar                       OP_SET, VAR_SWITCHED_BATTLER, VAR_DEFENDER
     JumpToSubscript                     99
     End                                 
@@ -41,14 +42,16 @@ subscr_091:
     End                                 
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 64
     End                                 
-    PrepareMessage                      659, TAG_NICK_ABILITY, BATTLER_DEFENDER, BATTLER_DEFENDER
-    Jump                                4
-    PrepareMessage                      542, TAG_NICK, BATTLER_DEFENDER
+    PrepareMessage                      659, TAG_NICK_ABILITY, BATTLER_DEFENDER, BATTLER_DEFENDER, NaN, NaN, NaN, NaN
+    Branch                              4
+    PrepareMessage                      542, TAG_NICK, BATTLER_DEFENDER, NaN, NaN, NaN, NaN, NaN
     AttackMessage                       
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     MessagePrepared                     
     Wait                                
-    WaitFrames                          30
+    WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 2147483648
     End                                 
+
+.close
