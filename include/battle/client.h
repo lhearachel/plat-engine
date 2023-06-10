@@ -98,7 +98,32 @@ struct BattleClient {
     u8      dummy[3];
 };
 
-// ClientCommandReset
+typedef void (*ClientFunc)(void *battle, struct BattleClient *client);
+
+/**
+ * Handles designation of incoming client commands to their respective client
+ * functions.
+ * 
+ * Original function: 0x0225C0DC (overlay 16)
+ * 
+ * @param battle The battle structure.
+ * @param client The invoking client.
+ */
+void __attribute__((long_call)) ClientCommand_Main(void *battle, struct BattleClient *client);
+
+/**
+ * Clears the command buffer in the client.
+ * 
+ * Original function: 0x0225CBB0 (overlay 16)
+ * 
+ * @param client The invoking client.
+ */
 void __attribute__((long_call)) ClientCommand_Reset(struct BattleClient *client);
+
+// Defined in ability_popup.c
+void __attribute__((long_call)) Client_PopupResourceLoad(void *battle, struct BattleClient *client);
+void __attribute__((long_call)) Client_PopupResourceFree(void *battle, struct BattleClient *client);
+void __attribute__((long_call)) Client_PopupShow(void *battle, struct BattleClient *client);
+void __attribute__((long_call)) Client_PopupHide(void *battle, struct BattleClient *client);
 
 #endif

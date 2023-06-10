@@ -9,26 +9,13 @@
 #include "ui/common.h"
 #include "ui/g2.h"
 
-// SkillSeqInc
-void __attribute__((long_call)) Seq_IncrementAddress(struct BattleServer *server, int inc);
-
-static inline void SCIO_MessageClientCommandOnly(void *battle, struct BattleServer *server, int sendingClient, int command)
-{
-    Seq_IncrementAddress(server, 1);
-
-    SCIO_Message(battle, SCIO_CLIENT, sendingClient, &command, 4);
-}
+#if 0
 
 // ========================================================================= //
 //                          LOAD THE RESOURCE                                //
 // ========================================================================= //
 
-static BOOL Server_PopupResourceLoad(void *battle, struct BattleServer *server)
-{
-    SCIO_MessageClientCommandOnly(battle, server, 0, CLIENT_POPUP_RESOURCE_LOAD);
-}
-
-static void Client_PopupResourceLoad(void *battle, struct BattleClient *client)
+void Client_PopupResourceLoad(void *battle, struct BattleClient *client)
 {
     struct CellActorSystem   *actorSys    = Battle_GetClientActorSys(battle);
     struct CellActorResource *actorRes    = Battle_GetClientActorRes(battle);
@@ -44,12 +31,7 @@ static void Client_PopupResourceLoad(void *battle, struct BattleClient *client)
 //                          FREE THE RESOURCE                                //
 // ========================================================================= //
 
-static BOOL Server_PopupResourceFree(void *battle, struct BattleServer *server)
-{
-    SCIO_MessageClientCommandOnly(battle, server, 0, CLIENT_POPUP_RESOURCE_FREE);
-}
-
-static void Client_PopupResourceFree(void *battle, struct BattleClient *client)
+void Client_PopupResourceFree(void *battle, struct BattleClient *client)
 {
     struct CellActorResource *actorRes = Battle_GetClientActorRes(battle);
 
@@ -102,18 +84,6 @@ static const struct CellActorParams PopupArrowParams = {
 // ========================================================================= //
 //                            SHOW THE POPUP                                 //
 // ========================================================================= //
-
-static BOOL Server_PopupShow(void *battle, struct BattleServer *server)
-{
-    Seq_IncrementAddress(server, 1);
-
-    // SkillSeqDataRead
-    int side   = Seq_ReadData(server);
-    // SideClientNoGet
-    int client = ClientFromSide(battle, server, side);
-
-    SCIO_MessageClientCommandOnly(battle, server, client, CLIENT_POPUP_IN);
-}
 
 static void TaskControl_PopupShow(void *taskControl, void *taskData)
 {
@@ -211,18 +181,6 @@ static void Client_PopupShow(void *battle, struct BattleClient *client)
 //                            HIDE THE POPUP                                 //
 // ========================================================================= //
 
-static BOOL Server_PopupHide(void *battle, struct BattleServer *server)
-{
-    Seq_IncrementAddress(server, 1);
-
-    // SkillSeqDataRead
-    int side   = Seq_ReadData(server);
-    // SideClientNoGet
-    int client = ClientFromSide(battle, server, side);
-
-    SCIO_MessageClientCommandOnly(battle, server, client, CLIENT_POPUP_OUT);
-}
-
 static void TaskControl_PopupHide(void *taskControl, void *taskData)
 {
     struct PopupTaskControl *popupTask = taskData;
@@ -235,7 +193,7 @@ static void TaskControl_PopupHide(void *taskControl, void *taskData)
             break;
         case 1:
             if (sPopupArrow->taskControl == NULL) {
-                UI_FreeActor(sPopupArrow->actor);
+                UI_FreeObject(sPopupArrow->actor);
                 Free(sPopupArrow);
                 popupTask->seqNum++;
             }
@@ -321,3 +279,5 @@ static void Client_PopupHide(void *battle, struct BattleClient *client)
 
     TaskControl_Add(TaskControl_PopupHide, popupTask, 1);
 }
+
+#endif

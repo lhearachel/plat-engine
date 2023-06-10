@@ -71,8 +71,10 @@ enum ClientCommand {
     CLIENT_SET_WIN_LOSE,
     CLIENT_BLANK_MESSAGE,
 
+    CLIENT_NUM_VANILLA_MESSAGES,
+
     // new commands here
-    CLIENT_POPUP_RESOURCE_LOAD,
+    CLIENT_POPUP_RESOURCE_LOAD = CLIENT_NUM_VANILLA_MESSAGES,
     CLIENT_POPUP_RESOURCE_FREE,
     CLIENT_POPUP_IN,
     CLIENT_POPUP_OUT,                   // 70
@@ -86,8 +88,29 @@ enum SCIOAccess {
     SCIO_SERVER_QUEUE
 };
 
-// SCIO_Interface
+/**
+ * Send a message for interfacing between the server and clients.
+ * 
+ * Original function: 0x02264A04 (overlay 16)
+ * 
+ * @param battle The battle structure.
+ * @param access Who can access the message (server or client).
+ * @param param  Either which client is responding to a message, which should receive the message,
+ *               or which should be removed from the message queue.
+ * @param data   Data buffer to be sent in the message.
+ * @param size   Size of the data buffer.
+ */
 void __attribute__((long_call)) SCIO_Message(void *battle, int access, int param, void *data, u8 size);
+
+/**
+ * Clear an element from the message queue.
+ * 
+ * Original function: 0x02266ABC (overlay 16)
+ * 
+ * @param battle        The battle structure.
+ * @param sendingClient The requesting client.
+ * @param index         The index of the element to be cleared.
+ */
 void __attribute__((long_call)) SCIO_ClearQueue(void *battle, int sendingClient, int clientCommand);
 
 #endif // __BATTLE_SCIO_H

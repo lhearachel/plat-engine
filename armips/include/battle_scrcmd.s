@@ -2037,3 +2037,19 @@ CLIENT_TYPE_NOT_MINE    equ 1
 .macro End
     .word 0xDE
 .endmacro
+
+.macro LoadPopupGraphics
+    .word 0xDF
+.endmacro
+
+.macro FreePopupGraphics
+    .word 0xE0
+.endmacro
+
+.macro ShowPopup,battler
+    .word 0xE1,battler
+.endmacro
+
+.macro HidePopup,battler
+    .word 0xE2,battler
+.endmacro

@@ -28,6 +28,46 @@ PokemonBaseStats_Get = 0x020759F0 | 1;
 PokemonBaseStats_GetWithForm = 0x020759CC | 1;
 Form_GetTrueSpecies = 0x02078740 | 1;
 
+/* battle/client.h */
+ClientCommand_Main = 0x0225C0DC | 1;
+ClientCommand_Reset = 0x0225CBB0 | 1;
+sClientFunctionTable_Old = 0x0226F068 | 1;
+
+/* battle/common.h */
+Battle_FightType = 0x0223DF0C | 1;
+
+/* battle/scio.h */
+SCIO_Message = 0x02264A04 | 1;
+SCIO_ClearQueue = 0x02266ABC | 1;
+
+/* battle/skillseq.h */
+SkillSeq_Exec = 0x022405FC | 1;
+ReadWord = 0x02248AD0 | 1;
+BattlerClient = 0x0224A984 | 1;
+sBattleScriptCommandTable_Old = 0x0226E72C | 1;
+
+/* ui/battle.h */
+Battle_GetClientActorSys = 0x0223E010 | 1;
+Battle_GetClientActorRes = 0x0223E018 | 1;
+Battle_GetPaletteFade = 0x0223E064 | 1;
+PartyGauge_Load = 0x0226D094 | 1;
+PartyGauge_Free = 0x0226D12C | 1;
+
+/* ui/common.h */
+UI_AddObject = 0x0200CDC4 | 1;
+UI_FreeObject = 0x0200D0F4 | 1;
+UI_GetObjectPos = 0x0200D550 | 1;
+UI_SetObjectPos = 0x0200D4C4 | 1;
+UI_SetAnimation = 0x02021D6C | 1;
+UI_EnableObject = 0x0200D3EC | 1;
+UI_UpdateObject = 0x0200D324 | 1;
+UI_SetObjectOAMMode = 0x0200D810 | 1;
+TaskControl_Add = 0x0200D9E8 | 1;
+TaskControl_Delete = 0x0200DA58 | 1;
+
+/* ui/g2.h */
+G2_BlendNone = 
+
 /* ui/summary.h */
 Summary_PickStatusIcon = 0x0208E9F0 | 1;
 Summary_SetPokemonData = 0x0208D200 | 1;

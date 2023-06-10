@@ -112,83 +112,112 @@ enum PaletteFadeRequest {
 	FADE_SUB_OBJ_EX
 };
 
-// CATS_LoadResourcePlttWorkArcH
-u8   __attribute__((long_call)) UI_LoadArchivePalette(
-    struct PaletteFade *paletteFade,
-    enum PaletteFadeRequest request,
-    struct CellActorSystem *actorSys,
-    struct CellActorResource *actorRes,
-    void *archiveHandle,
-    int dataID,
-    int comp,
-    int num,
-    int transferMode,
-    int id
-);
-
-// CATS_LoadResourceCharArcH
-BOOL __attribute__((long_call)) UI_LoadArchiveData(
-    struct CellActorSystem *actorSys,
-    struct CellActorResource *actorRes,
-    void *archiveHandle,
-    int dataID,
-    int comp,
-    int transferMode,
-    int id
-);
-
-// CATS_LoadResourceCellArcH
-BOOL __attribute__((long_call)) UI_LoadArchiveCells(
-    struct CellActorSystem *actorSys,
-    struct CellActorResource *actorRes,
-    void *archiveHandle,
-    int dataID,
-    int comp,
-    int id
-);
-
-// CATS_LoadResourceCellAnmArcH
-BOOL __attribute__((long_call)) UI_LoadArchiveAnim(
-    struct CellActorSystem *actorSys,
-    struct CellActorResource *actorRes,
-    void *archiveHandle,
-    int dataID,
-    int comp,
-    int id
-);
-
-// CATS_ObjectAdd_S
+/**
+ * Registers an object on the UI and returns a pointer to it.
+ * 
+ * Original function: 0x0200CE6C (arm9)
+ * 
+ * @param actorSys  System data for the object.
+ * @param actorRes  Resources for the object.
+ * @param params    Extra parameters for the object.
+ * @return          The newly-registered object.
+ */
 struct CellActor* __attribute__((long_call)) UI_AddObject(
     struct CellActorSystem *actorSys,
     struct CellActorResource *actorRes,
     const struct CellActorParams *params
 );
 
-// CATS_ActorPointerDelete_S
-void __attribute__((long_call)) UI_FreeActor(struct CellActor *actor);
+/**
+ * Frees an object from the UI.
+ * 
+ * Original function: 0x0200D0F4 (arm9)
+ * 
+ * @param actor     The object to be freed.
+ */
+void __attribute__((long_call)) UI_FreeObject(struct CellActor *actor);
 
 // CATS_ObjectPosGetCap
+/**
+ * Get the position of an object in X,Y space on the screen.
+ * 
+ * Original function: 0x0200D550 (arm9)
+ * 
+ * @param actor
+ * @param[out] x
+ * @param[out] y
+ */
 void __attribute__((long_call)) UI_GetObjectPos(struct CellActor *actor, s16 *x, s16 *y);
 
-// CATS_ObjectPosSetCap
+/**
+ * Set the position of an object in X,Y space on the screen.
+ * 
+ * Original function: 0x0200D4C4 (arm9)
+ * 
+ * @param actor
+ * @param x
+ * @param y
+ */
 void __attribute__((long_call)) UI_SetObjectPos(struct CellActor *actor, s16 x, s16 y);
 
-// CLACT_AnmChg
-void __attribute__((long_call)) UI_SetAnimation(void *anim, u32 num);
+/**
+ * Assigns an animation to be played.
+ * 
+ * Original function: 0x02021D6C (arm9)
+ * 
+ * @param anim  The animation system for an actor.
+ * @param frame Which frame of the NCER file to show.
+ */
+void __attribute__((long_call)) UI_SetAnimation(void *anim, u32 frame);
 
-// CATS_ObjectEnable
+/**
+ * Enable the object for display.
+ * 
+ * Original function: 0x0200D3EC (arm9)
+ * 
+ * @param anim
+ * @param enable
+ */
 void __attribute__((long_call)) UI_EnableObject(void *anim, int enable);
 
-// CATS_ObjectUpdate
+/**
+ * Increment the animation by a frame.
+ * 
+ * Original function: 0x0200D324 (arm9)
+ * 
+ * @param anim
+ */
 void __attribute__((long_call)) UI_UpdateObject(void *anim);
 
-// CATS_ObjectObjModeSetCap
+/**
+ * Set an object's OAM mode.
+ * 
+ * Original function: 0x0200D810 (arm9)
+ * 
+ * @param actor
+ * @param objMode
+ */
 void __attribute__((long_call)) UI_SetObjectOAMMode(struct CellActor *actor, int objMode);
 
-// TCB_Add
+/**
+ * Add a function to task control with specified data and return a reference
+ * to the task.
+ * 
+ * Original function: 0x0200D9E8 (arm9)
+ * 
+ * @param func
+ * @param data
+ * @param priority
+ */
 void* __attribute__((long_call)) TaskControl_Add(TaskControlFunc func, void *data, u32 priority);
 
-// TCB_Delete
+/**
+ * Remove a task from task control.
+ * 
+ * Original function: 0x0200DA58 (arm9)
+ * 
+ * @param taskControl
+ */
 void __attribute__((long_call)) TaskControl_Delete(void *taskControl);
 
 #endif // __UI_COMMON_H

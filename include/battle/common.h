@@ -1,6 +1,8 @@
 #ifndef __BATTLE_COMMON_H
 #define __BATTLE_COMMON_H
 
+#include "typedefs.h"
+
 // ========================================================================= //
 //                         BATTLE TYPE CONSTANTS                             //
 // ========================================================================= //
@@ -413,5 +415,14 @@ enum {
 
     SELECT_CANCEL = 0xFF,
 };
+
+/**
+ * Gets the fight type for a battle.
+ * 
+ * Original function: 0x0223DF0C (overlay 16)
+ * 
+ * @param battle The battle structure.
+ */
+u32 __attribute__((long_call)) Battle_FightType(void *battle);
 
 #endif // __BATTLE_COMMON_H
