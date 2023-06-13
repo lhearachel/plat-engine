@@ -36,9 +36,6 @@ BOOL BattleScrCmd_Exec(void *battle, struct BattleServer *server)
         } else {
             ret = gBattleScriptCommandTable_New[word - START_OF_NEW_BATTLE_SCRIPT_COMMANDS](battle, server);
         }
-
-        sprintf(buf, "Execution of cmd %ld done\n", word);
-        debugsyscall(buf);
     }
 
     server->battleProgressFlag = 0;

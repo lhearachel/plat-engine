@@ -3,7 +3,7 @@
 
 #include "global.h"
 
-struct ItemData {
+struct __attribute__((packed)) ItemData {
     u16 price;
     u8  holdEffect;
     u8  holdPower;

@@ -239,8 +239,8 @@ struct __attribute__((packed)) SideConditionCounts {
 };
 
 struct __attribute__((packed)) SideConditions {
-    u32 raw;
-    struct SideConditionCounts counts;
+    u32 raw[2];
+    struct SideConditionCounts counts[2];
 };
 
 struct __attribute__((packed)) SeqAndCheck {
