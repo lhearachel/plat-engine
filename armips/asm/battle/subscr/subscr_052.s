@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_52.bin", 0
+.create "build/battle/scr/subscr/sub_seq_052.bin", 0
 
 subscr_052:
     SetReflect                          2

@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/effscr/be_seq_26.bin", 0
+.create "build/battle/scr/effscr/be_seq_026.bin", 0
 
 effscr_026:
     IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_CONDITION_2, 4096, 10

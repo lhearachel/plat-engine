@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_30.bin", 0
+.create "build/battle/scr/subscr/sub_seq_030.bin", 0
 
 subscr_030:
     SetMonData                          OP_CLEAR_FLAG, BATTLER_ATTACKER, BATTLE_MON_CONDITION, 32

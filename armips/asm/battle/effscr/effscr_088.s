@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/effscr/be_seq_88.bin", 0
+.create "build/battle/scr/effscr/be_seq_088.bin", 0
 
 effscr_088:
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 2048

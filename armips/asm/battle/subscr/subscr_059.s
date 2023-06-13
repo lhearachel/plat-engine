@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_59.bin", 0
+.create "build/battle/scr/subscr/sub_seq_059.bin", 0
 
 subscr_059:
     CheckAbility                        MODE_HAVE, BATTLER_WORKING, ABILITY_MAGIC_GUARD, 78

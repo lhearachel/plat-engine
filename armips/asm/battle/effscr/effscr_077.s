@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/effscr/be_seq_77.bin", 0
+.create "build/battle/scr/effscr/be_seq_077.bin", 0
 
 effscr_077:
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, 2147483650

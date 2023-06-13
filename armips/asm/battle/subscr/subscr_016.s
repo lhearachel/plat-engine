@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_16.bin", 0
+.create "build/battle/scr/subscr/sub_seq_016.bin", 0
 
 subscr_016:
     If                                  EQUAL, VAR_WAS_MOVE_CRITICAL, 1, 45

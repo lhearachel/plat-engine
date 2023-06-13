@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_83.bin", 0
+.create "build/battle/scr/subscr/sub_seq_083.bin", 0
 
 subscr_083:
     IfMonData                           FLAG_NEQ, BATTLER_FAINTING, BATTLE_MON_CONDITION_2, 33554432, 61

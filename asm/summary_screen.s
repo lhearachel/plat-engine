@@ -70,14 +70,3 @@ Summary_StatsPage_Return:
 Summary_ChangePage:
     ldr     r2, =0x0208D898 + 1
     bx      r2
-
-.global sprintf
-sprintf:
-    push    {lr}
-    blx     0x020D7510
-    pop     {pc}
-
-.global debugsyscall
-debugsyscall:
-    swi     0xFC
-    bx      lr

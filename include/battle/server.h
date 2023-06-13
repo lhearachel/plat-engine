@@ -456,7 +456,7 @@ struct __attribute__((packed)) BattleServer {
     int     storedDamage[4];        // for Bide
     int     clientNumHit[4];
     int     clientNumSpeed;
-    u8      switchingClient;
+    u8      clientSwitchingTo;
     u8      pokemonLevelUp;
     u16     queueCheckWait;
 

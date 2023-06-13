@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/effscr/be_seq_7.bin", 0
+.create "build/battle/scr/effscr/be_seq_007.bin", 0
 
 effscr_007:
     MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_ALL, ABILITY_DAMP, 34

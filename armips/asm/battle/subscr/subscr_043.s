@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_43.bin", 0
+.create "build/battle/scr/subscr/sub_seq_043.bin", 0
 
 subscr_043:
     SetVarFromVar                       OP_SET, VAR_BATTLER_WORK, VAR_ATTACKER

@@ -2038,18 +2038,10 @@ CLIENT_TYPE_NOT_MINE    equ 1
     .word 0xDE
 .endmacro
 
-.macro LoadPopupGraphics
+.macro ShowAbility,battler
     .word 0xDF
 .endmacro
 
-.macro FreePopupGraphics
+.macro HideAbility
     .word 0xE0
-.endmacro
-
-.macro ShowPopup,battler
-    .word 0xE1,battler
-.endmacro
-
-.macro HidePopup,battler
-    .word 0xE2,battler
 .endmacro

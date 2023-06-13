@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/effscr/be_seq_41.bin", 0
+.create "build/battle/scr/effscr/be_seq_041.bin", 0
 
 effscr_041:
     If                                  FLAG_EQ, VAR_RULESET, 1, 9

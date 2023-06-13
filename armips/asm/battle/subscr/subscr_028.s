@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_28.bin", 0
+.create "build/battle/scr/subscr/sub_seq_028.bin", 0
 
 subscr_028:
     Message                             111, TAG_NICK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN, NaN

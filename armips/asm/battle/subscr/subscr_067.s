@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_67.bin", 0
+.create "build/battle/scr/subscr/sub_seq_067.bin", 0
 
 subscr_067:
     TryMimic                            15

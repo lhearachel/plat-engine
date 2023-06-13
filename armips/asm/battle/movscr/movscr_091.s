@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/movscr/waza_seq_91.bin", 0
+.create "build/battle/scr/movscr/waza_seq_091.bin", 0
 
 movscr_091:
     PrepareMessage                      226, TAG_NICK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN, NaN

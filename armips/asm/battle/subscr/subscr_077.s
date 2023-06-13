@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_77.bin", 0
+.create "build/battle/scr/subscr/sub_seq_077.bin", 0
 
 subscr_077:
     CheckSubstitute                     BATTLER_DEFENDER, 73

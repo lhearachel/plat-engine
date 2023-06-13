@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_27.bin", 0
+.create "build/battle/scr/subscr/sub_seq_027.bin", 0
 
 subscr_027:
     MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_MAGMA_ARMOR, 124

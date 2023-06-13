@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/effscr/be_seq_43.bin", 0
+.create "build/battle/scr/effscr/be_seq_043.bin", 0
 
 effscr_043:
     SetVar                              OP_ADD, VAR_CRITICAL_CHANCE, 1

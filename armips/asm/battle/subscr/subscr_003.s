@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_3.bin", 0
+.create "build/battle/scr/subscr/sub_seq_003.bin", 0
 
 subscr_003:
     TryNaturalCure                      BATTLER_ME_SLOT_1, 5

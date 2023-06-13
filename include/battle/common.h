@@ -3,6 +3,9 @@
 
 #include "typedefs.h"
 
+#include "lib/string.h"
+#include "ui/window.h"
+
 // ========================================================================= //
 //                         BATTLE TYPE CONSTANTS                             //
 // ========================================================================= //
@@ -344,7 +347,7 @@
 #define ADDL_EFFECT_ATTACKER                    (0x40000000)
 #define ADDL_EFFECT_DEFENDER                    (0x80000000)
 
-#define ADDL_EFFECT_NONE                        (0)
+#define ADDL_EFFECT_NO_SOURCE                   (0)
 #define ADDL_EFFECT_DIRECT                      (1)
 #define ADDL_EFFECT_INDIRECT                    (2)
 #define ADDL_EFFECT_FROM_ABILITY                (3)
@@ -416,6 +419,22 @@ enum {
     SELECT_CANCEL = 0xFF,
 };
 
+
+// ========================================================================= //
+//                       STRUCT AND FUNCTION DECLS                           //
+// ========================================================================= //
+
+struct Battle {
+    void          *g3DManager;
+    void          *bgl;
+    struct Window *window;
+    void          *fightMsgManager;
+    void          *attackMsgManager;
+    void          *wordset;
+    struct String *preparedMessage;
+    // etc.
+};
+
 /**
  * Gets the fight type for a battle.
  * 
@@ -424,5 +443,14 @@ enum {
  * @param battle The battle structure.
  */
 u32 __attribute__((long_call)) Battle_FightType(void *battle);
+
+/**
+ * Gets the message manager for a battle.
+ * 
+ * Original function: 0x0223E05C (overlay 16)
+ * 
+ * @param battle The battle structure.
+ */
+void* __attribute__((long_call)) Battle_MessageManager(void *battle);
 
 #endif // __BATTLE_COMMON_H

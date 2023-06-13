@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_6.bin", 0
+.create "build/battle/scr/subscr/sub_seq_006.bin", 0
 
 subscr_006:
     IncGameStat                         BATTLER_FAINTING, 1, 41

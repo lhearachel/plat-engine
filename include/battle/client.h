@@ -1,6 +1,8 @@
 #ifndef __BATTLE_CLIENT_H
 #define __BATTLE_CLIENT_H
 
+#include "battle/common.h"
+
 #include "ui/common.h"
 #include "ui/window.h"
 
@@ -98,7 +100,7 @@ struct BattleClient {
     u8      dummy[3];
 };
 
-typedef void (*ClientFunc)(void *battle, struct BattleClient *client);
+typedef void (*ClientFunc)(struct Battle *battle, struct BattleClient *client);
 
 /**
  * Handles designation of incoming client commands to their respective client
@@ -109,7 +111,7 @@ typedef void (*ClientFunc)(void *battle, struct BattleClient *client);
  * @param battle The battle structure.
  * @param client The invoking client.
  */
-void __attribute__((long_call)) ClientCommand_Main(void *battle, struct BattleClient *client);
+void __attribute__((long_call)) ClientCommand_Main(struct Battle *battle, struct BattleClient *client);
 
 /**
  * Clears the command buffer in the client.
@@ -119,11 +121,5 @@ void __attribute__((long_call)) ClientCommand_Main(void *battle, struct BattleCl
  * @param client The invoking client.
  */
 void __attribute__((long_call)) ClientCommand_Reset(struct BattleClient *client);
-
-// Defined in ability_popup.c
-void __attribute__((long_call)) Client_PopupResourceLoad(void *battle, struct BattleClient *client);
-void __attribute__((long_call)) Client_PopupResourceFree(void *battle, struct BattleClient *client);
-void __attribute__((long_call)) Client_PopupShow(void *battle, struct BattleClient *client);
-void __attribute__((long_call)) Client_PopupHide(void *battle, struct BattleClient *client);
 
 #endif

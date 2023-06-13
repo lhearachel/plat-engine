@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_97.bin", 0
+.create "build/battle/scr/subscr/sub_seq_097.bin", 0
 
 subscr_097:
     If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, 65536, 47

@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_92.bin", 0
+.create "build/battle/scr/subscr/sub_seq_092.bin", 0
 
 subscr_092:
     IfMonData                           FLAG_EQ, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, 537133248, 18

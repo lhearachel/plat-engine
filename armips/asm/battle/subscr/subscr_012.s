@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_12.bin", 0
+.create "build/battle/scr/subscr/sub_seq_012.bin", 0
 
 subscr_012:
     StatBoostChange                     38, 56, 57

@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_9.bin", 0
+.create "build/battle/scr/subscr/sub_seq_009.bin", 0
 
 subscr_009:
     TryNaturalCure                      BATTLER_SWITCHING, 5

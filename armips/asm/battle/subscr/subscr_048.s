@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_48.bin", 0
+.create "build/battle/scr/subscr/sub_seq_048.bin", 0
 
 subscr_048:
     SetMonDataFromVar                   OP_GET, 1, BATTLE_MON_LEVEL, VAR_CALC_WORK

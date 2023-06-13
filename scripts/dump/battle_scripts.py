@@ -13,7 +13,7 @@ DECOMP_TEMPLATE = '''.nds
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/{dump_folder}/{pl_prefix}_{index}.bin", 0
+.create "build/battle/scr/{dump_folder}/{pl_prefix}_{index:03}.bin", 0
 
 {prefix}_{index:03}:
 {commands}
@@ -1697,3 +1697,6 @@ def dump_all():
     dump_narc('base/data/battle/skill/be_seq.narc',   'effscr', 'armips/asm/battle/effscr', 'be_seq')
     dump_narc('base/data/battle/skill/sub_seq.narc',  'subscr', 'armips/asm/battle/subscr', 'sub_seq')
     dump_narc('base/data/battle/skill/waza_seq.narc', 'movscr', 'armips/asm/battle/movscr', 'waza_seq')
+
+if __name__ == '__main__':
+    dump_all()

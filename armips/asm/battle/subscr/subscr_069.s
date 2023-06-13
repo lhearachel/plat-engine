@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_69.bin", 0
+.create "build/battle/scr/subscr/sub_seq_069.bin", 0
 
 subscr_069:
     SetStatusEffectMulti                BATTLER_ATTACKER_WORK, BATTLER_DEFENDER_WORK, 32

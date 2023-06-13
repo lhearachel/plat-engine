@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_18.bin", 0
+.create "build/battle/scr/subscr/sub_seq_018.bin", 0
 
 subscr_018:
     If                                  EQUAL, VAR_EFFECT_TYPE, 7, 143

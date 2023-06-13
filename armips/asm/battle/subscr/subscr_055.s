@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/subscr/sub_seq_55.bin", 0
+.create "build/battle/scr/subscr/sub_seq_055.bin", 0
 
 subscr_055:
     AttackMessage                       

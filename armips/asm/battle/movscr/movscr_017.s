@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/movscr/waza_seq_17.bin", 0
+.create "build/battle/scr/movscr/waza_seq_017.bin", 0
 
 movscr_017:
     JumpToMoveEffectScript              

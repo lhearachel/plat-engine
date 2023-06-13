@@ -1,6 +1,8 @@
 #ifndef __HEAP_H
 #define __HEAP_H
 
+#include "typedefs.h"
+
 #define HEAP_ID_BATTLE  5
 
 /**

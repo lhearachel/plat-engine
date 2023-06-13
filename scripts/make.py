@@ -47,7 +47,7 @@ ARM_HOOKS = 'buildsys/armhooks'
 REPOINTS = 'buildsys/repoints'
 ROUTINE_POINTERS = 'buildsys/routinepointers'
 
-LINKED_SECTIONS = ['build/linked.o']#, 'build/battle_linked.o', 'build/field_linked.o']
+LINKED_SECTIONS = ['build/linked.o', 'build/battle_linked.o']#, 'build/field_linked.o']
 OFFSET_START_IN_122 = 0x023C8000 + 0x1000
 OFFSET_START = [0x023C8000, 0x023D0000, 0x023D0000]
 
@@ -327,7 +327,7 @@ def _write(offects_file: str, binary_file: str, offset: int=0):
 
 def writeall():
     table = _write("base/overlay/overlay_0122.bin", OUTPUT, OFFSET_START_IN_122 - OFFSET_START[0])
-    #table = _write("base/overlay/overlay_0123.bin", OUTPUT_BATTLE)
+    table = _write("base/overlay/overlay_0123.bin", OUTPUT_BATTLE)
     #table = _write("base/overlay/overlay_0124.bin", OUTPUT_FIELD)
 
     width = max(map(len, table.keys())) + 1

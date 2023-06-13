@@ -9,6 +9,16 @@ LoadFromNARC_Malloc = 0x02006AC0 | 1;
 LoadFromNARC_Offset = 0x02006AFC | 1;
 LoadFromNARC_OffsetAndMalloc = 0x02006B18 | 1;
 
+/* overlay.h */
+FS_SetDefaultDMA = 0x020C84E0 | 1;
+Overlay_MemoryRegion = 0x02006544 | 1;
+Overlay_Free = 0x020064F0 | 1;
+Overlay_CanLoad = 0x02006644 | 1;
+Overlay_Load = 0x0200671C | 1;
+Overlay_LoadAndStart = 0x02006724 | 1;
+Overlay_LoadAndStartAsync = 0x0200675C | 1;
+Overlay_LoadedInRegion = 0x020066C0 | 1;
+
 /* pokemon.h */
 BoxPokemon_Get = 0x02074570 | 1;
 BoxPokemon_Set = 0x02074C60 | 1;
@@ -28,23 +38,32 @@ PokemonBaseStats_Get = 0x020759F0 | 1;
 PokemonBaseStats_GetWithForm = 0x020759CC | 1;
 Form_GetTrueSpecies = 0x02078740 | 1;
 
+/* sound.h */
+Sound_CheckAnySEsPlaying = 0x020057E0 | 1;
+Sound_CheckMEPlaying = 0x020061E4 | 1;
+Sound_PlaySE = 0x02005748 | 1;
+Sound_PlayME = 0x02006150 | 1;
+
 /* battle/client.h */
-ClientCommand_Main = 0x0225C0DC | 1;
 ClientCommand_Reset = 0x0225CBB0 | 1;
-sClientFunctionTable_Old = 0x0226F068 | 1;
+gClientFunctionTable_Old = 0x0226F068;
 
 /* battle/common.h */
 Battle_FightType = 0x0223DF0C | 1;
+Battle_MessageManager = 0x0223E05C | 1;
 
 /* battle/scio.h */
 SCIO_Message = 0x02264A04 | 1;
 SCIO_ClearQueue = 0x02266ABC | 1;
 
-/* battle/skillseq.h */
-SkillSeq_Exec = 0x022405FC | 1;
-ReadWord = 0x02248AD0 | 1;
-BattlerClient = 0x0224A984 | 1;
-sBattleScriptCommandTable_Old = 0x0226E72C | 1;
+/* battle/scrcmd.h */
+BattleScrCmd_ReadWord = 0x02248AD0 | 1;
+gBattleScriptCommandTable_Old = 0x0226E72C;
+
+/* battle/ui.c */
+BattleMessage_ExpandTags = 0x0223FDE4 | 1;
+BattleMessage_ExpandMessage = 0x02240584 | 1;
+CheckStillPrinting = 0x0201D6F8 | 1;
 
 /* ui/battle.h */
 Battle_GetClientActorSys = 0x0223E010 | 1;
@@ -65,9 +84,6 @@ UI_SetObjectOAMMode = 0x0200D810 | 1;
 TaskControl_Add = 0x0200D9E8 | 1;
 TaskControl_Delete = 0x0200DA58 | 1;
 
-/* ui/g2.h */
-G2_BlendNone = 
-
 /* ui/summary.h */
 Summary_PickStatusIcon = 0x0208E9F0 | 1;
 Summary_SetPokemonData = 0x0208D200 | 1;
@@ -77,5 +93,9 @@ Summary_PrintString = 0x020900D8 | 1;
 Summary_PrintCurrentOverMax = 0x020901D0 | 1;
 
 /* ui/window.h */
+Window_Add = 0x0201A7E8 | 1;
+Window_Delete = 0x0201A8FC | 1;
 Window_FillWithColor = 0x0201ADA4 | 1;
 Window_ToVRAM = 0x0201A9A4 | 1;
+Window_PrintString = 0x0201D738 | 1;
+Window_Clear = 0x0200E084 | 1;

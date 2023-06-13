@@ -8,7 +8,7 @@
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
 
-.create "build/battle/scr/effscr/be_seq_12.bin", 0
+.create "build/battle/scr/effscr/be_seq_012.bin", 0
 
 effscr_012:
     CriticalCalc                        
