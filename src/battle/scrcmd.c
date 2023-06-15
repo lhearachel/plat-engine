@@ -12,7 +12,10 @@ static BOOL __attribute__((long_call)) SkillSeq_HidePopup(void *battle, struct B
 static BOOL __attribute__((long_call)) BattleScrCmd_ShowAbility(void *battle, struct BattleServer *server);
 static BOOL __attribute__((long_call)) BattleScrCmd_HideAbility(void *battle, struct BattleServer *server);
 
+//#define DEBUG_BATTLE_SCRIPTS
 #define START_OF_NEW_BATTLE_SCRIPT_COMMANDS 0xDF
+
+typedef BOOL (*BattleScrCmd)(void *battle, struct BattleServer *server);
 
 extern const BattleScrCmd gBattleScriptCommandTable_Old[];
 
@@ -23,20 +26,25 @@ const BattleScrCmd gBattleScriptCommandTable_New[] = {
 
 BOOL BattleScrCmd_Exec(void *battle, struct BattleServer *server)
 {
-    BOOL ret = FALSE;
-    u8 buf[32];
+    BOOL ret;
+    u32 word;
+#ifdef DEBUG_BATTLE_SCRIPTS
+    u8 buf[64];
+#endif
     
-    while ((server->battleProgressFlag == 0) && ((Battle_FightType(battle) & BATTLE_TYPE_LINK) == 0)) {
-        u32 word = server->moveSeqWork[server->moveSeqNum];
-
-        sprintf(buf, "Starting cmd %ld\n", word);
+    do {
+        word = server->moveSeqWork[server->moveSeqNum];
+#ifdef DEBUG_BATTLE_SCRIPTS
+        sprintf(buf, "Got word: %ld\n", word);
         debugsyscall(buf);
+#endif // DEBUG_BATTLE_SCRIPTS
+
         if (word < START_OF_NEW_BATTLE_SCRIPT_COMMANDS) {
             ret = gBattleScriptCommandTable_Old[word](battle, server);
         } else {
             ret = gBattleScriptCommandTable_New[word - START_OF_NEW_BATTLE_SCRIPT_COMMANDS](battle, server);
         }
-    }
+    } while ((server->battleProgressFlag == 0) && ((Battle_FightType(battle) & BATTLE_TYPE_LINK) == 0));
 
     server->battleProgressFlag = 0;
     return ret;

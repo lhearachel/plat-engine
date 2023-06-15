@@ -5,8 +5,6 @@
 
 #include "battle/server.h"
 
-typedef BOOL (*BattleScrCmd)(void *battle, struct BattleServer *server);
-
 /**
  * Executes a scripting command.
  * 

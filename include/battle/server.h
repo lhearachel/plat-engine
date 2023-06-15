@@ -290,11 +290,16 @@ struct __attribute__((packed)) AIWork {
     u8  itemType[2];
     u8  itemCondition[2];
 
+    u8  _pad_0081;  // implicit padding, one byte
+
     u16 itemIDs[2];
 
     u8  dirSelectClient[4]; // ?
 
     struct BattleMove moveTable[468];   // this becomes unusable with move expansion, neat
+
+    u16 _pad_1DCA; // implicit padding, two bytes
+
     struct ItemData   *itemTable;
 
     u16 calcCount[4];
@@ -438,13 +443,14 @@ struct __attribute__((packed)) BattleServer {
     u32     moveIDCurr;
     u32     moveIDLast;
     u32     moveIDMultiTurn[4];
+    
     u16     moveIDProtect[4];
     u16     moveIDHit[4];
     u16     moveIDHitClient[4];
     u16     moveIDHitType[4];
     u16     moveIDOld[4];
     u16     moveIDMirrorMove[4];
-    u16     moveIDMirrorMoveHit[4];
+    u16     moveIDMirrorMoveHit[4][4];
     u16     moveIDSketch[4];
     u16     moveIDSelected[4];
     u16     moveIDPos[4];
@@ -488,8 +494,7 @@ struct __attribute__((packed)) BattleServer {
 
     int     clientWorkingCounter;
 
-    u32     battleProgressFlag      :1,
-            _padding                :31;
+    u32     battleProgressFlag;
 
     // new stuff starts here
     u8      padding_3158[0x26];     // gets the move table to 317E (for convenience of 3180 in ASM)

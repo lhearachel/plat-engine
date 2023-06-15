@@ -68,10 +68,11 @@ __pycache__/*
 *.xmap
 
 # ghidra stuff
-/platinum.gpr
-/platinum.lock
-/platinum.lock~
-/platinum.rep/
+/*.gpr
+/*.lock
+/*.lock~
+/*.rep/
+/*.i64
 
 /offsets.ini
 /buildsys/rom_gen.ld
