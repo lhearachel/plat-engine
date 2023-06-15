@@ -16,12 +16,21 @@ const ClientFunc gClientFunctionTable_New[] = {
     Client_HideAbility,
 };
 
+#define DEBUG_CLIENT_COMMANDS
+
 void ClientCommand_Main(struct Battle *battle, struct BattleClient *client)
 {
+#ifdef DEBUG_CLIENT_COMMANDS
+    u8 buf[64];
+#endif 
     if (client->commandBuffer[0]) {
         client->clientBufferFlag = 0;
         
         int commandCode = client->commandBuffer[0];
+#ifdef DEBUG_CLIENT_COMMANDS
+        sprintf(buf, "command: %d\n", commandCode);
+        debugsyscall(buf);
+#endif
         if (commandCode < CLIENT_NUM_VANILLA_MESSAGES) {
             gClientFunctionTable_Old[commandCode](battle, client);
         } else {
@@ -56,16 +65,27 @@ static void TaskControl_WaitMessage(void *taskControl, void *taskData)
     }
 }
 
+static void __attribute__((long_call)) TaskControl_Wait(void *taskControl, void *taskData); // 0x02262F7C
+
 static void Client_ShowAbility(struct Battle *battle, struct BattleClient *client)
 {
+#ifdef DEBUG_CLIENT_COMMANDS
+    u8 buf[64];
+    sprintf(buf, "made it into Client_ShowAbility\n"); debugsyscall(buf);
+#endif
+
     struct MessageParams *msgParams = (struct MessageParams*) &(client->commandBuffer[0]);
     struct WaitMessageTask *wait    = Malloc(HEAP_ID_BATTLE, sizeof(struct WaitMessageTask));
     wait->battle      = battle;
     wait->commandCode = msgParams->commandCode;
     wait->clientNum   = client->clientNum;
-    wait->msgIndex    = BattleUI_PrintPopupMessage(battle, msgParams);
 
-    TaskControl_Add(TaskControl_WaitMessage, wait, 0);
+#ifdef DEBUG_CLIENT_COMMANDS
+    sprintf(buf, "going into popup printing\n"); debugsyscall(buf);
+#endif
+    wait->msgIndex    = BattleUI_PrintPopupMessage(battle, msgParams);
+    
+    TaskControl_Add(TaskControl_Wait, wait, 0);
     ClientCommand_Reset(client);
 }
 

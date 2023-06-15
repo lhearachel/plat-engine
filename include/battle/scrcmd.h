@@ -24,4 +24,11 @@ BOOL __attribute__((long_call)) BattleScrCmd_Exec(void *battle, struct BattleSer
  */
 int  __attribute__((long_call)) BattleScrCmd_ReadWord(struct BattleServer *server);
 
+/**
+ * Canonizes an incoming client parameter into a canonical client identifier.
+ * 
+ * Original function: 0x0224A984 (overlay 16)
+ */
+int  __attribute__((long_call)) BattleScrCmd_CanonClient(void *battle, struct BattleServer *server, int clientParam);
+
 #endif // __BATTLE_SCRCMD_H

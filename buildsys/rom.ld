@@ -58,12 +58,14 @@ SCIO_ClearQueue = 0x02266ABC | 1;
 
 /* battle/scrcmd.h */
 BattleScrCmd_ReadWord = 0x02248AD0 | 1;
+BattleScrCmd_CanonClient = 0x0224A984 | 1;
 gBattleScriptCommandTable_Old = 0x0226E72C;
 
 /* battle/ui.c */
 BattleMessage_ExpandTags = 0x0223FDE4 | 1;
 BattleMessage_ExpandMessage = 0x02240584 | 1;
 CheckStillPrinting = 0x0201D6F8 | 1;
+TaskControl_Wait = 0x02262F7C | 1;
 
 /* ui/battle.h */
 Battle_GetClientActorSys = 0x0223E010 | 1;

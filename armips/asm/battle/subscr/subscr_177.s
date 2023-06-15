@@ -11,9 +11,12 @@
 .create "build/battle/scr/subscr/sub_seq_177.bin", 0
 
 subscr_177:
+    ShowAbility                         BATTLER_WORKING
+    Wait
     Message                             1087, TAG_NICK_ABILITY, BATTLER_WORKING, BATTLER_CLIENT_WORK, NaN, NaN, NaN, NaN
     Wait                                
     WaitTime                            30
+    HideAbility
     End                                 
 
 .close

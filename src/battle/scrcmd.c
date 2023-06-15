@@ -34,14 +34,12 @@ BOOL BattleScrCmd_Exec(void *battle, struct BattleServer *server)
     
     do {
         word = server->moveSeqWork[server->moveSeqNum];
-#ifdef DEBUG_BATTLE_SCRIPTS
-        sprintf(buf, "Got word: %ld\n", word);
-        debugsyscall(buf);
-#endif // DEBUG_BATTLE_SCRIPTS
-
         if (word < START_OF_NEW_BATTLE_SCRIPT_COMMANDS) {
             ret = gBattleScriptCommandTable_Old[word](battle, server);
         } else {
+#ifdef DEBUG_BATTLE_SCRIPTS
+            sprintf(buf, "word: %ld\n", word); debugsyscall(buf);
+#endif
             ret = gBattleScriptCommandTable_New[word - START_OF_NEW_BATTLE_SCRIPT_COMMANDS](battle, server);
         }
     } while ((server->battleProgressFlag == 0) && ((Battle_FightType(battle) & BATTLE_TYPE_LINK) == 0));
@@ -67,15 +65,16 @@ static BOOL BattleScrCmd_ShowAbility(void *battle, struct BattleServer *server)
 
     // Parameters:
     //      - client number
-    int abilityClient = BattleScrCmd_ReadWord(server);
+    int clientParam = BattleScrCmd_ReadWord(server);
+    int canonClient = BattleScrCmd_CanonClient(battle, server, clientParam);
     
     struct MessageParams msgParams = {
         .commandCode = CLIENT_SHOW_ABILITY,
         .id          = ABILITY_POPUP_MESSAGE_ID,
         .tag         = 11,  // TAG_NICK_ABILITY
     };
-    msgParams.params[0] = abilityClient;
-    msgParams.params[1] = server->activePokemon[abilityClient].ability;
+    msgParams.params[0] = canonClient;
+    msgParams.params[1] = server->activePokemon[canonClient].ability;
 
     SCIO_Message(battle, SCIO_CLIENT, server->attacker, &msgParams, sizeof(struct MessageParams));
 
