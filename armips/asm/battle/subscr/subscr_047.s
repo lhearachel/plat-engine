@@ -5,104 +5,153 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/battle_pokemon_params.s"
+.include "armips/include/battle_subscr_def.s"
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
+.include "armips/include/types.s"
+
 
 .create "build/battle/scr/subscr/sub_seq_047.bin", 0
 
+// SUBSCR_BADLY_POISON
 subscr_047:
-    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, 6, 19
-    CheckAbility                        MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_IMMUNITY, 240
-    CheckCloudNine                      110
-    If                                  FLAG_NEQ, VAR_FIELD_CONDITIONS, 48, 105
-    CheckAbility                        MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_LEAF_GUARD, 228
-    Branch                              98
-    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, 5, 66
-    CheckAbility                        MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_IMMUNITY, 215
-    CheckCloudNine                      10
-    If                                  FLAG_NEQ, VAR_FIELD_CONDITIONS, 48, 5
-    CheckAbility                        MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_LEAF_GUARD, 203
-    IfMonData                           FLAG_EQ, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION, 8, 197
-    IfMonData                           FLAG_EQ, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION, 128, 191
-    IfMonData                           EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_TYPE_1, 3, 185
-    IfMonData                           EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_TYPE_2, 3, 179
-    IfMonData                           EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_TYPE_1, 8, 173
-    IfMonData                           EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_TYPE_2, 8, 167
-    IfMonData                           NOT_EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION, 0, 161
-    If                                  FLAG_EQ, VAR_EFFECTSRC_SIDE_CONDITIONS, 8, 156
-    Branch                              97
-    MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_IMMUNITY, 150
-    CheckCloudNine                      10
-    If                                  FLAG_NEQ, VAR_FIELD_CONDITIONS, 48, 5
-    MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_LEAF_GUARD, 138
-    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, 2, 5
-    MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECTSRC, ABILITY_SHIELD_DUST, 154
-    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, 1, 2
+    // Check if this was applied by Toxic Spikes
+    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_TOXIC_SPIKES, subscr_047_CheckToxicOrb
+    // Check for Immunity
+    CheckAbility                        MODE_HAVE, BATTLER_EFFECT_TARGET, ABILITY_IMMUNITY, subscr_047_AbilityBlock
+    // Check for Sun + Leaf Guard
+    CheckCloudNine                      subscr_047_Resume
+    If                                  FLAG_NEQ, VAR_FIELD_CONDITIONS, FIELD_CONDITION_SUNNY, subscr_047_Resume
+    CheckAbility                        MODE_HAVE, BATTLER_EFFECT_TARGET, ABILITY_LEAF_GUARD, subscr_047_AbilityBlock
+    Branch                              subscr_047_Resume
+
+subscr_047_CheckToxicOrb:
+    // Check if this is being applied by Toxic Orb
+    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_FROM_ITEM, subscr_047_CheckFromMove
+    // Check for Immunity
+    CheckAbility                        MODE_HAVE, BATTLER_EFFECT_TARGET, ABILITY_IMMUNITY, subscr_047_End
+    // Check for Sun + Leaf Guard
+    CheckCloudNine                      subscr_047_ToxicOrbResume
+    If                                  FLAG_NEQ, VAR_FIELD_CONDITIONS, FIELD_CONDITION_SUNNY, subscr_047_ToxicOrbResume
+    CheckAbility                        MODE_HAVE, BATTLER_EFFECT_TARGET, ABILITY_LEAF_GUARD, subscr_047_End
+subscr_047_ToxicOrbResume:
+    // Check if the target is already poisoned
+    IfMonData                           FLAG_EQ, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, CONDITION_POISONED, subscr_047_End
+    IfMonData                           FLAG_EQ, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, CONDITION_BADLY_POISONED, subscr_047_End
+    // Check if the target cannot be poisoned by its typing
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_1, TYPE_POISON, subscr_047_End
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_2, TYPE_POISON, subscr_047_End
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_1, TYPE_STEEL, subscr_047_End
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_2, TYPE_STEEL, subscr_047_End
+    // Check if the target has any other status
+    IfMonData                           NOT_EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, 0, subscr_047_End
+    // Check for Safeguard
+    If                                  FLAG_EQ, VAR_EFFECT_TARGET_SIDECOND, SIDE_CONDITION_SAFEGUARD, subscr_047_End
+    Branch                              subscr_047_SkipMoveAnimation
+
+subscr_047_CheckFromMove:
+    MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECT_TARGET, ABILITY_IMMUNITY, subscr_047_AbilityBlock
+    CheckCloudNine                      subscr_047_SkipLeafGuard
+    If                                  FLAG_NEQ, VAR_FIELD_CONDITIONS, FIELD_CONDITION_SUNNY, subscr_047_SkipLeafGuard
+    MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECT_TARGET, ABILITY_LEAF_GUARD, subscr_047_AbilityBlock
+subscr_047_SkipLeafGuard:
+    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_047_Resume
+    MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_EFFECT_TARGET, ABILITY_SHIELD_DUST, subscr_047_Failure
+subscr_047_Resume:
+    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_DIRECT, subscr_047_SkipAttackMessage
     AttackMessage                       
     Wait                                
-    CheckSubstitute                     BATTLER_EFFECTSRC, 144
-    IfMonData                           FLAG_EQ, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION, 8, 159
-    IfMonData                           FLAG_EQ, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION, 128, 153
-    IfMonData                           EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_TYPE_1, 3, 165
-    IfMonData                           EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_TYPE_2, 3, 159
-    IfMonData                           EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_TYPE_1, 8, 153
-    IfMonData                           EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_TYPE_2, 8, 147
-    IfMonData                           NOT_EQUAL, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION, 0, 102
-    If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, 65537, 97
-    If                                  FLAG_EQ, VAR_EFFECTSRC_SIDE_CONDITIONS, 8, 149
-    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, 1, 3
+subscr_047_SkipAttackMessage:
+    CheckSubstitute                     BATTLER_EFFECT_TARGET, subscr_047_Failure
+    IfMonData                           FLAG_EQ, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, CONDITION_POISONED, subscr_047_AlreadyPoisoned
+    IfMonData                           FLAG_EQ, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, CONDITION_BADLY_POISONED, subscr_047_AlreadyPoisoned
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_1, TYPE_POISON, subscr_047_TypeBlock
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_2, TYPE_POISON, subscr_047_TypeBlock
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_1, TYPE_STEEL, subscr_047_TypeBlock
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_2, TYPE_STEEL, subscr_047_TypeBlock
+    IfMonData                           NOT_EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, 0, subscr_047_Failure
+    If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_MISSED_BUT_IT_FAILED, subscr_047_Failure
+    If                                  FLAG_EQ, VAR_EFFECT_TARGET_SIDECOND, SIDE_CONDITION_SAFEGUARD, subscr_047_SafeguardActive
+    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_DIRECT, subscr_047_SkipMoveAnimation
     PlayAnimation                       BATTLER_ATTACKER
     Wait                                
-    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, 5, 6
-    SetStatusEffect                     BATTLER_EFFECTSRC, 10
+subscr_047_SkipMoveAnimation:
+    If                                  NOT_EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_FROM_ITEM, subscr_047_SkipItemAnimation
+    SetStatusEffect                     BATTLER_EFFECT_TARGET, STATUS_HELD_ITEM
     Wait                                
     WaitTime                            15
-    SetStatusEffect                     BATTLER_EFFECTSRC, 2
+subscr_047_SkipItemAnimation:
+    SetStatusEffect                     BATTLER_EFFECT_TARGET, STATUS_POISONED
     Wait                                
-    SetMonData                          OP_SET_FLAG, BATTLER_EFFECTSRC, BATTLE_MON_CONDITION, 128
-    If                                  EQUAL, VAR_EFFECT_TYPE, 5, 6
-    Message                             79, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
-    Branch                              5
-    Message                             1168, TAG_NICK_ITEM, BATTLER_EFFECTSRC, BATTLER_WORKING, NaN, NaN, NaN, NaN
+    SetMonData                          OP_SET_FLAG, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, CONDITION_BADLY_POISONED
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_FROM_ITEM, subscr_047_ToxicOrbMessage
+    // "{0} was badly poisoned!"
+    Message                             79, TAG_NICK, BATTLER_EFFECT_TARGET, NaN, NaN, NaN, NaN, NaN
+    Branch                              subscr_047_AfterMessage
+subscr_047_ToxicOrbMessage:
+    // "{0} was badly poisoned by the {1}!"
+    Message                             1168, TAG_NICK_ITEM, BATTLER_EFFECT_TARGET, BATTLER_WORKING, NaN, NaN, NaN, NaN
+subscr_047_AfterMessage:
     Wait                                
-    SetStatusIcon                       BATTLER_EFFECTSRC, STATUS_POISONED
+    SetStatusIcon                       BATTLER_EFFECT_TARGET, STATUS_POISONED
     WaitTime                            30
-    If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, 128, 6
-    SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, 128
-    Branch                              4
-    SetVar                              OP_CLEAR_FLAG, VAR_SERVER_STATUS_FLAG, 128
-    End                                 
-    If                                  EQUAL, VAR_EFFECT_TYPE, 2, 101
-    If                                  EQUAL, VAR_EFFECT_TYPE, 4, 7
-    If                                  EQUAL, VAR_EFFECT_TYPE, 6, 2
+    // Flip the Synchronize flag
+    If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_SYNCHRONIZE, subscr_047_FlipSynchronize
+    SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_SYNCHRONIZE
+    Branch                              subscr_047_End
+subscr_047_FlipSynchronize:
+    SetVar                              OP_CLEAR_FLAG, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_SYNCHRONIZE
+subscr_047_End:
+    End                                 // 249
+
+subscr_047_AbilityBlock:
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_047_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_FROM_MOVE, subscr_047_AbilityBlockSkipAttackMessage
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_TOXIC_SPIKES, subscr_047_AbilityBlockSkipAttackMessage
     AttackMessage                       
     Wait                                
+subscr_047_AbilityBlockSkipAttackMessage:
     WaitTime                            30
-    Message                             650, TAG_NICK_ABILITY, BATTLER_EFFECTSRC, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN
-    Branch                              73
-    If                                  EQUAL, VAR_EFFECT_TYPE, 2, 75
-    If                                  EQUAL, VAR_EFFECT_TYPE, 4, 70
-    If                                  EQUAL, VAR_EFFECT_TYPE, 6, 65
+    // "{0}'s {1} prevents poisoning!"
+    Message                             650, TAG_NICK_ABILITY, BATTLER_EFFECT_TARGET, BATTLER_EFFECT_TARGET, NaN, NaN, NaN, NaN
+    Branch                              subscr_047_Cleanup
+
+subscr_047_Failure:
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_047_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_FROM_MOVE, subscr_047_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_TOXIC_SPIKES, subscr_047_Exit
     WaitTime                            30
-    JumpToSubscript                     75
-    Branch                              59
-    If                                  EQUAL, VAR_EFFECT_TYPE, 2, 54
-    If                                  EQUAL, VAR_EFFECT_TYPE, 6, 49
+    CallSubscript                       SUBSCR_BUT_IT_FAILED
+    Branch                              subscr_047_Exit
+
+subscr_047_AlreadyPoisoned:
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_047_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_TOXIC_SPIKES, subscr_047_Exit
     WaitTime                            30
-    Message                             76, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
-    Branch                              34
-    If                                  EQUAL, VAR_EFFECT_TYPE, 2, 36
-    If                                  EQUAL, VAR_EFFECT_TYPE, 6, 31
+    // "{0} is already poisoned!"
+    Message                             76, TAG_NICK, BATTLER_EFFECT_TARGET, NaN, NaN, NaN, NaN, NaN
+    Branch                              subscr_047_Cleanup
+
+subscr_047_TypeBlock:
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_047_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_TOXIC_SPIKES, subscr_047_Exit
     WaitTime                            30
-    Message                             27, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
-    Branch                              16
-    If                                  EQUAL, VAR_EFFECT_TYPE, 2, 18
-    If                                  EQUAL, VAR_EFFECT_TYPE, 6, 13
+    // "It doesn't affect {0}..."
+    Message                             27, TAG_NICK, BATTLER_EFFECT_TARGET, NaN, NaN, NaN, NaN, NaN
+    Branch                              subscr_047_Cleanup
+
+subscr_047_SafeguardActive:
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_047_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_TOXIC_SPIKES, subscr_047_Exit
     WaitTime                            30
-    Message                             200, TAG_NICK, BATTLER_EFFECTSRC, NaN, NaN, NaN, NaN, NaN
+    // "{0} is protected by Safeguard!"
+    Message                             200, TAG_NICK, BATTLER_EFFECT_TARGET, NaN, NaN, NaN, NaN, NaN
+subscr_047_Cleanup:
     Wait                                
     WaitTime                            30
-    SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, 2147483648
+    SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_GENERAL_FAILURE
+subscr_047_Exit:
     End                                 
 
 .close

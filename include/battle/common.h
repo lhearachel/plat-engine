@@ -97,6 +97,108 @@
 
 
 // ========================================================================= //
+//                     SERVER STATUS FLAG CONSTANTS                          //
+// ========================================================================= //
+
+#define SERVER_STATUS_FLAG_NO_ATTACK_MESSAGE    (0x00000001)
+#define SERVER_STATUS_FLAG_NO_DOUBLE_CHECK      (0x00000002)
+#define SERVER_STATUS_FLAG_HIT_FLYING_MON       (0x00000004)
+#define SERVER_STATUS_FLAG_HIT_DIGGING_MON      (0x00000008)
+#define SERVER_STATUS_FLAG_HIT_DIVING_MON       (0x00000010)
+#define SERVER_STATUS_FLAG_TURN_ONE_OF_TWO      (0x00000020)
+#define SERVER_STATUS_FLAG_DO_NOT_BLINK         (0x00000040)
+#define SERVER_STATUS_FLAG_SYNCHRONIZE          (0x00000080)
+#define SERVER_STATUS_FLAG_BATON_PASS           (0x00000100)
+#define SERVER_STATUS_FLAG_TURN_TWO_OF_TWO      (0x00000200)
+#define SERVER_STATUS_FLAG_FLAT_HIT_RATE        (0x00000400)
+#define SERVER_STATUS_FLAG_IGNORE_EFFECTIVENESS (0x00000800)    // this is specifically super/not-very effective modifiers
+#define SERVER_STATUS_FLAG_CRASH_DAMAGE         (0x00001000)
+#define SERVER_STATUS_FLAG_MOVE_SUCCESSFUL      (0x00002000)
+#define SERVER_STATUS_FLAG_MOVE_ANIMATIONS_OFF  (0x00004000)
+#define SERVER_STATUS_FLAG_IGNORE_IMMUNITIES    (0x00008000)    // this is specifically for immunities
+#define SERVER_STATUS_FLAG_MULTI_HIT_NO_MESSAGE (0x00010000)
+#define SERVER_STATUS_FLAG_NO_MESSAGE_BETWEEN (0x00020000)
+#define SERVER_STATUS_FLAG_MESSAGE_AFTER_MISS   (0x00040000)
+#define SERVER_STATUS_FLAG_HIT_SHADOW_FORCE     (0x00080000)
+#define SERVER_STATUS_FLAG_NO_MOVE_SET          (0x00100000)
+#define SERVER_STATUS_FLAG_TURN_OFF_MESSAGES    (0x00200000)
+#define SERVER_STATUS_FLAG_EFFECT               (0x00400000)
+#define SERVER_STATUS_FLAG_MOLD_BREAKER         (0x00800000)
+
+#define SERVER_STATUS_FLAG_ANY_FAINTED_MON      (0x0F000000)    // this is 4 flags in 1, 1 for each client
+
+#define SERVER_STATUS_FLAG_SELF_DESTRUCT        (0x10000000)
+#define SERVER_STATUS_FLAG_ANY_SELF_DESTRUCTING (0xF0000000)    // this is also 4 flags in 1, 1 for each client
+
+
+// ========================================================================= //
+//                    SERVER STATUS FLAG 2 CONSTANTS                         //
+// ========================================================================= //
+
+#define SERVER_STATUS_FLAG2_NO_EXPERIENCE_GIVEN (0x00000001)
+#define SERVER_STATUS_FLAG2_UPDATE_STAT_STAGES  (0x00000002)
+#define SERVER_STATUS_FLAG2_DISPLAY_ATTACK_MSG  (0x00000004)
+#define SERVER_STATUS_FLAG2_MAGIC_COAT_SWAP     (0x00000008)
+#define SERVER_STATUS_FLAG2_PIVOT_MOVE          (0x00000010)
+#define SERVER_STATUS_FLAG2_FIRST_DAMAGE_MSG    (0x00000020)
+#define SERVER_STATUS_FLAG2_MOVE_FAILED_ON_USE  (0x00000040)
+#define SERVER_STATUS_FLAG2_CHECK_STAT_STAGES   (0x00000080)
+#define SERVER_STATUS_FLAG2_RECOVERY_EFFECT     (0x00000100)
+
+#define SERVER_STATUS_FLAG2_FORM_CHANGE         (0x04000000)
+#define SERVER_STATUS_FLAG2_RECALC_MON_STATS    (0x08000000)
+#define SERVER_STATUS_FLAG2_BATTLER_GETS_EXP    (0xF0000000)    // 4 flags in 1, 1 for each client getting exp
+
+
+// ========================================================================= //
+//                        SINGLE TURN STATUS FLAGS                           //
+// ========================================================================= //
+
+#define SINGLE_TURN_STATUS_FLAG_RESIST_BERRY    (0x00000001)
+#define SINGLE_TURN_STATUS_FLAG_PLUCK_BERRY     (0x00000002)
+#define SINGLE_TURN_STATUS_INFATUATED           (0x00000004)
+#define SINGLE_TURN_STATUS_HIT_SUBSTITUTE       (0x00000008)
+
+
+// ========================================================================= //
+//                       MOVE STATUS FLAG CONSTANTS                          //
+// ========================================================================= //
+
+#define MOVE_STATUS_FLAG_MISSED                     (0x00000001)
+#define MOVE_STATUS_FLAG_SUPER_EFFECTIVE            (0x00000002)
+#define MOVE_STATUS_FLAG_NOT_VERY_EFFECTIVE         (0x00000004)
+#define MOVE_STATUS_FLAG_DOES_NOT_AFFECT            (0x00000008)
+#define MOVE_STATUS_FLAG_CRITICAL_HIT               (0x00000010)
+#define MOVE_STATUS_FLAG_ONE_HIT_KO                 (0x00000020)
+#define MOVE_STATUS_FLAG_FAILED                     (0x00000040)
+#define MOVE_STATUS_FLAG_ENDURED                    (0x00000080)
+#define MOVE_STATUS_FLAG_HELD_ON_WITH_ITEM          (0x00000100)
+#define MOVE_STATUS_FLAG_NO_PP                      (0x00000200)
+#define MOVE_STATUS_FLAG_LOCKED_ON                  (0x00000400)
+#define MOVE_STATUS_FLAG_MISSED_BY_ABILITY          (0x00000800)
+#define MOVE_STATUS_FLAG_ONE_HIT_KO_FAILED          (0x00001000)
+#define MOVE_STATUS_FLAG_NOTHING_HAPPENED           (0x00002000)
+#define MOVE_STATUS_FLAG_MISSED_IN_SERIES           (0x00004000)
+#define MOVE_STATUS_FLAG_PROTECTED                  (0x00008000)
+#define MOVE_STATUS_FLAG_MISSED_DURING_FLY          (0x00010000)    // also includes Bounce, Dive, Dig, Shadow Force
+#define MOVE_STATUS_FLAG_LOST_FOCUS                 (0x00020000)
+#define MOVE_STATUS_FLAG_PROTECTED_BY_WONDER_GUARD  (0x00040000)
+#define MOVE_STATUS_FLAG_ENDURED_BY_STURDY          (0x00080000)
+#define MOVE_STATUS_FLAG_MISSED_BY_MAGNET_RISE      (0x00100000)
+// 0x00200000 unused
+// 0x00400000 unused
+// 0x00800000 unused
+// 0x01000000 unused
+// 0x02000000 unused
+// 0x04000000 unused
+// 0x08000000 unused
+// 0x10000000 unused
+// 0x20000000 unused
+// 0x40000000 unused
+#define MOVE_STATUS_FLAG_GENERAL_FAILURE            (0x80000000)
+
+
+// ========================================================================= //
 //                      POKEMON CONDITION CONSTANTS                          //
 // ========================================================================= //
 
@@ -202,7 +304,7 @@
 #define ADDL_EFFECT_UPROAR                      (0x0000000A)
 #define ADDL_EFFECT_PAYDAY                      (0x0000000B)
 #define ADDL_EFFECT_CHARGE_TURN                 (0x0000000C)
-#define ADDL_EFFECT_CLAMP                       (0x0000000D)
+#define ADDL_EFFECT_TRAP                        (0x0000000D)
 #define ADDL_EFFECT_TAKE_RECOIL_1_4             (0x0000000E)
 #define ADDL_EFFECT_ATK_UP_1                    (0x0000000F)
 #define ADDL_EFFECT_DEF_UP_1                    (0x00000010)
@@ -286,7 +388,7 @@
 #define ADDL_EFFECT_SWAGGER                     (0x0000005E)
 #define ADDL_EFFECT_ATTRACT                     (0x0000005F)
 #define ADDL_EFFECT_SAFEGUARD                   (0x00000060)
-#define ADDL_EFFECT_PRESENT                     (0x00000061)
+#define ADDL_EFFECT_HEAL_TARGET                 (0x00000061)
 #define ADDL_EFFECT_MAGNITUDE                   (0x00000062)
 #define ADDL_EFFECT_BATON_PASS                  (0x00000063)
 #define ADDL_EFFECT_BELLY_DRUM                  (0x00000064)
@@ -342,7 +444,7 @@
 #define ADDL_EFFECT_FLAG_CLAMPING               (0x02000000)    // Bind, Clamp, Whirlpool, Fire Spin
 #define ADDL_EFFECT_HAS_PROBABILITY             (0x04000000)    // Flare Blitz, Volt Tackle
 #define ADDL_EFFECT_NO_ABILITY                  (0x08000000)    // ?
-#define ADDL_EFFECT_NO_HIT_REQUIRED             (0x10000000)    // Transform, Leech Seed, Mind Reader, etc.
+#define ADDL_EFFECT_EXTRA_FAIL_CHECK            (0x10000000)    // Transform, Leech Seed, Mind Reader, etc.
 #define ADDL_EFFECT_FLAG_UPDATE                 (0x20000000)    // Lots of moves
 #define ADDL_EFFECT_ATTACKER                    (0x40000000)
 #define ADDL_EFFECT_DEFENDER                    (0x80000000)
@@ -351,10 +453,118 @@
 #define ADDL_EFFECT_DIRECT                      (1)
 #define ADDL_EFFECT_INDIRECT                    (2)
 #define ADDL_EFFECT_FROM_ABILITY                (3)
-#define ADDL_EFFECT_UPDATES_MOVE_EFFECT_FLAGS   (4)
+#define ADDL_EFFECT_FROM_MOVE                   (4)
 #define ADDL_EFFECT_FROM_ITEM                   (5)
 #define ADDL_EFFECT_TOXIC_SPIKES                (6)
-#define ADDL_EFFECT_IGNORE                      (7)
+#define ADDL_EFFECT_DISOBEY                     (7)
+
+
+// ========================================================================= //
+//                        ACTUAL STATUS CONSTANTS                            //
+// ========================================================================= //
+
+#define STATUS_NONE             0
+#define STATUS_ASLEEP           1
+#define STATUS_POISONED         2
+#define STATUS_BURNED           3
+#define STATUS_FROZEN           4
+#define STATUS_PARALYZED        5
+#define STATUS_CONFUSED         6
+#define STATUS_INFATUATED       7
+#define STATUS_LEVEL_UP         8
+#define STATUS_BAG_ITEM         9
+#define STATUS_HELD_ITEM        10
+#define STATUS_SHINY            11
+#define STATUS_STAT_BOOST       12
+#define STATUS_STAT_DROP        13
+#define STATUS_RESTORE_HP       14
+#define STATUS_SUB_OUT          15
+#define STATUS_SUB_IN           16
+#define STATUS_ITEM_ESCAPE      17
+#define STATUS_WEATHER_FOG      18
+#define STATUS_WEATHER_RAIN     19
+#define STATUS_WEATHER_HAIL     20
+#define STATUS_WEATHER_SAND     21
+#define STATUS_WEATHER_SUN      22
+
+#define STATUS_WEATHER_START    STATUS_WEATHER_FOG
+#define STATUS_WEATHER_END      STATUS_WEATHER_SUN
+
+
+// ========================================================================= //
+//                         MOVE EFFECT CONSTANTS                             //
+// ========================================================================= //
+
+#define MOVE_EFFECT_LEECH_SEED_SOURCE           (0x00000003)    // 2 flags in 1, determines which of your clients get the recovery
+#define MOVE_EFFECT_LEECH_SEEDED                (0x00000004)
+#define	MOVE_EFFECT_LOCKED_ON                   (0x00000018)    // 2 flags in 1, determines which of your clients circumvent the acc check
+#define	MOVE_EFFECT_PERISH_SONG                 (0x00000020)    // just a check for if Perish Song is applied; nothing here to do with the count
+#define	MOVE_EFFECT_AIRBORNE                    (0x00000040)    // applied by Fly and Bounce
+#define	MOVE_EFFECT_UNDERGROUND                 (0x00000080)    // applied by Dig
+#define	MOVE_EFFECT_MINIMIZED                   (0x00000100)
+#define	MOVE_EFFECT_CHARGED                     (0x00000200)    // literally Charge
+#define	MOVE_EFFECT_INGRAINED                   (0x00000400)
+#define	MOVE_EFFECT_DROWSY                      (0x00001800)    // 2 flags in 1; marks both the drowsy turn and the fall-asleep turn
+#define	MOVE_EFFECT_IMPRISON                    (0x00002000)    // applied to whatever mon used Imprison
+#define	MOVE_EFFECT_GRUDGE                      (0x00004000)    // applied to whatever mon used Grudge
+#define	MOVE_EFFECT_NO_CRITICAL                 (0x00008000)
+#define	MOVE_EFFECT_MUD_SPORT                   (0x00010000)
+#define	MOVE_EFFECT_WATER_SPORT                 (0x00020000)
+#define	MOVE_EFFECT_UNDERWATER                  (0x00040000)    // applied by Dive
+#define	MOVE_EFFECT_INTIMIDATE                  (0x00080000)    // doesn't appear to be set anywhere?
+#define	MOVE_EFFECT_TRACE                       (0x00100000)    // doesn't appear to be set anywhere?
+#define	MOVE_EFFECT_ABILITY_SUPPRESSED          (0x00200000)    // applied by Gastro Acid
+#define	MOVE_EFFECT_MIRACLE_EYE                 (0x00400000)    // separate from Foresight
+#define	MOVE_EFFECT_POWER_TRICK                 (0x00800000)
+#define	MOVE_EFFECT_AQUA_RING                   (0x01000000)
+#define	MOVE_EFFECT_HEAL_BLOCK                  (0x02000000)
+#define	MOVE_EFFECT_EMBARGO                     (0x04000000)
+#define	MOVE_EFFECT_MAGNET_RISE                 (0x08000000)
+#define	MOVE_EFFECT_CAMOUFLAGE                  (0x10000000)    // used by the AI system
+#define	MOVE_EFFECT_SHADOW_FORCE                (0x20000000)
+#define	MOVE_EFFECT_IMPRISONED                  (0x40000000)    // applied to mons which are Imprisoned; used by the AI system
+
+
+// ========================================================================= //
+//                       FIELD CONDITION CONSTANTS                           //
+// ========================================================================= //
+
+#define	FIELD_CONDITION_RAINING_TEMP    (0x00000001)
+#define	FIELD_CONDITION_RAINING_PERM    (0x00000002)
+#define	FIELD_CONDITION_RAINING         (0x00000003)
+#define	FIELD_CONDITION_SANDSTORM_TEMP  (0x00000004)
+#define	FIELD_CONDITION_SANDSTORM_PERM  (0x00000008)
+#define	FIELD_CONDITION_SANDSTORM       (0x0000000C)
+#define	FIELD_CONDITION_SUNNY_TEMP      (0x00000010)
+#define	FIELD_CONDITION_SUNNY_PERM      (0x00000020)
+#define	FIELD_CONDITION_SUNNY           (0x00000030)
+#define	FIELD_CONDITION_HAILING_TEMP    (0x00000040)
+#define	FIELD_CONDITION_HAILING_PERM    (0x00000080)
+#define	FIELD_CONDITION_HAILING         (0x000000C0)
+
+#define	FIELD_CONDITION_UPROAR          (0x00000F00)    // 4 bits; also tracks which client is making the uproar
+#define	FIELD_CONDITION_GRAVITY         (0x00007000)    // 3 bits; also tracks the remaining turns
+#define	FIELD_CONDITION_DEEP_FOG        (0x00008000)
+#define	FIELD_CONDITION_TRICK_ROOM      (0x00070000)    // 3 bits; also tracks the remaining turns
+
+#define FIELD_CONDITION_WEATHER         (0x000080FF)    // Any weather in effect (includes Deep Fog)
+
+
+// ========================================================================= //
+//                        SIDE CONDITION CONSTANTS                           //
+// ========================================================================= //
+
+#define SIDE_CONDITION_REFLECT          (0x00000001)
+#define SIDE_CONDITION_LIGHT_SCREEN     (0x00000002)
+#define SIDE_CONDITION_SPIKES           (0x00000004)
+#define SIDE_CONDITION_SAFEGUARD        (0x00000008)
+#define SIDE_CONDITION_FUTURE_SIGHT     (0x00000010)
+#define SIDE_CONDITION_WISH             (0x00000020)
+#define SIDE_CONDITION_MIST             (0x00000040)
+#define SIDE_CONDITION_STEALTH_ROCK     (0x00000080)
+#define SIDE_CONDITION_TAILWIND         (0x00000300)    // stores the turn-counter for tailwind (TODO: move this to expand to 4 turns)
+#define SIDE_CONDITION_TOXIC_SPIKES     (0x00000400)    // TODO: maybe could move this up to give Tailwind more space?
+#define SIDE_CONDITION_LUCKY_CHANT      (0x00007000)    // stores the turn-counter for lucky chant (max: 7)
 
 
 // ========================================================================= //
@@ -369,6 +579,34 @@
 #define BATTLE_STATUS_RECORDED_CHILD        (0x00000020)
 #define BATTLE_STATUS_GIRATINA_DISTORTION   (0x00000040)    // Special flag combination for Giratina in the Distortion World
 #define BATTLE_STATUS_DISTORTION            (0x00000080)    // Any battle in the Distortion World
+
+
+// ========================================================================= //
+//                        BATTLE RESULT CONSTANTS                            //
+// ========================================================================= //
+
+#define BATTLE_RESULT_WIN                   (0x01)
+#define BATTLE_RESULT_LOSE                  (0x02)
+#define BATTLE_RESULT_DRAW                  (0x03)
+#define BATTLE_RESULT_CAPTURE               (0x04)
+#define BATTLE_RESULT_ESCAPE                (0x05)
+#define BATTLE_RESULT_ENEMY_ESCAPE          (0x06)
+#define BATTLE_RESULT_SELECT_PAUSE          (0x40)
+#define BATTLE_RESULT_SELECT                (0x80)
+
+
+// ========================================================================= //
+//                            STAT ID CONSTANTS                              //
+// ========================================================================= //
+
+#define STAT_HP             0
+#define STAT_ATTACK         1
+#define STAT_DEFENSE        2
+#define STAT_SPEED          3
+#define STAT_SPATTACK       4
+#define STAT_SPDEFENSE      5
+#define STAT_ACCURACY       6
+#define STAT_EVASION        7
 
 
 // ========================================================================= //

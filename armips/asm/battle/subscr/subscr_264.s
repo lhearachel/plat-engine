@@ -5,81 +5,133 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/battle_pokemon_params.s"
+.include "armips/include/battle_subscr_def.s"
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
+.include "armips/include/types.s"
+
 
 .create "build/battle/scr/subscr/sub_seq_264.bin", 0
 
+// SUBSCR_TYPE_RESIST_BERRIES
 subscr_264:
-    If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, 34816, 258
-    If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, 32, 253
-    CheckAbility                        MODE_NOT_HAVE, BATTLER_ATTACKER, ABILITY_NORMALIZE, 6
-    SetVar                              OP_SET, VAR_CALC_WORK, 0
-    Branch                              13
-    If                                  EQUAL, VAR_MOVE_TYPE, 0, 6
+    // If the move specifies that it ignores immunities or type effectiveness, do not activate
+    If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_IGNORE_IMMUNITIES | SERVER_STATUS_FLAG_IGNORE_EFFECTIVENESS, subscr_264_Exit
+    // Do not activate on OHKO moves
+    If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_ONE_HIT_KO, subscr_264_Exit
+    // Modify the type of the move if the attacker has Normalize
+    CheckAbility                        MODE_NOT_HAVE, BATTLER_ATTACKER, ABILITY_NORMALIZE, subscr_264_NoAbilityTypeMod
+    SetVar                              OP_SET, VAR_CALC_WORK, TYPE_NORMAL
+    Branch                              subscr_264_Resume
+
+subscr_264_NoAbilityTypeMod:
+    If                                  EQUAL, VAR_MOVE_TYPE, 0, subscr_264_GetType
     SetVarFromVar                       OP_GET, VAR_MOVE_TYPE, VAR_CALC_WORK
-    Branch                              2
+    Branch                              subscr_264_Resume
+
+subscr_264_GetType:
     GetCurrentMoveData                  MOVE_PARAM_TYPE
+subscr_264_Resume:
     GetItemEffect                       BATTLER_WORKING, VAR_TEMP_WORK
-    If                                  EQUAL, VAR_TEMP_WORK, 35, 87
-    If                                  FLAG_NEQ, VAR_MOVE_STATUS_FLAG, 2, 216
-    If                                  EQUAL, VAR_TEMP_WORK, 19, 84
-    If                                  EQUAL, VAR_TEMP_WORK, 20, 86
-    If                                  EQUAL, VAR_TEMP_WORK, 21, 88
-    If                                  EQUAL, VAR_TEMP_WORK, 22, 90
-    If                                  EQUAL, VAR_TEMP_WORK, 23, 92
-    If                                  EQUAL, VAR_TEMP_WORK, 24, 94
-    If                                  EQUAL, VAR_TEMP_WORK, 25, 96
-    If                                  EQUAL, VAR_TEMP_WORK, 26, 98
-    If                                  EQUAL, VAR_TEMP_WORK, 27, 100
-    If                                  EQUAL, VAR_TEMP_WORK, 28, 102
-    If                                  EQUAL, VAR_TEMP_WORK, 29, 104
-    If                                  EQUAL, VAR_TEMP_WORK, 30, 106
-    If                                  EQUAL, VAR_TEMP_WORK, 31, 108
-    If                                  EQUAL, VAR_TEMP_WORK, 32, 110
-    If                                  EQUAL, VAR_TEMP_WORK, 33, 112
-    If                                  EQUAL, VAR_TEMP_WORK, 34, 114
-    Branch                              134
-    If                                  EQUAL, VAR_CALC_WORK, 0, 112
-    Branch                              127
-    If                                  EQUAL, VAR_CALC_WORK, 10, 105
-    Branch                              120
-    If                                  EQUAL, VAR_CALC_WORK, 11, 98
-    Branch                              113
-    If                                  EQUAL, VAR_CALC_WORK, 13, 91
-    Branch                              106
-    If                                  EQUAL, VAR_CALC_WORK, 12, 84
-    Branch                              99
-    If                                  EQUAL, VAR_CALC_WORK, 15, 77
-    Branch                              92
-    If                                  EQUAL, VAR_CALC_WORK, 1, 70
-    Branch                              85
-    If                                  EQUAL, VAR_CALC_WORK, 3, 63
-    Branch                              78
-    If                                  EQUAL, VAR_CALC_WORK, 4, 56
-    Branch                              71
-    If                                  EQUAL, VAR_CALC_WORK, 2, 49
-    Branch                              64
-    If                                  EQUAL, VAR_CALC_WORK, 14, 42
-    Branch                              57
-    If                                  EQUAL, VAR_CALC_WORK, 6, 35
-    Branch                              50
-    If                                  EQUAL, VAR_CALC_WORK, 5, 28
-    Branch                              43
-    If                                  EQUAL, VAR_CALC_WORK, 7, 21
-    Branch                              36
-    If                                  EQUAL, VAR_CALC_WORK, 16, 14
-    Branch                              29
-    If                                  EQUAL, VAR_CALC_WORK, 17, 7
-    Branch                              22
-    If                                  NOT_EQUAL, VAR_CALC_WORK, 8, 17
-    SetStatusEffect                     BATTLER_WORKING, 10
+    // Chilan Berry always activates on Normal-type attacks
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_NORMAL, subscr_264_CheckNormal
+    // Other types: check if the move is super-effective
+    If                                  FLAG_NEQ, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_SUPER_EFFECTIVE, subscr_264_Exit
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_FIRE, subscr_264_CheckFire
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_WATER, subscr_264_CheckWater
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_ELECTRIC, subscr_264_CheckElectric
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_GRASS, subscr_264_CheckGrass
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_ICE, subscr_264_CheckIce
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_FIGHTING, subscr_264_CheckFighting
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_POISON, subscr_264_CheckPoison
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_GROUND, subscr_264_CheckGround
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_FLYING, subscr_264_CheckFlying
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_PSYCHIC, subscr_264_CheckPsychic
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_BUG, subscr_264_CheckBug
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_ROCK, subscr_264_CheckRock
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_GHOST, subscr_264_CheckGhost
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_DRAGON, subscr_264_CheckDragon
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_DARK, subscr_264_CheckDark
+    If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_SE_STEEL, subscr_264_CheckSteel
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckNormal:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_NORMAL, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckFire:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_FIRE, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckWater:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_WATER, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckElectric:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_ELECTRIC, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckGrass:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_GRASS, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckIce:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_ICE, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckFighting:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_FIGHTING, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckPoison:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_POISON, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckGround:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_GROUND, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckFlying:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_FLYING, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckPsychic:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_PSYCHIC, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckBug:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_BUG, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckRock:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_ROCK, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckGhost:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_GHOST, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckDragon:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_DRAGON, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckDark:
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_DARK, subscr_264_HalveDamage
+    Branch                              subscr_264_Exit
+
+subscr_264_CheckSteel:
+    If                                  NOT_EQUAL, VAR_CALC_WORK, TYPE_STEEL, subscr_264_Exit
+subscr_264_HalveDamage:
+    SetStatusEffect                     BATTLER_WORKING, STATUS_HELD_ITEM
     Wait                                
     DamageDiv                           VAR_HP_TEMP, 2
+    // "The {0} weakened {1}'s power!"
     Message                             1131, TAG_ITEM_MOVE, BATTLER_CLIENT_WORK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
     Wait                                
     WaitTime                            30
     RemoveItem                          BATTLER_WORKING
+subscr_264_Exit:
     End                                 
 
 .close

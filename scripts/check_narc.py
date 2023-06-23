@@ -3,13 +3,13 @@ from ndspy.narc import NARC
 import sys
 
 INPUT_DICT = {
-    'move_data': ('narcs', 'base/data/poketool/waza/pl_waza_tbl.narc', 'build/narc/poketool/waza/pl_waza_tbl.narc'),
-    'be_seq': ('narcs', 'base/data/battle/skill/be_seq.narc', 'build/narc/battle/skill/be_seq.narc'),
-    'waza_seq': ('narcs', 'base/data/battle/skill/waza_seq.narc', 'build/narc/battle/skill/waza_seq.narc'),
-    'sub_seq': ('narcs', 'base/data/battle/skill/sub_seq.narc', 'build/narc/battle/skill/sub_seq.narc'),
+    'move_data': ('narcs', 'base/data/poketool/waza/pl_waza_tbl.narc', 'build/narc/poketool/waza/pl_waza_tbl.narc', False),
+    'be_seq': ('narcs', 'base/data/battle/skill/be_seq.narc', 'build/narc/battle/skill/be_seq.narc', True),
+    'waza_seq': ('narcs', 'base/data/battle/skill/waza_seq.narc', 'build/narc/battle/skill/waza_seq.narc', True),
+    'sub_seq': ('narcs', 'base/data/battle/skill/sub_seq.narc', 'build/narc/battle/skill/sub_seq.narc', True),
 }
 
-def compare_narcs(orig_f, made_f):
+def compare_narcs(orig_f, made_f, word_mode):
     orig = NARC.fromFile(orig_f)
     made = NARC.fromFile(made_f)
 
@@ -20,10 +20,18 @@ def compare_narcs(orig_f, made_f):
 
         if og_hex != md_hex:
             print(f'diff in file {i}')
+            if word_mode:
+                for j in range(0, len(orig.files[i]), 4):
+                    og_word = orig.files[i][j:j+4]
+                    md_word = made.files[i][j:j+4]
+
+                    if og_word.hex() != md_word.hex():
+                        print(f'-- @ {j // 4} ; e: {og_word.hex()} ; a: {md_word.hex()}')
+            
 
 params = INPUT_DICT[sys.argv[1]]
 if params[0] == 'narcs':
-    compare_narcs(params[1], params[2])
+    compare_narcs(params[1], params[2], params[3])
 
 ORIGINAL_NARC = 'base/data/battle/skill/sub_seq.narc'
 BUILT_BINARY  = 'build/battle/scr/subscr/sub_seq_{i}.bin'

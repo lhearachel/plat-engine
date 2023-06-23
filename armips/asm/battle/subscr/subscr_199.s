@@ -5,20 +5,26 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/battle_pokemon_params.s"
+.include "armips/include/battle_subscr_def.s"
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
+.include "armips/include/types.s"
+
 
 .create "build/battle/scr/subscr/sub_seq_199.bin", 0
 
+// SUBSCR_ITEM_RECOVER_PRZ
 subscr_199:
-    SetStatusEffect                     BATTLER_WORKING, 10
+    SetStatusEffect                     BATTLER_WORKING, STATUS_HELD_ITEM
     Wait                                
+    // "{0}'s {1} cured its paralysis!"
     Message                             875, TAG_NICK_ITEM, BATTLER_WORKING, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
-    SetStatusIcon                       BATTLER_WORKING, STATUS_NORMAL
+    SetStatusIcon                       BATTLER_WORKING, STATUS_NONE
     WaitTime                            30
     SetMonData                          OP_SET, BATTLER_WORKING, BATTLE_MON_CONDITION, 0
-    JumpToSubscript                     290
+    CallSubscript                       SUBSCR_PLUCK_CHECK
     End                                 
 
 .close

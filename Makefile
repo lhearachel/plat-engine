@@ -148,6 +148,7 @@ all: $(OUTPUT) $(BATTLE_OUTPUT)
 	$(ARMIPS) armips/global.s
 
 	$(MAKE) narcs
+	$(MAKE) copy_narcs
 	
 	@echo " =========== Making ROM... =========== "
 	$(NDSTOOL) -c $(BUILDROM) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
@@ -204,6 +205,8 @@ clean_tools:
 
 
 narcs: $(NARC_FILES)
+
+copy_narcs:
 	@echo "copying narcs..."
 	cp $(BATTLE_EFFSCR_NARC) $(BATTLE_EFFSCR_TARGET)
 	cp $(BATTLE_MOVSCR_NARC) $(BATTLE_MOVSCR_TARGET)

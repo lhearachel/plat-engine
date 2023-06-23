@@ -5,13 +5,18 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/battle_pokemon_params.s"
+.include "armips/include/battle_subscr_def.s"
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
+.include "armips/include/types.s"
+
 
 .create "build/battle/scr/effscr/be_seq_002.bin", 0
 
+// Poison on hit
 effscr_002:
-    SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, 2147483650
+    SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_POISON | ADDL_EFFECT_DEFENDER
     CriticalCalc                        
     DamageCalc                          
     End                                 

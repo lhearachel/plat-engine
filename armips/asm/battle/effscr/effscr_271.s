@@ -5,13 +5,18 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/battle_pokemon_params.s"
+.include "armips/include/battle_subscr_def.s"
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
+.include "armips/include/types.s"
+
 
 .create "build/battle/scr/effscr/be_seq_271.bin", 0
 
+// Reduce target's SpDefense by 2 stages (on-hit)
 effscr_271:
-    SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, 2147483698
+    SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_DEFENDER | ADDL_EFFECT_SPD_DOWN_2
     CriticalCalc                        
     DamageCalc                          
     End                                 

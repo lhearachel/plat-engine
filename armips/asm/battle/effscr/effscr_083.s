@@ -5,11 +5,16 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/battle_pokemon_params.s"
+.include "armips/include/battle_subscr_def.s"
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
+.include "armips/include/types.s"
+
 
 .create "build/battle/scr/effscr/be_seq_083.bin", 0
 
+// Metronome
 effscr_083:
     AttackMessage                       
     Wait                                
@@ -17,6 +22,6 @@ effscr_083:
     PlayAnimation                       BATTLER_ATTACKER
     Wait                                
     Metronome                           
-    JumpToEffectScript                  0
+    JumpToMoveScript                    
 
 .close

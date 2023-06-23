@@ -5,13 +5,18 @@
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/battle_pokemon_params.s"
+.include "armips/include/battle_subscr_def.s"
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
+.include "armips/include/types.s"
+
 
 .create "build/battle/scr/effscr/be_seq_016.bin", 0
 
+// Raise Evasion by 1 stage (status)
 effscr_016:
-    SetVar                              OP_SET, VAR_ADD_STATUS_DIRECT, 1073741845
+    SetVar                              OP_SET, VAR_ADD_STATUS_DIRECT, ADDL_EFFECT_ATTACKER | ADDL_EFFECT_EVA_UP_1
     End                                 
 
 .close

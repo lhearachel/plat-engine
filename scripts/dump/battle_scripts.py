@@ -10,8 +10,12 @@ DECOMP_TEMPLATE = '''.nds
 
 .include "armips/include/abilities.s"
 .include "armips/include/battle_consts.s"
+.include "armips/include/battle_pokemon_params.s"
+.include "armips/include/battle_subscr_def.s"
 .include "armips/include/item_hold_effects.s"
 .include "armips/include/moves.s"
+.include "armips/include/types.s"
+
 
 .create "build/battle/scr/{dump_folder}/{pl_prefix}_{index:03}.bin", 0
 
@@ -62,7 +66,7 @@ CMD_DICT = [
     Command('FadeOut',                          0),
     Command('JumpTo',                           1),
     Command('JumpToMoveEffectScript',           0),
-    Command('JumpToEffectScript',               1),
+    Command('JumpToMoveScript',                 1),
     Command('CriticalCalc',                     0),
     Command('ShouldGetExp',                     1),
     Command('InitGetExp',                       0),
@@ -85,8 +89,8 @@ CMD_DICT = [
     Command('SetVarFromVar',                    3),
     Command('SetMonDataFromVar',                4),
     Command('Branch',                           1),
-    Command('JumpToSubscript',                  1),
-    Command('JumpToSubscriptFromVar',           1),
+    Command('CallSubscript',                    1),
+    Command('CallSubscriptFromVar',             1),
     Command('SetMirrorMove',                    0),
     Command('ClearStatStages',                  0),
     Command('SetContinuation',                  1),
@@ -165,7 +169,7 @@ CMD_DICT = [
     Command('TryImprison',                      1),
     Command('TryGrudge',                        1),
     Command('TrySnatch',                        1),
-    Command('LowKickDamageCalc',                1),
+    Command('LowKickDamageCalc',                0),
     Command('WeatherBallDamageCalc',            0),
     Command('TryPursuit',                       1),
     Command('ApplyTypeMultipliers',             0),
@@ -190,7 +194,7 @@ CMD_DICT = [
     Command('CheckSameSide',                    3),
     Command('PickupItem',                       0),
     Command('TrickRoom',                        0),
-    Command('CheckMoveFinished',                2),
+    Command('CheckMoveMissed',                2),
     Command('CheckItemEffect',                  4),
     Command('GetItemEffect',                    2),
     Command('GetItemPower',                     2),
@@ -237,9 +241,9 @@ CMD_DICT = [
     Command('TryNaturalCure',                   2),
     Command('CheckSubstitute',                  2),
     Command('CheckCloudNine',                   1),
-    Command('GetRandomOpponent',                1),
+    Command('PickRandomOpponent',               1),
     Command('CheckUturnItemEffect',             1),
-    Command('SwapToSubstituteSprite',           1),
+    Command('ChangeSpriteWeather',              1),
     Command('PlayMoveSoundEffect',              1),
     Command('PlayMusic',                        2),
     Command('CheckSafariDone',                  1),
@@ -258,7 +262,7 @@ BATTLER_CONSTS = {
     4: 'BATTLER_ENEMY',
     5: 'BATTLER_FAINTING',
     6: 'BATTLER_SWITCHING',
-    7: 'BATTLER_EFFECTSRC',
+    7: 'BATTLER_EFFECT_TARGET',
     8: 'BATTLER_ABILITYSRC',
     9: 'BATTLER_ME_SLOT_1',
     10: 'BATTLER_ENEMY_SLOT_1',
@@ -324,7 +328,7 @@ BATTLER_PARAMS = {
     'CheckToxicSpikes': 0,
     'MoldBreakerAbilityCheck': 1,
     'CheckSameSide': [0, 1],
-    'CheckMoveFinished': 0,
+    'CheckMoveMissed': 0,
     'CheckItemEffect': 1,
     'GetItemEffect': 0,
     'GetItemPower': 0,
@@ -346,8 +350,8 @@ BATTLER_PARAMS = {
     'CheckLeaveWith1HP': 0,
     'TryNaturalCure': 0,
     'CheckSubstitute': 0,
-    'GetRandomOpponent': 0,
-    'SwapToSubstituteSprite': 0,
+    'PickRandomOpponent': 0,
+    'ChangeSpriteWeather': 0,
     'PlayMoveSoundEffect': 0,
     'PlayMusic': 0,
     'RefreshMonData': 0,
@@ -416,11 +420,11 @@ VARIABLE_CONSTS = [
     'VAR_MOVE_STATUS_FLAG',
     'VAR_ATTACKER_SIDE_CONDITIONS',
     'VAR_DEFENDER_SIDE_CONDITIONS',
-    'VAR_EFFECTSRC_SIDE_CONDITIONS',
+    'VAR_EFFECT_TARGET_SIDE_CONDITIONS',
     'VAR_DAMAGE',
     'VAR_ATTACKER',
     'VAR_DEFENDER',
-    'VAR_EFFECTSRC',
+    'VAR_EFFECT_TARGET',
     'VAR_FAINTED_BATTLER',
     'VAR_SWITCHED_BATTLER',
     'VAR_BATTLER_WORK',
@@ -452,7 +456,7 @@ VARIABLE_CONSTS = [
     'VAR_LAST_DAMAGING_DEFENDER',
     'VAR_ATTACKER_ONE_TURN_STATUS_FLAGS',
     'VAR_DEFENDER_ONE_TURN_STATUS_FLAGS',
-    'VAR_EFFECTSRC_ONE_TURN_STATUS_FLAGS',
+    'VAR_EFFECT_TARGET_ONE_TURN_STATUS_FLAGS',
     'VAR_FLING_TEMP',
     'VAR_FLING_SUBSCRIPT',
     'VAR_BATTLE_STATUS_FLAG',
@@ -479,7 +483,7 @@ VARIABLE_PARAMS = {
     'SetVar': 1,
     'SetVarFromVar': [1, 2],
     'SetMonDataFromVar': 3,
-    'JumpToSubscriptFromVar': 0,
+    'CallSubscriptFromVar': 0,
     'SetStatusEffectFromVar': 1,
     'JumpIf': [1, 2],
     'JumpIfMonData': 3,
@@ -733,10 +737,10 @@ BATTLE_MON_CONSTS = [
     'BATTLE_MON_STOCKPILE_SPD_BOOSTS',
     'BATTLE_MON_TRUANT_ACTIVE',
     'BATTLE_MON_FLASH_FIRE_ACTIVE',
-    'BATTLE_MON_LOCK_ON_TARGET',
+    'BATTLE_MON_LOCKED_ON_BY',
     'BATTLE_MON_MIMIC_MOVE_SLOT',
     'BATTLE_MON_BOUND_TARGET',
-    'BATTLE_MON_MEAN_LOOK_TARGET',
+    'BATTLE_MON_MEAN_LOOKED_BY',
     'BATTLE_MON_LAST_RESORT_MASK',
     'BATTLE_MON_MAGNET_RISE_TURNS',
     'BATTLE_MON_HEAL_BLOCK_TURNS',
@@ -902,7 +906,7 @@ ABILITY_PARAMS = {
 }
 
 STATUS_CONSTS = [
-    'STATUS_NORMAL',
+    'STATUS_NONE',
     'STATUS_ASLEEP',
     'STATUS_POISONED',
     'STATUS_BURNED',
