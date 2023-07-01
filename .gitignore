@@ -72,6 +72,7 @@ __pycache__/*
 /*.lock
 /*.lock~
 /*.rep/
+/*.i64
 
 /offsets.ini
 /buildsys/rom_gen.ld

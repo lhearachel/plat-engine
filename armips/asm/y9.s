@@ -149,5 +149,7 @@
 .org 122 * 0x20 // jump to new overlays
 
 .word 122, 0x023C8000, filesize("base/overlay/overlay_0122.bin"), 0x00000000, 0x023C8000, 0x023C8000, 122, 0    // arm9 expansion
-//.word 123, 0x023D0000, filesize("base/overlay/overlay_0123.bin"), 0x00000000, 0x023D0000, 0x023D0000, 123, 0    // battle overlay
+.word 123, 0x023D0000, filesize("base/overlay/overlay_0123.bin"), 0x00000000, 0x023D0000, 0x023D0000, 123, 0    // battle overlay
 //.word 124, 0x023D0000, filesize("base/overlay/overlay_0124.bin"), 0x00000000, 0x023D0000, 0x023D0000, 124, 0    // field overlay
+
+.close

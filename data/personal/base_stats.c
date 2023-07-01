@@ -3,7 +3,7 @@
 #include "battle.h"
 #include "pokemon.h"
 #include "constants/abilities.h"
-#include "constants/item.h"
+#include "constants/items.h"
 #include "constants/misc.h"
 #include "constants/species.h"
 

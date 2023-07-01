@@ -99,7 +99,7 @@ FIELD_ASM_OBJS := $(patsubst $(ASM_SUBDIR)/%.s,$(BUILD)/%.d,$(FIELD_ASM_SRCS))
 FIELD_OBJS   := $(FIELD_C_OBJS) $(FIELD_ASM_OBJS) build/thumb_help.d
 
 ###################### Includes #######################
-include data/personal/personal.mk
+include narcs.mk
 
 ####################### Build #########################
 rom_gen.ld:$(LINK) $(OUTPUT) $(BUILDSYS)/rom.ld
@@ -117,30 +117,28 @@ $(BUILD)/%.o:src/%.c
 $(LINK):$(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJS)
 
-$(OUTPUT):$(LINK)
+$(OUTPUT):$(LINK) rom_gen.ld
 	$(OBJCOPY) -O binary $< $@
 
-$(FIELD_LINK):$(FIELD_OBJS) generate_output
+$(FIELD_LINK):$(FIELD_OBJS) rom_gen.ld
 	$(LD) $(LDFLAGS_FIELD) -o $@ $(FIELD_OBJS)
 
-$(FIELD_OUTPUT):$(FIELD_LINK) generate_output
+$(FIELD_OUTPUT):$(FIELD_LINK)
 	$(OBJCOPY) -O binary $< $@
 
-$(BATTLE_LINK):$(BATTLE_OBJS)
+$(BATTLE_LINK):$(BATTLE_OBJS) rom_gen.ld
 	$(LD) $(LDFLAGS_BATTLE) -o $@ $(BATTLE_OBJS)
 
 $(BATTLE_OUTPUT):$(BATTLE_LINK)
 	$(OBJCOPY) -O binary $< $@
 
 
-generate_output:$(OUTPUT)
-	$(PYTHON) scripts/generate_ld.py
-
-
-all: generate_output
+all: $(OUTPUT) $(BATTLE_OUTPUT)
 	rm -rf $(BASE)
 	mkdir -p $(BASE)
 	mkdir -p $(BUILD)
+	mkdir -p $(BUILD)/battle/scr/effscr $(BUILD)/battle/scr/movscr $(BUILD)/battle/scr/subscr
+	mkdir -p $(BUILD)/narc/battle/skill $(BUILD)/narc/poketool
 
 	$(NDSTOOL) -x $(ROMNAME) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
 	@echo " === ROM decompression successful! === "
@@ -148,6 +146,9 @@ all: generate_output
 
 	$(PYTHON) scripts/make.py
 	$(ARMIPS) armips/global.s
+
+	$(MAKE) narcs
+	$(MAKE) copy_narcs
 	
 	@echo " =========== Making ROM... =========== "
 	$(NDSTOOL) -c $(BUILDROM) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
@@ -190,8 +191,6 @@ build_nitrogfx:
 clean:
 	rm -rf $(BUILD)
 	rm -rf $(BASE)
-	rm -rf tools/source/ndstool
-	rm -rf tools/source/armips
 
 
 clean_tools:
@@ -201,3 +200,14 @@ clean_tools:
 	rm -f tools/ndstool
 	rm -f tools/armips
 	rm -f tools/nitrogfx
+	rm -rf tools/source/ndstool
+	rm -rf tools/source/armips
+
+
+narcs: $(NARC_FILES)
+
+copy_narcs:
+	@echo "copying narcs..."
+	cp $(BATTLE_EFFSCR_NARC) $(BATTLE_EFFSCR_TARGET)
+	cp $(BATTLE_MOVSCR_NARC) $(BATTLE_MOVSCR_TARGET)
+	cp $(BATTLE_SUBSCR_NARC) $(BATTLE_SUBSCR_TARGET)

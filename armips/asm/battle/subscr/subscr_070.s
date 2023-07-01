@@ -1,0 +1,32 @@
+.nds
+.thumb
+
+.include "armips/include/battle_scrcmd.s"
+
+.include "armips/include/abilities.s"
+.include "armips/include/battle_consts.s"
+.include "armips/include/battle_pokemon_params.s"
+.include "armips/include/battle_subscr_def.s"
+.include "armips/include/item_hold_effects.s"
+.include "armips/include/moves.s"
+.include "armips/include/types.s"
+
+
+.create "build/battle/scr/subscr/sub_seq_070.bin", 0
+
+// SUBSCR_APPLY_DISABLE
+subscr_070:
+    If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_MISSED_BUT_IT_FAILED, subscr_070_Failure
+    TryDisable                          subscr_070_Failure
+    CallSubscript                       SUBSCR_ATTACK_MESSAGE_AND_ANIMATION
+    // "{0}'s {1} was disabled!"
+    Message                             366, TAG_NICK_MOVE, BATTLER_DEFENDER, BATTLER_WORKING, NaN, NaN, NaN, NaN
+    Wait                                
+    WaitTime                            30
+    End                                 
+
+subscr_070_Failure:
+    SetVar                              OP_SET_FLAG, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_FAILED
+    End                                 
+
+.close

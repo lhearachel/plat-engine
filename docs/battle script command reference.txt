@@ -35,7 +35,7 @@
 "fadeout",                       DEF_CMD    WS_FADE_OUT
 "jumptosubseq",                  DEF_CMD    WS_JUMP
 "jumptocurmoveeffectscript",     DEF_CMD    WS_JUMP_BE_SEQ
-"jumptoeffectscript",            DEF_CMD    WS_JUMP_WAZA_WORK
+"JumpToMoveScript",              DEF_CMD    WS_JUMP_WAZA_WORK
 "critcalc",                      DEF_CMD    WS_CRITICAL_CHECK
 "shouldgetexp",                  DEF_CMD    WS_GET_EXP_CHECK
 "initexpget",                    DEF_CMD    WS_GET_EXP_INIT
