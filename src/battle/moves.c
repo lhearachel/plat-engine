@@ -1,6 +1,6 @@
 #include "global.h"
-#include "moves.h"
 #include "battle/common.h"
+#include "battle/moves.h"
 #include "constants/moves.h"
 
 /*
@@ -163,6 +163,17 @@ static u32 sEffectToSubScript[] = {
 };
 #endif
 
+inline BOOL Moves_CheckTableMatch(u16 moveID, u16 moveTable[], BOOL retOnMatch)
+{
+    for (int i = 0; i < NELEMS(moveTable); i++) {
+        if (moveTable[i] == moveID) {
+            return retOnMatch;
+        }
+    }
+
+    return retOnMatch;
+}
+
 static u16 sPowderMoves[] = {
     MOVE_COTTON_SPORE,
     MOVE_MAGIC_POWDER,
@@ -176,11 +187,52 @@ static u16 sPowderMoves[] = {
 
 BOOL Moves_IsPowder(u16 moveID)
 {
-    for (int i = 0; i < NELEMS(sPowderMoves); i++) {
-        if (sPowderMoves[i] == moveID) {
-            return TRUE;
-        }
-    }
+    return Moves_CheckTableMatch(moveID, sPowderMoves, TRUE);
+}
 
-    return FALSE;
+static u16 sPunchingMoves[] = {
+    MOVE_BULLET_PUNCH,
+    MOVE_COMET_PUNCH,
+    MOVE_DIZZY_PUNCH,
+    MOVE_DOUBLE_IRON_BASH,
+    MOVE_DRAIN_PUNCH,
+    MOVE_DYNAMIC_PUNCH,
+    MOVE_FIRE_PUNCH,
+    MOVE_FOCUS_PUNCH,
+    MOVE_HAMMER_ARM,
+    MOVE_HEADLONG_RUSH,
+    MOVE_ICE_HAMMER,
+    MOVE_ICE_PUNCH,
+    // MOVE_JET_PUNCH,
+    MOVE_MACH_PUNCH,
+    MOVE_MEGA_PUNCH,
+    MOVE_METEOR_MASH,
+    MOVE_PLASMA_FISTS,
+    MOVE_POWER_UP_PUNCH,
+    // MOVE_RAGE_FIST
+    MOVE_SHADOW_PUNCH,
+    MOVE_SKY_UPPERCUT,
+    MOVE_SURGING_STRIKES,
+    MOVE_THUNDER_PUNCH,
+    MOVE_WICKED_BLOW,
+};
+
+BOOL Moves_IsPunching(u16 moveID)
+{
+    return Moves_CheckTableMatch(moveID, sPunchingMoves, TRUE);
+}
+
+static u16 sCannotNormalizeMoves[] = {
+    MOVE_HIDDEN_POWER,
+    MOVE_JUDGMENT,
+    MOVE_MULTI_ATTACK,
+    MOVE_NATURAL_GIFT,
+    MOVE_TECHNO_BLAST,
+    MOVE_TERRAIN_PULSE,
+    MOVE_WEATHER_BALL
+};
+
+BOOL Moves_CanNormalize(u16 moveID)
+{
+    return Moves_CheckTableMatch(moveID, sCannotNormalizeMoves, FALSE);
 }

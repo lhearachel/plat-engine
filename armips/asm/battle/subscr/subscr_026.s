@@ -19,7 +19,7 @@ subscr_026:
     // Check for Magic Guard.
     CheckAbility                        MODE_HAVE, BATTLER_WORKING, ABILITY_MAGIC_GUARD, subscr_026_Exit
     SetMonDataFromVar                   OP_GET, BATTLER_WORKING, BATTLE_MON_MAX_HP, VAR_HP_TEMP
-    DamageDiv                           VAR_HP_TEMP, 8
+    DamageDiv                           VAR_HP_TEMP, 16
     // Heatproof reduces burn damage by half.
     CheckAbility                        MODE_NOT_HAVE, BATTLER_WORKING, ABILITY_HEATPROOF, subscr_026_ApplyBurnDamage
     DamageDiv                           VAR_HP_TEMP, 2

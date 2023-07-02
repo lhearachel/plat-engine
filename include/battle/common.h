@@ -548,6 +548,7 @@
 #define	FIELD_CONDITION_TRICK_ROOM      (0x00070000)    // 3 bits; also tracks the remaining turns
 
 #define FIELD_CONDITION_WEATHER         (0x000080FF)    // Any weather in effect (includes Deep Fog)
+#define FIELD_CONDITION_ANTI_SOLAR      (FIELD_CONDITION_RAINING | FIELD_CONDITION_SANDSTORM | FIELD_CONDITION_HAILING | FIELD_CONDITION_DEEP_FOG)
 
 
 // ========================================================================= //
@@ -680,7 +681,7 @@ struct Battle {
  * 
  * @param battle The battle structure.
  */
-u32 __attribute__((long_call)) Battle_FightType(void *battle);
+u32 __attribute__((long_call)) Battle_Type(void *battle);
 
 /**
  * Gets the message manager for a battle.

@@ -89,7 +89,7 @@ HOLD_EFFECT_EVOLVE_PORYGON                      equ 87
 HOLD_EFFECT_RESTORE_HP_ON_HIT                   equ 88
 HOLD_EFFECT_BOOST_CRIT_RATE_CHANSEY             equ 89
 HOLD_EFFECT_BOOST_DEFENSE_DITTO                 equ 90
-HOLD_EFFECT_BOOST_ATTACK_CUBONE                 equ 91
+HOLD_EFFECT_THICK_CLUB                          equ 91
 HOLD_EFFECT_BOOST_CRIT_RATE_FARFETCHD           equ 92
 HOLD_EFFECT_BOOST_ACC                           equ 93
 HOLD_EFFECT_BOOST_PHYSICAL                      equ 94

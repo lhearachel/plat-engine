@@ -39,7 +39,7 @@ BOOL BattleScrCmd_Exec(struct Battle *battle, struct BattleServer *server)
         } else {
             ret = gBattleScriptCommandTable_New[word - START_OF_NEW_BATTLE_SCRIPT_COMMANDS](battle, server);
         }
-    } while ((server->battleProgressFlag == 0) && ((Battle_FightType(battle) & BATTLE_TYPE_LINK) == 0));
+    } while ((server->battleProgressFlag == 0) && ((Battle_Type(battle) & BATTLE_TYPE_LINK) == 0));
 
     server->battleProgressFlag = 0;
     return ret;

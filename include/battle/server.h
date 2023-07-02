@@ -111,7 +111,7 @@ struct __attribute__((packed)) MoveEffects {
     
     int rechargeTurnCount;              // stores the turn counter for recharging after Hyper Beam
     int fakeOutTurnCount;
-    int slowStartTurnCount;
+    int slowStartInitTurn;
     int meFirstTurnCount;
     int substituteHP;
     u32 formRand;                       // used for unown, spinda
@@ -502,11 +502,220 @@ struct __attribute__((packed)) BattleServer {
     struct BattleMove moveTable[TOTAL_NUM_MOVES];
 };
 
+enum BattleServerParam {
+    SERVER_PARAM_SIDE_CONDITIONS,
+    SERVER_PARAM_MIST_TURNS,
+    SERVER_PARAM_SELECTED_MON_POS,
+    SERVER_PARAM_TOTAL_TURNS,
+    SERVER_PARAM_LEVEL_UP_POKEMON,
+    SERVER_PARAM_SAFARI_ESCAPE_COUNT,
+    SERVER_PARAM_TOTAL_FAINTED,
+    SERVER_PARAM_TOTAL_DAMAGE,
+    SERVER_PARAM_ACTION_NUM,
+    SERVER_PARAM_AI_DEFENDER,
+    SERVER_PARAM_SWITCHING_CLIENT,
+    SERVER_PARAM_AI_SELECTED_CLIENT,
+    SERVER_PARAM_CLIENT_ACTION_WORK,
+    SERVER_PARAM_SERVER_SEQ_NUM,
+    SERVER_PARAM_SERVER_SEQ_NEXT
+};
+
+enum BattlePokemonParam {
+    BATTLE_MON_PARAM_SPECIES,
+    BATTLE_MON_PARAM_ATTACK,
+    BATTLE_MON_PARAM_DEFENSE,
+    BATTLE_MON_PARAM_SPEED,
+    BATTLE_MON_PARAM_SPATTACK,
+    BATTLE_MON_PARAM_SPDEFENSE,
+    BATTLE_MON_PARAM_MOVE_1,
+    BATTLE_MON_PARAM_MOVE_2,
+    BATTLE_MON_PARAM_MOVE_3,
+    BATTLE_MON_PARAM_MOVE_4,
+    BATTLE_MON_PARAM_HP_IV,
+    BATTLE_MON_PARAM_ATTACK_IV,
+    BATTLE_MON_PARAM_DEFENSE_IV,
+    BATTLE_MON_PARAM_SPEED_IV,
+    BATTLE_MON_PARAM_SPATTACK_IV,
+    BATTLE_MON_PARAM_SPDEFENSE_IV,
+    BATTLE_MON_PARAM_IS_EGG,
+    BATTLE_MON_PARAM_HAS_NICKNAME,
+    BATTLE_MON_PARAM_HP_STAGES,
+    BATTLE_MON_PARAM_ATTACK_STAGES,
+    BATTLE_MON_PARAM_DEFENSE_STAGES,
+    BATTLE_MON_PARAM_SPEED_STAGES,
+    BATTLE_MON_PARAM_SPATTACK_STAGES,
+    BATTLE_MON_PARAM_SPDEFENSE_STAGES,
+    BATTLE_MON_PARAM_ACCURACY_STAGES,
+    BATTLE_MON_PARAM_EVASION_STAGES,
+    BATTLE_MON_PARAM_ABILITY,
+    BATTLE_MON_PARAM_TYPE_1,
+    BATTLE_MON_PARAM_TYPE_2,
+    BATTLE_MON_PARAM_GENDER,
+    BATTLE_MON_PARAM_IS_SHINY,
+    BATTLE_MON_PARAM_PP_1,
+    BATTLE_MON_PARAM_PP_2,
+    BATTLE_MON_PARAM_PP_3,
+    BATTLE_MON_PARAM_PP_4,
+    BATTLE_MON_PARAM_PP_UP_COUNT_1,
+    BATTLE_MON_PARAM_PP_UP_COUNT_2,
+    BATTLE_MON_PARAM_PP_UP_COUNT_3,
+    BATTLE_MON_PARAM_PP_UP_COUNT_4,
+    BATTLE_MON_PARAM_PP_MAX_1,
+    BATTLE_MON_PARAM_PP_MAX_2,
+    BATTLE_MON_PARAM_PP_MAX_3,
+    BATTLE_MON_PARAM_PP_MAX_4,
+    BATTLE_MON_PARAM_LEVEL,
+    BATTLE_MON_PARAM_FRIENDSHIP,
+    BATTLE_MON_PARAM_NICKNAME,
+    BATTLE_MON_PARAM_NICKNAME_CHARS,
+    BATTLE_MON_PARAM_HP_CURRENT,
+    BATTLE_MON_PARAM_HP_MAX,
+    BATTLE_MON_PARAM_OT_NAME,
+    BATTLE_MON_PARAM_EXP,
+    BATTLE_MON_PARAM_PID,
+    BATTLE_MON_PARAM_CONDITION,
+    BATTLE_MON_PARAM_CONDITION_V,
+    BATTLE_MON_PARAM_ID_NUMBER,
+    BATTLE_MON_PARAM_HELD_ITEM,
+    BATTLE_MON_PARAM_HIT_COUNT,
+    BATTLE_MON_PARAM_MESSAGE_FLAG,
+    BATTLE_MON_PARAM_OT_GENDER,
+    BATTLE_MON_PARAM_MOVE_EFFECTS,
+    BATTLE_MON_PARAM_MOVE_EFFECTS_TEMP,
+    BATTLE_MON_PARAM_DISABLED_TURNS,
+    BATTLE_MON_PARAM_ENCORED_TURNS,
+    BATTLE_MON_PARAM_CHARGED_TURNS,
+    BATTLE_MON_PARAM_TAUNTED_TURNS,
+    BATTLE_MON_PARAM_PROTECT_CHAIN_COUNT,
+    BATTLE_MON_PARAM_PERISH_SONG_TURNS,
+    BATTLE_MON_PARAM_ROLLOUT_CHAIN_COUNT,
+    BATTLE_MON_PARAM_FURY_CUTTER_CHAIN_COUNT,
+    BATTLE_MON_PARAM_STOCKPILE_COUNT,
+    BATTLE_MON_PARAM_STOCKPILE_DEF_BOOSTS,
+    BATTLE_MON_PARAM_STOCKPILE_SPD_BOOSTS,
+    BATTLE_MON_PARAM_TRUANT_ACTIVE,
+    BATTLE_MON_PARAM_FLASH_FIRE_ACTIVE,
+    BATTLE_MON_PARAM_LOCKED_ON,
+    BATTLE_MON_PARAM_MIMIC_SLOT,
+    BATTLE_MON_PARAM_BOUND_TARGET,
+    BATTLE_MON_PARAM_MEAN_LOOK_TARGET,
+    BATTLE_MON_PARAM_LAST_RESORT_MASK,
+    BATTLE_MON_PARAM_MAGNET_RISE_TURNS,
+    BATTLE_MON_PARAM_HEAL_BLOCK_TURNS,
+    BATTLE_MON_PARAM_EMBARGO_TURNS,
+    BATTLE_MON_PARAM_UNBURDEN_ACTIVE,
+    BATTLE_MON_PARAM_METRONOME,
+    BATTLE_MON_PARAM_ONE_TIME_ACC_MAX,
+    BATTLE_MON_PARAM_ONE_TIME_SPE_MAX,
+    BATTLE_MON_PARAM_QUICK_CLAW_ACTIVE,
+    BATTLE_MON_PARAM_RECHARGE_TURN_COUNT,
+    BATTLE_MON_PARAM_FAKE_OUT_TURN_COUNT,
+    BATTLE_MON_PARAM_SLOW_START_INIT_TURN,
+    BATTLE_MON_PARAM_SUBSTITUTE_HP,
+    BATTLE_MON_PARAM_FORM_RAND,
+    BATTLE_MON_PARAM_DISABLED_MOVE,
+    BATTLE_MON_PARAM_ENCORED_MOVE,
+    BATTLE_MON_PARAM_BINDING_MOVE,
+    BATTLE_MON_PARAM_ITEM_HP_RESTORE,
+    BATTLE_MON_PARAM_SLOW_START_FLAG,
+    BATTLE_MON_PARAM_SLOW_START_END_FLAG,
+    BATTLE_MON_PARAM_FORM_NUMBER
+};
+
+enum CheckAbilityMode {
+    CHECK_ABILITY_EXISTS_ON_MY_SIDE,    // checks if the ability exists on the battler's side
+    CHECK_ABILITY_ACTIVE_ON_MY_SIDE,    // checks if the ability is active on the battler's side (haver is alive)
+    CHECK_ABILITY_EXISTS_ON_ENEMY_SIDE, // as above, but on the enemy's side
+    CHECK_ABILITY_ACTIVE_ON_ENEMY_SIDE, // as above, but on the enemy's side
+    CHECK_ABILITY_ACTIVE_CLIENT_ENEMY_SIDE, // return which battler on the enemy side has the ability
+    CHECK_ABILITY_EXISTS,               // as above, but side-agnostic
+    CHECK_ABILITY_EXISTS_NOT_MINE,      // check if the ability exists for any battler except the input
+    CHECK_ABILITY_EXISTS_CLIENT_NOT_MINE,
+    CHECK_ABILITY_ACTIVE,               // as above, but side-agnostic
+    CHECK_ABILITY_ACTIVE_NOT_MINE,      // check if the ability is active from any battler except the input
+};
+
+/**
+ * @brief Get a piece of data from th server, considering a particular battler.
+ * 
+ * Original function: 0x0225B45C (ov16)
+ */
+int __attribute__((long_call)) Server_Get(struct Battle *battle, struct BattleServer *server, int paramID, int battler);
+
+/**
+ * @brief Check if any active battler has a particular move effect active.
+ * 
+ * Original function: 0x02255F68 (ov16)
+ */
+BOOL __attribute__((long_call)) Server_CheckActiveMoveEffect(struct Battle *battle, struct BattleServer *server, int effect);
+
+/**
+ * @brief Check if an ability is active. Exact functionality varies with the input to checkMode.
+ * 
+ * Original function: 0x022555A4 (ov16)
+ */
+int __attribute__((long_call)) Server_CheckAbility(struct Battle *battle, struct BattleServer *server, int checkMode, int battler, int ability);
+
+/**
+ * @brief Check if the defender has a given ability, ignoring it if the attacker has Mold Breaker.
+ * 
+ * Original function: 0x02255AB4 (ov16)
+ */
+BOOL __attribute__((long_call)) Server_CheckDefenderAbility(struct BattleServer *server, int attacker, int defender, int ability);
+
 /**
  * @brief Gets the held item effect of a given active battler.
  * 
  * Original function: 0x02258AB8 (ov16)
  */
 s32 __attribute__((long_call)) Server_HeldItemEffect(struct BattleServer *server, int battler);
+
+/**
+ * @brief Gets the held item power of a given active battler.
+ * 
+ * Original function: 0x02258ACC (ov16)
+ * 
+ * Flag:
+ * - 0: Gets the battler's item. Does some extra checks (?)
+ * - 1: Gets the battler's item, no extra checks
+ * - 2: Checks for Embargo before getting the item
+ */
+s32 __attribute__((long_call)) Server_HeldItemPower(struct BattleServer *server, int battler, int flag);
+
+/**
+ * @brief Checks how many hits occurred for the current move.
+ * 
+ * If flag is 0, then all clients will be considered.
+ * If flag is 1, then only clients on the same side as the input battler
+ * will be considered.
+ * 
+ * Original function: 0x022554E0 (ov16)
+ */
+u8 __attribute__((long_call)) Server_HitCount(struct Battle *battle, struct BattleServer *server, int flag, int battler);
+
+/**
+ * @brief Gets a data value for a particular active battler.
+ * 
+ * Original function: 0x02252060 (ov16)
+ */
+int __attribute__((long_call)) BattlePokemon_Get(struct BattleServer *server, int battler, int paramID, void *data);
+
+/**
+ * @brief Master damage calc function.
+ * 
+ * Original function: 0x0225A280
+ */
+int __attribute__((long_call)) Server_CalcMoveDamage(
+    struct Battle *battle,
+    struct BattleServer *server,
+    int moveID,
+    u32 sideConditions,
+    u32 fieldConditions,
+    u16 power,
+    u8 type,
+    u8 attacker,
+    u8 defender,
+    u8 critStages
+);
 
 #endif // __BATTLE_SERVER_H

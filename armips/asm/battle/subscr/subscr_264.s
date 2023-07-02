@@ -57,6 +57,8 @@ subscr_264_Resume:
     Branch                              subscr_264_Exit
 
 subscr_264_CheckNormal:
+    // Struggle check; do not consume Chilan berries
+    If                                  EQUAL, VAR_CURRENT_MOVE, 165, subscr_264_Exit
     If                                  EQUAL, VAR_CALC_WORK, TYPE_NORMAL, subscr_264_HalveDamage
     Branch                              subscr_264_Exit
 

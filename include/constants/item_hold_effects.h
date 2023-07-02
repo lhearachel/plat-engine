@@ -96,7 +96,7 @@
 #define HOLD_EFFECT_RESTORE_HP_ON_HIT                   88
 #define HOLD_EFFECT_BOOST_CRIT_RATE_CHANSEY             89
 #define HOLD_EFFECT_BOOST_DEFENSE_DITTO                 90
-#define HOLD_EFFECT_BOOST_ATTACK_CUBONE                 91
+#define HOLD_EFFECT_THICK_CLUB                          91
 #define HOLD_EFFECT_BOOST_CRIT_RATE_FARFETCHD           92
 #define HOLD_EFFECT_BOOST_ACC                           93
 #define HOLD_EFFECT_BOOST_PHYSICAL                      94

@@ -1,6 +1,12 @@
 #ifndef __CONSTANTS_MISC_H
 #define __CONSTANTS_MISC_H
 
+// ====== PSS ======
+
+#define PSS_PHYSICAL 0
+#define PSS_SPECIAL  1
+#define PSS_STATUS   2
+
 // ===== Types =====
 
 #define TYPE_NORMAL   0x00

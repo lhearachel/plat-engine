@@ -304,5 +304,7 @@
 
 // new stuff below here
 BOOL __attribute__((long_call)) Moves_IsPowder(u16 moveID);
+BOOL __attribute__((long_call)) Moves_IsPunching(u16 moveID);
+BOOL __attribute__((long_call)) Moves_CanNormalize(u16 moveID);
 
 #endif
