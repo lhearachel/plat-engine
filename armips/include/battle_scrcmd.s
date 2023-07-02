@@ -2032,3 +2032,14 @@ CLIENT_TYPE_NOT_MINE    equ 1
 .macro End
     .word 0xDE
 .endmacro
+
+/*
+ * Checks if a battler is immune to powder moves. If it is immune for some
+ * reason, take the corresponding jump.
+ */
+.macro CheckPowderImmunity,battler,jump_if_type_block,jump_if_ability_block,jump_if_item_block
+    .word 0xDF, battler
+    .word ((jump_if_type_block - org()) / 4) - 3
+    .word ((jump_if_ability_block - org()) / 4) - 2
+    .word ((jump_if_item_block - org()) / 4) - 1
+.endmacro

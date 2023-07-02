@@ -534,6 +534,17 @@ BOOL __attribute__((long_call)) BoxPokemon_Unlock(struct BoxPokemon *boxMon, BOO
 u32  __attribute__((long_call)) Pokemon_Get(struct Pokemon *pokemon, enum PokemonField field, void *buf);
 
 /**
+ * @brief Set data in the Pokemon structure.
+ * 
+ * Original Function: 0x02074B30 (arm9)
+ * 
+ * @param[in,out] pokemon   The Pokemon structure to be modified.
+ * @param[in]     field     Field ID of the data to be set within the structure.
+ * @param[in]     buf       Data to be set into the structure.
+ */
+void __attribute__((long_call)) Pokemon_Set(struct Pokemon *pokemon, enum PokemonField field, void *buf);
+
+/**
  * @brief Compute the gender of a Pokemon.
  * 
  * The gender of a given Pokemon is based on the gender ratio of its species
@@ -640,6 +651,34 @@ BOOL __attribute__((long_call)) Pokemon_CheckPokerusImmune(struct Pokemon *pokem
 BOOL __attribute__((long_call)) Pokemon_CheckPokerus(struct Pokemon *pokemon);
 
 /**
+ * @brief Recalculates the friendship of a Pokemon, according to an input mode.
+ * 
+ * Original function: 0x02075C74 (arm9)
+ * 
+ * Known modes:
+ * - 7: "Death" due to poison damage
+ * 
+ * @param[in] pokemon
+ * @param[in] mode
+ * @param[in] zoneID
+ */
+void __attribute__((long_call)) Pokemon_RecalcFriendship(struct Pokemon *pokemon, u8 mode, u16 zoneID);
+
+/**
+ * @brief Determines if a Pokemon can battle.
+ * 
+ * Pokemon cannot battle if they:
+ * - have a current HP of 0
+ * - are an egg
+ * 
+ * Original function: 0x02054884 (arm9)
+ * 
+ * @param[in] pokemon
+ * @return              TRUE if the Pokemon can battle, FALSE otherwise
+ */
+BOOL __attribute__((long_call)) Pokemon_CanBattle(struct Pokemon *pokemon);
+
+/**
  * @brief Attempts to lock the Pokemon structure, designating to any other
  * competing threads that it is undergoing a read/write.
  * 
@@ -707,6 +746,23 @@ u32  __attribute__((long_call)) PokemonBaseStats_GetWithForm(int species, int fo
  * @return              The true species ID of the Pokemon's form.
  */
 int  __attribute__((long_call)) Form_GetTrueSpecies(int species, int form);
+
+/**
+ * @brief Count the number of members in the party.
+ * 
+ * Original function: 0x02054B04 (arm9)
+ * 
+ * @param[in] party     The party.
+ * @return              The number of members in the party.
+ */
+int  __attribute__((long_call)) Party_Count(const struct Party *party);
+
+/**
+ * @brief Get a pointer to the Pokemon at a given slot in the party.
+ * 
+ * Original function: 0x0207A0FC
+ */
+struct Pokemon* __attribute__((long_call)) Party_Member(const struct Party *party, int pos);
 
 // ===== NOVEL FUNCTIONS ===== //
 

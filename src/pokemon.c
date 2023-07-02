@@ -1,7 +1,48 @@
 #include "constants/abilities.h"
 
 #include "archive.h"
+#include "config.h"
 #include "pokemon.h"
+#include "battle/common.h"
+
+static int Pokemon_OverworldPoisonDamage(struct Party *party, u16 zoneID);
+
+inline BOOL Ability_BlocksPoisonDamage(u8 abilityID)
+{
+    return (abilityID == ABILITY_MAGIC_GUARD)
+            || (abilityID == ABILITY_POISON_HEAL)
+            || (abilityID == ABILITY_IMMUNITY);
+}
+
+static int Pokemon_OverworldPoisonDamage(struct Party *party, u16 zoneID)
+{
+#ifndef OVERWORLD_POISON_DAMAGE
+    return 0;
+#else
+    int poisonCount = 0;
+    int deadCount = 0;
+    for (int i = 0; i < Party_Count(party); i++) {
+        struct Pokemon *poke = Party_Member(party, i);
+        if ((Pokemon_CanBattle(poke))
+                && (Pokemon_Get(poke, MON_PARAM_CONDITION, NULL) & CONDITION_POISON_ALL)
+                && (Ability_BlocksPoisonDamage(Pokemon_Get(poke, MON_PARAM_ABILITY, NULL)) == FALSE)) {
+            u32 hp = Pokemon_Get(poke, MON_PARAM_CURRENT_HP, NULL);
+            if (hp > 1) {
+                hp--;
+            }
+
+            Pokemon_Set(poke, MON_PARAM_CURRENT_HP, &hp);
+            poisonCount++;
+            if (hp == 1) {
+                deadCount++;
+                Pokemon_RecalcFriendship(poke, 7, zoneID);  // magic 7 here says that this is for poison "death"
+            }
+        }
+    }
+
+    return (deadCount) ? 2 : ((poisonCount) ? 1 : 0);
+#endif  // OVERWORLD_POISON_DAMAGE
+}
 
 #if 0
 

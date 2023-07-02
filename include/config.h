@@ -5,6 +5,11 @@
 // the expanded arm9 (as overlay 129).
 #define START_ADDRESS 0x0
 
+// If this is defined, then overworld poison damage will be applied when taking
+// steps around the map. Pokemon with the abilities Magic Guard, Immunity, and
+// Poison Heal still will not take Poison damage.
+#define OVERWORLD_POISON_DAMAGE
+
 // If this is defined, then the save structure will be expanded to allow for
 // additional Pokedex entries and forme changes. This WILL break compatibility
 // with PKHeX.

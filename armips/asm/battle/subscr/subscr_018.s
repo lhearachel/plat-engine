@@ -76,8 +76,9 @@ subscr_018_SkipUproar:
 subscr_018_SkipAnimation:
     SetStatusEffect                     BATTLER_EFFECT_TARGET, STATUS_ASLEEP
     Wait                                
-    // Generate the number of turns for the mon to be asleep (2 - 5)
-    Random                              3, 2
+    // Generation 5: Sleep now lasts a total of 1-3 turns
+    // Generate 0-2, then offset by 1
+    Random                              2, 1
     SetMonDataFromVar                   OP_SET_FLAG, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, VAR_CALC_WORK
     If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_FROM_ABILITY, subscr_018_AbilityMessage
     // "{0} fell asleep!"

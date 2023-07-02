@@ -25,6 +25,7 @@ BoxPokemon_Set = 0x02074C60 | 1;
 BoxPokemon_Lock = 0x02073D20 | 1;
 BoxPokemon_Unlock = 0x02073D48 | 1;
 Pokemon_Get = 0x02074470 | 1;
+Pokemon_Set = 0x02074B30 | 1;
 Pokemon_CalcGender = 0x02075D6C | 1;
 Pokemon_CalcNature = 0x02075BCC | 1;
 Pokemon_CalcShiny = 0x02075E0C | 1;
@@ -32,11 +33,14 @@ Pokemon_CalcExpForLevel = 0x02075AD0 | 1;
 Pokemon_CalcFlavorAffinity = 0x0207762C | 1;
 Pokemon_CheckPokerusImmune = 0x020778F8 | 1;
 Pokemon_CheckPokerus = 0x020778D8 | 1;
+Pokemon_RecalcFriendship = 0x02075C74 | 1;
+Pokemon_CanBattle = 0x02054884 | 1;
 Pokemon_Lock = 0x02073C88 | 1;
 Pokemon_Unlock = 0x02073CD4 | 1;
 PokemonBaseStats_Get = 0x020759F0 | 1;
 PokemonBaseStats_GetWithForm = 0x020759CC | 1;
 Form_GetTrueSpecies = 0x02078740 | 1;
+Party_Count = 0x02054B04 | 1;
 
 /* sound.h */
 Sound_CheckAnySEsPlaying = 0x020057E0 | 1;
@@ -59,6 +63,9 @@ SCIO_ClearQueue = 0x02266ABC | 1;
 /* battle/scrcmd.h */
 BattleScrCmd_ReadWord = 0x02248AD0 | 1;
 gBattleScriptCommandTable_Old = 0x0226E72C;
+
+/* battle/server.h */
+Server_HeldItemEffect = 0x02258AB8 | 1;
 
 /* battle/ui.c */
 BattleMessage_ExpandTags = 0x0223FDE4 | 1;

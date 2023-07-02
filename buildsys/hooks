@@ -24,5 +24,7 @@ arm9 Overlay_Unload 08006514 1
 arm9 Summary_IVEV 0808CA20 1
 arm9 Summary_Entry_Hook 08090A3A 1
 
+arm9 Pokemon_OverworldPoisonDamage 08054B04 2
+
 0016 ClientCommand_Main 0225C0DC 2
 0016 BattleScrCmd_Exec 022405FC 2

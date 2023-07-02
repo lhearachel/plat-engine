@@ -502,4 +502,11 @@ struct __attribute__((packed)) BattleServer {
     struct BattleMove moveTable[TOTAL_NUM_MOVES];
 };
 
+/**
+ * @brief Gets the held item effect of a given active battler.
+ * 
+ * Original function: 0x02258AB8 (ov16)
+ */
+s32 __attribute__((long_call)) Server_HeldItemEffect(struct BattleServer *server, int battler);
+
 #endif // __BATTLE_SERVER_H

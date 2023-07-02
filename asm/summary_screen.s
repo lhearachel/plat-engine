@@ -6,7 +6,7 @@
 .global Summary_Entry_Hook
 Summary_Entry_Hook:
     bl      Summary_ColorizeStatScreen
-    ldr     r1, =0x02090AD6 + 1
+    ldr     r1, =0x02090AE8 + 1
     bx      r1
 
 .thumb_func
