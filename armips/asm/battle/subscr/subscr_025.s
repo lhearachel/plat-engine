@@ -131,16 +131,16 @@ subscr_025_AlreadyBurned:
     Branch                              subscr_025_Cleanup
 
 subscr_025_CannotBeBurned:
-    If                                  EQUAL, VAR_EFFECT_TYPE, 2, subscr_025_Exit
-    If                                  EQUAL, VAR_EFFECT_TYPE, 3, subscr_025_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_025_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_FROM_ABILITY, subscr_025_Exit
     WaitTime                            30
     // "It doesn't affect {0}..."
     Message                             27, TAG_NICK, BATTLER_EFFECT_TARGET, NaN, NaN, NaN, NaN, NaN
     Branch                              subscr_025_Cleanup
 
 subscr_025_AbilityBlock:
-    If                                  EQUAL, VAR_EFFECT_TYPE, 2, subscr_025_Exit
-    If                                  EQUAL, VAR_EFFECT_TYPE, 3, subscr_025_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_025_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_FROM_ABILITY, subscr_025_Exit
     AttackMessage                       
     Wait                                
     WaitTime                            30

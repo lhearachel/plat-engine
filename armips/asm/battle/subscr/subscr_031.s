@@ -93,6 +93,7 @@ subscr_031_AlreadyParalyzed:
 
 subscr_031_CannotBeParalyzed:
     If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_031_Exit
+    If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_FROM_ABILITY, subscr_031_Exit
     WaitTime                            30
     // "It doesn't affect {0}..."
     Message                             27, TAG_NICK, BATTLER_EFFECT_TARGET, NaN, NaN, NaN, NaN, NaN
