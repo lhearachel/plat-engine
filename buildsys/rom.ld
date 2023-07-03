@@ -55,6 +55,7 @@ gClientFunctionTable_Old = 0x0226F068;
 /* battle/common.h */
 Battle_Type = 0x0223DF0C | 1;
 Battle_MessageManager = 0x0223E05C | 1;
+Battle_Random = 0x0223F4BC | 1;
 
 /* battle/scio.h */
 SCIO_Message = 0x02264A04 | 1;
@@ -66,12 +67,15 @@ gBattleScriptCommandTable_Old = 0x0226E72C;
 
 /* battle/server.h */
 Server_Get = 0x0225B45C | 1;
+Server_Ability = 0x02255A4C | 1;
 Server_CheckActiveMoveEffect = 0x02255F68 | 1;
 Server_CheckAbility = 0x022555A4 | 1;
 Server_CheckDefenderAbility = 0x02255AB4 | 1;
 Server_HeldItemEffect = 0x02258AB8 | 1;
 Server_HeldItemPower = 0x02258ACC | 1;
 BattlePokemon_Get = 0x02252060 | 1;
+gStatModifierTable = 0x0226EBE0;
+gCriticalRateTable = 0x0226EBA0;
 
 /* battle/ui.c */
 BattleMessage_ExpandTags = 0x0223FDE4 | 1;

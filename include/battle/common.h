@@ -692,4 +692,11 @@ u32 __attribute__((long_call)) Battle_Type(void *battle);
  */
 void* __attribute__((long_call)) Battle_MessageManager(void *battle);
 
+/**
+ * @brief Gets a value from the battle struct's PRNG.
+ * 
+ * Original function: 0x0223F4BC (ov16)
+ */
+int __attribute__((long_call)) Battle_Random(void *battle);
+
 #endif // __BATTLE_COMMON_H

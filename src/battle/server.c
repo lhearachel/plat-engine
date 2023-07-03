@@ -421,22 +421,8 @@ inline BOOL Calc_CheckPartnerAbility(struct BattleServer *server, int battler, i
     return server->activePokemon[partner].ability == ability;
 }
 
-static u8 sStatStages[][2] = {
-    // numerator, denominator
-    { 10, 40 },     // -6: 1/4
-    { 10, 35 },     // -5: 2/7
-    { 10, 30 },     // -4: 1/3
-    { 10, 25 },     // -3: 2/5
-    { 10, 20 },     // -2: 1/2
-    { 10, 15 },     // -1: 2/3
-    { 10, 10 },     //  0:   1
-    { 15, 10 },     // +1: 3/2
-    { 20, 10 },     // +2:   2
-    { 25, 10 },     // +3: 5/2
-    { 30, 10 },     // +4:   3
-    { 35, 10 },     // +5: 7/2
-    { 40, 10 }      // +6:   4
-};
+extern const u8 gStatModifierTable[];   // 0x0226EBE0
+extern const u8 gCriticalRateTable[];   // 0x0226EBA0
 
 inline s32 Calc_Damage(u16 attack, u8 attackStage, u16 defense, u8 defenseStage, u16 movePower, u8 attackerLevel, u8 critical)
 {
@@ -444,7 +430,7 @@ inline s32 Calc_Damage(u16 attack, u8 attackStage, u16 defense, u8 defenseStage,
     if ((critical > 1) && (attackStage <= 6)) { // ignore negative offensive stat changes on crits
         damage = attack;
     } else {
-        damage = attack * sStatStages[attackStage][0] / sStatStages[attackStage][1];
+        damage = attack * gStatModifierTable[attackStage][0] / gStatModifierTable[attackStage][1];
     }
 
     damage = damage * movePower * (attackerLevel * 2 / 5 + 2);
@@ -453,10 +439,57 @@ inline s32 Calc_Damage(u16 attack, u8 attackStage, u16 defense, u8 defenseStage,
     if ((critical > 1) && (defenseStage >= 6)) { // ignore positive defensive stat changes on crits
         damageDenom = defense;
     } else {
-        damageDenom = defense * sStatStages[defenseStage][0] / sStatStages[defenseStage][1];
+        damageDenom = defense * gStatModifierTable[defenseStage][0] / gStatModifierTable[defenseStage][1];
     }
 
     return damage / damageDenom / 50;
+}
+
+int Server_CalcCritical(
+    struct Battle *battle,
+    struct BattleServer *server,
+    int attacker,
+    int defender,
+    int critStages,
+    u32 sideConditions
+) {
+    int ret = 1;
+
+    u16 species            = server->activePokemon[attacker].species;
+    u32 volatileConditions = server->activePokemon[attacker].condition2;
+    u32 moveEffects        = server->activePokemon[defender].moveEffectsMask;
+    u8  ability            = server->activePokemon[attacker].ability;
+    u16 itemEffect         = Server_HeldItemEffect(server, attacker);
+
+    u16 effectiveStages = (
+        critStages
+        + (itemEffect == HOLD_EFFECT_BOOST_CRIT_RATE)
+        + (ability == ABILITY_SUPER_LUCK)
+        + (((volatileConditions & CONDITION_V_PUMPED) != 0) * 2)
+        + (((itemEffect == HOLD_EFFECT_BOOST_CRIT_RATE_CHANSEY) && (species == SPECIES_CHANSEY)) * 2)
+        + (((itemEffect == HOLD_EFFECT_BOOST_CRIT_RATE_FARFETCHD) && (species == SPECIES_FARFETCHD)) * 2)   // TODO: Farfetch'd-G, Sirfetch'd
+    );
+
+    effectiveStages = (effectiveStages > 4) ? 4 : effectiveStages;  // crit stages max out at +4
+
+    // TODO: Effect check here for auto-critical?
+    // there's an argument to pass critStages == 4, but that might fuck with people
+    // trying to change the crit ratios
+
+    if (Battle_Random(battle) % gCriticalRateTable[effectiveStages] == 0) {
+        if ((Server_CheckDefenderAbility(server, attacker, defender, ABILITY_BATTLE_ARMOR) == FALSE)
+                && (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_SHELL_ARMOR) == FALSE)
+                && ((sideConditions & SIDE_CONDITION_LUCKY_CHANT) == FALSE)
+                && ((moveEffects & MOVE_EFFECT_NO_CRITICAL) == FALSE)) {
+            ret = 2;
+        }
+    }
+
+    if ((ret == 2) && (Server_Ability(server, attacker) == ABILITY_SNIPER)) {
+        ret = 3;
+    }
+
+    return ret;
 }
 
 #if 0

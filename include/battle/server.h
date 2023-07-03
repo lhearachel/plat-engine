@@ -643,6 +643,13 @@ enum CheckAbilityMode {
 int __attribute__((long_call)) Server_Get(struct Battle *battle, struct BattleServer *server, int paramID, int battler);
 
 /**
+ * @brief Gets the ability for a particular battler, considering suppression effects.
+ * 
+ * Original function: 0x02255A4C (ov16)
+ */
+u8 __attribute__((long_call)) Server_Ability(struct BattleServer *server, int battler);
+
+/**
  * @brief Check if any active battler has a particular move effect active.
  * 
  * Original function: 0x02255F68 (ov16)
@@ -703,7 +710,7 @@ int __attribute__((long_call)) BattlePokemon_Get(struct BattleServer *server, in
 /**
  * @brief Master damage calc function.
  * 
- * Original function: 0x0225A280
+ * Hooked into: 0x0225A280
  */
 int __attribute__((long_call)) Server_CalcMoveDamage(
     struct Battle *battle,
@@ -716,6 +723,23 @@ int __attribute__((long_call)) Server_CalcMoveDamage(
     u8 attacker,
     u8 defender,
     u8 critStages
+);
+
+/**
+ * @brief Master critical determination function.
+ * 
+ * Hooked into: 0x0225A280
+ * 
+ * @return 1 if there is no critical, 2 if there is a critical,
+ * 3 if there is a critical and the attacker has Sniper.
+ */
+int __attribute__((long_call)) Server_CalcCritical(
+    struct Battle *battle,
+    struct BattleServer *server,
+    int attacker,
+    int defender,
+    int critStages,
+    u32 sideConditions
 );
 
 #endif // __BATTLE_SERVER_H
