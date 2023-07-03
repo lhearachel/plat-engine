@@ -38,6 +38,9 @@ subscr_031_SkipAttackMessage:
 subscr_031_SkipSubstitute:
     // Check if the target is already paralyzed
     IfMonData                           FLAG_EQ, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, CONDITION_PARALYZED, subscr_031_AlreadyParalyzed
+    // Check if the target is immune to paralysis based on its typing
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_1, TYPE_ELECTRIC, subscr_031_CannotBeParalyzed
+    IfMonData                           EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_TYPE_2, TYPE_ELECTRIC, subscr_031_CannotBeParalyzed
     // Ensure that the target has no other status
     IfMonData                           NOT_EQUAL, BATTLER_EFFECT_TARGET, BATTLE_MON_CONDITION, 0, subscr_031_Failure
     // Abilities skip the attack animation
@@ -88,7 +91,6 @@ subscr_031_AlreadyParalyzed:
     Message                             133, TAG_NICK, BATTLER_EFFECT_TARGET, NaN, NaN, NaN, NaN, NaN
     Branch                              subscr_031_Cleanup
 
-// Unreachable (but will be used)
 subscr_031_CannotBeParalyzed:
     If                                  EQUAL, VAR_EFFECT_TYPE, ADDL_EFFECT_INDIRECT, subscr_031_Exit
     WaitTime                            30

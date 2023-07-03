@@ -73,6 +73,7 @@ Server_CheckAbility = 0x022555A4 | 1;
 Server_CheckDefenderAbility = 0x02255AB4 | 1;
 Server_HeldItemEffect = 0x02258AB8 | 1;
 Server_HeldItemPower = 0x02258ACC | 1;
+Server_HitCount = 0x022554E0 | 1;
 BattlePokemon_Get = 0x02252060 | 1;
 gStatModifierTable = 0x0226EBE0;
 gCriticalRateTable = 0x0226EBA0;

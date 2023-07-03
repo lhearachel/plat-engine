@@ -28,9 +28,133 @@ struct CalcParams {
         type2;
 };
 
+extern const u8 gStatModifierTable[][2];  // 0x0226EBE0
+extern const u8 gCriticalRateTable[];     // 0x0226EBA0
+
 static const u8 sHeldItemTypeBoostTable[][2] = {
     {}
 };
+
+static inline void Calc_BoostOffensiveItem(struct CalcParams *params, u16 *attack, u16 *spAttack, u16 *movePower, u8 moveType, u8 movePSS)
+{
+    // Check for the type-boosting items first
+    for (unsigned int i = 0; i < NELEMS(sHeldItemTypeBoostTable); i++) {
+        if ((params->heldItemEffect == sHeldItemTypeBoostTable[i][0])
+                && (moveType == sHeldItemTypeBoostTable[i][1])) {
+            // If we match the item, apply the power increase and return immediately
+            // No sense in checking the remaining items
+            *movePower = *movePower * (100 + params->heldItemPower) / 100;
+            return;
+        }
+    }
+
+    // TODO: Gems go here?
+
+    if        (params->heldItemEffect == HOLD_EFFECT_CHOICE_BAND) {
+        *attack = *attack * 150 / 100;
+    } else if (params->heldItemEffect == HOLD_EFFECT_CHOICE_SCARF) {
+        *spAttack = *spAttack * 150 / 100;
+    } else if (params->heldItemEffect == HOLD_EFFECT_SOUL_DEW) {
+        // Generation 7 Soul Dew change
+        // Vanilla generation 4 also has a check here for Battle Tower which was removed
+        // Boosts the power of Dragon and Psychic type moves for Latias/Latios by 20%
+        if (((params->species == SPECIES_LATIAS) || (params->species == SPECIES_LATIOS))
+                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_PSYCHIC))) {
+            *movePower = *movePower * 120 / 100;
+        }
+    } else if (params->heldItemEffect == HOLD_EFFECT_DEEP_SEA_TOOTH) {
+        // Double Clamperl's Special Attack
+        if (params->species == SPECIES_CLAMPERL) {
+            *spAttack = *spAttack * 2;
+        }
+    } else if (params->heldItemEffect == HOLD_EFFECT_LIGHT_BALL) {
+        // Generation 5 Light Ball change
+        // Double Pikachu's Attack and Special Attack
+        // TODO: Support Pikachu forms
+        if (params->species == SPECIES_PIKACHU) {
+            *attack = *attack * 2;
+            *spAttack = *spAttack * 2;
+        }
+    } else if (params->heldItemEffect == HOLD_EFFECT_THICK_CLUB) {
+        // Double Cubone and Marowak's attack stat
+        // TODO: Support Alolan forms
+        if ((params->species == SPECIES_CUBONE) || (params->species == SPECIES_MAROWAK)) {
+            *attack = *attack * 2;
+        }
+    } else if (params->heldItemEffect == HOLD_EFFECT_ADAMANT_ORB) {
+        // Increase the power of Dragon and Steel type moves for Dialga by 20%
+        if ((params->species == SPECIES_DIALGA)
+                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_STEEL))) {
+            *movePower = *movePower * 120 / 100;
+        }
+    } else if (params->heldItemEffect == HOLD_EFFECT_LUSTROUS_ORB) {
+        // Increase the power of Dragon and Water type moves for Palkia by 20%
+        if ((params->species == SPECIES_PALKIA)
+                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_WATER))) {
+            *movePower = *movePower * 120 / 100;
+        }
+    } else if (params->heldItemEffect == HOLD_EFFECT_GRISEOUS_ORB) {
+        // Vanilla also has a check here for if the Pokemon transformed into
+        // Giratina, which is extraneous and has been removed, as only Giratina
+        // can hold a Griseous Orb in vanilla Platinum.
+        // Increase the power of Dragon and Ghost type moves for Giratina by 20%
+        if ((params->species == SPECIES_GIRATINA)
+                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_GHOST))) {
+            *movePower = *movePower * 120 / 100;
+        }
+    } else if (params->heldItemEffect == HOLD_EFFECT_BOOST_PHYSICAL) {
+        if (movePSS == PSS_PHYSICAL) {
+            *movePower = *movePower * (100 + params->heldItemPower) / 100;
+        }
+    } else if (params->heldItemEffect == HOLD_EFFECT_BOOST_SPECIAL) {
+        if (movePSS == PSS_SPECIAL) {
+            *movePower = *movePower * (100 + params->heldItemPower) / 100;
+        }
+    }
+}
+
+static inline void Calc_BoostDefensiveItem(struct CalcParams *params, u16 *defense, u16 *spDefense)
+{
+    if        (params->heldItemEffect == HOLD_EFFECT_DEEP_SEA_SCALE) {
+        // Double Clamperl's Special Defense
+        if (params->species == SPECIES_CLAMPERL) {
+            *spDefense = *spDefense * 2;
+        }
+    } else if (params->heldItemEffect == HOLD_EFFECT_BOOST_DEFENSE_DITTO) {
+        // Double Ditto's Defense
+        if (params->species == SPECIES_DITTO) {
+            *defense = *defense * 2;
+        }
+    }
+}
+
+static inline BOOL Calc_CheckPartnerAbility(struct BattleServer *server, int battler, int ability)
+{
+    int partner = (battler + 2) % 4;
+
+    return server->activePokemon[partner].ability == ability;
+}
+
+static inline s32 Calc_Damage(u16 attack, u8 attackStage, u16 defense, u8 defenseStage, u16 movePower, u8 attackerLevel, u8 critical)
+{
+    s32 damage;
+    if ((critical > 1) && (attackStage <= 6)) { // ignore negative offensive stat changes on crits
+        damage = attack;
+    } else {
+        damage = attack * gStatModifierTable[attackStage][0] / gStatModifierTable[attackStage][1];
+    }
+
+    damage = damage * movePower * (attackerLevel * 2 / 5 + 2);
+
+    s32 damageDenom;
+    if ((critical > 1) && (defenseStage >= 6)) { // ignore positive defensive stat changes on crits
+        damageDenom = defense;
+    } else {
+        damageDenom = defense * gStatModifierTable[defenseStage][0] / gStatModifierTable[defenseStage][1];
+    }
+
+    return damage / damageDenom / 50;
+}
 
 int Server_CalcMoveDamage(
     struct Battle *battle,
@@ -85,6 +209,8 @@ int Server_CalcMoveDamage(
     u8  moveType, movePSS;
     u16 movePower;
 
+    movePSS = server->moveTable[moveID].pss;
+
     // Get the move's power; prefer the value that's passed in as a parameter
     // Account for Normalize, etc.
     if (attackerParams.ability == ABILITY_NORMALIZE
@@ -131,7 +257,7 @@ int Server_CalcMoveDamage(
             attack = attack * 2;
             break;
         case ABILITY_SLOW_START:
-            if (Server_Get(battle, server, SERVER_PARAM_TOTAL_TURNS, NULL)
+            if (Server_Get(battle, server, SERVER_PARAM_TOTAL_TURNS, 0)
                     - BattlePokemon_Get(server, attacker, BATTLE_MON_PARAM_SLOW_START_INIT_TURN, NULL) < 5) {
                 attack = attack / 2;
             }
@@ -243,7 +369,7 @@ int Server_CalcMoveDamage(
     // removed for gen5+ compatibility
 
     // lets actually calc some damage now
-    s32 damage;
+    s32 damage = 0;
     if (movePSS == PSS_PHYSICAL) {
         damage = Calc_Damage(attack, attackStages, defense, defenseStages, movePower, attackerLevel, critStages);
 
@@ -320,129 +446,6 @@ int Server_CalcMoveDamage(
     }
 
     return damage + 2;
-}
-
-inline void Calc_BoostOffensiveItem(struct CalcParams *params, int *attack, int *spAttack, int *movePower, int moveType, int movePSS)
-{
-    // Check for the type-boosting items first
-    for (int i = 0; i < NELEMS(sHeldItemTypeBoostTable); i++) {
-        if ((params->heldItemEffect == sHeldItemTypeBoostTable[i][0])
-                && (moveType == sHeldItemTypeBoostTable[i][1])) {
-            // If we match the item, apply the power increase and return immediately
-            // No sense in checking the remaining items
-            *movePower = *movePower * (100 + params->heldItemPower) / 100;
-            return;
-        }
-    }
-
-    // TODO: Gems go here?
-
-    if        (params->heldItemEffect == HOLD_EFFECT_CHOICE_BAND) {
-        *attack = *attack * 150 / 100;
-    } else if (params->heldItemEffect == HOLD_EFFECT_CHOICE_SCARF) {
-        *spAttack = *spAttack * 150 / 100;
-    } else if (params->heldItemEffect == HOLD_EFFECT_SOUL_DEW) {
-        // Generation 7 Soul Dew change
-        // Vanilla generation 4 also has a check here for Battle Tower which was removed
-        // Boosts the power of Dragon and Psychic type moves for Latias/Latios by 20%
-        if (((params->species == SPECIES_LATIAS) || (params->species == SPECIES_LATIOS))
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_PSYCHIC))) {
-            *movePower = *movePower * 120 / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_DEEP_SEA_TOOTH) {
-        // Double Clamperl's Special Attack
-        if (params->species == SPECIES_CLAMPERL) {
-            *spAttack = *spAttack * 2;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_LIGHT_BALL) {
-        // Generation 5 Light Ball change
-        // Double Pikachu's Attack and Special Attack
-        // TODO: Support Pikachu forms
-        if (params->species == SPECIES_PIKACHU) {
-            *attack = *attack * 2;
-            *spAttack = *spAttack * 2;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_THICK_CLUB) {
-        // Double Cubone and Marowak's attack stat
-        // TODO: Support Alolan forms
-        if ((params->species == SPECIES_CUBONE) || (params->species == SPECIES_MAROWAK)) {
-            *attack = *attack * 2;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_ADAMANT_ORB) {
-        // Increase the power of Dragon and Steel type moves for Dialga by 20%
-        if ((params->species == SPECIES_DIALGA)
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_STEEL))) {
-            *movePower = *movePower * 120 / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_LUSTROUS_ORB) {
-        // Increase the power of Dragon and Water type moves for Palkia by 20%
-        if ((params->species == SPECIES_PALKIA)
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_WATER))) {
-            *movePower = *movePower * 120 / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_GRISEOUS_ORB) {
-        // Vanilla also has a check here for if the Pokemon transformed into
-        // Giratina, which is extraneous and has been removed, as only Giratina
-        // can hold a Griseous Orb in vanilla Platinum.
-        // Increase the power of Dragon and Ghost type moves for Giratina by 20%
-        if ((params->species == SPECIES_GIRATINA)
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_GHOST))) {
-            *movePower = *movePower * 120 / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_BOOST_PHYSICAL) {
-        if (movePSS == PSS_PHYSICAL) {
-            *movePower = *movePower * (100 + params->heldItemPower) / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_BOOST_SPECIAL) {
-        if (movePSS == PSS_SPECIAL) {
-            *movePower = *movePower * (100 + params->heldItemPower) / 100;
-        }
-    }
-}
-
-inline void Calc_BoostDefensiveItem(struct CalcParams *params, int *defense, int *spDefense)
-{
-    if        (params->heldItemEffect == HOLD_EFFECT_DEEP_SEA_SCALE) {
-        // Double Clamperl's Special Defense
-        if (params->species == SPECIES_CLAMPERL) {
-            *spDefense = *spDefense * 2;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_BOOST_DEFENSE_DITTO) {
-        // Double Ditto's Defense
-        if (params->species == SPECIES_DITTO) {
-            *defense = *defense * 2;
-        }
-    }
-}
-
-inline BOOL Calc_CheckPartnerAbility(struct BattleServer *server, int battler, int ability)
-{
-    int partner = (battler + 2) % 4;
-    return server->activePokemon[partner].ability == ability;
-}
-
-extern const u8 gStatModifierTable[];   // 0x0226EBE0
-extern const u8 gCriticalRateTable[];   // 0x0226EBA0
-
-inline s32 Calc_Damage(u16 attack, u8 attackStage, u16 defense, u8 defenseStage, u16 movePower, u8 attackerLevel, u8 critical)
-{
-    s32 damage;
-    if ((critical > 1) && (attackStage <= 6)) { // ignore negative offensive stat changes on crits
-        damage = attack;
-    } else {
-        damage = attack * gStatModifierTable[attackStage][0] / gStatModifierTable[attackStage][1];
-    }
-
-    damage = damage * movePower * (attackerLevel * 2 / 5 + 2);
-
-    s32 damageDenom;
-    if ((critical > 1) && (defenseStage >= 6)) { // ignore positive defensive stat changes on crits
-        damageDenom = defense;
-    } else {
-        damageDenom = defense * gStatModifierTable[defenseStage][0] / gStatModifierTable[defenseStage][1];
-    }
-
-    return damage / damageDenom / 50;
 }
 
 int Server_CalcCritical(

@@ -13,7 +13,7 @@
  * @param battle The battle structure.
  * @param server The invoking server.
  */
-BOOL __attribute__((long_call)) BattleScrCmd_Exec(void *battle, struct BattleServer *server);
+BOOL __attribute__((long_call)) BattleScrCmd_Exec(struct Battle *battle, struct BattleServer *server);
 
 /**
  * Reads a word from the scripting buffer.
