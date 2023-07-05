@@ -5,13 +5,12 @@
 #include "battle/server.h"
 
 #include "archive.h"
+#include "pokemon.h"
 
 #include "constants/abilities.h"
 #include "constants/item_hold_effects.h"
 #include "constants/misc.h"
 #include "constants/species.h"
-
-#if 0
 
 static u16 __attribute__((long_call)) Server_CalcPowerMod(
     struct Battle *battle,
@@ -61,6 +60,69 @@ struct CalcParams {
 
 extern const u8 gStatModifierTable[][2];  // 0x0226EBE0
 extern const u8 gCriticalRateTable[];     // 0x0226EBA0
+
+static u8 sTypeBoostingItems[] = {
+    [TYPE_NORMAL]       = HOLD_EFFECT_BOOST_NORMAL,
+    [TYPE_FIGHTING]     = HOLD_EFFECT_BOOST_FIGHTING,
+    [TYPE_FLYING]       = HOLD_EFFECT_BOOST_FLYING,
+    [TYPE_POISON]       = HOLD_EFFECT_BOOST_POISON,
+    [TYPE_GROUND]       = HOLD_EFFECT_BOOST_GROUND,
+    [TYPE_ROCK]         = HOLD_EFFECT_BOOST_ROCK,
+    [TYPE_BUG]          = HOLD_EFFECT_BOOST_BUG,
+    [TYPE_GHOST]        = HOLD_EFFECT_BOOST_GHOST,
+    [TYPE_STEEL]        = HOLD_EFFECT_BOOST_STEEL,
+    [TYPE_FAIRY]        = 0xFF,
+    [TYPE_FIRE]         = HOLD_EFFECT_BOOST_FIRE,
+    [TYPE_WATER]        = HOLD_EFFECT_BOOST_WATER,
+    [TYPE_GRASS]        = HOLD_EFFECT_BOOST_GRASS,
+    [TYPE_ELECTRIC]     = HOLD_EFFECT_BOOST_ELECTRIC,
+    [TYPE_PSYCHIC]      = HOLD_EFFECT_BOOST_PSYCHIC,
+    [TYPE_ICE]          = HOLD_EFFECT_BOOST_ICE,
+    [TYPE_DRAGON]       = HOLD_EFFECT_BOOST_DRAGON,
+    [TYPE_DARK]         = HOLD_EFFECT_BOOST_DARK,
+};
+
+static u8 sTypePlates[] = {
+    [TYPE_NORMAL]       = 0xFF,
+    [TYPE_FIGHTING]     = HOLD_EFFECT_BOOST_FIGHTING_PLATE,
+    [TYPE_FLYING]       = HOLD_EFFECT_BOOST_FLYING_PLATE,
+    [TYPE_POISON]       = HOLD_EFFECT_BOOST_POISON_PLATE,
+    [TYPE_GROUND]       = HOLD_EFFECT_BOOST_GROUND_PLATE,
+    [TYPE_ROCK]         = HOLD_EFFECT_BOOST_ROCK_PLATE,
+    [TYPE_BUG]          = HOLD_EFFECT_BOOST_BUG_PLATE,
+    [TYPE_GHOST]        = HOLD_EFFECT_BOOST_GHOST_PLATE,
+    [TYPE_STEEL]        = HOLD_EFFECT_BOOST_STEEL_PLATE,
+    [TYPE_FAIRY]        = HOLD_EFFECT_BOOST_FAIRY_PLATE,
+    [TYPE_FIRE]         = HOLD_EFFECT_BOOST_FIRE_PLATE,
+    [TYPE_WATER]        = HOLD_EFFECT_BOOST_WATER_PLATE,
+    [TYPE_GRASS]        = HOLD_EFFECT_BOOST_GRASS_PLATE,
+    [TYPE_ELECTRIC]     = HOLD_EFFECT_BOOST_ELECTRIC_PLATE,
+    [TYPE_PSYCHIC]      = HOLD_EFFECT_BOOST_PSYCHIC_PLATE,
+    [TYPE_ICE]          = HOLD_EFFECT_BOOST_ICE_PLATE,
+    [TYPE_DRAGON]       = HOLD_EFFECT_BOOST_DRAGON_PLATE,
+    [TYPE_DARK]         = HOLD_EFFECT_BOOST_DARK_PLATE,
+};
+
+static u8 sGems[] = {
+    [TYPE_NORMAL]       = HOLD_EFFECT_GEM_NORMAL,
+    [TYPE_FIGHTING]     = HOLD_EFFECT_GEM_FIGHTING,
+    [TYPE_FLYING]       = HOLD_EFFECT_GEM_FLYING,
+    [TYPE_POISON]       = HOLD_EFFECT_GEM_POISON,
+    [TYPE_GROUND]       = HOLD_EFFECT_GEM_GROUND,
+    [TYPE_ROCK]         = HOLD_EFFECT_GEM_ROCK,
+    [TYPE_BUG]          = HOLD_EFFECT_GEM_BUG,
+    [TYPE_GHOST]        = HOLD_EFFECT_GEM_GHOST,
+    [TYPE_STEEL]        = HOLD_EFFECT_GEM_STEEL,
+    [TYPE_FAIRY]        = HOLD_EFFECT_GEM_FAIRY,
+    [TYPE_FIRE]         = HOLD_EFFECT_GEM_FIRE,
+    [TYPE_WATER]        = HOLD_EFFECT_GEM_WATER,
+    [TYPE_GRASS]        = HOLD_EFFECT_GEM_GRASS,
+    [TYPE_ELECTRIC]     = HOLD_EFFECT_GEM_ELECTRIC,
+    [TYPE_PSYCHIC]      = HOLD_EFFECT_GEM_PSYCHIC,
+    [TYPE_ICE]          = HOLD_EFFECT_GEM_ICE,
+    [TYPE_DRAGON]       = HOLD_EFFECT_GEM_DRAGON,
+    [TYPE_DARK]         = HOLD_EFFECT_GEM_DARK,
+};
 
 static inline void Calc_BoostOffensiveItem(struct CalcParams *params, u16 *attack, u16 *spAttack, u16 *movePower, u8 moveType, u8 movePSS)
 {
@@ -207,7 +269,7 @@ static inline u8  Calc_MoveType(struct BattleServer *server, struct CalcParams *
     }
 }
 
-#define DIV_ROUNDUP(n, d) (((n < 0) == (d < 0)) ? ((n + d/2)/d) : ((n - d/2)/d))
+#define DIV_ROUNDUP(val, roundBy)(((val) / (roundBy)) + (((val) % (roundBy)) ? 1 : 0))
 
 /*
  * Starting with the damage formula overhaul in Generation 5, if multiple factors apply to
@@ -486,11 +548,18 @@ _AllBoostsApplied:
     return powerMod;
 }
 
-static u16 Calc_AttackerStat(u16 stat, u8 stage, BOOL unaware)
+inline u16 Calc_StatWithStages(u16 stat, u8 stage)
+{
+    u16 effective = stat * gStatModifierTable[stage][0];
+    return DIV_ROUNDUP(effective, gStatModifierTable[stage][1]);
+}
+
+static u16 Calc_AttackerStat(u16 stat, u8 stage, BOOL unaware, BOOL critical)
 {
     /*
-     * Ignore all stages if Unaware is active (the defender has it).
+     * Ignore stat stages if Unaware is active for this stat.
      *
+     * Ignore detrimental stages on criticals.
      *
      * Also shortcut for neutral stat.
      */
@@ -498,8 +567,23 @@ static u16 Calc_AttackerStat(u16 stat, u8 stage, BOOL unaware)
         return stat;
     }
 
-    u16 effective = stat * gStatModifierTable[stage][0];
-    return DIV_ROUNDUP(effective, gStatModifierTable[stage][1]);
+    return Calc_StatWithStages(stat, stage);
+}
+
+static u16 Calc_DefenderStat(u16 stat, u8 stage, BOOL unaware, BOOL critical)
+{
+    /*
+     * Ignore stat stages if Unaware is active for this stat.
+     *
+     * Ignore beneficial stages on criticals.
+     *
+     * Also shortcut for neutral stat.
+     */
+    if ((stage == 6) || unaware || (critical && (stage > 6))) {
+        return stat;
+    }
+
+    return Calc_StatWithStages(stat, stage);
 }
 
 /*
@@ -507,11 +591,11 @@ static u16 Calc_AttackerStat(u16 stat, u8 stage, BOOL unaware)
  * is determined using the following formula:
  * 
  * 
- *   ((2 * level)     )           effectiveAtk
- *   (----------- + 2 ) * power * ------------
- *   (     5          )           effectiveDef
- *   ----------------------------------------- + 2
- *                    50
+ *   ( (2 * level)     )           effectiveAtk
+ *   ( ----------- + 2 ) * power * ------------
+ *   (      5          )           effectiveDef
+ *   ------------------------------------------ + 2
+ *                      50
  * 
  * Values for each operation in calculating the base damage are subject to
  * standard rounding, rounding up at 0.5.
@@ -550,31 +634,80 @@ static s32 Server_CalcBaseDamage(
      * Additionally, account for the presence of a critical hit or Unaware where necessary.
      */
     u16 effectiveAttack, effectiveDefense;
+    BOOL isCritical = server->critical > 1;
+    BOOL attackerUnaware = attacker->ability == ABILITY_UNAWARE;
+    BOOL defenderUnaware = Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_UNAWARE);
     if (server->moveIDCurr == MOVE_SHELL_SIDE_ARM) {
+        // Fuck this move.
+        //
         // For Shell Side Arm, we have to calculate whichever damage is higher: Physical or Special.
         // This will also change some properties of the move; Physical Shell Side Arm is considered
         // a contact move, while Special Shell Side Arm is not.
-    } else if (server->moveIDCurr == MOVE_PHOTON_GEYSER) {
-        // For Photon Geyser, we determine which of effective Attack and effective SpAttack is higher,
-        // then use that stat for our effective attacking stat.
         //
-        // This only takes into account stat stages; abilities and items are not considered.
-    } else if (server->moveIDCurr == MOVE_FOUL_PLAY) {
-        // For Foul Play, we use the target's Attack stat and stages, but all other modifiers to
-        // the effective attacking stat from the attacker.
-        //
-        // e.g., Foul Play damage will be scaled if the attacker has Huge Power, but does not scale
-        // further if the target has Huge Power.
-    } else if (server->moveIDCurr == MOVE_BODY_PRESS) {
-        // For Body Press, we use the attacker's Defense stat and stages and then scale it with
-        // all other modifiers as if that were the Attack stat.
-        //
-        // e.g., Body Press damage will be scaled by Huge Power, but not by Fur Coat.
-    } else if (server->moveIDCurr == MOVE_PSYSHOCK) {
-        // For these moves, explicitly get effective Defense, no matter the split category.
+        // The strategy here is to calculate the whole chain of effective attack and defense for
+        // either case, then determine the ratio of each pair and use the effective stats that
+        // result in a greater ratio. Unlike vanilla games, I'm choosing to implement this as
+        // always preferring to be a Special move in the event of a tie.
     } else {
-        // For all other moves, we can just get the effective attack and defense stats based on the
-        // move's PSS category.
+        // All other moves follow (mostly) normal rules. We can get an effective stat pair and then
+        // chain on top of that stat pair.
+        if (server->moveIDCurr == MOVE_PHOTON_GEYSER) {
+            // For Photon Geyser, if the user's stage-modified Attack stat is strictly higher than its
+            // stage-modified SpAttack stat, the move becomes a physical move.
+            //
+            // This only takes into account stat stages; abilities and items are not considered.
+            // Unaware is ignored during Photon Geyser, and stat stages are always considered.
+            effectiveAttack = Calc_AttackerStat(attacker->stats.attack, attacker->stages.attack, FALSE, FALSE);
+
+            if (Calc_AttackerStat(attacker->stats.spAttack, attacker->stages.spAttack, FALSE, FALSE) >= effectiveAttack) {
+                effectiveAttack  = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  FALSE, isCritical);
+                effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, FALSE, isCritical);
+                movePSS = PSS_SPECIAL;
+            } else {
+                effectiveAttack  = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  FALSE, isCritical);
+                effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, FALSE, isCritical);
+                movePSS = PSS_PHYSICAL;
+            }
+        } else if (server->moveIDCurr == MOVE_FOUL_PLAY) {
+            // For Foul Play, we use the target's Attack stat and stages, but all other modifiers to
+            // the effective attacking stat from the attacker.
+            //
+            // e.g., Foul Play damage will be scaled if the attacker has Huge Power, but does not scale
+            // further if the target has Huge Power.
+            //
+            // Since Foul Play uses the target's Attack stat, it is wholly unaffected by a target
+            // possessing Unaware.
+            effectiveAttack  = Calc_AttackerStat(defender->stats.attack,  defender->stages.attack,  FALSE,           isCritical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
+        } else if (server->moveIDCurr == MOVE_BODY_PRESS) {
+            // For Body Press, we use the attacker's Defense stat and stages and then scale it with
+            // all other modifiers as if that were the Attack stat.
+            //
+            // e.g., Body Press damage will be scaled by Huge Power, but not by Fur Coat.
+            //
+            // Since Body Press uses the attacker's Defense stat, it is wholly unaffected by a target
+            // possessing Unaware.
+            effectiveAttack  = Calc_AttackerStat(attacker->stats.defense, attacker->stages.defense, FALSE,           isCritical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
+        } else if (server->moveIDCurr == MOVE_PSYSHOCK) {
+            // For these moves, explicitly get effective Defense, no matter the split category.
+            // TODO: Check a move effect, since this is shared by Psystrike and Secret Sword.
+            effectiveAttack  = Calc_AttackerStat(attacker->stats.spAttack, attacker->stages.spAttack, defenderUnaware, isCritical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.defense,  defender->stages.defense,  attackerUnaware, isCritical);
+        } else {
+            // For all other moves, we can just get the effective attack and defense stats based on the
+            // move's PSS category.
+            if (movePSS == PSS_PHYSICAL) {
+                effectiveAttack  = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  defenderUnaware, isCritical);
+                effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
+            } else {
+                effectiveAttack  = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  defenderUnaware, isCritical);
+                effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, attackerUnaware, isCritical);
+            }
+        }
+
+        effectiveAttack  = Calc_ChainAttackingStatModifiers(battle, server, attacker, effectiveAttack,  moveType, movePSS);
+        effectiveDefense = Calc_ChainDefendingStatModifiers(battle, server, defender, effectiveDefense, moveType, movePSS);
     }
 
     s32 damage = (2 * attackerLevel);
@@ -584,6 +717,233 @@ static s32 Server_CalcBaseDamage(
     damage     = DIV_ROUNDUP(damage, 50) + 2;              // final base damage
 
     return damage;
+}
+
+static u16 Calc_ChainAttackingStatModifiers(
+    struct Battle *battle,
+    struct BattleServer *server,
+    struct CalcParams *attacker,
+    u16 stat,
+    u8 moveType,
+    u8 movePSS
+) {
+    u16 chainedStat = stat;
+
+    // Check personal abilities first.
+    // PSS-agnostic abilities are at the top so that we can split based on the move's
+    // PSS category later if we are yet to have a match.
+    if (attacker->ability == ABILITY_BLAZE) {
+        // If the move is Fire-type and the user has less than or equal to 1/3 of its
+        // maxmimum HP remaining, increase the attacking stat by 50%.
+        if ((moveType == TYPE_FIRE) && (attacker->currHP <= (attacker->maxHP / 3))) {
+            goto _IncreaseBy50P;
+        }
+    } else if (attacker->ability == ABILITY_OVERGROW) {
+        // If the move is Grass-type and the user has less than or equal to 1/3 of its
+        // maxmimum HP remaining, increase the attacking stat by 50%.
+        if ((moveType == TYPE_GRASS) && (attacker->currHP <= (attacker->maxHP / 3))) {
+            goto _IncreaseBy50P;
+        }
+    } else if (attacker->ability == ABILITY_SWARM) {
+        // If the move is Bug-type and the user has less than or equal to 1/3 of its
+        // maxmimum HP remaining, increase the attacking stat by 50%.
+        if ((moveType == TYPE_BUG) && (attacker->currHP <= (attacker->maxHP / 3))) {
+            goto _IncreaseBy50P;
+        }
+    } else if (attacker->ability == ABILITY_TORRENT) {
+        // If the move is Water-type and the user has less than or equal to 1/3 of its
+        // maxmimum HP remaining, increase the attacking stat by 50%.
+        if ((moveType == TYPE_WATER) && (attacker->currHP <= (attacker->maxHP / 3))) {
+            goto _IncreaseBy50P;
+        }
+    } else if (server->activePokemon[server->attacker].moveEffects.flashFireActive) {
+        // If the move is Fire-type and the user has previously activated Flash Fire,
+        // increase the attacking stat by 50%.
+        if (moveType == TYPE_FIRE) {
+            goto _IncreaseBy50P;
+        }
+    } else if (movePSS == PSS_PHYSICAL) {
+        // Check for some Physical-only abilities
+        if (attacker->ability == ABILITY_GUTS) {
+            // If the attacker is Burned, Poisoned, Paralyzed, or Asleep, increase Attack
+            // by 50%.
+            if (attacker->condition & CONDITION_BOOST_GUTS) {
+                goto _IncreaseBy50P;
+            }
+        } else if ((attacker->ability == ABILITY_HUGE_POWER)
+                || (attacker->ability == ABILITY_PURE_POWER)) {
+            // Double Attack.
+            goto _Double;
+        } else if (attacker->ability == ABILITY_HUSTLE) {
+            // Increase Attack by 50%.
+            goto _IncreaseBy50P;
+        } else if (attacker->ability == ABILITY_ORICHALCUM_PULSE) {
+            // If Sunny weather is active, increase Attack by 33%.
+            // This applies even if the attacker is holding a Utility Umbrella.
+            if ((Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
+                    && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0)
+                    && (server->fieldConditions.raw & FIELD_CONDITION_SUNNY)) {
+                goto _IncreaseBy33P;
+            }
+        } else {
+            goto _AfterAbilityChaining;
+        }
+    } else if (movePSS == PSS_SPECIAL) {
+        // Check for some Special-only abilities
+        if (attacker->ability == ABILITY_HADRON_ENGINE) {
+            // If Electric Terrain is active, increase SpAttack by 33%.
+            // This applies even if the attacker is not grounded.
+            goto _IncreaseBy33P;
+        } else if ((attacker->ability == ABILITY_PLUS) || (attacker->ability == ABILITY_MINUS)) {
+            // If the attacker's partner has Plus or Minus, increase SpAttack by 50%.
+            u8 partner = (server->attacker + 2) % 4;
+            if ((server->activePokemon[partner].ability == ABILITY_PLUS)
+                    || (server->activePokemon[partner].ability == ABILITY_MINUS)) {
+                goto _IncreaseBy50P;
+            }
+        } else if (attacker->ability == ABILITY_SOLAR_POWER) {
+            // If Sunny weather is active, increase SpAttack by 50%.
+            if ((Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
+                    && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0)
+                    && (server->fieldConditions.raw & FIELD_CONDITION_SUNNY)) {
+                goto _IncreaseBy50P;
+            }
+        } else {
+            goto _AfterAbilityChaining;
+        }
+    } else {
+        goto _AfterAbilityChaining;
+    }
+
+_IncreaseBy50P:
+    chainedStat = chainedStat * 3;
+    chainedStat = DIV_ROUNDUP(chainedStat, 2);
+    goto _AfterAbilityChaining;
+
+_Double:
+    chainedStat = chainedStat * 2;
+    goto _AfterAbilityChaining;
+
+_IncreaseBy33P:
+    chainedStat = chainedStat * 5461;
+    chainedStat = DIV_ROUNDUP(chainedStat, 4096);
+
+_AfterAbilityChaining:
+    // One more self-ability check: Flower Gift checks for its partner but does not stack with
+    // it, so it must be checked last.
+    // 
+    // If Sunny weather is active and at least one of the attacker or its ally has Flower
+    // Gift, increase Attack by 50%. This effect ignores Utility Umbrella.
+    // Vanilla technically only lets this happen on Cherrim, but that interaction is so
+    // niche that no one should care. (It's more fun this way.)
+    if ((movePSS == PSS_PHYSICAL)
+            // Someone on our side has Flower Gift
+            && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_ON_MY_SIDE, server->attacker, ABILITY_FLOWER_GIFT))
+            // Sunny weather is active
+            && (server->fieldConditions.raw & FIELD_CONDITION_SUNNY)
+            // No weather-negating effects are in play
+            && ((Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
+                || (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0))) {
+        chainedStat = chainedStat * 3;
+        chainedStat = DIV_ROUNDUP(chainedStat, 2);
+    }
+
+    // We also need to check for a few abilities on the target which affect the attacking stat.
+    if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_THICK_FAT)) {
+        if ((moveType == TYPE_FIRE) || (moveType == TYPE_ICE)) {
+            chainedStat = DIV_ROUNDUP(chainedStat, 2);
+        }
+    } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_PURIFYING_SALT)) {
+        if (moveType == TYPE_GHOST) {
+            chainedStat = DIV_ROUNDUP(chainedStat, 2);
+        }
+    }
+
+    // Now we can actually check some items.
+    if ((attacker->species == SPECIES_PIKACHU) && (attacker->heldItemEffect == HOLD_EFFECT_LIGHT_BALL)) {
+        goto _IncreaseBy50P_Item;
+    } else if (movePSS == PSS_PHYSICAL) {
+        if (attacker->heldItemEffect == HOLD_EFFECT_CHOICE_BAND) {
+            goto _IncreaseBy50P_Item;
+        } else if ((attacker->heldItemEffect == HOLD_EFFECT_THICK_CLUB)
+                && ((attacker->species == SPECIES_CUBONE) || (attacker->species == SPECIES_MAROWAK))) {
+            goto _Double_Item;
+        } else {
+            goto _AfterItemChaining;
+        }
+    } else if (movePSS == PSS_SPECIAL) {
+        if (attacker->heldItemEffect == HOLD_EFFECT_CHOICE_SPECS) {
+            goto _IncreaseBy50P_Item;
+        } else if ((attacker->heldItemEffect == HOLD_EFFECT_DEEP_SEA_TOOTH)
+                && (attacker->species == SPECIES_CLAMPERL)) {
+            goto _Double_Item;
+        }
+    }
+
+_IncreaseBy50P_Item:
+    chainedStat = chainedStat * 3;
+    chainedStat = DIV_ROUNDUP(chainedStat, 2);
+    goto _AfterItemChaining;
+
+_Double_Item:
+    chainedStat = chainedStat << 1;
+
+_AfterItemChaining:
+    return chainedStat;
+}
+
+static u16 Calc_ChainDefendingStatModifiers(
+    struct Battle *battle,
+    struct BattleServer *server,
+    struct CalcParams *defender,
+    u16 stat,
+    u8 moveType,
+    u8 movePSS
+) {
+    u16 chainedStat = stat;
+
+    if (movePSS == PSS_PHYSICAL) {
+        if (defender->ability == ABILITY_GRASS_PELT) {
+            chainedStat = chainedStat * 3;
+            chainedStat = DIV_ROUNDUP(chainedStat, 2);
+        } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FUR_COAT)) {
+            chainedStat = chainedStat * 2;
+        }
+
+        if ((defender->heldItemEffect == HOLD_EFFECT_BOOST_DEFENSE_DITTO) && (defender->species == SPECIES_DITTO)) {
+            chainedStat = chainedStat * 2;
+        }
+    } else if ((movePSS == PSS_SPECIAL)) {
+        // The attacker does NOT have a Mold Breaker effect
+        if ((server->activePokemon[server->attacker].moldBreakerShown == 0)
+                // Someone on the targeted side has Flower Gift
+                && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_ON_MY_SIDE, server->defender, ABILITY_FLOWER_GIFT))
+                // Sunny weather is active
+                && (server->fieldConditions.raw & FIELD_CONDITION_SUNNY)
+                // No weather-negating effects are in play
+                && ((Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
+                    || (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0))) {
+            chainedStat = chainedStat * 3;
+            chainedStat = DIV_ROUNDUP(chainedStat, 2);
+        }
+
+        if (defender->heldItemEffect == HOLD_EFFECT_BOOST_SPD_NO_STATUS_MOVES) {
+            chainedStat = chainedStat * 3;
+            chainedStat = DIV_ROUNDUP(chainedStat, 2);
+        } else if ((defender->heldItemEffect == HOLD_EFFECT_DEEP_SEA_SCALE) && (defender->species == SPECIES_CLAMPERL)) {
+            chainedStat = chainedStat * 2;
+        }
+    }
+
+    // Check Eviolite separately, since it always boosts the defensive stat
+    // TODO: Pokemon_IsNFE needs to be un-stubbed for this to function.
+    if ((defender->heldItemEffect == HOLD_EFFECT_EVIOLITE)
+            && Pokemon_IsNFE(defender->species, server->activePokemon[server->defender].formNum)) {
+        chainedStat = chainedStat * 3;
+        chainedStat = DIV_ROUNDUP(chainedStat, 2);
+    }
+
+    return chainedStat;
 }
 
 // https://bulbapedia.bulbagarden.net/wiki/Damage#Generation_V_onward
@@ -716,69 +1076,6 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
     // Step 11: Divide by 4 if the used move is a Z-move and the target is trying to Protect itself.
 }
 
-static u8 sTypeBoostingItems[] = {
-    [TYPE_NORMAL]       = HOLD_EFFECT_BOOST_NORMAL,
-    [TYPE_FIGHTING]     = HOLD_EFFECT_BOOST_FIGHTING,
-    [TYPE_FLYING]       = HOLD_EFFECT_BOOST_FLYING,
-    [TYPE_POISON]       = HOLD_EFFECT_BOOST_POISON,
-    [TYPE_GROUND]       = HOLD_EFFECT_BOOST_GROUND,
-    [TYPE_ROCK]         = HOLD_EFFECT_BOOST_ROCK,
-    [TYPE_BUG]          = HOLD_EFFECT_BOOST_BUG,
-    [TYPE_GHOST]        = HOLD_EFFECT_BOOST_GHOST,
-    [TYPE_STEEL]        = HOLD_EFFECT_BOOST_STEEL,
-    [TYPE_FAIRY]        = 0xFF,
-    [TYPE_FIRE]         = HOLD_EFFECT_BOOST_FIRE,
-    [TYPE_WATER]        = HOLD_EFFECT_BOOST_WATER,
-    [TYPE_GRASS]        = HOLD_EFFECT_BOOST_GRASS,
-    [TYPE_ELECTRIC]     = HOLD_EFFECT_BOOST_ELECTRIC,
-    [TYPE_PSYCHIC]      = HOLD_EFFECT_BOOST_PSYCHIC,
-    [TYPE_ICE]          = HOLD_EFFECT_BOOST_ICE,
-    [TYPE_DRAGON]       = HOLD_EFFECT_BOOST_DRAGON,
-    [TYPE_DARK]         = HOLD_EFFECT_BOOST_DARK,
-};
-
-static u8 sTypePlates[] = {
-    [TYPE_NORMAL]       = 0xFF,
-    [TYPE_FIGHTING]     = HOLD_EFFECT_BOOST_FIGHTING_PLATE,
-    [TYPE_FLYING]       = HOLD_EFFECT_BOOST_FLYING_PLATE,
-    [TYPE_POISON]       = HOLD_EFFECT_BOOST_POISON_PLATE,
-    [TYPE_GROUND]       = HOLD_EFFECT_BOOST_GROUND_PLATE,
-    [TYPE_ROCK]         = HOLD_EFFECT_BOOST_ROCK_PLATE,
-    [TYPE_BUG]          = HOLD_EFFECT_BOOST_BUG_PLATE,
-    [TYPE_GHOST]        = HOLD_EFFECT_BOOST_GHOST_PLATE,
-    [TYPE_STEEL]        = HOLD_EFFECT_BOOST_STEEL_PLATE,
-    [TYPE_FAIRY]        = HOLD_EFFECT_BOOST_FAIRY_PLATE,
-    [TYPE_FIRE]         = HOLD_EFFECT_BOOST_FIRE_PLATE,
-    [TYPE_WATER]        = HOLD_EFFECT_BOOST_WATER_PLATE,
-    [TYPE_GRASS]        = HOLD_EFFECT_BOOST_GRASS_PLATE,
-    [TYPE_ELECTRIC]     = HOLD_EFFECT_BOOST_ELECTRIC_PLATE,
-    [TYPE_PSYCHIC]      = HOLD_EFFECT_BOOST_PSYCHIC_PLATE,
-    [TYPE_ICE]          = HOLD_EFFECT_BOOST_ICE_PLATE,
-    [TYPE_DRAGON]       = HOLD_EFFECT_BOOST_DRAGON_PLATE,
-    [TYPE_DARK]         = HOLD_EFFECT_BOOST_DARK_PLATE,
-};
-
-static u8 sGems[] = {
-    [TYPE_NORMAL]       = HOLD_EFFECT_GEM_NORMAL,
-    [TYPE_FIGHTING]     = HOLD_EFFECT_GEM_FIGHTING,
-    [TYPE_FLYING]       = HOLD_EFFECT_GEM_FLYING,
-    [TYPE_POISON]       = HOLD_EFFECT_GEM_POISON,
-    [TYPE_GROUND]       = HOLD_EFFECT_GEM_GROUND,
-    [TYPE_ROCK]         = HOLD_EFFECT_GEM_ROCK,
-    [TYPE_BUG]          = HOLD_EFFECT_GEM_BUG,
-    [TYPE_GHOST]        = HOLD_EFFECT_GEM_GHOST,
-    [TYPE_STEEL]        = HOLD_EFFECT_GEM_STEEL,
-    [TYPE_FAIRY]        = HOLD_EFFECT_GEM_FAIRY,
-    [TYPE_FIRE]         = HOLD_EFFECT_GEM_FIRE,
-    [TYPE_WATER]        = HOLD_EFFECT_GEM_WATER,
-    [TYPE_GRASS]        = HOLD_EFFECT_GEM_GRASS,
-    [TYPE_ELECTRIC]     = HOLD_EFFECT_GEM_ELECTRIC,
-    [TYPE_PSYCHIC]      = HOLD_EFFECT_GEM_PSYCHIC,
-    [TYPE_ICE]          = HOLD_EFFECT_GEM_ICE,
-    [TYPE_DRAGON]       = HOLD_EFFECT_GEM_DRAGON,
-    [TYPE_DARK]         = HOLD_EFFECT_GEM_DARK,
-};
-
 int Server_CalcCritical(
     struct Battle *battle,
     struct BattleServer *server,
@@ -825,7 +1122,7 @@ int Server_CalcCritical(
 
     return ret;
 }
-#endif
+
 #if 0
 
 static BOOL Server_CheckHitForMoveEffect(struct Battle *battle, struct BattleServer *server, int attacker, int defender, int moveID)

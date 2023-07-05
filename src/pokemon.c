@@ -44,6 +44,12 @@ static int Pokemon_OverworldPoisonDamage(struct Party *party, u16 zoneID)
 #endif  // OVERWORLD_POISON_DAMAGE
 }
 
+// This is a stub for now; it needs to be implemented for Eviolite to work.
+BOOL Pokemon_IsNFE(u16 species, u32 form)
+{
+    return FALSE;
+}
+
 #if 0
 
 u16 __attribute__((long_call)) Pokemon_GetHiddenAbility(u16 species, u32 form)
