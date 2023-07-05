@@ -3,6 +3,14 @@
 
 #include "typedefs.h"
 
+#define MOVE_FLAG_MAKES_CONTACT                 (0x01)
+#define MOVE_FLAG_BLOCKED_BY_PROTECT            (0x02)
+#define MOVE_FLAG_REFLECTED_BY_MAGIC_COAT       (0x04)
+#define MOVE_FLAG_AFFECTED_BY_MIRROR_MOVE       (0x08)
+#define MOVE_FLAG_TRIGGERS_KINGS_ROCK           (0x10)
+#define MOVE_FLAG_HIDES_HP_BARS                 (0x20)
+#define MOVE_FLAG_REMOVES_SHADOW                (0x40)
+
 #define SUBSCR_START_BATTLE                     (0)
 #define SUBSCR_TRY_MOVE                         (1)
 #define SUBSCR_HP_CHANGE                        (2)
@@ -303,8 +311,13 @@
 #define SUBSCR_GROWTH                           (297)
 
 // new stuff below here
+BOOL __attribute__((long_call)) Moves_BoostedByReckless(u16 moveID);
+BOOL __attribute__((long_call)) Moves_IsAuraOrPulse(u16 moveID);
+BOOL __attribute__((long_call)) Moves_IsBiting(u16 moveID);
 BOOL __attribute__((long_call)) Moves_IsPowder(u16 moveID);
 BOOL __attribute__((long_call)) Moves_IsPunching(u16 moveID);
+BOOL __attribute__((long_call)) Moves_IsSlashing(u16 moveID);
+BOOL __attribute__((long_call)) Moves_IsSound(u16 moveID);
 BOOL __attribute__((long_call)) Moves_CanNormalize(u16 moveID);
 
 #endif

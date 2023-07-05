@@ -1,4 +1,5 @@
 #include "battle/common.h"
+#include "battle/moves.h"
 #include "battle/scio.h"
 #include "battle/scrcmd.h"
 
@@ -13,7 +14,7 @@ static BOOL __attribute__((long_call)) BattleScrCmd_CheckPowderImmunity(struct B
 
 typedef BOOL (*BattleScrCmd)(struct Battle *battle, struct BattleServer *server);
 
-extern const BattleScrCmd gBattleScriptCommandTable_Old[];
+extern const BattleScrCmd *gBattleScriptCommandTable_Old;
 
 const BattleScrCmd gBattleScriptCommandTable_New[] = {
     BattleScrCmd_CheckPowderImmunity,

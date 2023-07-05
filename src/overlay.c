@@ -9,22 +9,21 @@ struct LinkedOverlayPair gLinkedOverlayPairs[1] = {
 
 void Overlay_Unload(u32 overlayID)
 {
-    u8 buf[50];
-
 unload:
 #ifdef DEBUG_OVERLAYS
+    u8 buf[50];
     sprintf(buf, "Freed overlay %d.\n", overlayID);
     debugsyscall(buf);
 #endif
     struct LoadedOverlay *loadedOverlays = Overlay_LoadedInRegion(Overlay_MemoryRegion(overlayID));
-    for (int i = 0; i < 8; i++) {
+    for (u8 i = 0; i < 8; i++) {
         if (loadedOverlays[i].active == TRUE && loadedOverlays[i].id == overlayID) {
             Overlay_Free(&loadedOverlays[i]);
             break;
         }
     }
 
-    for (int i = 0; i < NELEMS(gLinkedOverlayPairs); i++) {
+    for (u8 i = 0; i < NELEMS(gLinkedOverlayPairs); i++) {
         if (gLinkedOverlayPairs[i].original == overlayID)
         {
             overlayID = gLinkedOverlayPairs[i].extension;
@@ -37,9 +36,8 @@ typedef BOOL (*OverlayLoadFunc)(u32, u32);
 
 BOOL Overlay_LoadWithExtension(u32 overlayID, u32 loadType)
 {
-    int i;
+    u8 i;
     u32 dmaBackup = FS_DMA_DO_NOT_USE;
-    u8 buf[64];
 
 load:
     if (!Overlay_CanLoad(overlayID)) {
@@ -59,6 +57,7 @@ load:
     }
 
 #ifdef DEBUG_OVERLAYS
+    u8 buf[64];
     sprintf(buf, "Loaded in overlay_%04d.bin. Total of %d overlays loaded.\n", overlayID, i+1);
     debugsyscall(buf);
 #endif

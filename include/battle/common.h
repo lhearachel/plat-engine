@@ -215,6 +215,7 @@
 
 #define CONDITION_STATUSED          (0x000000FF)
 #define CONDITION_SYNCHRONIZED      (0x00000058)    // Synchronize can copy Burn, Paralysis, or (regular) Poison
+#define CONDITION_BOOST_GUTS        (0x000000DF)
 #define CONDITION_BOOST_FACADE      (0x000000D8)    // Facade is boosted by Burn, Paralysis, and Poison
 #define CONDITION_POISON_ALL        (0x00000F88)    // Convenience for checking any type of Poison
 

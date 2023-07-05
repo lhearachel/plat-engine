@@ -710,20 +710,9 @@ int __attribute__((long_call)) BattlePokemon_Get(struct BattleServer *server, in
 /**
  * @brief Master damage calc function.
  * 
- * Hooked into: 0x0225A280
+ * Hooked into: 0x02241374
  */
-int __attribute__((long_call)) Server_CalcMoveDamage(
-    struct Battle *battle,
-    struct BattleServer *server,
-    int moveID,
-    u32 sideConditions,
-    u32 fieldConditions,
-    u16 power,
-    u8 type,
-    u8 attacker,
-    u8 defender,
-    u8 critStages
-);
+void __attribute__((long_call)) Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server);
 
 /**
  * @brief Master critical determination function.

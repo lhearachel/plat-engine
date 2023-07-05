@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.h": "c",
         "stdint.h": "c",
         "sprite.h": "c",
         "item.h": "c",
@@ -14,6 +15,8 @@
         "species.h": "c",
         "misc.h": "c",
         "tm_learnsets.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "compare": "c",
+        "type_traits": "c"
     }
 }

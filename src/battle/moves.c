@@ -163,15 +163,71 @@ static u32 sEffectToSubScript[] = {
 };
 #endif
 
-inline BOOL Moves_CheckTableMatch(u16 moveID, u16 moveTable[], BOOL retOnMatch)
+inline BOOL Moves_CheckTableMatch(u16 moveID, u16 moveTable[], u8 sizeOfTable, BOOL retOnMatch)
 {
-    for (int i = 0; i < NELEMS(moveTable); i++) {
+    for (u8 i = 0; i < sizeOfTable; i++) {
         if (moveTable[i] == moveID) {
             return retOnMatch;
         }
     }
 
     return retOnMatch;
+}
+
+static u16 sAuraOrPulseMoves[] = {
+    MOVE_AURA_SPHERE,
+    MOVE_DARK_PULSE,
+    MOVE_DRAGON_PULSE,
+    MOVE_HEAL_PULSE,
+    MOVE_ORIGIN_PULSE,
+    MOVE_TERRAIN_PULSE,
+    MOVE_WATER_PULSE
+};
+
+BOOL Moves_IsAuraOrPulse(u16 moveID)
+{
+    return Moves_CheckTableMatch(moveID, sAuraOrPulseMoves, NELEMS(sAuraOrPulseMoves), TRUE);
+}
+
+static u16 sBitingMoves[] = {
+    MOVE_BITE,
+    MOVE_CRUNCH,
+    MOVE_FIRE_FANG,
+    MOVE_FISHIOUS_REND,
+    MOVE_HYPER_FANG,
+    MOVE_ICE_FANG,
+    MOVE_JAW_LOCK,
+    MOVE_POISON_FANG,
+    MOVE_PSYCHIC_FANGS,
+    MOVE_THUNDER_FANG,
+};
+
+BOOL Moves_IsBiting(u16 moveID)
+{
+    return Moves_CheckTableMatch(moveID, sBitingMoves, NELEMS(sBitingMoves), TRUE);
+}
+
+static u16 sRecklessBoosted[] = {
+    MOVE_BRAVE_BIRD,
+    MOVE_CHLOROBLAST,
+    MOVE_DOUBLE_EDGE,
+    MOVE_FLARE_BLITZ,
+    MOVE_HEAD_CHARGE,
+    MOVE_HEAD_SMASH,
+    MOVE_HIGH_JUMP_KICK,
+    MOVE_JUMP_KICK,
+    MOVE_LIGHT_OF_RUIN,
+    MOVE_SUBMISSION,
+    MOVE_TAKE_DOWN,
+    MOVE_VOLT_TACKLE,
+    MOVE_WAVE_CRASH,
+    MOVE_WILD_CHARGE,
+    MOVE_WOOD_HAMMER
+};
+
+BOOL Moves_BoostedByReckless(u16 moveID)
+{
+    return Moves_CheckTableMatch(moveID, sRecklessBoosted, NELEMS(sRecklessBoosted), TRUE);
 }
 
 static u16 sPowderMoves[] = {
@@ -187,7 +243,7 @@ static u16 sPowderMoves[] = {
 
 BOOL Moves_IsPowder(u16 moveID)
 {
-    return Moves_CheckTableMatch(moveID, sPowderMoves, TRUE);
+    return Moves_CheckTableMatch(moveID, sPowderMoves, NELEMS(sPowderMoves), TRUE);
 }
 
 static u16 sPunchingMoves[] = {
@@ -219,7 +275,77 @@ static u16 sPunchingMoves[] = {
 
 BOOL Moves_IsPunching(u16 moveID)
 {
-    return Moves_CheckTableMatch(moveID, sPunchingMoves, TRUE);
+    return Moves_CheckTableMatch(moveID, sPunchingMoves, NELEMS(sPunchingMoves), TRUE);
+}
+
+static u16 sSlashingMoves[] = {
+    MOVE_AERIAL_ACE,
+    MOVE_AIR_CUTTER,
+    MOVE_AIR_SLASH,
+    // MOVE_AQUA_CUTTER,
+    MOVE_BEHEMOTH_BLADE,
+    // MOVE_BITTER_BLADE
+    MOVE_CEASELESS_EDGE,
+    MOVE_CROSS_POISON,
+    MOVE_CUT,
+    MOVE_FURY_CUTTER,
+    // MOVE_KOWTOW_CLEAVE,
+    MOVE_LEAF_BLADE,
+    MOVE_NIGHT_SLASH,
+    // MOVE_POPULATION_BOMB,
+    // MOVE_PSYBLADE,
+    MOVE_PSYCHO_CUT,
+    MOVE_RAZOR_LEAF,
+    MOVE_RAZOR_SHELL,
+    MOVE_SACRED_SWORD,
+    MOVE_SLASH,
+    MOVE_SOLAR_BLADE,
+    MOVE_STONE_AXE,
+    MOVE_X_SCISSOR,
+};
+
+BOOL Moves_IsSlashing(u16 moveID)
+{
+    return Moves_CheckTableMatch(moveID, sSlashingMoves, NELEMS(sSlashingMoves), TRUE);
+}
+
+static u16 sSoundMoves[] = {
+    MOVE_BOOMBURST,
+    MOVE_BUG_BUZZ,
+    MOVE_CHATTER,
+    MOVE_CLANGING_SCALES,
+    MOVE_CLANGOROUS_SOUL,
+    MOVE_CLANGOROUS_SOULBLAZE,      // Z-move
+    MOVE_CONFIDE,
+    MOVE_DISARMING_VOICE,
+    MOVE_ECHOED_VOICE,
+    MOVE_EERIE_SPELL,
+    MOVE_GRASS_WHISTLE,
+    MOVE_GROWL,
+    MOVE_HEAL_BELL,
+    MOVE_HOWL,
+    MOVE_HYPER_VOICE,
+    MOVE_METAL_SOUND,
+    MOVE_NOBLE_ROAR,
+    MOVE_OVERDRIVE,
+    MOVE_PARTING_SHOT,
+    MOVE_PERISH_SONG,
+    MOVE_RELIC_SONG,
+    MOVE_ROAR,
+    MOVE_ROUND,
+    MOVE_SCREECH,
+    MOVE_SING,
+    MOVE_SNARL,
+    MOVE_SNORE,
+    MOVE_SPARKLING_ARIA,
+    MOVE_SUPERSONIC,
+    // MOVE_TORCH_SONG,
+    MOVE_UPROAR,
+};
+
+BOOL Moves_IsSound(u16 moveID)
+{
+    return Moves_CheckTableMatch(moveID, sSoundMoves, NELEMS(sSoundMoves), TRUE);
 }
 
 static u16 sCannotNormalizeMoves[] = {
@@ -234,5 +360,5 @@ static u16 sCannotNormalizeMoves[] = {
 
 BOOL Moves_CanNormalize(u16 moveID)
 {
-    return Moves_CheckTableMatch(moveID, sCannotNormalizeMoves, FALSE);
+    return Moves_CheckTableMatch(moveID, sCannotNormalizeMoves, NELEMS(sCannotNormalizeMoves), FALSE);
 }
