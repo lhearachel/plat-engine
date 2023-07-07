@@ -192,6 +192,8 @@
 #define HOLD_EFFECT_GEM_STEEL                           178
 #define HOLD_EFFECT_GEM_WATER                           179
 
+#define HOLD_EFFECT_IS_GEM(item)   ((item >= HOLD_EFFECT_GEM_BUG) && (item <= HOLD_EFFECT_GEM_WATER))
+
 #define HOLD_EFFECT_BOOST_SPD_NO_STATUS_MOVES           180     // Assault Vest     -> general damage calc, move selection
 #define HOLD_EFFECT_BOOST_DEF_ON_PHYSICAL_HIT           181     // Kee Berry
 #define HOLD_EFFECT_BOOST_SPD_ON_WATER_HIT              182     // Luminous Moss

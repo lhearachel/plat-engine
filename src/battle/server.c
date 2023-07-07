@@ -6,23 +6,12 @@
 
 #include "archive.h"
 #include "pokemon.h"
+#include "q412.h"
 
 #include "constants/abilities.h"
 #include "constants/item_hold_effects.h"
 #include "constants/misc.h"
 #include "constants/species.h"
-
-static u16 __attribute__((long_call)) Server_CalcPowerMod(
-    struct Battle *battle,
-    struct BattleServer *server,
-    struct CalcParams *attackerParams,
-    struct CalcParams *defenderParams,
-    u16 moveID,
-    u16 movePower,
-    u8 moveType,
-    u8 movePSS,
-    u8 typeModified
-);
 
 struct CalcStats {
     u16 attack;
@@ -124,106 +113,6 @@ static u8 sGems[] = {
     [TYPE_DARK]         = HOLD_EFFECT_GEM_DARK,
 };
 
-static inline void Calc_BoostOffensiveItem(struct CalcParams *params, u16 *attack, u16 *spAttack, u16 *movePower, u8 moveType, u8 movePSS)
-{
-    // Check for the type-boosting items first
-    for (unsigned int i = 0; i < NELEMS(sHeldItemTypeBoostTable); i++) {
-        if ((params->heldItemEffect == sHeldItemTypeBoostTable[i][0])
-                && (moveType == sHeldItemTypeBoostTable[i][1])) {
-            // If we match the item, apply the power increase and return immediately
-            // No sense in checking the remaining items
-            *movePower = *movePower * (100 + params->heldItemPower) / 100;
-            return;
-        }
-    }
-
-    // TODO: Gems go here?
-
-    if        (params->heldItemEffect == HOLD_EFFECT_CHOICE_BAND) {
-        *attack = *attack * 150 / 100;
-    } else if (params->heldItemEffect == HOLD_EFFECT_CHOICE_SCARF) {
-        *spAttack = *spAttack * 150 / 100;
-    } else if (params->heldItemEffect == HOLD_EFFECT_SOUL_DEW) {
-        // Generation 7 Soul Dew change
-        // Vanilla generation 4 also has a check here for Battle Tower which was removed
-        // Boosts the power of Dragon and Psychic type moves for Latias/Latios by 20%
-        if (((params->species == SPECIES_LATIAS) || (params->species == SPECIES_LATIOS))
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_PSYCHIC))) {
-            *movePower = *movePower * 120 / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_DEEP_SEA_TOOTH) {
-        // Double Clamperl's Special Attack
-        if (params->species == SPECIES_CLAMPERL) {
-            *spAttack = *spAttack * 2;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_LIGHT_BALL) {
-        // Generation 5 Light Ball change
-        // Double Pikachu's Attack and Special Attack
-        // TODO: Support Pikachu forms
-        if (params->species == SPECIES_PIKACHU) {
-            *attack = *attack * 2;
-            *spAttack = *spAttack * 2;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_THICK_CLUB) {
-        // Double Cubone and Marowak's attack stat
-        // TODO: Support Alolan forms
-        if ((params->species == SPECIES_CUBONE) || (params->species == SPECIES_MAROWAK)) {
-            *attack = *attack * 2;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_ADAMANT_ORB) {
-        // Increase the power of Dragon and Steel type moves for Dialga by 20%
-        if ((params->species == SPECIES_DIALGA)
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_STEEL))) {
-            *movePower = *movePower * 120 / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_LUSTROUS_ORB) {
-        // Increase the power of Dragon and Water type moves for Palkia by 20%
-        if ((params->species == SPECIES_PALKIA)
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_WATER))) {
-            *movePower = *movePower * 120 / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_GRISEOUS_ORB) {
-        // Vanilla also has a check here for if the Pokemon transformed into
-        // Giratina, which is extraneous and has been removed, as only Giratina
-        // can hold a Griseous Orb in vanilla Platinum.
-        // Increase the power of Dragon and Ghost type moves for Giratina by 20%
-        if ((params->species == SPECIES_GIRATINA)
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_GHOST))) {
-            *movePower = *movePower * 120 / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_BOOST_PHYSICAL) {
-        if (movePSS == PSS_PHYSICAL) {
-            *movePower = *movePower * (100 + params->heldItemPower) / 100;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_BOOST_SPECIAL) {
-        if (movePSS == PSS_SPECIAL) {
-            *movePower = *movePower * (100 + params->heldItemPower) / 100;
-        }
-    }
-}
-
-static inline void Calc_BoostDefensiveItem(struct CalcParams *params, u16 *defense, u16 *spDefense)
-{
-    if        (params->heldItemEffect == HOLD_EFFECT_DEEP_SEA_SCALE) {
-        // Double Clamperl's Special Defense
-        if (params->species == SPECIES_CLAMPERL) {
-            *spDefense = *spDefense * 2;
-        }
-    } else if (params->heldItemEffect == HOLD_EFFECT_BOOST_DEFENSE_DITTO) {
-        // Double Ditto's Defense
-        if (params->species == SPECIES_DITTO) {
-            *defense = *defense * 2;
-        }
-    }
-}
-
-static inline BOOL Calc_CheckPartnerAbility(struct BattleServer *server, int battler, int ability)
-{
-    int partner = (battler + 2) % 4;
-
-    return server->activePokemon[partner].ability == ability;
-}
-
 static inline s32 Calc_Damage(u16 attack, u8 attackStage, u16 defense, u8 defenseStage, u16 movePower, u8 attackerLevel, u8 critical)
 {
     s32 damage;
@@ -269,36 +158,55 @@ static inline u8  Calc_MoveType(struct BattleServer *server, struct CalcParams *
     }
 }
 
-#define DIV_ROUNDUP(val, roundBy)(((val) / (roundBy)) + (((val) % (roundBy)) ? 1 : 0))
+static inline BOOL WeatherIsActive(struct Battle *battle, struct BattleServer *server, u32 weatherMask)
+{
+    return (server->fieldConditions.raw & weatherMask)
+            && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
+            && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0);
+}
 
-/*
- * Starting with the damage formula overhaul in Generation 5, if multiple factors apply to
- * a move's effective power computation, they are chained together in a specific order by
- * starting at 4096 and multiplying by each applicable modifier in succession (rounding up
- * at 0.5). The final result of this chain is then multiplied by the move's base power and
- * divided by 4096, rounding down at 0.5.
+static inline BOOL AllyHasAbility(struct Battle *battle, struct BattleServer *server, int battler, u16 ability)
+{
+    // Ally is the battler which has the same parity as ours
+    // Just get the battler which has the input ability, XOR it with the requesting battler,
+    // and check that bit 0 of the result is 0
+    //
+    //  XOR | 0 | 1 | 2 | 3 |
+    //  ----|---|---|---|---|
+    //    0 | X | 1 | 0 | 1 |
+    //    1 | 1 | X | 1 | 0 |
+    //    2 | 0 | 1 | X | 1 |
+    //    3 | 1 | 0 | 1 | X |
+    return (Server_CheckAbility(battle, server, CHECK_ABILITY_EXISTS_CLIENT_NOT_MINE, battler, ability) ^ battler) & 1 == 0;
+}
+
+/**
+ * @brief Computes the modified base power for a move, considering all abilities of the attacker
+ * attacker's partner, and defender as well as all items which would affect it.
  * 
- * This routine provides consideration for all effects as of Generation 9, subject to the
- * Generation 5 formula.
- * 
- * There is a slight quirk in the formula where, if multiple modifiers take effect, they
- * should be chained together in the order of each source's unmodified Speed stat. This
- * routine does NOT consider such cases, but this only truly matters for a niche case
- * wherein the attacker and its ally each have Steely Spirit.
+ * @param battle 
+ * @param server 
+ * @param attacker 
+ * @param defender 
+ * @param moveID 
+ * @param movePower 
+ * @param moveType 
+ * @param movePSS 
+ * @param isAteAbility 
+ * @return u16 
  */
-static u16 Server_CalcPowerMod(
+static u16 Calc_ModifiedBasePower(
     struct Battle *battle,
     struct BattleServer *server,
-    struct CalcParams *attackerParams,
-    struct CalcParams *defenderParams,
+    struct CalcParams *attacker,
+    struct CalcParams *defender,
     u16 moveID,
     u16 movePower,
-    u8 moveType,
     u8 movePSS,
-    u8 typeModified
-) {
-    u16 powerMod = 4096;
-
+    u8 moveType,
+    BOOL isAteAbility
+)
+{
     /*
      * Certain moves are expected to input some multipliers as part of their effect scripts:
      *  - Facade, if the user is burned/paralyzed/poisoned
@@ -308,23 +216,22 @@ static u16 Server_CalcPowerMod(
      *  - Fusion Flare/Bolt, if the most recently used move in the turn was the opposite move
      *  - Lash Out, if any of the attacker's stats were lowered on this turn
      *  - Solar Beam/Blade, if the weather is an active rain/sand/snow/fog effect
-     *  - Knock Off, if the target is holding an item when the move is executed
+     *  - Knock Off, if the target is holding an item that can be removed when the move is executed
      *  - Grav Apple, if Gravity is in effect
      *  - Misty Explosion, if the user is grounded on Misty Terrain
      *  - Expanding Force, if the user is grounded on Psychic Terrain
      *  - Psyblade, if the user is grounded on Electric Terrain
      * 
-     * This multiplier is passed as a value which is expected to be divided by 10.
+     * This multiplier is passed as a value which is expected to be in Q4.12 format.
      */
-    powerMod = powerMod * server->moveMultiplier;
-    powerMod = DIV_ROUNDUP(powerMod, 10);
-
-    // If the attacker is under the effect of Charge and the used move is Electric-type, 2x power.
-    if ((server->activePokemon[server->attacker].moveEffectsMask & MOVE_EFFECT_CHARGED) && (moveType == TYPE_ELECTRIC)){
-        powerMod = powerMod << 1;
+    u16 powerMod = server->powerModifier;
+    
+    // 2x if the attacker is under the effect of Charge and the used move is Electric-type.
+    if ((server->activePokemon[server->attacker].moveEffectsMask & MOVE_EFFECT_CHARGED) && (moveType == TYPE_ELECTRIC)) {
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__2_0);
     }
 
-    // If the move was stolen via Me First, 1.5x power.
+    // 1.5x if the used move was stolen via Me First.
     if ((server->activePokemon[server->attacker].moveEffects.meFirstActive)) {
         // Turn has been taken for the calling attacker
         if (server->meFirstTotalTurnOrder == server->activePokemon[server->attacker].moveEffects.meFirstTurnCount) {
@@ -332,226 +239,469 @@ static u16 Server_CalcPowerMod(
         }
 
         if (server->meFirstTotalTurnOrder - server->activePokemon[server->attacker].moveEffects.meFirstTurnCount < 2) {
-            powerMod = powerMod * 15;
-            powerMod = DIV_ROUNDUP(powerMod, 10);
-        } else {
-            server->activePokemon[server->attacker].moveEffects.meFirstActive = 0;
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
         }
     }
 
-    // If the attacker's ally used Helping Hand, 1.5x power.
+    // 1.5x if the attacker's ally used Helping Hand.
+    //
+    // Technically this breaks for Triple Battles if one ally uses Helping Hand
+    // and another uses Instruct, but lol. lmao.
     if (server->stFX[server->attacker].helpingHand) {
-        powerMod = powerMod * 15;
-        powerMod = DIV_ROUNDUP(powerMod, 10);
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
     }
 
-    // If Mud or Water Sport are in effect and the used move is Electric or Fire-type (respectively), 0.33x power.
+    // 0.33x if Mud or Water Sport are in effect and the used move is Electric or Fire-type (respectively).
     // TODO: These need to be moved to field conditions instead of being move effects
     if ((Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_MUD_SPORT) && (moveType == TYPE_ELECTRIC))
             || (Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_WATER_SPORT) && (moveType == TYPE_FIRE))) {
-        powerMod = powerMod * 1352;
-        powerMod = DIV_ROUNDUP(powerMod, 4096);
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_33);
     }
 
-    // TODO: Grounded on Electric, Grassy, or Psychic terrain
+    // TODO
+    // 0.5x if Grassy Terrain is in effect and the used move is Earthquake, Magnitude, or Bulldoze.
+    // 0.5x if Misty Terrain is in effect and the used move is Dragon-type.
 
-    // Time to check a bunch of abilities.
-    // If the attacker's ability is Rivalry and the target is of the same gender (but not genderless), 1.25x power.
-    // If the attacker's ability is Rivalry and the target is of the opposite gender (but not genderless), 0.75x power.
-    if ((attackerParams->ability == ABILITY_RIVALRY)
-            && (attackerParams->gender != 2)
-            && (defenderParams->gender != 2)) {
-        if (attackerParams->gender == defenderParams->gender) {
-            powerMod = powerMod * 25;
+    // TODO
+    // 1.3x if Electric Terrain is in effect, the attacker is grounded, and the used move is Electric-type.
+    // 1.3x if Grassy Terrain is in effect, the attacker is grounded, and the used move is Grass-type.
+    // 1.3x if Psychic Terrain is in effect, the attacker is grounded, and the used move is Psychic-type.
+
+    // ==================== START OF ABILITY CHAIN ==================== //
+
+    if (attacker->ability == ABILITY_RIVALRY) {
+        // 1.25x if the attacker's ability is Rivalry and the target is of the same gender.
+        // 0.75x if the attacker's ability is Rivalry and the target is of the opposite gender.
+        // No muliplier if either Pokemon is genderless.
+        if ((attacker->gender == 2) || (defender->gender == 2)) {
+            powerMod = powerMod;
+        } else if (attacker->gender == defender->gender) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_25);
         } else {
-            powerMod = powerMod * 15;
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_75);
+        }
+    } else if (attacker->ability == ABILITY_SUPREME_OVERLORD) {
+        // TODO
+        // 1 + 0.1n if the attacker's ability is Supreme Overlord, where n is the number of Pokemon
+        // on the attacker's party which have previously fainted.
+    } else if (attacker->ability == ABILITY_RECKLESS) {
+        if (Moves_BoostedByReckless(moveID)) {
+            // 1.2x if the attacker's ability is Reckless and the used move is applicable (deals recoil damage,
+            // or is High Jump Kick or Jump Kick, but is _not_ Struggle).
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
+        }
+    } else if (attacker->ability == ABILITY_IRON_FIST
+            && Moves_IsPunching(moveID)) {
+        // 1.2x if the attacker's ability is Iron Fist and the used move is a punching move.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
+    } else if (attacker->ability == ABILITY_NORMALIZE) {
+        if (Moves_CanNormalize(moveID)) {
+            // 1.2x if the attacker's ability is Normalize and the used move is affected.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
+        }
+    } else if (isAteAbility) {
+        // 1.2x if the attacker's ability is an -ate ability and was the used move was affected.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
+    } else if (attacker->ability == ABILITY_ANALYTIC) {
+        // 1.3x if the attacker's ability is Analytic and it moves last in turn order.
+        // Check all the other living Pokemon; if any of them would have moved after the attacker, break out.
+        int i;
+        for (i = 0; i < 4; i++) {
+            if (server->attacker != i
+                    && server->activePokemon[i].curHP != 0
+                    /* && SpeedCheck*/) {
+                break;
+            }
         }
 
-        powerMod = DIV_ROUNDUP(powerMod, 20);
-    // TODO: Supreme Overlord
-    } else if (FALSE) {
-
-    // If the attacker's ability is Reckless and the used move deals recoil damage, 1.2x power.
-    // This also boosts the power of Jump Kick and High Jump Kick, but explicitly excludes Struggle.
-    } else if ((attackerParams->ability == ABILITY_RECKLESS) && Moves_BoostedByReckless(moveID)) {
-        powerMod = powerMod * 4915;
-        powerMod = DIV_ROUNDUP(powerMod, 4096);
-    // If the attacker's ability is Iron Fist and the used move is classified as a punching move, 1.2x power.
-    } else if ((attackerParams->ability == ABILITY_IRON_FIST) && Moves_IsPunching(moveID)) {
-        powerMod = powerMod * 4915;
-        powerMod = DIV_ROUNDUP(powerMod, 4096);
-    // If the attacker's ability is Normalize and the used move is affected by it, 1.2x power.
-    } else if ((attackerParams->ability == ABILITY_NORMALIZE) && Moves_CanNormalize(moveID)) {
-        powerMod = powerMod * 4915;
-        powerMod = DIV_ROUNDUP(powerMod, 4096);
-    // If the move's original type was Normal and the attacker's ability is one of the -ate abilities, 1.2x power.
-    } else if (typeModified) {
-        if ((attackerParams->ability == ABILITY_AERILATE)
-                || (attackerParams->ability == ABILITY_GALVANIZE)
-                || (attackerParams->ability == ABILITY_PIXILATE)
-                || (attackerParams->ability == ABILITY_REFRIGERATE)) {
-            powerMod = powerMod * 4915;
-            powerMod = DIV_ROUNDUP(powerMod, 4096);
+        if (i == 4) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
         }
-    // TODO: Conditions
-    // If the attacker's ability is Analytic and the target has already moved this turn, 1.3x power.
-    } else if (attackerParams->ability == ABILITY_ANALYTIC) {
-    
-    // If the attacker's ability is Sand Force, the used move is Ground/Rock/Steel-type, and the active weather
-    // is an unsuppressed Sandstorm, 1.3x power.
-    } else if ((attackerParams->ability == ABILITY_SAND_FORCE)
-            && ((moveType == TYPE_GROUND)
-                || (moveType == TYPE_ROCK)
-                || (moveType == TYPE_STEEL))) {
-        if ((server->fieldConditions.raw & FIELD_CONDITION_SANDSTORM)
-                && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == FALSE)
-                && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == FALSE)) {
-            powerMod = powerMod * 5325;
-            powerMod = DIV_ROUNDUP(powerMod, 4096);
+    } else if (attacker->ability == ABILITY_SAND_FORCE) {
+        // 1.3x if the attacker's ability is Sand Force, the weather is sandstorm, and the used move is
+        // Ground, Rock, or Steel-type.
+        if (WeatherIsActive(battle, server, FIELD_CONDITION_SANDSTORM)
+                && ((moveType == TYPE_GROUND) || (moveType == TYPE_ROCK) || (moveType == TYPE_STEEL))) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
         }
-    // If the attacker's ability is Sheer Force and the used move has an additional effect, 1.3x power.
-    } else if (attackerParams->ability == ABILITY_SHEER_FORCE) {
-
-    // If the attacker's ability is Tough Claws and the used move makes contact, 1.3x power.
-    } else if ((attackerParams->ability == ABILITY_TOUGH_CLAWS)
-            && (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT)) {
-        powerMod = powerMod * 5325;
-        powerMod = DIV_ROUNDUP(powerMod, 4096);
+    } else if (attacker->ability == ABILITY_SHEER_FORCE) {
+        // 1.3x if the attacker's ability is Sheer Froce and the used move has an additional effect.
+        // TODO
+    } else if (attacker->ability == ABILITY_TOUGH_CLAWS) {
+        if (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT) {
+            // 1.3x if the attacker's ability is Tough Claws and the used move makes contact.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
+        }
     }
 
-    // Break here for some ally abilities
-    // If the attacker's ally's ability is Power Spot, or is Battery and the used move is Special, 1.3x power.
-    int partner = server->attacker + 2 % 4;
-    u16 partnerAbility = BattlePokemon_Get(server, partner, BATTLE_MON_PARAM_ABILITY, NULL);
-    if ((partnerAbility == ABILITY_POWER_SPOT)
-            || ((partnerAbility == ABILITY_BATTERY) && (movePSS == PSS_SPECIAL))) {
-        powerMod = powerMod * 5325;
-        powerMod = DIV_ROUNDUP(powerMod, 4096);
+    // Battery and Power Spot are not technically exclusive in the scope of Triple Battles,
+    // but they are mutually exclusive in doubles.
+    if (AllyHasAbility(battle, server, server->attacker, ABILITY_BATTERY) && movePSS == PSS_SPECIAL) {
+        // 1.3x if our ally has Battery and the used move is Special-split.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
+    } else if (AllyHasAbility(battle, server, server->attacker, ABILITY_POWER_SPOT)) {
+        // 1.3x if our ally has Power Spot.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
     }
 
-    // If the attacker's ability is Punk Rock and the used move is Sound-based, 1.3x power.
-    // Fuck Game Freak for sticking this right here btw.
-    if ((attackerParams->ability == ABILITY_PUNK_ROCK) && Moves_IsSound(moveID)) {
-        powerMod = powerMod * 5325;
-        powerMod = DIV_ROUNDUP(powerMod, 4096);
+    if (attacker->ability == ABILITY_PUNK_ROCK && Moves_IsSound(moveID)) {
+        // 1.3x if the attacker's ability is Punk Rock and the used move is sound-based.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
     }
 
-    // TODO: Fairy Aura, Dark Aura, Aura Break
-
-    // Now back to our regularly-scheduled exclusive if-else tree
-    // If the attacker's ability is Strong Jaw and the used move is a bite, 1.5x power.
-    if ((attackerParams->ability == ABILITY_STRONG_JAW) && Moves_IsBiting(moveID)) {
-        powerMod = powerMod * 15;
-        powerMod = DIV_ROUNDUP(powerMod, 10);
-    // If the attacker's ability is Mega Launcher and the used move is affected, 1.5x power.
-    } else if ((attackerParams->ability == ABILITY_MEGA_LAUNCHER) && Moves_IsAuraOrPulse(moveID)) {
-        powerMod = powerMod * 15;
-        powerMod = DIV_ROUNDUP(powerMod, 10);
-    // If the attacker's ability is Technician and the used move's base power is 60 or less, 1.5x power.
-    } else if ((attackerParams->ability == ABILITY_TECHNICIAN) && (movePower <= 60)) {
-        powerMod = powerMod * 15;
-        powerMod = DIV_ROUNDUP(powerMod, 10);
-    // If the attacker's ability is Toxic Boost, the attacker is poisoned, and the used move is physical,
-    // 1.5x power.
-    } else if ((attackerParams->ability == ABILITY_TOXIC_BOOST)
-            && (attackerParams->condition & CONDITION_POISON_ALL)
-            && (movePSS == PSS_PHYSICAL)) {
-        powerMod = powerMod * 15;
-        powerMod = DIV_ROUNDUP(powerMod, 10);
-    // If the attacker's ability is Flare Boost, the attacker is burned, and the used move is special,
-    // 1.5x power.
-    } else if ((attackerParams->ability == ABILITY_FLARE_BOOST)
-            && (attackerParams->condition & CONDITION_BURNED)
-            && (movePSS == PSS_SPECIAL)) {
-        powerMod = powerMod * 15;
-        powerMod = DIV_ROUNDUP(powerMod, 10);
-    // If the attacker's ability is Steely Spirit and the used move is Steel-type, 1.5x power.
-    } else if ((attackerParams->ability == ABILITY_STEELY_SPIRIT) && (moveType == TYPE_STEEL)) {
-        powerMod = powerMod * 15;
-        powerMod = DIV_ROUNDUP(powerMod, 10);
+    if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_FAIRY_AURA)
+            && (moveType == TYPE_FAIRY)
+            && (attacker->ability != ABILITY_MOLD_BREAKER)
+            && (attacker->ability != ABILITY_TERAVOLT)
+            && (attacker->ability != ABILITY_TURBOBLAZE)) {
+        // 1.33x if Fairy Aura is in effect, the used move is Fairy-type, and the attacker's ability is not
+        // Mold Breaker. If Aura Break is also in effect, instead 0.75x.
+        if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AURA_BREAK)) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_75);
+        } else {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_33);
+        }
     }
 
-    // Check for Steely Spirit on the partner, too.
-    if ((partnerAbility == ABILITY_STEELY_SPIRIT) && (moveType == TYPE_STEEL)) {
-        powerMod = powerMod * 15;
-        powerMod = DIV_ROUNDUP(powerMod, 10);
+    if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_DARK_AURA)
+            && (moveType == TYPE_DARK)
+            && (attacker->ability != ABILITY_MOLD_BREAKER)
+            && (attacker->ability != ABILITY_TERAVOLT)
+            && (attacker->ability != ABILITY_TURBOBLAZE)) {
+        // 1.33x if Dark Aura is in effect, the used move is Dark-type, and the attacker's ability is not
+        // Mold Breaker. If Aura Break is also in effect, instead 0.75x.
+        if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AURA_BREAK)) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_75);
+        } else {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_33);
+        }
     }
 
-    // If the used move is Fire-type, check the defender for Heatproof or Dry Skin (accounting
-    // for the attacker having a Mold Breaker effect).
+    if (attacker->ability == ABILITY_STRONG_JAW) {
+        if (Moves_IsBiting(moveID)) {
+            // 1.5x if the attacker's ability is Strong Jaw and the used move is a biting move.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_MEGA_LAUNCHER) {
+        if (Moves_IsAuraOrPulse(moveID)) {
+            // 1.5x if the attacker's ability is Mega Launcher and the used move is aura or pulse-based.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_TECHNICIAN) {
+        if ((movePower <= 60) && (moveID != MOVE_STRUGGLE)) {
+            // 1.5x if the attacker's ability is Technician, the used move's power is less than or equal
+            // to 60, and the move is _not_ Struggle.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_TOXIC_BOOST) {
+        if ((movePSS == PSS_PHYSICAL) && (attacker->condition & CONDITION_POISON_ALL)) {
+            // 1.5x if the attacker's ability is Toxic Boost, the used move is Physical-split, and the
+            // attacker is poisoned.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_FLARE_BOOST) {
+        if ((movePSS == PSS_SPECIAL) && (attacker->condition & CONDITION_BURNED)) {
+            // 1.5x if the attacker's ability is Flare Boost, the used move is Special-split, and the
+            // attacker is burned.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_STEELY_SPIRIT) {
+        if (moveType == TYPE_STEEL) {
+            // 1.5x if the attacker's ability is Steely Spirit and the used move is Steel-type.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+        }
+    }
+
+    if (AllyHasAbility(battle, server, server->attacker, ABILITY_STEELY_SPIRIT)
+            && moveType == TYPE_STEEL) {
+        // 1.5x if the attacker's ally has Steely Spirit and the used move is Steel-type.
+        // Note that this modifier stacks with the attacker itself having Steely Spirit.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+    }
+
     if (moveType == TYPE_FIRE) {
-        // If the target's ability is Heatproof, 0.5x power.
         if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_HEATPROOF)) {
-            powerMod = powerMod * 5;
-            powerMod = DIV_ROUNDUP(powerMod, 10);
-        // If the target's ability is Dry Skin, 1.25x power.
+            // 0.5x if the target's ability is Heatproof, the used move is Fire-type, and the
+            // target's ability is not ignored.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_5);
         } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_DRY_SKIN)) {
-            powerMod = powerMod * 25;
-            powerMod = DIV_ROUNDUP(powerMod, 20);
+            // 1.25x if the target's ability is Dry Skin, the used move is Fire-type, and the
+            // target's ability is not ignored.
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_25);
         }
     }
 
-    // If the used move is a slashing move and the attacker's ability is Sharpness, 1.5x power.
-    if ((attackerParams->ability == ABILITY_SHARPNESS) && Moves_IsSlashing(moveID)) {
-        powerMod = powerMod * 15;
-        powerMod = DIV_ROUNDUP(powerMod, 10);
+    if (attacker->ability == ABILITY_SHARPNESS && Moves_IsSlashing(moveID)) {
+        // 1.5x if the attacker's ability is Sharpness and the used move is slashing-based.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
     }
 
-    // Now let's check some items. These will all be slightly inaccurate due to Platinum's paradigm
-    // for how to store the power modifier for these items.
-    // If the used move is Physical and the attacker is holding a Muscle Band, increase power.
-    if ((attackerParams->heldItemEffect == HOLD_EFFECT_BOOST_PHYSICAL) && (movePSS == PSS_PHYSICAL)) {
-        goto _BoostItem;
-    // If the used move is Special and the attacker is holding Wise Glasses, increase power.
-    } else if ((attackerParams->heldItemEffect == HOLD_EFFECT_BOOST_SPECIAL) && (movePSS == PSS_SPECIAL)) {
-        goto _BoostItem;
-    // If the attacker is holding a generic type-boosting item and the used move is of its matching
-    // type, increase power.
-    } else if ((attackerParams->heldItemEffect == sTypeBoostingItems[moveType])
-            || (attackerParams->heldItemEffect == sTypePlates[moveType])) {
-        goto _BoostItem;
-    // If the attacker is one of Giratina, Dialga, Palkia, Latias, or Latios, is holding a Griseous
-    // Orb, Adamant Orb, Lustrous Orb, or Soul Dew respectively, and the used move is either Dragon-type
-    // or Ghost/Steel/Water/Psychic-type (respectively), increase power.
-    } else if (((attackerParams->species == SPECIES_LATIAS) || (attackerParams->species == SPECIES_LATIOS))
-            && (attackerParams->heldItemEffect == HOLD_EFFECT_SOUL_DEW)
-            && ((moveType == TYPE_DRAGON) || (moveType == TYPE_PSYCHIC))) {
-        goto _BoostItem;
-    } else if ((attackerParams->species == SPECIES_DIALGA)
-            && (attackerParams->heldItemEffect == HOLD_EFFECT_ADAMANT_ORB)
-            && ((moveType == TYPE_DRAGON) || (moveType == TYPE_STEEL))) {
-        goto _BoostItem;
-    } else if ((attackerParams->species == SPECIES_PALKIA)
-            && (attackerParams->heldItemEffect == HOLD_EFFECT_LUSTROUS_ORB)
-            && ((moveType == TYPE_DRAGON) || (moveType == TYPE_WATER))) {
-        goto _BoostItem;
-    } else if ((attackerParams->species == SPECIES_GIRATINA)
-            && (attackerParams->heldItemEffect == HOLD_EFFECT_GRISEOUS_ORB)
-            && ((moveType == TYPE_DRAGON) || (moveType == TYPE_GHOST))) {
-        goto _BoostItem;
-    // If the attacker is holding a Gem and the used move is of its matching type, increase power.
-    } else if (attackerParams->heldItemEffect == sGems[moveType]) {
-        goto _BoostItem;
-    // If the attacker is holding a Punching Glove and the used move is a punching move, increase power.
-    } else if ((attackerParams->heldItemEffect == HOLD_EFFECT_BOOST_PUNCHING_MOVES) && Moves_IsPunching(moveID)) {
-        goto _BoostItem;
-    // None of the above items are equipped, so move along.
-    } else {
-        goto _AllBoostsApplied;
+    // ==================== END OF ABILITY CHAIN ==================== //
+    // ==================== START OF ITEM CHECKS ==================== //
+
+    if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_PHYSICAL) {
+        // 1.1x if the attacker is holding a Muscle Band and the used move is Physical.
+        if (movePSS == PSS_PHYSICAL) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
+        }
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_SPECIAL) {
+        // 1.1x if the attacker is holding Wise Glasses and the used move is Special.
+        if (movePSS == PSS_SPECIAL) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
+        }
+    } else if (attacker->heldItemEffect == sTypeBoostingItems[moveType]
+            || attacker->heldItemEffect == sTypePlates[moveType]) {
+        // 1.1x if the attacker is holding a type-boosting item, Incense, or Plate which matches
+        // the used move's type.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_ADAMANT_ORB) {
+        // 1.2x if the attacker is holding an Adamant Orb, the attacker is Dialga, and the used
+        // move is Dragon or Steel-type.
+        if (attacker->species == SPECIES_DIALGA
+                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_STEEL))) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
+        }
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_LUSTROUS_ORB) {
+        // 1.2x if the attacker is holding a Lustrous Orb, the attacker is Palkia, and the used
+        // move is Dragon or Water-type.
+        if (attacker->species == SPECIES_PALKIA
+                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_WATER))) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
+        }
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_GRISEOUS_ORB) {
+        // 1.2x if the attacker is holding a Griseous Orb, the attacker is Giratina, and the used
+        // move is Dragon or Ghost-type.
+        if (attacker->species == SPECIES_GIRATINA
+                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_GHOST))) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
+        }
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_GRISEOUS_ORB) {
+        // 1.2x if the attacker is holding a Soul Dew, the attacker is Lati@s, and the used
+        // move is Dragon or Psychic-type.
+        if (((attacker->species == SPECIES_LATIOS) || (attacker->species == SPECIES_LATIAS))
+                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_PSYCHIC))) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
+        }
+    } else if (attacker->heldItemEffect == sGems[moveType]) {
+        // 1.3x if the attacker is holding a Gem and the used move is of a matching type.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_PUNCHING_MOVES) {
+        // 1.1x if the attacker is holding a Punching Glove and the used move is punching-based.
+        if (Moves_IsPunching(moveID)) {
+            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
+        }
     }
 
-_BoostItem:
-    powerMod = powerMod * (100 + attackerParams->heldItemPower);
-    powerMod = DIV_ROUNDUP(powerMod, 100);
-
-_AllBoostsApplied:
-    return powerMod;
+    /*
+     * Now we apply the final modifier to the move's base power.
+     *
+     * Note that this procedure limits the input base power to
+     * 4095, but that does not really matter as no move comes
+     * close to that value (maximum is Explosion at 250).
+     */
+    u32 modifiedPower = UQ412_Mul_IntByQ_RoundDown(movePower, powerMod);
+    return (modifiedPower < 1) ? 1 : modifiedPower;         // power can never be less than 1
 }
 
+/**
+ * @brief Computes the base damage for a particular move, which is determined using the
+ * following formula:
+ * 
+ *   ( (2 * level)     )           effectiveAtk
+ *   ( ----------- + 2 ) * power * ------------
+ *   (      5          )           effectiveDef
+ *   ------------------------------------------ + 2
+ *                      50
+ * 
+ * Values for each operation in calculating the base damage are subject to
+ * standard rounding, rounding up at 0.5.
+ */
+static u16 Calc_BaseDamage(
+    struct Battle *battle,
+    struct BattleServer *server,
+    struct CalcParams *attacker,
+    struct CalcParams *defender
+)
+{
+    // Start by gathering/discerning some necessary data points.
+    u16  moveID        = server->moveIDCurr;
+    u16  moveBasePower = server->movePower;
+    u8   movePSS       = server->aiWork.moveTable[moveID].pss;
+    u8   moveType      = server->moveType;
+    BOOL isCritical    = server->critical > 1;
+    BOOL isAteAbility  = FALSE;
+
+    if (attacker->ability == ABILITY_NORMALIZE) {
+        if (Moves_CanNormalize(moveID)) {
+            moveType = TYPE_NORMAL;
+        }
+    } else if (attacker->ability == ABILITY_AERILATE) {
+        // Aerilate turns Normal-type sound moves into Flying-type.
+        if (moveType == TYPE_NORMAL) {
+            moveType         = TYPE_FLYING;
+            server->moveType = moveType;
+            isAteAbility     = TRUE;
+        }
+    } else if (attacker->ability == ABILITY_GALVANIZE) {
+        // Galvanize turns Normal-type sound moves into Electric-type.
+        if (moveType == TYPE_NORMAL) {
+            moveType         = TYPE_ELECTRIC;
+            server->moveType = moveType;
+            isAteAbility     = TRUE;
+        }
+    } else if (attacker->ability == ABILITY_PIXILATE) {
+        // Pixilate turns Normal-type sound moves into Fairy-type.
+        if (moveType == TYPE_NORMAL) {
+            moveType         = TYPE_FAIRY;
+            server->moveType = moveType;
+            isAteAbility     = TRUE;
+        }
+    } else if (attacker->ability == ABILITY_REFRIGERATE) {
+        // Refrigerate turns Normal-type sound moves into Ice-type.
+        if (moveType == TYPE_NORMAL) {
+            moveType         = TYPE_ICE;
+            server->moveType = moveType;
+            isAteAbility     = TRUE;
+        }
+    } else if (attacker->ability == ABILITY_LIQUID_VOICE) {
+        // Liquid Voice turns Normal-type sound moves into Water-type.
+        if (moveType == TYPE_NORMAL && Moves_IsSound(moveID)) {
+            moveType         = TYPE_WATER;
+            server->moveType = moveType;
+        }
+    } else if (moveType == TYPE_NORMAL) {
+        // If the move was specified Normal type, double-check it.
+        moveType = server->aiWork.moveTable[moveID].type;
+    }
+
+    // Calc the modified base power first.
+    u16 modifiedBasePower = Calc_ModifiedBasePower(
+        battle,
+        server,
+        attacker,
+        defender,
+        moveID,
+        moveBasePower,
+        movePSS,
+        moveType,
+        isAteAbility
+    );
+
+    // Treat Shell Side Arm moves differently
+    if (moveID == MOVE_SHELL_SIDE_ARM) {
+        return 0;
+    }
+
+    // Compute the effective offensive + defensive stats
+    // Some moves alter this process slightly
+    u16 effectiveOffense, effectiveDefense;
+    BOOL attackerUnaware = attacker->ability == ABILITY_UNAWARE;
+    BOOL defenderUnaware = Server_CheckDefenderAbility(server, attacker, defender, ABILITY_UNAWARE);
+    if (moveID == MOVE_PHOTON_GEYSER) {
+        /* 
+         * If the user's Attack stat is higher than its Special Attack stat, Photon Geyser
+         * becomes a Physical move; otherwise, it is a special move.
+         *
+         * During the execution of Photon Geyser, all ignorable Abilities are ignored.
+         *
+         * When determining which stat is higher, stat stage modifiers are taken into
+         * account, but other effects (held items, abilities, etc.) are not.
+         */
+        u16 boostedAttack   = Calc_AttackerStat(attacker->stats.attack,   attacker->stages.attack,   FALSE, FALSE);
+        u16 boostedSpAttack = Calc_AttackerStat(attacker->stats.spAttack, attacker->stages.spAttack, FALSE, FALSE);
+        if (boostedAttack > boostedSpAttack) {
+            // Now recalc everything accounting for crits.
+            effectiveOffense = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  FALSE, isCritical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, FALSE, isCritical);
+            movePSS = PSS_PHYSICAL;
+        } else {
+            effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  FALSE, isCritical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, FALSE, isCritical);
+        }
+    } else if (moveID == MOVE_BODY_PRESS) {
+        /*
+         * When calculating damage, Body Press uses the user's Defense stat instead of its
+         * Attack stat. Defense stat-stage modifiers are applied, but Attack modifiers are
+         * used thereafter.
+         *
+         * Since the user's Defense stat is used for calculating damage, Body Press does
+         * not consider Unaware when calculating the offensive stat.
+         */
+        effectiveOffense = Calc_AttackerStat(attacker->stats.defense, attacker->stages.defense, FALSE,           isCritical);
+        effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
+    } else if (moveID == MOVE_FOUL_PLAY) {
+        /*
+         * When calculating damage, Foul Play uses the target's Attack stat instead of its
+         * user's Attack stat. The target's Attack stat-stage modifiers are applied (rather
+         * than the user's), but the user's Attack modifiers are used thereafter.
+         * 
+         * Since the target's Attack stat is used for calculating damage, Foul Play does
+         * not consider Unaware when calculating the offensive stat.
+         */
+        effectiveOffense = Calc_AttackerStat(defender->stats.defense, defender->stages.defense, FALSE,           isCritical);
+        effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
+    } else if ((moveID == MOVE_PSYSHOCK)
+            || (moveID == MOVE_PSYSTRIKE)
+            || (moveID == MOVE_SECRET_SWORD)) {
+        /*
+         * Moves with this effect use the target's Defense stat instead of its Special
+         * Defense stat during damage calculation. The move, however, still deals Special
+         * damage.
+         */
+        effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack, defenderUnaware, isCritical);
+        effectiveDefense = Calc_DefenderStat(defender->stats.defense,   defender->stages.defense,  attackerUnaware, isCritical);
+    } else if (moveID == MOVE_SACRED_SWORD) {
+        /*
+         * When calculating damage, Sacred Sword ignores the target's Defense stat stages.
+         */
+        effectiveOffense = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.defense, defenderUnaware, isCritical);
+        effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, TRUE,            isCritical);
+    } else {
+        /*
+         * All other moves determine offensive/defensive stats depending on the PSS-split.
+         */
+        if (movePSS == PSS_PHYSICAL) {
+            effectiveOffense = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  defenderUnaware, isCritical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
+        } else {
+            effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  defenderUnaware, isCritical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, attackerUnaware, isCritical);
+        }
+    }
+
+    // Unlike all other offensive modifiers, Hustle is applied directly to the 
+    // Attack stat.
+    if (attacker->ability == ABILITY_HUSTLE && movePSS == PSS_PHYSICAL) {
+        effectiveOffense = UQ412_Mul_IntByQ_RoundDown(effectiveOffense, UQ412__1_5);
+    }
+
+    // Unlike all other defensive modifiers, Sandstorm SpD boost gets applied
+    // directly.
+    // Note: this is also where Snow's Def boost for Ice-types goes.
+    if (WeatherIsActive(battle, server, MOVE_SANDSTORM)
+            && ((defender->type1 == TYPE_ROCK) || (defender->type2 == TYPE_ROCK))
+            && (movePSS == PSS_SPECIAL)) {
+        effectiveDefense = UQ412_Mul_IntByQ_RoundDown(effectiveDefense, UQ412__1_5);
+    }
+
+    // Other stat modifiers are applied as a chain.
+    effectiveOffense = Calc_ChainOffenseMods(battle, server, attacker, defender, effectiveOffense, moveType, movePSS);
+    effectiveDefense = Calc_ChainDefenseMods(battle, server, attacker, defender, effectiveOffense, moveType, movePSS);
+
+    // All of these divisions are integer-division.
+    s32 baseDamage = 2 * BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_LEVEL, NULL);
+    baseDamage = baseDamage / 5 + 2;
+    baseDamage = baseDamage * modifiedBasePower;
+    baseDamage = baseDamage * effectiveOffense;
+    baseDamage = baseDamage / effectiveDefense;
+
+    return baseDamage / 50 + 2;
+}
+
+// this needs to be refactored
 inline u16 Calc_StatWithStages(u16 stat, u8 stage)
 {
-    u16 effective = stat * gStatModifierTable[stage][0];
-    return DIV_ROUNDUP(effective, gStatModifierTable[stage][1]);
+    return stat * gStatModifierTable[stage][0] / gStatModifierTable[stage][1];
 }
 
 static u16 Calc_AttackerStat(u16 stat, u8 stage, BOOL unaware, BOOL critical)
@@ -586,364 +736,306 @@ static u16 Calc_DefenderStat(u16 stat, u8 stage, BOOL unaware, BOOL critical)
     return Calc_StatWithStages(stat, stage);
 }
 
-/*
- * This routine is responsible for calculating the base damage for a particular move, which
- * is determined using the following formula:
- * 
- * 
- *   ( (2 * level)     )           effectiveAtk
- *   ( ----------- + 2 ) * power * ------------
- *   (      5          )           effectiveDef
- *   ------------------------------------------ + 2
- *                      50
- * 
- * Values for each operation in calculating the base damage are subject to
- * standard rounding, rounding up at 0.5.
- */
-static s32 Server_CalcBaseDamage(
+inline BOOL SlowStartActive(struct Battle *battle, struct BattleServer *server)
+{
+    return Server_Get(battle, server, SERVER_PARAM_TOTAL_TURNS, NULL)
+            - BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_SLOW_START_INIT_TURN, NULL)
+            < 5;
+}
+
+static u16 Calc_ChainOffenseMods(
     struct Battle *battle,
     struct BattleServer *server,
     struct CalcParams *attacker,
-    struct CalcParams *defender
-) {
-    u32 attackerLevel = BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_LEVEL, NULL);
-    u8  movePSS       = server->aiWork.moveTable[server->moveIDCurr].pss;  // TODO: change to new move table
-    u8  moveType      = Calc_MoveType(server, attacker, server->moveIDCurr, server->moveType);
-    u16 movePower     = (server->movePower == 0) ? server->aiWork.moveTable[server->moveIDCurr].power : server->movePower; // TODO: change to new move table
-    movePower         = movePower * Server_CalcPowerMod(
-        battle,
-        server,
-        attacker,
-        defender,
-        server->moveIDCurr,
-        movePower,
-        moveType,
-        movePSS,
-        moveType != server->moveType
-    );
-    movePower        = DIV_ROUNDUP(movePower, 4096);
-    server->moveType = moveType;    // reassign the type from this point; we're done with any -ate checks
-
-    /*
-     * Compute the effective value for each stat in advance, *only* accounting for stages on each stat.
-     *
-     * We do this ahead of time so that we can apply abilities and items which further modify the
-     * effective attacking stats afterwards. These are separated to account for effects which use
-     * different stats, e.g. Foul Play, Body Press, etc.
-     *
-     * Additionally, account for the presence of a critical hit or Unaware where necessary.
-     */
-    u16 effectiveAttack, effectiveDefense;
-    BOOL isCritical = server->critical > 1;
-    BOOL attackerUnaware = attacker->ability == ABILITY_UNAWARE;
-    BOOL defenderUnaware = Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_UNAWARE);
-    if (server->moveIDCurr == MOVE_SHELL_SIDE_ARM) {
-        // Fuck this move.
-        //
-        // For Shell Side Arm, we have to calculate whichever damage is higher: Physical or Special.
-        // This will also change some properties of the move; Physical Shell Side Arm is considered
-        // a contact move, while Special Shell Side Arm is not.
-        //
-        // The strategy here is to calculate the whole chain of effective attack and defense for
-        // either case, then determine the ratio of each pair and use the effective stats that
-        // result in a greater ratio. Unlike vanilla games, I'm choosing to implement this as
-        // always preferring to be a Special move in the event of a tie.
-    } else {
-        // All other moves follow (mostly) normal rules. We can get an effective stat pair and then
-        // chain on top of that stat pair.
-        if (server->moveIDCurr == MOVE_PHOTON_GEYSER) {
-            // For Photon Geyser, if the user's stage-modified Attack stat is strictly higher than its
-            // stage-modified SpAttack stat, the move becomes a physical move.
-            //
-            // This only takes into account stat stages; abilities and items are not considered.
-            // Unaware is ignored during Photon Geyser, and stat stages are always considered.
-            effectiveAttack = Calc_AttackerStat(attacker->stats.attack, attacker->stages.attack, FALSE, FALSE);
-
-            if (Calc_AttackerStat(attacker->stats.spAttack, attacker->stages.spAttack, FALSE, FALSE) >= effectiveAttack) {
-                effectiveAttack  = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  FALSE, isCritical);
-                effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, FALSE, isCritical);
-                movePSS = PSS_SPECIAL;
-            } else {
-                effectiveAttack  = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  FALSE, isCritical);
-                effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, FALSE, isCritical);
-                movePSS = PSS_PHYSICAL;
-            }
-        } else if (server->moveIDCurr == MOVE_FOUL_PLAY) {
-            // For Foul Play, we use the target's Attack stat and stages, but all other modifiers to
-            // the effective attacking stat from the attacker.
-            //
-            // e.g., Foul Play damage will be scaled if the attacker has Huge Power, but does not scale
-            // further if the target has Huge Power.
-            //
-            // Since Foul Play uses the target's Attack stat, it is wholly unaffected by a target
-            // possessing Unaware.
-            effectiveAttack  = Calc_AttackerStat(defender->stats.attack,  defender->stages.attack,  FALSE,           isCritical);
-            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
-        } else if (server->moveIDCurr == MOVE_BODY_PRESS) {
-            // For Body Press, we use the attacker's Defense stat and stages and then scale it with
-            // all other modifiers as if that were the Attack stat.
-            //
-            // e.g., Body Press damage will be scaled by Huge Power, but not by Fur Coat.
-            //
-            // Since Body Press uses the attacker's Defense stat, it is wholly unaffected by a target
-            // possessing Unaware.
-            effectiveAttack  = Calc_AttackerStat(attacker->stats.defense, attacker->stages.defense, FALSE,           isCritical);
-            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
-        } else if (server->moveIDCurr == MOVE_PSYSHOCK) {
-            // For these moves, explicitly get effective Defense, no matter the split category.
-            // TODO: Check a move effect, since this is shared by Psystrike and Secret Sword.
-            effectiveAttack  = Calc_AttackerStat(attacker->stats.spAttack, attacker->stages.spAttack, defenderUnaware, isCritical);
-            effectiveDefense = Calc_DefenderStat(defender->stats.defense,  defender->stages.defense,  attackerUnaware, isCritical);
-        } else {
-            // For all other moves, we can just get the effective attack and defense stats based on the
-            // move's PSS category.
-            if (movePSS == PSS_PHYSICAL) {
-                effectiveAttack  = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  defenderUnaware, isCritical);
-                effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
-            } else {
-                effectiveAttack  = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  defenderUnaware, isCritical);
-                effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, attackerUnaware, isCritical);
-            }
-        }
-
-        effectiveAttack  = Calc_ChainAttackingStatModifiers(battle, server, attacker, effectiveAttack,  moveType, movePSS);
-        effectiveDefense = Calc_ChainDefendingStatModifiers(battle, server, defender, effectiveDefense, moveType, movePSS);
-    }
-
-    s32 damage = (2 * attackerLevel);
-    damage     = DIV_ROUNDUP(damage, 5) + 2;
-    damage     = damage * movePower * effectiveAttack;
-    damage     = DIV_ROUNDUP(damage, effectiveDefense);
-    damage     = DIV_ROUNDUP(damage, 50) + 2;              // final base damage
-
-    return damage;
-}
-
-static u16 Calc_ChainAttackingStatModifiers(
-    struct Battle *battle,
-    struct BattleServer *server,
-    struct CalcParams *attacker,
-    u16 stat,
-    u8 moveType,
-    u8 movePSS
-) {
-    u16 chainedStat = stat;
-
-    // Check personal abilities first.
-    // PSS-agnostic abilities are at the top so that we can split based on the move's
-    // PSS category later if we are yet to have a match.
-    if (attacker->ability == ABILITY_BLAZE) {
-        // If the move is Fire-type and the user has less than or equal to 1/3 of its
-        // maxmimum HP remaining, increase the attacking stat by 50%.
-        if ((moveType == TYPE_FIRE) && (attacker->currHP <= (attacker->maxHP / 3))) {
-            goto _IncreaseBy50P;
-        }
-    } else if (attacker->ability == ABILITY_OVERGROW) {
-        // If the move is Grass-type and the user has less than or equal to 1/3 of its
-        // maxmimum HP remaining, increase the attacking stat by 50%.
-        if ((moveType == TYPE_GRASS) && (attacker->currHP <= (attacker->maxHP / 3))) {
-            goto _IncreaseBy50P;
-        }
-    } else if (attacker->ability == ABILITY_SWARM) {
-        // If the move is Bug-type and the user has less than or equal to 1/3 of its
-        // maxmimum HP remaining, increase the attacking stat by 50%.
-        if ((moveType == TYPE_BUG) && (attacker->currHP <= (attacker->maxHP / 3))) {
-            goto _IncreaseBy50P;
-        }
-    } else if (attacker->ability == ABILITY_TORRENT) {
-        // If the move is Water-type and the user has less than or equal to 1/3 of its
-        // maxmimum HP remaining, increase the attacking stat by 50%.
-        if ((moveType == TYPE_WATER) && (attacker->currHP <= (attacker->maxHP / 3))) {
-            goto _IncreaseBy50P;
-        }
-    } else if (server->activePokemon[server->attacker].moveEffects.flashFireActive) {
-        // If the move is Fire-type and the user has previously activated Flash Fire,
-        // increase the attacking stat by 50%.
-        if (moveType == TYPE_FIRE) {
-            goto _IncreaseBy50P;
-        }
-    } else if (movePSS == PSS_PHYSICAL) {
-        // Check for some Physical-only abilities
-        if (attacker->ability == ABILITY_GUTS) {
-            // If the attacker is Burned, Poisoned, Paralyzed, or Asleep, increase Attack
-            // by 50%.
-            if (attacker->condition & CONDITION_BOOST_GUTS) {
-                goto _IncreaseBy50P;
-            }
-        } else if ((attacker->ability == ABILITY_HUGE_POWER)
-                || (attacker->ability == ABILITY_PURE_POWER)) {
-            // Double Attack.
-            goto _Double;
-        } else if (attacker->ability == ABILITY_HUSTLE) {
-            // Increase Attack by 50%.
-            goto _IncreaseBy50P;
-        } else if (attacker->ability == ABILITY_ORICHALCUM_PULSE) {
-            // If Sunny weather is active, increase Attack by 33%.
-            // This applies even if the attacker is holding a Utility Umbrella.
-            if ((Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
-                    && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0)
-                    && (server->fieldConditions.raw & FIELD_CONDITION_SUNNY)) {
-                goto _IncreaseBy33P;
-            }
-        } else {
-            goto _AfterAbilityChaining;
-        }
-    } else if (movePSS == PSS_SPECIAL) {
-        // Check for some Special-only abilities
-        if (attacker->ability == ABILITY_HADRON_ENGINE) {
-            // If Electric Terrain is active, increase SpAttack by 33%.
-            // This applies even if the attacker is not grounded.
-            goto _IncreaseBy33P;
-        } else if ((attacker->ability == ABILITY_PLUS) || (attacker->ability == ABILITY_MINUS)) {
-            // If the attacker's partner has Plus or Minus, increase SpAttack by 50%.
-            u8 partner = (server->attacker + 2) % 4;
-            if ((server->activePokemon[partner].ability == ABILITY_PLUS)
-                    || (server->activePokemon[partner].ability == ABILITY_MINUS)) {
-                goto _IncreaseBy50P;
-            }
-        } else if (attacker->ability == ABILITY_SOLAR_POWER) {
-            // If Sunny weather is active, increase SpAttack by 50%.
-            if ((Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
-                    && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0)
-                    && (server->fieldConditions.raw & FIELD_CONDITION_SUNNY)) {
-                goto _IncreaseBy50P;
-            }
-        } else {
-            goto _AfterAbilityChaining;
-        }
-    } else {
-        goto _AfterAbilityChaining;
-    }
-
-_IncreaseBy50P:
-    chainedStat = chainedStat * 3;
-    chainedStat = DIV_ROUNDUP(chainedStat, 2);
-    goto _AfterAbilityChaining;
-
-_Double:
-    chainedStat = chainedStat * 2;
-    goto _AfterAbilityChaining;
-
-_IncreaseBy33P:
-    chainedStat = chainedStat * 5461;
-    chainedStat = DIV_ROUNDUP(chainedStat, 4096);
-
-_AfterAbilityChaining:
-    // One more self-ability check: Flower Gift checks for its partner but does not stack with
-    // it, so it must be checked last.
-    // 
-    // If Sunny weather is active and at least one of the attacker or its ally has Flower
-    // Gift, increase Attack by 50%. This effect ignores Utility Umbrella.
-    // Vanilla technically only lets this happen on Cherrim, but that interaction is so
-    // niche that no one should care. (It's more fun this way.)
-    if ((movePSS == PSS_PHYSICAL)
-            // Someone on our side has Flower Gift
-            && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_ON_MY_SIDE, server->attacker, ABILITY_FLOWER_GIFT))
-            // Sunny weather is active
-            && (server->fieldConditions.raw & FIELD_CONDITION_SUNNY)
-            // No weather-negating effects are in play
-            && ((Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
-                || (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0))) {
-        chainedStat = chainedStat * 3;
-        chainedStat = DIV_ROUNDUP(chainedStat, 2);
-    }
-
-    // We also need to check for a few abilities on the target which affect the attacking stat.
-    if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_THICK_FAT)) {
-        if ((moveType == TYPE_FIRE) || (moveType == TYPE_ICE)) {
-            chainedStat = DIV_ROUNDUP(chainedStat, 2);
-        }
-    } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_PURIFYING_SALT)) {
-        if (moveType == TYPE_GHOST) {
-            chainedStat = DIV_ROUNDUP(chainedStat, 2);
-        }
-    }
-
-    // Now we can actually check some items.
-    if ((attacker->species == SPECIES_PIKACHU) && (attacker->heldItemEffect == HOLD_EFFECT_LIGHT_BALL)) {
-        goto _IncreaseBy50P_Item;
-    } else if (movePSS == PSS_PHYSICAL) {
-        if (attacker->heldItemEffect == HOLD_EFFECT_CHOICE_BAND) {
-            goto _IncreaseBy50P_Item;
-        } else if ((attacker->heldItemEffect == HOLD_EFFECT_THICK_CLUB)
-                && ((attacker->species == SPECIES_CUBONE) || (attacker->species == SPECIES_MAROWAK))) {
-            goto _Double_Item;
-        } else {
-            goto _AfterItemChaining;
-        }
-    } else if (movePSS == PSS_SPECIAL) {
-        if (attacker->heldItemEffect == HOLD_EFFECT_CHOICE_SPECS) {
-            goto _IncreaseBy50P_Item;
-        } else if ((attacker->heldItemEffect == HOLD_EFFECT_DEEP_SEA_TOOTH)
-                && (attacker->species == SPECIES_CLAMPERL)) {
-            goto _Double_Item;
-        }
-    }
-
-_IncreaseBy50P_Item:
-    chainedStat = chainedStat * 3;
-    chainedStat = DIV_ROUNDUP(chainedStat, 2);
-    goto _AfterItemChaining;
-
-_Double_Item:
-    chainedStat = chainedStat << 1;
-
-_AfterItemChaining:
-    return chainedStat;
-}
-
-static u16 Calc_ChainDefendingStatModifiers(
-    struct Battle *battle,
-    struct BattleServer *server,
     struct CalcParams *defender,
     u16 stat,
     u8 moveType,
     u8 movePSS
-) {
-    u16 chainedStat = stat;
-
-    if (movePSS == PSS_PHYSICAL) {
-        if (defender->ability == ABILITY_GRASS_PELT) {
-            chainedStat = chainedStat * 3;
-            chainedStat = DIV_ROUNDUP(chainedStat, 2);
-        } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FUR_COAT)) {
-            chainedStat = chainedStat * 2;
+)
+{
+    u16 statMod = UQ412__1_0;
+    if (attacker->ability == ABILITY_SLOW_START) {
+        // Slow Start halves the Attack stat during the first five turns that a Pokemon
+        // is in battle.
+        if (movePSS == PSS_PHYSICAL && SlowStartActive(battle, server)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
         }
-
-        if ((defender->heldItemEffect == HOLD_EFFECT_BOOST_DEFENSE_DITTO) && (defender->species == SPECIES_DITTO)) {
-            chainedStat = chainedStat * 2;
+    } else if (attacker->ability == ABILITY_DEFEATIST) {
+        // Deafeatist halves all offensive stats when the attacker has HP less than or
+        // equal to half of its maximum HP.
+        if (attacker->currHP <= (attacker->maxHP / 2)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
         }
-    } else if ((movePSS == PSS_SPECIAL)) {
-        // The attacker does NOT have a Mold Breaker effect
-        if ((server->activePokemon[server->attacker].moldBreakerShown == 0)
-                // Someone on the targeted side has Flower Gift
-                && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_ON_MY_SIDE, server->defender, ABILITY_FLOWER_GIFT))
-                // Sunny weather is active
-                && (server->fieldConditions.raw & FIELD_CONDITION_SUNNY)
-                // No weather-negating effects are in play
-                && ((Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
-                    || (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0))) {
-            chainedStat = chainedStat * 3;
-            chainedStat = DIV_ROUNDUP(chainedStat, 2);
+    } else if (attacker->ability == ABILITY_SOLAR_POWER) {
+        // Solar Power increases SpAttack by 50% during harsh sunlight.
+        if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
         }
-
-        if (defender->heldItemEffect == HOLD_EFFECT_BOOST_SPD_NO_STATUS_MOVES) {
-            chainedStat = chainedStat * 3;
-            chainedStat = DIV_ROUNDUP(chainedStat, 2);
-        } else if ((defender->heldItemEffect == HOLD_EFFECT_DEEP_SEA_SCALE) && (defender->species == SPECIES_CLAMPERL)) {
-            chainedStat = chainedStat * 2;
+    } else if (attacker->ability == ABILITY_FLOWER_GIFT) {
+        // Flower Gift increases Attack by 50% during harsh sunlight.
+        // Flower Gift does not stack with itself, so skip past the Ally check below.
+        if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+        goto _SkipAttackAllyFlowerCheck;
+    } else if (attacker->ability == ABILITY_GORILLA_TACTICS) {
+        // Gorilla Tactics increases Attack by 50%.
+        if (movePSS == PSS_PHYSICAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
         }
     }
 
-    // Check Eviolite separately, since it always boosts the defensive stat
-    // TODO: Pokemon_IsNFE needs to be un-stubbed for this to function.
-    if ((defender->heldItemEffect == HOLD_EFFECT_EVIOLITE)
-            && Pokemon_IsNFE(defender->species, server->activePokemon[server->defender].formNum)) {
-        chainedStat = chainedStat * 3;
-        chainedStat = DIV_ROUNDUP(chainedStat, 2);
+    // Check for ally Flower Gift here separately, but not if the attacker has Flower Gift.
+    if (AllyHasAbility(battle, server, server->attacker, ABILITY_FLOWER_GIFT)) {
+        if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
     }
 
-    return chainedStat;
+_SkipAttackAllyFlowerCheck:
+    if (attacker->ability == ABILITY_GUTS) {
+        // Guts increases Attack by 50% if the attacker is statused.
+        //
+        // This is technically incorrect compared to vanilla, where the boost
+        // does not activate if frozen and using a move which thaws the user out.
+        // But I don't care lol.
+        if (movePSS == PSS_PHYSICAL && attacker->condition) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_BLAZE) {
+        // Blaze increases offensive stats by 50% if the attacker's current HP is less
+        // than or equal to 1/3 of its maximum and the used move is Fire-type.
+        if (moveType == TYPE_FIRE && (attacker->currHP < attacker->maxHP / 3)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_OVERGROW) {
+        // Overgrow increases offensive stats by 50% if the attacker's current HP is less
+        // than or equal to 1/3 of its maximum and the used move is Grass-type.
+        if (moveType == TYPE_GRASS && (attacker->currHP < attacker->maxHP / 3)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_SWARM) {
+        // Swarm increases offensive stats by 50% if the attacker's current HP is less
+        // than or equal to 1/3 of its maximum and the used move is Bug-type.
+        if (moveType == TYPE_BUG && (attacker->currHP < attacker->maxHP / 3)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_TORRENT) {
+        // Torrent increases offensive stats by 50% if the attacker's current HP is less
+        // than or equal to 1/3 of its maximum and the used move is Water-type.
+        if (moveType == TYPE_WATER && (attacker->currHP < attacker->maxHP / 3)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_FLASH_FIRE) {
+        // Flash Fire increases offensive stats by 50% if the attacker was previously
+        // hit by a Fire-type move while possessing Flash Fire and the used move is
+        // Fire-type.
+        if (moveType == TYPE_FIRE
+                && server->activePokemon[server->attacker].moveEffects.flashFireActive) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_STEELWORKER) {
+        // Steelworker increases offensive stats by 50% if the used move is Steel-type.
+        if (moveType == TYPE_STEEL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_DRAGONS_MAW) {
+        // Dragon's Maw increases offensive stats by 50% if the used move is Dragon-type.
+        if (moveType == TYPE_DRAGON) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_ROCKY_PAYLOAD) {
+        // Rocky Payload increases offensive stats by 50% if the used move is Rock-type.
+        if (moveType == TYPE_ROCK) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_TRANSISTOR) {
+        // Transistor increases offensive stats by 50% if the used move is Electric-type.
+        if (moveType == TYPE_ELECTRIC) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->ability == ABILITY_STAKEOUT) {
+        // Stakeout doubles offensive stats if the target switched in this turn.
+        // TODO: need a way to know which clients switched in this turn
+        if (FALSE) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+        }
+    } else if (attacker->ability == ABILITY_WATER_BUBBLE) {
+        // Water Bubble doubles offensive stats if the used move is Water-type.
+        if (moveType == TYPE_WATER) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+        }
+    } else if (attacker->ability == ABILITY_HUGE_POWER || attacker->ability == ABILITY_PURE_POWER) {
+        // Huge/Pure Power doubles the Attack stat.
+        if (moveType == PSS_PHYSICAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+        }
+    }
+
+    if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_THICK_FAT)) {
+        // Thick Fat halves the attacking stats if the used move is Fire or Ice-type.
+        if (moveType == TYPE_FIRE || moveType == TYPE_ICE) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
+        }
+    } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_WATER_BUBBLE)) {
+        // Water Bubble halves the attacking stats if the used move is Fire-type.
+        if (moveType == TYPE_FIRE) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
+        }
+    } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_PURIFYING_SALT)) {
+        // Purifying Salt halves the attacking stats if the used move is Ghost-type.
+        if (moveType == TYPE_GHOST) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
+        }
+    }
+    
+    if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_NOT_MINE, server->attacker, ABILITY_TABLETS_OF_RUIN)) {
+        // Tablets of Ruin decreases the Attack stat of all Pokemon on the field other
+        // than its bearer by 25% so long as the attacker does not also have Tablets of
+        // Ruin.
+        if (attacker->ability != ABILITY_TABLETS_OF_RUIN && movePSS == PSS_PHYSICAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_75);
+        }
+    }
+    if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_NOT_MINE, server->attacker, ABILITY_VESSEL_OF_RUIN)) {
+        // Vessel of Ruin decreases the SpAttack stat of all Pokemon on the field other
+        // than its bearer by 25% so long as the attacker does not also have Vessel of
+        // Ruin.
+        if (attacker->ability != ABILITY_VESSEL_OF_RUIN && movePSS == PSS_SPECIAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_75);
+        }
+    }
+
+    // TODO: Protosynthesis, Quark Drive go here
+    if (attacker->ability == ABILITY_HADRON_ENGINE) {
+        // Hadron Engine increases SpAttack by 33% on Electric Terrain, even if the
+        // attacker is not grounded.
+        //
+        // TODO: Electric Terrain
+        if (FALSE) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_3333);
+        }
+    } else if (attacker->ability == ABILITY_ORICHALCUM_PULSE) {
+        // Orichalcum Pulse increases Attack by 33% during harsh sunlight, even if
+        // the attacker is holding a Utility Umbrella.
+        if (WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_3333);
+        }
+    }
+
+    if (attacker->heldItemEffect == HOLD_EFFECT_THICK_CLUB) {
+        // Thick Club doubles the Attack stat of Cubone and Marowak.
+        if (movePSS == PSS_PHYSICAL
+                && (attacker->species == SPECIES_CUBONE || attacker->species == SPECIES_MAROWAK)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+        }
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_DEEP_SEA_TOOTH) {
+        // Deep Sea Tooth doubles the SpAttack stat of Clamperl.
+        if (movePSS == PSS_SPECIAL && attacker->species == SPECIES_CLAMPERL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+        }
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_LIGHT_BALL) {
+        // Light Ball doubles the attacking stats of Pikachu.
+        if (attacker->species == SPECIES_PIKACHU) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+        }
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_CHOICE_BAND) {
+        // Choice Band increases the Attack stat by 50%.
+        if (movePSS == PSS_PHYSICAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_CHOICE_SPECS) {
+        // Choice Specs increases the Attack stat by 50%.
+        if (movePSS == PSS_SPECIAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    }
+
+    return UQ412_Mul_IntByQ_RoundDown(stat, statMod);
+}
+
+static u16 Calc_ChainDefenseMods(
+    struct Battle *battle,
+    struct BattleServer *server,
+    struct CalcParams *attacker,
+    struct CalcParams *defender,
+    u16 stat,
+    u8 moveType,
+    u8 movePSS
+)
+{
+    u16 statMod = UQ412__1_0;
+    if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_MARVEL_SCALE)) {
+        // Marvel Scale increases Defense by 50% if the bearer has a status condition.
+        if (defender->condition && movePSS == PSS_PHYSICAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FLOWER_GIFT)) {
+        // Flower Gift increases SpDefense by 50% during harsh sunlight.
+        if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+        goto _SkipDefenseAllyFlowerGift;
+    } else if (defender->ability == ABILITY_GRASS_PELT) {
+        // Grass Pelt increases Defense by 50% while Grassy Terrain is active. It is
+        // not ignored by Mold Breaker.
+        //
+        // TODO: Grassy Terrain
+        if (movePSS == PSS_PHYSICAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FUR_COAT)) {
+        // Fur Coat doubles the Defense stat.
+        if (movePSS == PSS_PHYSICAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+        }
+    }
+
+    if (Server_CheckDefenderAbility(server, server->attacker, ((server->defender + 2) % 4), ABILITY_FLOWER_GIFT)) {
+        // Flower Gift increases ally's SpDefense by 50% during harsh sunlight.
+        if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    }
+
+_SkipDefenseAllyFlowerGift:
+    if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_NOT_MINE, server->defender, ABILITY_SWORD_OF_RUIN)) {
+        // Sword of Ruin decreases the Defense stat of all Pokemon on the field other
+        // than its bearer by 25% so long as the defender does not also have Sword of
+        // Ruin.
+        if (defender->ability != ABILITY_SWORD_OF_RUIN && movePSS == PSS_PHYSICAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_75);
+        }
+    }
+    if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_NOT_MINE, server->defender, ABILITY_BEADS_OF_RUIN)) {
+        // Beads of Ruin decreases the SpDefense stat of all Pokemon on the field other
+        // than its bearer by 25% so long as the defender does not also have Beads of
+        // Ruin.
+        if (defender->ability != ABILITY_BEADS_OF_RUIN && movePSS == PSS_SPECIAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_75);
+        }
+    }
+
+    // TODO: Protosynthesis, Quark Drive
+
+    if (defender->heldItemEffect == HOLD_EFFECT_BOOST_DEFENSE_DITTO) {
+        // Metal Powder doubles the Defense of Ditto.
+        if (defender->species == SPECIES_DITTO && movePSS == PSS_PHYSICAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+        }
+    } else if (defender->heldItemEffect == HOLD_EFFECT_DEEP_SEA_SCALE) {
+        // Deep Sea Scale doubles the SpDefense of Clamperl.
+        if (defender->species == SPECIES_CLAMPERL && movePSS == PSS_SPECIAL) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+        }
+    } else if (defender->heldItemEffect == HOLD_EFFECT_EVIOLITE) {
+        // Eviolite increases defensive stats by 50% if the defender is not fully evolved.
+        if (Pokemon_IsNFE(defender->species, server->activePokemon[server->defender].formNum)) {
+            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+        }
+    }
+
+    return UQ412_Mul_IntByQ_RoundDown(stat, statMod);
 }
 
 // https://bulbapedia.bulbagarden.net/wiki/Damage#Generation_V_onward
@@ -973,7 +1065,6 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
         .heldItemEffect = Server_HeldItemEffect(server, server->attacker),
         .heldItemPower  = Server_HeldItemPower(server, server->attacker, 0),
     };
-
     struct CalcParams defenderParams = {
         .species        = BattlePokemon_Get(server, server->defender, BATTLE_MON_PARAM_SPECIES,          NULL),
         .currHP         = BattlePokemon_Get(server, server->defender, BATTLE_MON_PARAM_HP_CURRENT,       NULL),
@@ -1002,63 +1093,83 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
     u32 battleType = Battle_Type(battle);
 
     // Step 1: Calculate the base damage value.
-    s32 damage = Server_CalcBaseDamage(battle, server, &attackerParams, &defenderParams);
+    s32 damage = Calc_BaseDamage(battle, server, &attackerParams, &defenderParams);
 
-    // Step 2: Multiply by 3/4 if the move has more than one target upon execution.
+    // Step 2: 0.75x if the move has more than one target upon execution.
     u32 battleType = Battle_Type(battle);
     if ((battleType & BATTLE_TYPE_DOUBLES) && (Server_HitCount(battle, server, 0, server->defender) > 1)) {
-        damage = damage * 3 / 4;
+        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_75);
     }
 
     // Step 3: Divide by 4 if the move is the second-strike of Parental Bond.
     // TODO
 
-    // Step 4: Multiply by 3/2 if the active weather is Sun or Rain and the move is Fire or Water type, respectively.
-    //         Divide by 2 if the active weather is Sun or Rain and the move is Water or Fire type, respectively.
-    if ((Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE) == 0)
-            && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0)) {
-        if (server->fieldConditions.raw & FIELD_CONDITION_SUNNY) {
-            if (server->moveType == TYPE_FIRE) {
-                damage = (damage * 3) >> 1;
-            } else if (server->moveType == TYPE_WATER) {
-                damage = damage >> 1;
-            }
-        } else if (server->fieldConditions.raw & FIELD_CONDITION_RAINING) {
-            if (server->moveType == TYPE_WATER) {
-                damage = (damage * 3) >> 1;
-            } else if (server->moveType == TYPE_FIRE) {
-                damage = damage >> 1;
-            }
+    // Step 4: 1.5x if the active weather is Sun or Rain and the move is Fire or Water type, respectively.
+    //         0.5x if the active weather is Sun or Rain and the move is Water or Fire type, respectively.
+    // Neither applies if the defender is holding a Utility Umbrella.
+    if (WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)
+            && defenderParams.heldItemEffect != HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN) {
+        if (server->moveType == TYPE_FIRE) {
+            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
+        } else if (server->moveType == TYPE_WATER) {
+            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
+        }
+    } else if (WeatherIsActive(battle, server, FIELD_CONDITION_RAINING)
+            && defenderParams.heldItemEffect != HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN) {
+        if (server->moveType == TYPE_WATER) {
+            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
+        } else if (server->moveType == TYPE_FIRE) {
+            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
         }
     }
 
-    // Step 5: Multiply by 2 if the defender used Glaive Rush last turn (or this turn) and the move does
+    // Step 5: 2x if the defender used Glaive Rush last turn (or this turn) and the move does
     // not have a fixed damage value.
     // TODO
 
     // Step 6: Multiply by the critical hit factor.
-    //  - 3/2 if the move was a critical hit
-    //  - 9/4 if the move was a critical hit and the attacker has Sniper
+    //  - 1.5x  if the move was a critical hit
+    //  - 2.25x if the move was a critical hit and the attacker has Sniper
     if (server->critical == 2) {        // Normal criticals
-        damage = (damage * 3) >> 1;
+        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
     } else if (server->critical == 3) { // Sniper criticals
-        damage = (damage * 9) >> 2;
+        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__2_25);
     }
 
-    // Step 7: Multiply by 3/2 if the attacker shares a type with the move.
+    // Step 7: Apply random damage fluctuation.
+    // TODO
+
+    // Step 8: 1.5x if the attacker shares a type with the move.
     // TODO: Handle Soak, Forest's Curse, Trick-or-Treat.
-    if ((server->moveType == attackerParams.type1) || (server->moveType || attackerParams.type2)) {
-        damage = (damage * 3) >> 1;
+    u16 stabMod = UQ412__1_0;
+    if ((server->moveType == attackerParams.type1) || (server->moveType == attackerParams.type2)) {
+        stabMod = stabMod + UQ412__0_5;
+    } else if ((attackerParams.ability == ABILITY_PROTEAN) || (attackerParams.ability == ABILITY_LIBERO)) {
+        // This one is only here for the AI.
+        stabMod = stabMod + UQ412__0_5;
     }
 
-    // Step 8: Apply overall type effectiveness; multiply/divide by 2 according to each effectiveness
+    if ((attackerParams.ability == ABILITY_ADAPTABILITY)
+            && ((attackerParams.type1 == server->moveType) || (attackerParams.type2 == server->moveType))) {
+        stabMod = stabMod + UQ412__0_5;
+    }
+
+    damage = Q412_Mul_IntByQ_RoundDown(damage, stabMod);
+
+    // Step 9: Apply overall type effectiveness; multiply/divide by 2 according to each effectiveness
     // matchup of the move's type vs the defender's types.
     //
     // TODO: Forest's Curse and Trick-or-Treat add types to a Pokemon, so three types need to be checked.
 
-    // Step 9: Divide by 2 if the attacker is burned and does not have Guts nor is using Facade.
+    // Step 10: Divide by 2 if the attacker is burned and does not have Guts nor is using Facade.
+    if (server->aiWork.moveTable[server->moveIDCurr].pss == PSS_PHYSICAL) {
+        if ((attackerParams.condition & CONDITION_BURNED)
+                && ((attackerParams.ability != ABILITY_GUTS) && (server->moveIDCurr != MOVE_FACADE))) {
+            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
+        }
+    }
 
-    // Step 10: Finish up remaining modifiers, in-order:
+    // Step 11: Finish up remaining modifiers, in-order:
     //  - various moves interacting with Minimize
     //  - Earthquake and Magnitude, if the opponent is semi-invulnerable via Dig    
     //  - Surf and Whirlpool, if the opponent is semi-invulnerable via Dive
@@ -1074,6 +1185,10 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
     //  - Expert Belt, Life Orb, and Metronome
 
     // Step 11: Divide by 4 if the used move is a Z-move and the target is trying to Protect itself.
+    // TODO: Z-moves
+
+    // And we're done.
+    server->damage = damage;
 }
 
 int Server_CalcCritical(
@@ -1122,103 +1237,3 @@ int Server_CalcCritical(
 
     return ret;
 }
-
-#if 0
-
-static BOOL Server_CheckHitForMoveEffect(struct Battle *battle, struct BattleServer *server, int attacker, int defender, int moveID)
-{
-    // Charging moves do not check accuracy on their first turn
-    if (server->serverStatusFlag & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) {
-        return FALSE;
-    }
-
-    // if ((server->stFX[defender].protected)
-    //         && (server->moveTable[moveID].flag & 0x02)) {
-    //     if ((moveID != ))
-    // }
-}
-
-// ST_ServerHukitobasiCheck
-// https://bulbapedia.bulbagarden.net/wiki/Whirlwind_(move)
-// https://bulbapedia.bulbagarden.net/wiki/Roar_(move)
-static BOOL Server_CheckWhirlwind(struct Battle *battle, struct BattleServer *server)
-{
-    return (
-            // In Trainer battles, Whirlwind will now succeed if it hits, regardless of either Pokémon's level.
-            (Battle_Type(battle) & BATTLE_TYPE_TRAINER)
-            // In wild Pokémon battles, Whirlwind will now always fail if the user's level is less than the target's.
-        ||  (server->activePokemon[server->attacker].level >= server->activePokemon[server->defender].level)
-    );
-}
-
-enum PokeConditionCheck {
-    CONDITION_CHECK_INGRAIN,        // no changes
-    CONDITION_CHECK_AQUA_RING,      // no changes
-    CONDITION_CHECK_ABILITY,        // Speed Boost, Shed Skin (separate function)
-    CONDITION_CHECK_BERRY,          // separate function: restore HP, restore % HP, restore status, restore PP, pinch boosts, herbs (NOT Custap Berry)
-    CONDITION_CHECK_LEFTOVERS,      // separate function; also black sludge
-    CONDITION_CHECK_LEECH_SEED,     // no changes
-    CONDITION_CHECK_POISON,         // no changes (here)
-    CONDITION_CHECK_TOXIC,          // no changes
-    CONDITION_CHECK_BURN,           // no changes (here)
-    CONDITION_CHECK_NIGHTMARE,      // no changes (here)
-    CONDITION_CHECK_CURSE,          // no changes (here)
-    CONDITION_CHECK_TRAPPED,        // need to hook on this one to change the damage amount (and account for Binding Band)
-    CONDITION_CHECK_BAD_DREAMS,     // no changes
-    CONDITION_CHECK_UPROAR,         // script change to last exactly 3 turns
-    CONDITION_CHECK_THRASH,         // hook here to account for missing on the final turn and still get confused
-    CONDITION_CHECK_DISABLE,
-    CONDITION_CHECK_ENCORE,
-    CONDITION_CHECK_LOCK_ON,
-    CONDITION_CHECK_GRAVITY,
-    CONDITION_CHECK_TAUNT,
-    CONDITION_CHECK_MAGNET_RISE,
-    CONDITION_CHECK_HEAL_BLOCK,
-    CONDITION_CHECK_EMBARGO,
-    CONDITION_CHECK_YAWN,
-    CONDITION_CHECK_STATUS_ORB,
-    CONDITION_CHECK_STICKY_BARB,
-    CONDITION_CHECK_END
-};
-
-#define CONDITION_V_CLAMPED_DEC 0x00002000
-
-// Hook this into branch_224d394 and branch down to Function_224d972 when done
-// r0 = server, r1 = client
-// server is at 0x10 on the stack
-// client comes in as r5?
-static u8 Server_ClampDamage(struct BattleServer *server, int client)
-{
-    if ((server->activePokemon[client].condition2 & CONDITION_V_CLAMPED)
-        && (server->activePokemon[client].curHP != 0)) {
-        // TODO: Figure out how to make this support 7 total turns for Grip Claw
-        // Reduce the turn count by 1
-        server->activePokemon[client].condition2 -= CONDITION_V_CLAMPED_DEC;
-
-        // If still bound, deal damage; else, call the cleanup subscript
-        if (server->activePokemon[client].condition2 & CONDITION_V_CLAMPED) {
-            int divFactor = 8;
-            // ST_ServerSoubiEqpGet
-            if (Server_HeldItemEffect(server, client) == HOLD_EFFECT_INCREASE_TRAPPING_DAMAGE) {
-                divFactor = 6;
-            }
-
-            server->hpCalcWork = Server_Divide(server->activePokemon[client].maxHP * -1, divFactor);
-            // ST_ServerSequenceLoad
-            Server_LoadSequence(server, ARC_SUBSCR, SUBSCR_CLAMP_DAMAGE);
-        } else {
-            Server_LoadSequence(server, ARC_SUBSCR, SUBSCR_CLAMP_END);
-        }
-        
-        server->moveWork      = server->activePokemon[client].moveEffects.bindingMove;
-        server->clientWork    = client;
-        server->serverSeqNext = server->serverSeqNum;
-        server->serverSeqNum  = 21;     // TODO: Constant
-
-        return 1;
-    }
-
-    return 0;
-}
-
-#endif

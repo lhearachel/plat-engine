@@ -404,7 +404,7 @@ struct __attribute__((packed)) BattleServer {
     int     criticalCount;
     int     critical;
     int     movePower;      // stores the final power of a move (mostly important for variable power moves)
-    int     moveMultiplier; // stores any move-specific contextual damage multipliers (e.g. Revenge)
+    int     powerModifier; // stores any move-specific contextual damage multipliers (e.g. Revenge)
     int     hpCalcWork;
     int     moveType;
     int     moveEffectCounter;
