@@ -30,6 +30,8 @@
 #define TYPE_DARK     0x11
 #define TYPE_NONE     0x1F
 
+#define NUM_TYPES     (TYPE_DARK + 1)
+
 // ===== Body Colors ======
 
 #define BODY_COLOR_RED      0x0

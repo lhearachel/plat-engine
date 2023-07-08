@@ -1,3 +1,4 @@
+#include "config.h"
 #include "global.h"
 
 #include "battle/common.h"
@@ -1130,14 +1131,32 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
     // Step 6: Multiply by the critical hit factor.
     //  - 1.5x  if the move was a critical hit
     //  - 2.25x if the move was a critical hit and the attacker has Sniper
+#if !defined(CRITICAL_DAMAGE_MULTIPLIER) || CRITICAL_DAMAGE_MULTIPLIER >= GEN6
     if (server->critical == 2) {        // Normal criticals
         damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
     } else if (server->critical == 3) { // Sniper criticals
         damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__2_25);
     }
+#else   // Gen5 critical damage
+    if (server->critical == 2) {        // Normal criticals
+        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__2_0);
+    } else if (server->critical == 3) { // Sniper criticals
+        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__3_0);
+    }
+#endif
 
     // Step 7: Apply random damage fluctuation.
-    // TODO
+#ifdef DEBUG_MODE
+    // Debug mode: store all possible damage values as a buffer.
+    s32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
+    for (int i = 0; i < 16; i++) {
+        damageValues[i] = damage * damageValues[i] / 100;
+    }
+#else
+    // Generate a random number from 85 to 100.
+    int rand = 100 - (Battle_Random(battle) % 16);
+    damage = damage * rand / 100;
+#endif
 
     // Step 8: 1.5x if the attacker shares a type with the move.
     // TODO: Handle Soak, Forest's Curse, Trick-or-Treat.
@@ -1154,18 +1173,18 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
         stabMod = stabMod + UQ412__0_5;
     }
 
-    damage = Q412_Mul_IntByQ_RoundDown(damage, stabMod);
-
     // Step 9: Apply overall type effectiveness; multiply/divide by 2 according to each effectiveness
     // matchup of the move's type vs the defender's types.
     //
     // TODO: Forest's Curse and Trick-or-Treat add types to a Pokemon, so three types need to be checked.
+    u16 typeMod = Server_CalcTypeMod();
 
     // Step 10: Divide by 2 if the attacker is burned and does not have Guts nor is using Facade.
+    u16 burnMod = UQ412__1_0;
     if (server->aiWork.moveTable[server->moveIDCurr].pss == PSS_PHYSICAL) {
         if ((attackerParams.condition & CONDITION_BURNED)
                 && ((attackerParams.ability != ABILITY_GUTS) && (server->moveIDCurr != MOVE_FACADE))) {
-            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
+            burnMod = UQ412__0_5;
         }
     }
 
@@ -1186,9 +1205,121 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
 
     // Step 11: Divide by 4 if the used move is a Z-move and the target is trying to Protect itself.
     // TODO: Z-moves
+    u16 finalMod = UQ412__1_0;
+
+    // Apply all the modifiers.
+#ifdef DEBUG_MODE
+    // If we're in debug mode, then we instead have a whole list of damage values that need to be
+    // applied to and printed out.
+    u8 buf[128];
+    sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
+    for (int i = 0; i < 16; i++) {
+        int length = 0;
+        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], stabMod);
+        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], typeMod);
+        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], burnMod);
+        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], finalMod);
+        length += sprintf(buf + length, "%d ", damageValues[i]);
+    }
+    sprintf(buf + length, "]\n");
+    debugsyscall(buf);
+
+    // Always use the max value in debug mode.
+    damage = damageValues[15];
+#else
+    damage = Q412_Mul_IntByQ_RoundDown(damage, stabMod);
+    damage = Q412_Mul_IntByQ_RoundDown(damage, typeMod);
+    damage = Q412_Mul_IntByQ_RoundDown(damage, burnMod);
+    damage = Q412_Mul_IntByQ_RoundDown(damage, finalMod);
+#endif
 
     // And we're done.
     server->damage = damage;
+}
+
+#define __NORM     0
+#define _IMMUN  0xFF
+#define _NVEFF    -1
+#define _SPEFF     1
+
+/**
+ * NxN matrix, modeled as an attacking type vs a defensive type. Each
+ * value S in the matrix is one of the following values:
+ *   -    0 -> no modifier
+ *   -    1 -> attacking type is super effective
+ *   -   -1 -> attacking type is not very effective
+ *   - 0xFF -> defending type is immune
+ * 
+ * These values can be interpreted as the leftward shift to apply to
+ * UQ412__1_0 for a particular matchup. e.g., if an attacking type is
+ * super effective against the defending type, the type modifier becomes
+ * UQ412__1_0 << 1, which is equivalent to UQ412__2_0. If the defender is
+ * dual-type and its second type resists the attacking type, then the
+ * final modifier would then be UQ412__2_0 >> 1, which is UQ412__1_0.
+ * 
+ * If the value stored is 0xFF (an immunity), then other special cases
+ * need to be handled elsewhere (e.g. Scrappy, Foresight, Roost).
+ *
+ * This table as provided is up-to-date as of generation 9.
+ */
+static const s8 sTypeEffectiveness[NUM_TYPES][NUM_TYPES] = {
+    // attacking type    vs:  NORM,  FIGHT, FLYING, POISON, GROUND,   ROCK,    BUG,  GHOST,  STEEL,  FAIRY,   FIRE,  WATER,  GRASS, ELECTR, PSYCHC,    ICE, DRAGON,   DARK
+    [TYPE_NORMAL]       = { __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, _IMMUN, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM },
+    [TYPE_FIGHTING]     = { _SPEFF, __NORM, _NVEFF, _NVEFF, __NORM, _SPEFF, _NVEFF, _IMMUN, _SPEFF, _NVEFF, __NORM, __NORM, __NORM, __NORM, _NVEFF, _SPEFF, __NORM, _SPEFF },
+    [TYPE_FLYING]       = { __NORM, _SPEFF, __NORM, __NORM, __NORM, _NVEFF, _SPEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, __NORM },
+    [TYPE_POISON]       = { __NORM, __NORM, __NORM, _NVEFF, _NVEFF, _NVEFF, __NORM, _NVEFF, _IMMUN, _SPEFF, __NORM, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, __NORM },
+    [TYPE_GROUND]       = { __NORM, __NORM, _IMMUN, _SPEFF, __NORM, _SPEFF, _NVEFF, __NORM, _SPEFF, __NORM, _SPEFF, __NORM, _NVEFF, _SPEFF, __NORM, __NORM, __NORM, __NORM },
+    [TYPE_ROCK]         = { __NORM, _NVEFF, _SPEFF, __NORM, _NVEFF, __NORM, _SPEFF, __NORM, _NVEFF, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM },
+    [TYPE_BUG]          = { __NORM, _NVEFF, _NVEFF, _NVEFF, __NORM, __NORM, __NORM, _NVEFF, _NVEFF, _NVEFF, _NVEFF, __NORM, _SPEFF, __NORM, _SPEFF, __NORM, __NORM, _SPEFF },
+    [TYPE_GHOST]        = { _IMMUN, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, _NVEFF },
+    [TYPE_STEEL]        = { __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, _NVEFF, _SPEFF, _NVEFF, _NVEFF, __NORM, _NVEFF, __NORM, _SPEFF, __NORM, __NORM },
+    [TYPE_FAIRY]        = { __NORM, _SPEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, _SPEFF },
+    [TYPE_FIRE]         = { __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, _SPEFF, __NORM, _SPEFF, __NORM, _NVEFF, _NVEFF, _SPEFF, __NORM, __NORM, _SPEFF, _NVEFF, __NORM },
+    [TYPE_WATER]        = { __NORM, __NORM, __NORM, __NORM, _SPEFF, _SPEFF, __NORM, __NORM, __NORM, __NORM, _SPEFF, _NVEFF, _NVEFF, __NORM, __NORM, __NORM, _NVEFF, __NORM },
+    [TYPE_GRASS]        = { __NORM, __NORM, _NVEFF, _NVEFF, _SPEFF, _SPEFF, _NVEFF, __NORM, _NVEFF, __NORM, _NVEFF, _SPEFF, _NVEFF, __NORM, __NORM, __NORM, _NVEFF, __NORM },
+    [TYPE_ELECTRIC]     = { __NORM, __NORM, _SPEFF, __NORM, _IMMUN, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, _NVEFF, _NVEFF, __NORM, __NORM, _NVEFF, __NORM },
+    [TYPE_PSYCHIC]      = { __NORM, _SPEFF, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, __NORM, _IMMUN },
+    [TYPE_ICE]          = { __NORM, __NORM, _SPEFF, __NORM, _SPEFF, __NORM, __NORM, __NORM, _NVEFF, __NORM, _NVEFF, _NVEFF, _SPEFF, __NORM, __NORM, _NVEFF, _SPEFF, __NORM },
+    [TYPE_DRAGON]       = { __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, _IMMUN, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM },
+    [TYPE_DARK]         = { __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, _NVEFF },
+};
+
+u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender)
+{
+    u16 typeMod = UQ412__1_0;
+    s8 *typeMatchups = sTypeEffectiveness[server->moveType];
+
+    s8 type1Matchup = typeMatchups[defender->type1];
+    switch (type1Matchup) {
+        case    0: break;                   // normal damage
+        case    1:                          // super effective
+            typeMod = typeMod << 1;
+            break;
+        case   -1:                          // not very effective
+            typeMod = typeMod >> 1;
+            break;
+        default:                            // immune
+            if (Calc_ImmunityActive(server, server->attacker, server->defender, server->moveType)) {
+                typeMod = 0;
+            }
+            break;
+    }
+
+    s8 type2Matchup = 0;
+    if (defender->type1 != defender->type2) {
+        type2Matchup = typeMatchups[defender->type2];
+    }
+}
+
+// ST_KoukanaiCheck
+// The vanilla function here actually passes the attacking and defending client numbers,
+// as well as the position into the original type check matrix.
+// However, it passes all of these values as 32-bit ints, which means we can instead pass
+// in addresses to the attacker and defender structs we build previously, as well as a
+// pointer to where we are in the type effectiveness matrix.
+BOOL Calc_ImmunityActive(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender, int moveType)
+{
+    
 }
 
 int Server_CalcCritical(
