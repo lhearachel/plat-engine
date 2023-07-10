@@ -496,9 +496,9 @@
 //                         MOVE EFFECT CONSTANTS                             //
 // ========================================================================= //
 
-#define MOVE_EFFECT_LEECH_SEED_SOURCE           (0x00000003)    // 2 flags in 1, determines which of your clients get the recovery
+#define MOVE_EFFECT_LEECH_SEEDED_BY             (0x00000003)    // 2 flags in 1, determines which client gets the recovery
 #define MOVE_EFFECT_LEECH_SEEDED                (0x00000004)
-#define	MOVE_EFFECT_LOCKED_ON                   (0x00000018)    // 2 flags in 1, determines which of your clients circumvent the acc check
+#define	MOVE_EFFECT_LOCKED_ON_BY                (0x00000018)    // 2 flags in 1, determines which of your clients circumvent the acc check
 #define	MOVE_EFFECT_PERISH_SONG                 (0x00000020)    // just a check for if Perish Song is applied; nothing here to do with the count
 #define	MOVE_EFFECT_AIRBORNE                    (0x00000040)    // applied by Fly and Bounce
 #define	MOVE_EFFECT_UNDERGROUND                 (0x00000080)    // applied by Dig

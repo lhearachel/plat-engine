@@ -206,6 +206,8 @@
 #define HOLD_EFFECT_BOOST_ATK_AND_SPATK_ON_SE           189     // Weakness Policy  -> ItemEffectCheckOnHit
 #define HOLD_EFFECT_EVOLVE_SWIRLIX                      190     // Whipped Dream
 
+#define HOLD_EFFECT_RESIST_BERRY(effect) ((effect >= HOLD_EFFECT_WEAKEN_SE_FIRE && effect <= HOLD_EFFECT_WEAKEN_SE_STEEL) || effect == HOLD_EFFECT_WEAKEN_SE_FAIRY)
+
 #define HOLD_EFFECT_BOOST_SPEED_AFTER_INTIMIDATE        191     // Adrenaline Orb   -> intimidate check (wherever that is)
 #define HOLD_EFFECT_PREVENT_CONTACT_EFFECTS             192     // Protective Pads  -> probably AbilityEffectCheckOnHit
 #define HOLD_EFFECT_EXTEND_TERRAIN                      193     // Terrain Extender -> (new) SetTerrain

@@ -48,10 +48,91 @@ struct CalcParams {
     u8  _padding;
 };
 
+static u16 Calc_ModifiedBasePower(
+    struct Battle *battle,
+    struct BattleServer *server,
+    struct CalcParams *attacker,
+    struct CalcParams *defender,
+    u16 moveID,
+    u16 movePower,
+    u8 movePSS,
+    u8 moveType,
+    BOOL isAteAbility
+);
+static u16 Calc_ChainOffenseMods(
+    struct Battle *battle,
+    struct BattleServer *server,
+    struct CalcParams *attacker,
+    struct CalcParams *defender,
+    u16 stat,
+    u8 moveType,
+    u8 movePSS
+);
+static u16 Calc_ChainDefenseMods(
+    struct Battle *battle,
+    struct BattleServer *server,
+    struct CalcParams *attacker,
+    struct CalcParams *defender,
+    u16 stat,
+    u8 moveType,
+    u8 movePSS
+);
+static u16  Calc_BaseDamage(struct Battle *battle, struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender);
+static u16  Calc_TypeModifier(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender);
+static BOOL Calc_ImmunityActive(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender, u8 moveType);
+static u16  Calc_ChainOtherModifiers(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender, u32 battleType, u16 moveID, u8 moveType, u8 movePSS);
+
 extern const u8 gStatModifierTable[][2];  // 0x0226EBE0
 extern const u8 gCriticalRateTable[];     // 0x0226EBA0
 
-static u8 sTypeBoostingItems[] = {
+#define __NORM     0
+#define _IMMUN  0xFF
+#define _NVEFF    -1
+#define _SPEFF     1
+
+/**
+ * NxN matrix, modeled as an attacking type vs a defensive type. Each
+ * value S in the matrix is one of the following values:
+ *   -    0 -> no modifier
+ *   -    1 -> attacking type is super effective
+ *   -   -1 -> attacking type is not very effective
+ *   - 0xFF -> defending type is immune
+ * 
+ * These values can be interpreted as the leftward shift to apply to
+ * UQ412__1_0 for a particular matchup. e.g., if an attacking type is
+ * super effective against the defending type, the type modifier becomes
+ * UQ412__1_0 << 1, which is equivalent to UQ412__2_0. If the defender is
+ * dual-type and its second type resists the attacking type, then the
+ * final modifier would then be UQ412__2_0 >> 1, which is UQ412__1_0.
+ * 
+ * If the value stored is 0xFF (an immunity), then other special cases
+ * need to be handled elsewhere (e.g. Scrappy, Foresight, Roost).
+ *
+ * This table as provided is up-to-date as of generation 9.
+ */
+static const s8 sTypeEffectiveness[NUM_TYPES][NUM_TYPES] = {
+    // attacking type    vs:  NORM,  FIGHT, FLYING, POISON, GROUND,   ROCK,    BUG,  GHOST,  STEEL,  FAIRY,   FIRE,  WATER,  GRASS, ELECTR, PSYCHC,    ICE, DRAGON,   DARK
+    [TYPE_NORMAL]       = { __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, _IMMUN, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM },
+    [TYPE_FIGHTING]     = { _SPEFF, __NORM, _NVEFF, _NVEFF, __NORM, _SPEFF, _NVEFF, _IMMUN, _SPEFF, _NVEFF, __NORM, __NORM, __NORM, __NORM, _NVEFF, _SPEFF, __NORM, _SPEFF },
+    [TYPE_FLYING]       = { __NORM, _SPEFF, __NORM, __NORM, __NORM, _NVEFF, _SPEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, __NORM },
+    [TYPE_POISON]       = { __NORM, __NORM, __NORM, _NVEFF, _NVEFF, _NVEFF, __NORM, _NVEFF, _IMMUN, _SPEFF, __NORM, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, __NORM },
+    [TYPE_GROUND]       = { __NORM, __NORM, _IMMUN, _SPEFF, __NORM, _SPEFF, _NVEFF, __NORM, _SPEFF, __NORM, _SPEFF, __NORM, _NVEFF, _SPEFF, __NORM, __NORM, __NORM, __NORM },
+    [TYPE_ROCK]         = { __NORM, _NVEFF, _SPEFF, __NORM, _NVEFF, __NORM, _SPEFF, __NORM, _NVEFF, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM },
+    [TYPE_BUG]          = { __NORM, _NVEFF, _NVEFF, _NVEFF, __NORM, __NORM, __NORM, _NVEFF, _NVEFF, _NVEFF, _NVEFF, __NORM, _SPEFF, __NORM, _SPEFF, __NORM, __NORM, _SPEFF },
+    [TYPE_GHOST]        = { _IMMUN, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, _NVEFF },
+    [TYPE_STEEL]        = { __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, _NVEFF, _SPEFF, _NVEFF, _NVEFF, __NORM, _NVEFF, __NORM, _SPEFF, __NORM, __NORM },
+    [TYPE_FAIRY]        = { __NORM, _SPEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, _SPEFF },
+    [TYPE_FIRE]         = { __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, _SPEFF, __NORM, _SPEFF, __NORM, _NVEFF, _NVEFF, _SPEFF, __NORM, __NORM, _SPEFF, _NVEFF, __NORM },
+    [TYPE_WATER]        = { __NORM, __NORM, __NORM, __NORM, _SPEFF, _SPEFF, __NORM, __NORM, __NORM, __NORM, _SPEFF, _NVEFF, _NVEFF, __NORM, __NORM, __NORM, _NVEFF, __NORM },
+    [TYPE_GRASS]        = { __NORM, __NORM, _NVEFF, _NVEFF, _SPEFF, _SPEFF, _NVEFF, __NORM, _NVEFF, __NORM, _NVEFF, _SPEFF, _NVEFF, __NORM, __NORM, __NORM, _NVEFF, __NORM },
+    [TYPE_ELECTRIC]     = { __NORM, __NORM, _SPEFF, __NORM, _IMMUN, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, _NVEFF, _NVEFF, __NORM, __NORM, _NVEFF, __NORM },
+    [TYPE_PSYCHIC]      = { __NORM, _SPEFF, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, __NORM, _IMMUN },
+    [TYPE_ICE]          = { __NORM, __NORM, _SPEFF, __NORM, _SPEFF, __NORM, __NORM, __NORM, _NVEFF, __NORM, _NVEFF, _NVEFF, _SPEFF, __NORM, __NORM, _NVEFF, _SPEFF, __NORM },
+    [TYPE_DRAGON]       = { __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, _IMMUN, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM },
+    [TYPE_DARK]         = { __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, _NVEFF },
+};
+
+static const u8 sTypeBoostingItems[] = {
     [TYPE_NORMAL]       = HOLD_EFFECT_BOOST_NORMAL,
     [TYPE_FIGHTING]     = HOLD_EFFECT_BOOST_FIGHTING,
     [TYPE_FLYING]       = HOLD_EFFECT_BOOST_FLYING,
@@ -72,7 +153,7 @@ static u8 sTypeBoostingItems[] = {
     [TYPE_DARK]         = HOLD_EFFECT_BOOST_DARK,
 };
 
-static u8 sTypePlates[] = {
+static const u8 sTypePlates[] = {
     [TYPE_NORMAL]       = 0xFF,
     [TYPE_FIGHTING]     = HOLD_EFFECT_BOOST_FIGHTING_PLATE,
     [TYPE_FLYING]       = HOLD_EFFECT_BOOST_FLYING_PLATE,
@@ -93,7 +174,7 @@ static u8 sTypePlates[] = {
     [TYPE_DARK]         = HOLD_EFFECT_BOOST_DARK_PLATE,
 };
 
-static u8 sGems[] = {
+static const u8 sGems[] = {
     [TYPE_NORMAL]       = HOLD_EFFECT_GEM_NORMAL,
     [TYPE_FIGHTING]     = HOLD_EFFECT_GEM_FIGHTING,
     [TYPE_FLYING]       = HOLD_EFFECT_GEM_FLYING,
@@ -114,51 +195,6 @@ static u8 sGems[] = {
     [TYPE_DARK]         = HOLD_EFFECT_GEM_DARK,
 };
 
-static inline s32 Calc_Damage(u16 attack, u8 attackStage, u16 defense, u8 defenseStage, u16 movePower, u8 attackerLevel, u8 critical)
-{
-    s32 damage;
-    if ((critical > 1) && (attackStage <= 6)) { // ignore negative offensive stat changes on crits
-        damage = attack;
-    } else {
-        damage = attack * gStatModifierTable[attackStage][0] / gStatModifierTable[attackStage][1];
-    }
-
-    damage = damage * movePower * (attackerLevel * 2 / 5 + 2);
-
-    s32 damageDenom;
-    if ((critical > 1) && (defenseStage >= 6)) { // ignore positive defensive stat changes on crits
-        damageDenom = defense;
-    } else {
-        damageDenom = defense * gStatModifierTable[defenseStage][0] / gStatModifierTable[defenseStage][1];
-    }
-
-    return damage / damageDenom / 50;
-}
-
-static inline u8  Calc_MoveType(struct BattleServer *server, struct CalcParams *attacker, u16 moveID, u8 inputType)
-{
-    // TODO: Account for Ion Deluge, etc.
-    if ((attacker->ability == ABILITY_NORMALIZE) && (Moves_CanNormalize(moveID))) {
-        return TYPE_NORMAL;
-    } else if (inputType == TYPE_NORMAL) {
-        if ((attacker->ability == ABILITY_LIQUID_VOICE) && Moves_IsSound(moveID)) {
-            return TYPE_WATER;
-        } else if (attacker->ability == ABILITY_AERILATE) {
-            return TYPE_FLYING;
-        } else if (attacker->ability == ABILITY_GALVANIZE) {
-            return TYPE_ELECTRIC;
-        } else if (attacker->ability == ABILITY_PIXILATE) {
-            return TYPE_FAIRY;
-        } else if (attacker->ability == ABILITY_REFRIGERATE) {
-            return TYPE_ICE;
-        } else {
-            return server->aiWork.moveTable[moveID].type;   // TODO: move reference to new table
-        }
-    } else {
-        return inputType & 0x3F;
-    }
-}
-
 static inline BOOL WeatherIsActive(struct Battle *battle, struct BattleServer *server, u32 weatherMask)
 {
     return (server->fieldConditions.raw & weatherMask)
@@ -166,7 +202,7 @@ static inline BOOL WeatherIsActive(struct Battle *battle, struct BattleServer *s
             && (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK) == 0);
 }
 
-static inline BOOL AllyHasAbility(struct Battle *battle, struct BattleServer *server, int battler, u16 ability)
+static inline BOOL AllyHasAbility(struct BattleServer *server, int battler, u16 ability)
 {
     // Ally is the battler which has the same parity as ours
     // Just get the battler which has the input ability, XOR it with the requesting battler,
@@ -178,8 +214,54 @@ static inline BOOL AllyHasAbility(struct Battle *battle, struct BattleServer *se
     //    1 | 1 | X | 1 | 0 |
     //    2 | 0 | 1 | X | 1 |
     //    3 | 1 | 0 | 1 | X |
-    return (Server_CheckAbility(battle, server, CHECK_ABILITY_EXISTS_CLIENT_NOT_MINE, battler, ability) ^ battler) & 1 == 0;
+    return server->activePokemon[PARTNER(battler)].ability == ability;
 }
+
+// this needs to be refactored
+static inline u16 Calc_StatWithStages(u16 stat, u8 stage)
+{
+    return stat * gStatModifierTable[stage][0] / gStatModifierTable[stage][1];
+}
+
+static u16 Calc_AttackerStat(u16 stat, u8 stage, BOOL unaware, BOOL critical)
+{
+    /*
+     * Ignore stat stages if Unaware is active for this stat.
+     *
+     * Ignore detrimental stages on criticals.
+     *
+     * Also shortcut for neutral stat.
+     */
+    if ((stage == 6) || unaware || (critical && (stage < 6))) {
+        return stat;
+    }
+
+    return Calc_StatWithStages(stat, stage);
+}
+
+static u16 Calc_DefenderStat(u16 stat, u8 stage, BOOL unaware, BOOL critical)
+{
+    /*
+     * Ignore stat stages if Unaware is active for this stat.
+     *
+     * Ignore beneficial stages on criticals.
+     *
+     * Also shortcut for neutral stat.
+     */
+    if ((stage == 6) || unaware || (critical && (stage > 6))) {
+        return stat;
+    }
+
+    return Calc_StatWithStages(stat, stage);
+}
+
+static inline BOOL SlowStartActive(struct Battle *battle, struct BattleServer *server)
+{
+    return Server_Get(battle, server, SERVER_PARAM_TOTAL_TURNS, 0)
+            - BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_SLOW_START_INIT_TURN, NULL)
+            < 5;
+}
+
 
 /**
  * @brief Computes the modified base power for a move, considering all abilities of the attacker
@@ -337,10 +419,10 @@ static u16 Calc_ModifiedBasePower(
 
     // Battery and Power Spot are not technically exclusive in the scope of Triple Battles,
     // but they are mutually exclusive in doubles.
-    if (AllyHasAbility(battle, server, server->attacker, ABILITY_BATTERY) && movePSS == PSS_SPECIAL) {
+    if (AllyHasAbility(server, server->attacker, ABILITY_BATTERY) && movePSS == PSS_SPECIAL) {
         // 1.3x if our ally has Battery and the used move is Special-split.
         powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
-    } else if (AllyHasAbility(battle, server, server->attacker, ABILITY_POWER_SPOT)) {
+    } else if (AllyHasAbility(server, server->attacker, ABILITY_POWER_SPOT)) {
         // 1.3x if our ally has Power Spot.
         powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
     }
@@ -413,7 +495,7 @@ static u16 Calc_ModifiedBasePower(
         }
     }
 
-    if (AllyHasAbility(battle, server, server->attacker, ABILITY_STEELY_SPIRIT)
+    if (AllyHasAbility(server, server->attacker, ABILITY_STEELY_SPIRIT)
             && moveType == TYPE_STEEL) {
         // 1.5x if the attacker's ally has Steely Spirit and the used move is Steel-type.
         // Note that this modifier stacks with the attacker itself having Steely Spirit.
@@ -529,7 +611,6 @@ static u16 Calc_BaseDamage(
     u16  moveBasePower = server->movePower;
     u8   movePSS       = server->aiWork.moveTable[moveID].pss;
     u8   moveType      = server->moveType;
-    BOOL isCritical    = server->critical > 1;
     BOOL isAteAbility  = FALSE;
 
     if (attacker->ability == ABILITY_NORMALIZE) {
@@ -597,7 +678,7 @@ static u16 Calc_BaseDamage(
     // Some moves alter this process slightly
     u16 effectiveOffense, effectiveDefense;
     BOOL attackerUnaware = attacker->ability == ABILITY_UNAWARE;
-    BOOL defenderUnaware = Server_CheckDefenderAbility(server, attacker, defender, ABILITY_UNAWARE);
+    BOOL defenderUnaware = Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_UNAWARE);
     if (moveID == MOVE_PHOTON_GEYSER) {
         /* 
          * If the user's Attack stat is higher than its Special Attack stat, Photon Geyser
@@ -612,12 +693,12 @@ static u16 Calc_BaseDamage(
         u16 boostedSpAttack = Calc_AttackerStat(attacker->stats.spAttack, attacker->stages.spAttack, FALSE, FALSE);
         if (boostedAttack > boostedSpAttack) {
             // Now recalc everything accounting for crits.
-            effectiveOffense = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  FALSE, isCritical);
-            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, FALSE, isCritical);
+            effectiveOffense = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  FALSE, server->critical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, FALSE, server->critical);
             movePSS = PSS_PHYSICAL;
         } else {
-            effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  FALSE, isCritical);
-            effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, FALSE, isCritical);
+            effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  FALSE, server->critical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, FALSE, server->critical);
         }
     } else if (moveID == MOVE_BODY_PRESS) {
         /*
@@ -628,8 +709,8 @@ static u16 Calc_BaseDamage(
          * Since the user's Defense stat is used for calculating damage, Body Press does
          * not consider Unaware when calculating the offensive stat.
          */
-        effectiveOffense = Calc_AttackerStat(attacker->stats.defense, attacker->stages.defense, FALSE,           isCritical);
-        effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
+        effectiveOffense = Calc_AttackerStat(attacker->stats.defense, attacker->stages.defense, FALSE,           server->critical);
+        effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, server->critical);
     } else if (moveID == MOVE_FOUL_PLAY) {
         /*
          * When calculating damage, Foul Play uses the target's Attack stat instead of its
@@ -639,8 +720,8 @@ static u16 Calc_BaseDamage(
          * Since the target's Attack stat is used for calculating damage, Foul Play does
          * not consider Unaware when calculating the offensive stat.
          */
-        effectiveOffense = Calc_AttackerStat(defender->stats.defense, defender->stages.defense, FALSE,           isCritical);
-        effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
+        effectiveOffense = Calc_AttackerStat(defender->stats.defense, defender->stages.defense, FALSE,           server->critical);
+        effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, server->critical);
     } else if ((moveID == MOVE_PSYSHOCK)
             || (moveID == MOVE_PSYSTRIKE)
             || (moveID == MOVE_SECRET_SWORD)) {
@@ -649,24 +730,24 @@ static u16 Calc_BaseDamage(
          * Defense stat during damage calculation. The move, however, still deals Special
          * damage.
          */
-        effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack, defenderUnaware, isCritical);
-        effectiveDefense = Calc_DefenderStat(defender->stats.defense,   defender->stages.defense,  attackerUnaware, isCritical);
+        effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack, defenderUnaware, server->critical);
+        effectiveDefense = Calc_DefenderStat(defender->stats.defense,   defender->stages.defense,  attackerUnaware, server->critical);
     } else if (moveID == MOVE_SACRED_SWORD) {
         /*
          * When calculating damage, Sacred Sword ignores the target's Defense stat stages.
          */
-        effectiveOffense = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.defense, defenderUnaware, isCritical);
-        effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, TRUE,            isCritical);
+        effectiveOffense = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.defense, defenderUnaware, server->critical);
+        effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, TRUE,            server->critical);
     } else {
         /*
          * All other moves determine offensive/defensive stats depending on the PSS-split.
          */
         if (movePSS == PSS_PHYSICAL) {
-            effectiveOffense = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  defenderUnaware, isCritical);
-            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, isCritical);
+            effectiveOffense = Calc_AttackerStat(attacker->stats.attack,  attacker->stages.attack,  defenderUnaware, server->critical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.defense, defender->stages.defense, attackerUnaware, server->critical);
         } else {
-            effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  defenderUnaware, isCritical);
-            effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, attackerUnaware, isCritical);
+            effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  defenderUnaware, server->critical);
+            effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, attackerUnaware, server->critical);
         }
     }
 
@@ -697,51 +778,6 @@ static u16 Calc_BaseDamage(
     baseDamage = baseDamage / effectiveDefense;
 
     return baseDamage / 50 + 2;
-}
-
-// this needs to be refactored
-inline u16 Calc_StatWithStages(u16 stat, u8 stage)
-{
-    return stat * gStatModifierTable[stage][0] / gStatModifierTable[stage][1];
-}
-
-static u16 Calc_AttackerStat(u16 stat, u8 stage, BOOL unaware, BOOL critical)
-{
-    /*
-     * Ignore stat stages if Unaware is active for this stat.
-     *
-     * Ignore detrimental stages on criticals.
-     *
-     * Also shortcut for neutral stat.
-     */
-    if ((stage == 6) || unaware || (critical && (stage < 6))) {
-        return stat;
-    }
-
-    return Calc_StatWithStages(stat, stage);
-}
-
-static u16 Calc_DefenderStat(u16 stat, u8 stage, BOOL unaware, BOOL critical)
-{
-    /*
-     * Ignore stat stages if Unaware is active for this stat.
-     *
-     * Ignore beneficial stages on criticals.
-     *
-     * Also shortcut for neutral stat.
-     */
-    if ((stage == 6) || unaware || (critical && (stage > 6))) {
-        return stat;
-    }
-
-    return Calc_StatWithStages(stat, stage);
-}
-
-inline BOOL SlowStartActive(struct Battle *battle, struct BattleServer *server)
-{
-    return Server_Get(battle, server, SERVER_PARAM_TOTAL_TURNS, NULL)
-            - BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_SLOW_START_INIT_TURN, NULL)
-            < 5;
 }
 
 static u16 Calc_ChainOffenseMods(
@@ -787,7 +823,7 @@ static u16 Calc_ChainOffenseMods(
     }
 
     // Check for ally Flower Gift here separately, but not if the attacker has Flower Gift.
-    if (AllyHasAbility(battle, server, server->attacker, ABILITY_FLOWER_GIFT)) {
+    if (AllyHasAbility(server, server->attacker, ABILITY_FLOWER_GIFT)) {
         if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
             statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
         }
@@ -992,7 +1028,7 @@ static u16 Calc_ChainDefenseMods(
         }
     }
 
-    if (Server_CheckDefenderAbility(server, server->attacker, ((server->defender + 2) % 4), ABILITY_FLOWER_GIFT)) {
+    if (Server_CheckDefenderAbility(server, server->attacker, PARTNER(server->defender), ABILITY_FLOWER_GIFT)) {
         // Flower Gift increases ally's SpDefense by 50% during harsh sunlight.
         if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
             statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
@@ -1039,8 +1075,333 @@ _SkipDefenseAllyFlowerGift:
     return UQ412_Mul_IntByQ_RoundDown(stat, statMod);
 }
 
+/**
+ * @brief Calculates the type-effectiveness modifier.
+ * 
+ * @param server 
+ * @param attacker 
+ * @param defender 
+ * @return u16 
+ */
+static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender)
+{
+    // Ground can have additional immunities ahead of typing:
+    //  - Levitate
+    //  - Magnet Rise
+    //  - TODO: Air Balloon
+    //  - TODO: Telekinesis
+    // Effects that break Ground-type immunities also break these.
+    if (server->moveType == TYPE_GROUND
+            && !Calc_ImmunityActive(server, attacker, defender, TYPE_GROUND)) {
+        if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_LEVITATE)) {
+            server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_MISSED_BY_ABILITY;
+        } else if (server->activePokemon[server->defender].moveEffects.magnetRiseTurns) {
+            server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_MISSED_BY_MAGNET_RISE;
+        }
+
+        return 0;
+    }
+
+    // TODO: Check for Burn Up, Double Shock on these types
+    // TODO: Forest's Curse, Trick-or-Treat
+    u8 type1 = defender->type1;
+    u8 type2 = defender->type2;
+
+    // If the defending Pokemon is Roosting, ignore its Flying type for the purpose of type-checks.
+    // This is subject to the following rules:
+    //   - If the Pokemon is mono-Flying, then it should be treated as Normal type.
+    //   - If the Pokemon is a dual-typing that lost its other type due to some effect (e.g.,
+    //     a Fire/Flying-type which previously used Burn Up), then it should be treated as typeless.
+    //   - If the Pokemon is mono-Flying but was previously hit with an effect which bestows an
+    //     additional type upon it (e.g., Forest's Curse), then its Flying type will be replaced
+    //     by the Normal type, but its additional "third" typing will remain.
+    if (server->stFX[server->defender].roosting) {
+        // Handle dual-types with a Flying sub-type.
+        if ((type1 == TYPE_FLYING) && (type2 != TYPE_FLYING)) {
+            type1 = TYPE_NONE;
+        } else if ((type1 != TYPE_FLYING) && (type2 == TYPE_FLYING)) {
+            type2 = TYPE_NONE;
+        } else if ((type1 == TYPE_FLYING) && (type2 == TYPE_FLYING)) {
+            type1 = TYPE_NORMAL;
+            type2 = TYPE_NORMAL;
+        }
+    }
+
+    // Now we can check for effectiveness on the types.
+    u16 typeMod = UQ412__1_0;
+    const s8 *typeMatchups = sTypeEffectiveness[server->moveType];
+
+    if (type1 != TYPE_NONE) {
+        s8 type1Matchup = typeMatchups[type1];
+        switch (type1Matchup) {
+            case    0: break;                   // normal damage
+            case    1:                          // super effective
+                typeMod = typeMod << 1;
+                break;
+            case   -1:                          // not very effective
+                typeMod = typeMod >> 1;
+                break;
+            default:                            // immune
+                if (Calc_ImmunityActive(server, attacker, defender, server->moveType)) {
+                    typeMod = 0;
+                }
+                break;
+        }
+    }
+
+    // mono-type mons are technically double of the one type
+    if (type1 != type2 && type2 != TYPE_NONE) {
+        s8 type2Matchup = typeMatchups[type2];
+        switch (type2Matchup) {
+            case    0:                          // normal damage
+                break;
+            case    1:                          // super effective
+                typeMod = typeMod << 1;
+                break;
+            case   -1:                          // not very effective
+                typeMod = typeMod >> 1;
+                break;
+            default:                            // immune
+                if (Calc_ImmunityActive(server, attacker, defender, server->moveType)) {
+                    typeMod = 0;
+                }
+                break;
+        }
+    }
+
+    // Wonder Guard override check goes here
+    if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_WONDER_GUARD)
+            && Server_CheckTwoTurnMove(server, server->moveIDCurr)
+            && typeMod < UQ412__2_0) {
+        server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_PROTECTED_BY_WONDER_GUARD;
+        return 0;
+    }
+
+    // If the type-effectiveness ignorance flag is in play, default back to 1x (unless already 0x)
+    // This has to happen after all checks to account for moves like Night Shade and Dragon Rage
+    // dealing fixed damage but still having immunities
+    //
+    // TODO: Make sure this looks okay
+    if ((server->serverStatusFlag & SERVER_STATUS_FLAG_IGNORE_EFFECTIVENESS) && (typeMod != 0)) {
+        server->moveStatusFlag = server->moveStatusFlag | ~MOVE_STATUS_FLAG_SUPER_EFFECTIVE;
+        server->moveStatusFlag = server->moveStatusFlag | ~MOVE_STATUS_FLAG_NOT_VERY_EFFECTIVE;
+        return UQ412__1_0;
+    }
+
+    if (typeMod == 0) {
+        server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_DOES_NOT_AFFECT;
+    }
+
+    if (typeMod > UQ412__1_0) {
+        server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_SUPER_EFFECTIVE;
+    }
+    
+    if (typeMod < UQ412__1_0) {
+        server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_NOT_VERY_EFFECTIVE;
+    }
+
+    return typeMod;
+}
+
+/**
+ * @brief Checks if an immunity is active.
+ * 
+ * @param server 
+ * @param attacker 
+ * @param defender 
+ * @param moveType 
+ * @return BOOL 
+ */
+static BOOL Calc_ImmunityActive(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender, u8 moveType)
+{
+    switch (moveType) {
+        case TYPE_NORMAL:
+        case TYPE_FIGHTING:
+            // Stuff that removes existing immunities to Normal and Fighting:
+            //   - Foresight / Odor Sleuth (same effect)
+            //   - Scrappy
+            if ((attacker->ability == ABILITY_SCRAPPY)
+                    || (server->activePokemon[server->defender].condition2 & CONDITION_V_IDENTIFIED)) {
+                return FALSE;
+            }
+            break;
+        case TYPE_GROUND:
+            // Stuff that removes existing immunities to Ground:
+            //   - Iron Ball
+            //   - Ingrain
+            //   - Roost
+            //   - Gravity
+            //   - TODO: Smack Down, Thousand Arrows
+            if ((defender->heldItemEffect == HOLD_EFFECT_HALVE_SPEED)
+                    || (server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_INGRAINED)
+                    || (server->stFX[server->defender].roosting)
+                    || (server->fieldConditions.raw & FIELD_CONDITION_GRAVITY)) {
+                return FALSE;
+            }
+            break;
+        case TYPE_PSYCHIC:
+            // Check for Miracle Eye
+            if (server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_MIRACLE_EYE) {
+                return FALSE;
+            }
+            break;
+        default:
+            return TRUE;
+    }
+
+    return TRUE;
+}
+
+/*
+ * TODO: is there a way to make the move-specific stuff set modifiers in the scripts?
+ */
+static u16 Calc_ChainOtherModifiers(
+    struct BattleServer *server,
+    struct CalcParams *attacker,
+    struct CalcParams *defender,
+    u32 battleType,
+    u16 moveID,
+    u8 moveType,
+    u8 movePSS
+)
+{
+    u16 chainMod = UQ412__1_0;
+
+    // TODO: Dynamax stuff goes here if we ever implement it (Behemoth Blade, Behemoth Bash, Dynamax Cannon)
+
+    if ((server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_MINIMIZED)
+            && Moves_BoostedByMinimize(moveID)) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+    }
+    
+    if (((moveID == MOVE_EARTHQUAKE) || (moveID == MOVE_MAGNITUDE))
+            && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_UNDERGROUND) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+    }
+    
+    if (((moveID == MOVE_SURF) || (moveID == MOVE_WHIRLPOOL))
+            && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_UNDERWATER) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+    }
+
+    // Reflect / Light Screen / Aurora Veil checks
+    if (attacker->ability == ABILITY_INFILTRATOR) {
+        goto _NoScreenReduction;
+    }
+
+    u32 defendingSideConditions = server->sideConditions.raw[server->defender & 1];
+    if (movePSS == PSS_PHYSICAL) {
+        if (defendingSideConditions & SIDE_CONDITION_REFLECT) {
+            goto _ScreenReduction;
+        }
+    } else {
+        if (defendingSideConditions & SIDE_CONDITION_LIGHT_SCREEN) {
+            goto _ScreenReduction;
+        }
+    }
+
+    goto _NoScreenReduction;
+
+_ScreenReduction:
+    if (battleType & BATTLE_TYPE_DOUBLES) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_6666);
+    } else {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+    }
+
+_NoScreenReduction:
+    // TODO: Collision Course, Electro Drift
+
+    // 0.5x if the target has Multiscale (ignorable) or Shadow Shield and is at full HP.
+    if ((defender->currHP == defender->maxHP)
+            && (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_MULTISCALE)
+                    || defender->ability == ABILITY_SHADOW_SHIELD)) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+    }
+
+    // 0.5x if the target has Fluffy, the move makes contact, and the attacker does not have Long Reach.
+    if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FLUFFY)
+            && (attacker->ability != ABILITY_LONG_REACH)
+            && (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT)) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+    }
+
+    // 0.5x if the target has Punk Rock and the used move is sound-based.
+    if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_PUNK_ROCK)
+            && Moves_IsSound(moveID)) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+    }
+
+    // 0.5x if the target has Ice Scales and the used move is Special.
+    if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_ICE_SCALES)
+            && (movePSS == PSS_SPECIAL)) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+    }
+
+    if (Server_CheckDefenderAbility(server, server->attacker, PARTNER(server->defender), ABILITY_FRIEND_GUARD)) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_75);
+    }
+
+    if (server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) {
+        if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FILTER)
+                || Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_SOLID_ROCK)
+                || defender->ability == ABILITY_PRISM_ARMOR) {
+            chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_75);
+        }
+
+        if (attacker->ability == ABILITY_NEUROFORCE) {
+            chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_25);
+        }
+    }
+
+    if ((server->critical > 1) && attacker->ability == ABILITY_SNIPER) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_5);
+    }
+
+    if ((server->moveStatusFlag & MOVE_STATUS_FLAG_NOT_VERY_EFFECTIVE) && attacker->ability == ABILITY_TINTED_LENS) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+    }
+
+    if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FLUFFY)
+            && moveType == TYPE_FIRE) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+    }
+
+    if (((moveType == TYPE_NORMAL) && (defender->heldItemEffect == HOLD_EFFECT_WEAKEN_NORMAL))
+            || ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) && (HOLD_EFFECT_RESIST_BERRY(defender->heldItemEffect)))) {
+        if (defender->ability == ABILITY_RIPEN) {
+            chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_25);
+        } else {
+            chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+        }
+    }
+
+    if ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE)
+            && (attacker->heldItemEffect == HOLD_EFFECT_BOOST_SE)) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_2);
+    }
+
+    if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_DAMAGE_AND_DRAIN) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_3);
+    }
+
+    if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_REPEATED) {
+        u8 metronomeCount = server->activePokemon[server->attacker].moveEffects.metronome;
+        u16 metronomeMod;
+        if (metronomeCount < 6) {
+            metronomeMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_0 + (UQ412__0_2 * (metronomeCount - 1)));
+        } else {
+            metronomeMod = UQ412__2_0;
+        }
+
+        chainMod = UQ412_Mul_RoundUp(chainMod, metronomeMod);
+    }
+
+    return chainMod;
+}
+
 // https://bulbapedia.bulbagarden.net/wiki/Damage#Generation_V_onward
-void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
+void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 {
     struct CalcParams attackerParams = {
         .species        = BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_SPECIES,          NULL),
@@ -1090,8 +1451,6 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
         .heldItemEffect = Server_HeldItemEffect(server, server->defender),
         .heldItemPower  = Server_HeldItemPower(server, server->defender, 0),
     };
-
-    u32 battleType = Battle_Type(battle);
 
     // Step 1: Calculate the base damage value.
     s32 damage = Calc_BaseDamage(battle, server, &attackerParams, &defenderParams);
@@ -1173,11 +1532,8 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
         stabMod = stabMod + UQ412__0_5;
     }
 
-    // Step 9: Apply overall type effectiveness; multiply/divide by 2 according to each effectiveness
-    // matchup of the move's type vs the defender's types.
-    //
-    // TODO: Forest's Curse and Trick-or-Treat add types to a Pokemon, so three types need to be checked.
-    u16 typeMod = Server_CalcTypeMod();
+    // Step 9: Compute the modifier for type effectiveness.
+    u16 typeMod = Calc_TypeModifier(server, &attackerParams, &defenderParams);
 
     // Step 10: Divide by 2 if the attacker is burned and does not have Guts nor is using Facade.
     u16 burnMod = UQ412__1_0;
@@ -1202,10 +1558,18 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
     //  - Fluffy, if the used move is Fire-type
     //  - Type-resist berries
     //  - Expert Belt, Life Orb, and Metronome
+    u16 lastMod = Calc_ChainOtherModifiers(
+        server,
+        &attackerParams,
+        &defenderParams,
+        battleType,
+        server->moveIDCurr,
+        server->moveType,
+        server->aiWork.moveTable[server->moveIDCurr].pss
+    );
 
     // Step 11: Divide by 4 if the used move is a Z-move and the target is trying to Protect itself.
     // TODO: Z-moves
-    u16 finalMod = UQ412__1_0;
 
     // Apply all the modifiers.
 #ifdef DEBUG_MODE
@@ -1213,13 +1577,13 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
     // applied to and printed out.
     u8 buf[128];
     sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
+    int length = 32;
     for (int i = 0; i < 16; i++) {
-        int length = 0;
         damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], stabMod);
         damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], typeMod);
         damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], burnMod);
-        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], finalMod);
-        length += sprintf(buf + length, "%d ", damageValues[i]);
+        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], lastMod);
+        length += sprintf(buf + length, "%ld ", damageValues[i]);
     }
     sprintf(buf + length, "]\n");
     debugsyscall(buf);
@@ -1230,116 +1594,24 @@ void Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server)
     damage = Q412_Mul_IntByQ_RoundDown(damage, stabMod);
     damage = Q412_Mul_IntByQ_RoundDown(damage, typeMod);
     damage = Q412_Mul_IntByQ_RoundDown(damage, burnMod);
-    damage = Q412_Mul_IntByQ_RoundDown(damage, finalMod);
+    damage = Q412_Mul_IntByQ_RoundDown(damage, lastMod);
 #endif
 
     // And we're done.
-    server->damage = damage;
+    server->damage = damage * -1;
 }
 
-#define __NORM     0
-#define _IMMUN  0xFF
-#define _NVEFF    -1
-#define _SPEFF     1
-
-/**
- * NxN matrix, modeled as an attacking type vs a defensive type. Each
- * value S in the matrix is one of the following values:
- *   -    0 -> no modifier
- *   -    1 -> attacking type is super effective
- *   -   -1 -> attacking type is not very effective
- *   - 0xFF -> defending type is immune
- * 
- * These values can be interpreted as the leftward shift to apply to
- * UQ412__1_0 for a particular matchup. e.g., if an attacking type is
- * super effective against the defending type, the type modifier becomes
- * UQ412__1_0 << 1, which is equivalent to UQ412__2_0. If the defender is
- * dual-type and its second type resists the attacking type, then the
- * final modifier would then be UQ412__2_0 >> 1, which is UQ412__1_0.
- * 
- * If the value stored is 0xFF (an immunity), then other special cases
- * need to be handled elsewhere (e.g. Scrappy, Foresight, Roost).
- *
- * This table as provided is up-to-date as of generation 9.
- */
-static const s8 sTypeEffectiveness[NUM_TYPES][NUM_TYPES] = {
-    // attacking type    vs:  NORM,  FIGHT, FLYING, POISON, GROUND,   ROCK,    BUG,  GHOST,  STEEL,  FAIRY,   FIRE,  WATER,  GRASS, ELECTR, PSYCHC,    ICE, DRAGON,   DARK
-    [TYPE_NORMAL]       = { __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, _IMMUN, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM },
-    [TYPE_FIGHTING]     = { _SPEFF, __NORM, _NVEFF, _NVEFF, __NORM, _SPEFF, _NVEFF, _IMMUN, _SPEFF, _NVEFF, __NORM, __NORM, __NORM, __NORM, _NVEFF, _SPEFF, __NORM, _SPEFF },
-    [TYPE_FLYING]       = { __NORM, _SPEFF, __NORM, __NORM, __NORM, _NVEFF, _SPEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, __NORM },
-    [TYPE_POISON]       = { __NORM, __NORM, __NORM, _NVEFF, _NVEFF, _NVEFF, __NORM, _NVEFF, _IMMUN, _SPEFF, __NORM, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, __NORM },
-    [TYPE_GROUND]       = { __NORM, __NORM, _IMMUN, _SPEFF, __NORM, _SPEFF, _NVEFF, __NORM, _SPEFF, __NORM, _SPEFF, __NORM, _NVEFF, _SPEFF, __NORM, __NORM, __NORM, __NORM },
-    [TYPE_ROCK]         = { __NORM, _NVEFF, _SPEFF, __NORM, _NVEFF, __NORM, _SPEFF, __NORM, _NVEFF, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM },
-    [TYPE_BUG]          = { __NORM, _NVEFF, _NVEFF, _NVEFF, __NORM, __NORM, __NORM, _NVEFF, _NVEFF, _NVEFF, _NVEFF, __NORM, _SPEFF, __NORM, _SPEFF, __NORM, __NORM, _SPEFF },
-    [TYPE_GHOST]        = { _IMMUN, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, _NVEFF },
-    [TYPE_STEEL]        = { __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, _NVEFF, _SPEFF, _NVEFF, _NVEFF, __NORM, _NVEFF, __NORM, _SPEFF, __NORM, __NORM },
-    [TYPE_FAIRY]        = { __NORM, _SPEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, _SPEFF },
-    [TYPE_FIRE]         = { __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, _SPEFF, __NORM, _SPEFF, __NORM, _NVEFF, _NVEFF, _SPEFF, __NORM, __NORM, _SPEFF, _NVEFF, __NORM },
-    [TYPE_WATER]        = { __NORM, __NORM, __NORM, __NORM, _SPEFF, _SPEFF, __NORM, __NORM, __NORM, __NORM, _SPEFF, _NVEFF, _NVEFF, __NORM, __NORM, __NORM, _NVEFF, __NORM },
-    [TYPE_GRASS]        = { __NORM, __NORM, _NVEFF, _NVEFF, _SPEFF, _SPEFF, _NVEFF, __NORM, _NVEFF, __NORM, _NVEFF, _SPEFF, _NVEFF, __NORM, __NORM, __NORM, _NVEFF, __NORM },
-    [TYPE_ELECTRIC]     = { __NORM, __NORM, _SPEFF, __NORM, _IMMUN, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, _NVEFF, _NVEFF, __NORM, __NORM, _NVEFF, __NORM },
-    [TYPE_PSYCHIC]      = { __NORM, _SPEFF, __NORM, _SPEFF, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, __NORM, __NORM, _IMMUN },
-    [TYPE_ICE]          = { __NORM, __NORM, _SPEFF, __NORM, _SPEFF, __NORM, __NORM, __NORM, _NVEFF, __NORM, _NVEFF, _NVEFF, _SPEFF, __NORM, __NORM, _NVEFF, _SPEFF, __NORM },
-    [TYPE_DRAGON]       = { __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _NVEFF, _IMMUN, __NORM, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM },
-    [TYPE_DARK]         = { __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, _NVEFF, __NORM, __NORM, __NORM, __NORM, _SPEFF, __NORM, __NORM, _NVEFF },
-};
-
-u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender)
-{
-    u16 typeMod = UQ412__1_0;
-    s8 *typeMatchups = sTypeEffectiveness[server->moveType];
-
-    s8 type1Matchup = typeMatchups[defender->type1];
-    switch (type1Matchup) {
-        case    0: break;                   // normal damage
-        case    1:                          // super effective
-            typeMod = typeMod << 1;
-            break;
-        case   -1:                          // not very effective
-            typeMod = typeMod >> 1;
-            break;
-        default:                            // immune
-            if (Calc_ImmunityActive(server, server->attacker, server->defender, server->moveType)) {
-                typeMod = 0;
-            }
-            break;
-    }
-
-    s8 type2Matchup = 0;
-    if (defender->type1 != defender->type2) {
-        type2Matchup = typeMatchups[defender->type2];
-    }
-}
-
-// ST_KoukanaiCheck
-// The vanilla function here actually passes the attacking and defending client numbers,
-// as well as the position into the original type check matrix.
-// However, it passes all of these values as 32-bit ints, which means we can instead pass
-// in addresses to the attacker and defender structs we build previously, as well as a
-// pointer to where we are in the type effectiveness matrix.
-BOOL Calc_ImmunityActive(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender, int moveType)
-{
-    
-}
-
-int Server_CalcCritical(
-    struct Battle *battle,
-    struct BattleServer *server,
-    int attacker,
-    int defender,
-    int critStages,
-    u32 sideConditions
-) {
+BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server) {
     int ret = 1;
 
-    u16 species            = server->activePokemon[attacker].species;
-    u32 volatileConditions = server->activePokemon[attacker].condition2;
-    u32 moveEffects        = server->activePokemon[defender].moveEffectsMask;
-    u8  ability            = server->activePokemon[attacker].ability;
-    u16 itemEffect         = Server_HeldItemEffect(server, attacker);
+    u16 species            = server->activePokemon[server->attacker].species;
+    u32 volatileConditions = server->activePokemon[server->attacker].condition2;
+    u32 moveEffects        = server->activePokemon[server->defender].moveEffectsMask;
+    u8  ability            = server->activePokemon[server->attacker].ability;
+    u16 itemEffect         = Server_HeldItemEffect(server, server->attacker);
 
     u16 effectiveStages = (
-        critStages
+        server->criticalCount
         + (itemEffect == HOLD_EFFECT_BOOST_CRIT_RATE)
         + (ability == ABILITY_SUPER_LUCK)
         + (((volatileConditions & CONDITION_V_PUMPED) != 0) * 2)
@@ -1354,16 +1626,12 @@ int Server_CalcCritical(
     // trying to change the crit ratios
 
     if (Battle_Random(battle) % gCriticalRateTable[effectiveStages] == 0) {
-        if ((Server_CheckDefenderAbility(server, attacker, defender, ABILITY_BATTLE_ARMOR) == FALSE)
-                && (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_SHELL_ARMOR) == FALSE)
-                && ((sideConditions & SIDE_CONDITION_LUCKY_CHANT) == FALSE)
+        if ((Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_BATTLE_ARMOR) == FALSE)
+                && (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_SHELL_ARMOR) == FALSE)
+                && ((Server_Get(battle, server, SERVER_PARAM_SIDE_CONDITIONS, server->defender) & SIDE_CONDITION_LUCKY_CHANT) == FALSE)
                 && ((moveEffects & MOVE_EFFECT_NO_CRITICAL) == FALSE)) {
             ret = 2;
         }
-    }
-
-    if ((ret == 2) && (Server_Ability(server, attacker) == ABILITY_SNIPER)) {
-        ret = 3;
     }
 
     return ret;

@@ -1,4 +1,5 @@
 .nds
+.thumb
 
 .open "base/y9.bin", 0
 

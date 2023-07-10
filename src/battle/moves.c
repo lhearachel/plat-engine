@@ -174,6 +174,21 @@ inline BOOL Moves_CheckTableMatch(u16 moveID, u16 moveTable[], u8 sizeOfTable, B
     return retOnMatch;
 }
 
+static u16 sBoostedByMinimize[] = {
+    MOVE_BODY_SLAM,
+    MOVE_DRAGON_RUSH,
+    MOVE_FLYING_PRESS,
+    MOVE_HEAT_CRASH,
+    MOVE_HEAVY_SLAM,
+    MOVE_STEAMROLLER,
+    MOVE_STOMP,
+};
+
+BOOL Moves_BoostedByMinimize(u16 moveID)
+{
+    return Moves_CheckTableMatch(moveID, sBoostedByMinimize, NELEMS(sBoostedByMinimize), TRUE);
+}
+
 static u16 sAuraOrPulseMoves[] = {
     MOVE_AURA_SPHERE,
     MOVE_DARK_PULSE,

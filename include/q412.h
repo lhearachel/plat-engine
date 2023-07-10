@@ -4,12 +4,6 @@
 #include "typedefs.h"
 
 /*
- * Starting with generation 5, Pokemon moved to using the Q number format for
- * representing integers as a means specify fractions and ratios. A number of
- * formats are utilized, all of which are defined here as macros for usability.
- */
-
-/*
  * Starting with generation 5, Pokemon moved to using the Q4.12 number format
  * for representing integers as they were to be used in damage computations.
  * This format specifies decimal values as such:
@@ -39,6 +33,7 @@
 
 #define UQ412__1_0          4096    // 1.0
 #define UQ412__2_0          8192    // 2.0
+#define UQ412__0_6666       2732    // 0.6666
 #define UQ412__0_5          2048    // 0.5
 #define UQ412__0_3333       1365    // 0.3333
 #define UQ412__0_33         1352    // 0.33
@@ -88,16 +83,7 @@
  * @param by 
  * @return Product, Q-numeric.
  */
-inline u16 UQ412_Mul_RoundUp(u16 n, u16 by)
-{
-    if (by == UQ412__1_0) {
-        return n;
-    }
-
-    u32 temp = (u32) n * (u32) by;
-    temp = temp + UQ412__0_5;           // round up any mid-value on the tail
-    return temp >> UQ412_INT_BITSHIFT;  // undo the implicit bitshift from n*by
-}
+u16 __attribute__((long_call)) UQ412_Mul_RoundUp(u16 n, u16 by);
 
 /**
  * @brief Multiply two Q-numeric operands together, rounding the tail
@@ -107,12 +93,7 @@ inline u16 UQ412_Mul_RoundUp(u16 n, u16 by)
  * @param by 
  * @return Product, Q-numeric.
  */
-inline u16 UQ412_Mul_RoundDown(u16 n, u16 by)
-{
-    u32 temp = (u32) n * (u32) by;
-    temp = temp + UQ412__0_5 - 1;       // round down any mid-value on the tail
-    return temp >> UQ412_INT_BITSHIFT;  // undo the implicit bitshift from n*by
-}
+u16 __attribute__((long_call)) UQ412_Mul_RoundDown(u16 n, u16 by);
 
 /**
  * @brief Multiply a 16-bit integer by a Q4.12 format operand
@@ -122,30 +103,8 @@ inline u16 UQ412_Mul_RoundDown(u16 n, u16 by)
  * @param q 
  * @return u16 
  */
-inline u16 UQ412_Mul_IntByQ_RoundDown(u16 i, u16 q)
-{
-    if (q == UQ412__1_0) {
-        return i;
-    }
+u16 __attribute__((long_call)) UQ412_Mul_IntByQ_RoundDown(u16 i, u16 q);
 
-    u32 temp = (u32) i << UQ412_INT_BITSHIFT;   // transform to Q20.12 fixed-point
-    temp = temp * (u32) q;                      // implicit shift here
-    temp = temp >> UQ412_INT_BITSHIFT;          // undo the implicit shift
-    temp = temp + UQ412__0_5 - 1;               // round the result (down at 0.5)
-    return temp >> UQ412_INT_BITSHIFT;          // undo the initial shift
-}
-
-inline s32 Q412_Mul_IntByQ_RoundDown(s32 i, u16 q)
-{
-    if (q == UQ412__1_0) {
-        return i;
-    }
-
-    s32 temp = (s32) i << UQ412_INT_BITSHIFT;   // transform to Q20.12 fixed-point
-    temp = temp * (s32) q;                      // implicit shift here
-    temp = temp >> UQ412_INT_BITSHIFT;          // undo the implicit shift
-    temp = temp + UQ412__0_5 - 1;               // round the result (down at 0.5)
-    return temp >> UQ412_INT_BITSHIFT;          // undo the initial shift
-}
+s32 __attribute__((long_call)) Q412_Mul_IntByQ_RoundDown(s32 i, u16 q);
 
 #endif // __Q412_H
