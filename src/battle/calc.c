@@ -1628,10 +1628,10 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // Step 7: Apply random damage fluctuation.
 #ifdef DEBUG_MODE
     // Debug mode: store all possible damage values as a buffer.
-    // s32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
-    // for (int i = 0; i < 16; i++) {
-    //     damageValues[i] = damage * damageValues[i] / 100;
-    // }
+    s32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
+    for (int i = 0; i < 16; i++) {
+        damageValues[i] = damage * damageValues[i] / 100;
+    }
 #else
     // Generate a random number from 85 to 100.
     int rand = 100 - (Battle_Random(battle) % 16);
@@ -1696,41 +1696,20 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 #ifdef DEBUG_MODE
     // If we're in debug mode, then we instead have a whole list of damage values that need to be
     // applied to and printed out.
-    // sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
-    // int length = 32;
-    // for (int i = 0; i < 16; i++) {
-    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], stabMod);
-    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], typeMod);
-    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], burnMod);
-    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], lastMod);
-    //     length += sprintf(buf + length, "%ld ", damageValues[i]);
-    // }
-    // sprintf(buf + length, "]\n");
-    // debugsyscall(buf);
-
-    // // Always use the max value in debug mode.
-    // damage = damageValues[15];
-    sprintf(buf, "[PLAT-ENGINE] STAB Modifier (q412): %ld\n", stabMod);
-    debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Typechart Modifier (q412): %ld\n", typeMod);
-    debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Burn Modifier (q412): %ld\n", burnMod);
-    debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Last Modifier (q412): %ld\n", lastMod);
+    sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
+    int length = 32;
+    for (int i = 0; i < 16; i++) {
+        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], stabMod);
+        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], typeMod);
+        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], burnMod);
+        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], lastMod);
+        length += sprintf(buf + length, "%ld ", damageValues[i]);
+    }
+    sprintf(buf + length, "]\n");
     debugsyscall(buf);
 
-    damage = Q412_Mul_IntByQ_RoundDown(damage, stabMod);
-    sprintf(buf, "[PLAT-ENGINE] Mul by STAB Modifier: %ld\n", damage);
-    debugsyscall(buf);
-    damage = Q412_Mul_IntByQ_RoundDown(damage, typeMod);
-    sprintf(buf, "[PLAT-ENGINE] Mul by Typechart Modifier: %ld\n", damage);
-    debugsyscall(buf);
-    damage = Q412_Mul_IntByQ_RoundDown(damage, burnMod);
-    sprintf(buf, "[PLAT-ENGINE] Mul by Burn Modifier: %ld\n", damage);
-    debugsyscall(buf);
-    damage = Q412_Mul_IntByQ_RoundDown(damage, lastMod);
-    sprintf(buf, "[PLAT-ENGINE] Mul by Last Modifier: %ld\n", damage);
-    debugsyscall(buf);
+    // Always use the max value in debug mode.
+    damage = damageValues[15];
 #else
     damage = Q412_Mul_IntByQ_RoundDown(damage, stabMod);
     damage = Q412_Mul_IntByQ_RoundDown(damage, typeMod);
