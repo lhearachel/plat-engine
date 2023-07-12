@@ -307,7 +307,7 @@ static u16 Calc_ModifiedBasePower(
      * 
      * This multiplier is passed as a value which is expected to be in Q4.12 format.
      */
-    u16 powerMod = server->powerModifier;
+    u16 powerMod = UQ412__1_0; // TODO: Set this up correctly
     
     // 2x if the attacker is under the effect of Charge and the used move is Electric-type.
     if ((server->activePokemon[server->attacker].moveEffectsMask & MOVE_EFFECT_CHARGED) && (moveType == TYPE_ELECTRIC)) {
@@ -582,6 +582,13 @@ static u16 Calc_ModifiedBasePower(
      * 4095, but that does not really matter as no move comes
      * close to that value (maximum is Explosion at 250).
      */
+#ifdef DEBUG_MODE
+    u8 buf[128];
+    sprintf(buf, "[PLAT-ENGINE] Final modifier (q412): %ld\n", powerMod);
+    debugsyscall(buf);
+    sprintf(buf, "[PLAT-ENGINE] Raw move power: %ld\n", movePower);
+    debugsyscall(buf);
+#endif
     u32 modifiedPower = UQ412_Mul_IntByQ_RoundDown(movePower, powerMod);
     return (modifiedPower < 1) ? 1 : modifiedPower;         // power can never be less than 1
 }
@@ -612,6 +619,10 @@ static u16 Calc_BaseDamage(
     u8   movePSS       = server->aiWork.moveTable[moveID].pss;
     u8   moveType      = server->moveType;
     BOOL isAteAbility  = FALSE;
+
+    if (moveBasePower == 0) {
+        moveBasePower = server->aiWork.moveTable[moveID].power;
+    }
 
     if (attacker->ability == ABILITY_NORMALIZE) {
         if (Moves_CanNormalize(moveID)) {
@@ -654,6 +665,7 @@ static u16 Calc_BaseDamage(
     } else if (moveType == TYPE_NORMAL) {
         // If the move was specified Normal type, double-check it.
         moveType = server->aiWork.moveTable[moveID].type;
+        server->moveType = moveType;
     }
 
     // Calc the modified base power first.
@@ -668,6 +680,11 @@ static u16 Calc_BaseDamage(
         moveType,
         isAteAbility
     );
+#ifdef DEBUG_MODE
+    u8 buf[128];
+    sprintf(buf, "[PLAT-ENGINE] Modified base power: %ld\n", modifiedBasePower);
+    debugsyscall(buf);
+#endif
 
     // Treat Shell Side Arm moves differently
     if (moveID == MOVE_SHELL_SIDE_ARM) {
@@ -749,6 +766,12 @@ static u16 Calc_BaseDamage(
             effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  defenderUnaware, server->critical);
             effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, attackerUnaware, server->critical);
         }
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Effective offensive stat: %ld\n", effectiveOffense);
+        debugsyscall(buf);
+        sprintf(buf, "[PLAT-ENGINE] Effective defensive stat: %ld\n", effectiveDefense);
+        debugsyscall(buf);
+#endif
     }
 
     // Unlike all other offensive modifiers, Hustle is applied directly to the 
@@ -769,15 +792,46 @@ static u16 Calc_BaseDamage(
     // Other stat modifiers are applied as a chain.
     effectiveOffense = Calc_ChainOffenseMods(battle, server, attacker, defender, effectiveOffense, moveType, movePSS);
     effectiveDefense = Calc_ChainDefenseMods(battle, server, attacker, defender, effectiveOffense, moveType, movePSS);
+#ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Offense after modifiers: %ld\n", effectiveOffense);
+    debugsyscall(buf);
+    sprintf(buf, "[PLAT-ENGINE] Defense after modifiers: %ld\n", effectiveDefense);
+    debugsyscall(buf);
+#endif
 
     // All of these divisions are integer-division.
     s32 baseDamage = 2 * BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_LEVEL, NULL);
+#ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] 2x Level: %ld\n", baseDamage);
+    debugsyscall(buf);
+#endif
     baseDamage = baseDamage / 5 + 2;
+#ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Div by 5, add 2: %ld\n", baseDamage);
+    debugsyscall(buf);
+#endif
     baseDamage = baseDamage * modifiedBasePower;
+#ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Mul by base power: %ld\n", baseDamage);
+    debugsyscall(buf);
+#endif
     baseDamage = baseDamage * effectiveOffense;
+#ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Mul by offense: %ld\n", baseDamage);
+    debugsyscall(buf);
+#endif
     baseDamage = baseDamage / effectiveDefense;
+#ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Div by offense: %ld\n", baseDamage);
+    debugsyscall(buf);
+#endif
 
-    return baseDamage / 50 + 2;
+    baseDamage = baseDamage / 50;
+#ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Div by 50: %ld\n", baseDamage);
+    debugsyscall(buf);
+#endif
+    return baseDamage + 2;
 }
 
 static u16 Calc_ChainOffenseMods(
@@ -1130,9 +1184,20 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     // Now we can check for effectiveness on the types.
     u16 typeMod = UQ412__1_0;
     const s8 *typeMatchups = sTypeEffectiveness[server->moveType];
+#ifdef DEBUG_MODE
+    u8 buf[128];
+    sprintf(buf, "[PLAT-ENGINE] Move type: %ld\n", server->moveType);
+    debugsyscall(buf);
+#endif
 
     if (type1 != TYPE_NONE) {
         s8 type1Matchup = typeMatchups[type1];
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] vs. Type 1: %ld\n", type1);
+        debugsyscall(buf);
+        sprintf(buf, "[PLAT-ENGINE] Table Entry: %ld\n", type1Matchup);
+        debugsyscall(buf);
+#endif
         switch (type1Matchup) {
             case    0: break;                   // normal damage
             case    1:                          // super effective
@@ -1152,6 +1217,12 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     // mono-type mons are technically double of the one type
     if (type1 != type2 && type2 != TYPE_NONE) {
         s8 type2Matchup = typeMatchups[type2];
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] vs. Type 2: %ld\n", type2);
+        debugsyscall(buf);
+        sprintf(buf, "[PLAT-ENGINE] Table Entry: %ld\n", type2Matchup);
+        debugsyscall(buf);
+#endif
         switch (type2Matchup) {
             case    0:                          // normal damage
                 break;
@@ -1454,11 +1525,25 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 
     // Step 1: Calculate the base damage value.
     s32 damage = Calc_BaseDamage(battle, server, &attackerParams, &defenderParams);
+#ifdef DEBUG_MODE
+    u8 buf[128];
+    sprintf(buf, "[PLAT-ENGINE] Base damage: %ld\n", damage);
+    debugsyscall(buf);
+#endif
+
 
     // Step 2: 0.75x if the move has more than one target upon execution.
     u32 battleType = Battle_Type(battle);
     if ((battleType & BATTLE_TYPE_DOUBLES) && (Server_HitCount(battle, server, 0, server->defender) > 1)) {
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Applying double battle factor\n");
+        debugsyscall(buf);
+#endif
         damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_75);
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Damage after double battle factor: %ld\n", damage);
+        debugsyscall(buf);
+#endif
     }
 
     // Step 3: Divide by 4 if the move is the second-strike of Parental Bond.
@@ -1469,18 +1554,50 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // Neither applies if the defender is holding a Utility Umbrella.
     if (WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)
             && defenderParams.heldItemEffect != HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN) {
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Sun is active, defender is affected\n");
+        debugsyscall(buf);
+#endif
         if (server->moveType == TYPE_FIRE) {
+#ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] Fire-type move\n");
+            debugsyscall(buf);
+#endif
             damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
         } else if (server->moveType == TYPE_WATER) {
+#ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] Water-type move\n");
+            debugsyscall(buf);
+#endif
             damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
         }
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Damage after sun factor: %ld\n", damage);
+        debugsyscall(buf);
+#endif
     } else if (WeatherIsActive(battle, server, FIELD_CONDITION_RAINING)
             && defenderParams.heldItemEffect != HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN) {
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Rain is active, defender is affected\n");
+        debugsyscall(buf);
+#endif
         if (server->moveType == TYPE_WATER) {
+#ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] Water-type move\n");
+            debugsyscall(buf);
+#endif
             damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
         } else if (server->moveType == TYPE_FIRE) {
+#ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] Fire-type move\n");
+            debugsyscall(buf);
+#endif
             damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
         }
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Damage after rain factor: %ld\n", damage);
+        debugsyscall(buf);
+#endif
     }
 
     // Step 5: 2x if the defender used Glaive Rush last turn (or this turn) and the move does
@@ -1491,26 +1608,30 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     //  - 1.5x  if the move was a critical hit
     //  - 2.25x if the move was a critical hit and the attacker has Sniper
 #if !defined(CRITICAL_DAMAGE_MULTIPLIER) || CRITICAL_DAMAGE_MULTIPLIER >= GEN6
-    if (server->critical == 2) {        // Normal criticals
+    if (server->critical) {
         damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
-    } else if (server->critical == 3) { // Sniper criticals
-        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__2_25);
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Critical hit damage: %ld\n", damage);
+        debugsyscall(buf);
+#endif
     }
 #else   // Gen5 critical damage
-    if (server->critical == 2) {        // Normal criticals
+    if (server->critical) {
         damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__2_0);
-    } else if (server->critical == 3) { // Sniper criticals
-        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__3_0);
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Critical hit damage: %ld\n", damage);
+        debugsyscall(buf);
+#endif
     }
 #endif
 
     // Step 7: Apply random damage fluctuation.
 #ifdef DEBUG_MODE
     // Debug mode: store all possible damage values as a buffer.
-    s32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
-    for (int i = 0; i < 16; i++) {
-        damageValues[i] = damage * damageValues[i] / 100;
-    }
+    // s32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
+    // for (int i = 0; i < 16; i++) {
+    //     damageValues[i] = damage * damageValues[i] / 100;
+    // }
 #else
     // Generate a random number from 85 to 100.
     int rand = 100 - (Battle_Random(battle) % 16);
@@ -1575,21 +1696,41 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 #ifdef DEBUG_MODE
     // If we're in debug mode, then we instead have a whole list of damage values that need to be
     // applied to and printed out.
-    u8 buf[128];
-    sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
-    int length = 32;
-    for (int i = 0; i < 16; i++) {
-        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], stabMod);
-        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], typeMod);
-        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], burnMod);
-        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], lastMod);
-        length += sprintf(buf + length, "%ld ", damageValues[i]);
-    }
-    sprintf(buf + length, "]\n");
+    // sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
+    // int length = 32;
+    // for (int i = 0; i < 16; i++) {
+    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], stabMod);
+    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], typeMod);
+    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], burnMod);
+    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], lastMod);
+    //     length += sprintf(buf + length, "%ld ", damageValues[i]);
+    // }
+    // sprintf(buf + length, "]\n");
+    // debugsyscall(buf);
+
+    // // Always use the max value in debug mode.
+    // damage = damageValues[15];
+    sprintf(buf, "[PLAT-ENGINE] STAB Modifier (q412): %ld\n", stabMod);
+    debugsyscall(buf);
+    sprintf(buf, "[PLAT-ENGINE] Typechart Modifier (q412): %ld\n", typeMod);
+    debugsyscall(buf);
+    sprintf(buf, "[PLAT-ENGINE] Burn Modifier (q412): %ld\n", burnMod);
+    debugsyscall(buf);
+    sprintf(buf, "[PLAT-ENGINE] Last Modifier (q412): %ld\n", lastMod);
     debugsyscall(buf);
 
-    // Always use the max value in debug mode.
-    damage = damageValues[15];
+    damage = Q412_Mul_IntByQ_RoundDown(damage, stabMod);
+    sprintf(buf, "[PLAT-ENGINE] Mul by STAB Modifier: %ld\n", damage);
+    debugsyscall(buf);
+    damage = Q412_Mul_IntByQ_RoundDown(damage, typeMod);
+    sprintf(buf, "[PLAT-ENGINE] Mul by Typechart Modifier: %ld\n", damage);
+    debugsyscall(buf);
+    damage = Q412_Mul_IntByQ_RoundDown(damage, burnMod);
+    sprintf(buf, "[PLAT-ENGINE] Mul by Burn Modifier: %ld\n", damage);
+    debugsyscall(buf);
+    damage = Q412_Mul_IntByQ_RoundDown(damage, lastMod);
+    sprintf(buf, "[PLAT-ENGINE] Mul by Last Modifier: %ld\n", damage);
+    debugsyscall(buf);
 #else
     damage = Q412_Mul_IntByQ_RoundDown(damage, stabMod);
     damage = Q412_Mul_IntByQ_RoundDown(damage, typeMod);
@@ -1602,7 +1743,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 }
 
 BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server) {
-    int ret = 1;
+    int ret = FALSE;
 
     u16 species            = server->activePokemon[server->attacker].species;
     u32 volatileConditions = server->activePokemon[server->attacker].condition2;
@@ -1630,7 +1771,7 @@ BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server) {
                 && (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_SHELL_ARMOR) == FALSE)
                 && ((Server_Get(battle, server, SERVER_PARAM_SIDE_CONDITIONS, server->defender) & SIDE_CONDITION_LUCKY_CHANT) == FALSE)
                 && ((moveEffects & MOVE_EFFECT_NO_CRITICAL) == FALSE)) {
-            ret = 2;
+            ret = TRUE;
         }
     }
 
