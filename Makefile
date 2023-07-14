@@ -164,10 +164,13 @@ clean_output_dirs:
 	@echo ""
 
 
-hook_into_rom:
+rom_hooks: c_binaries decompress_rom
 	$(PYTHON) scripts/make.py
+	@echo "✅ $(OUTPUT_FMT)Compiled overlays and code hooks$(FMT_OFF)"
+	@echo ""
+
 	$(ARMIPS) armips/global.s
-	@echo "✅ $(OUTPUT_FMT)Injected new code binaries$(FMT_OFF)"
+	@echo "✅ $(OUTPUT_FMT)Compiled ARM9 expansion and overlay table$(FMT_OFF)"
 	@echo ""
 
 
@@ -176,7 +179,7 @@ narcs: $(NARC_FILES)
 	@echo ""
 
 
-copy_narcs:
+copy_narcs: narcs
 	cp $(BATTLE_EFFSCR_NARC) $(BATTLE_EFFSCR_TARGET)
 	cp $(BATTLE_MOVSCR_NARC) $(BATTLE_MOVSCR_TARGET)
 	cp $(BATTLE_SUBSCR_NARC) $(BATTLE_SUBSCR_TARGET)
@@ -184,7 +187,7 @@ copy_narcs:
 	@echo ""
 
 
-compile_rom: clean_output_dirs c_binaries decompress_rom narcs copy_narcs
+compile_rom: clean_output_dirs rom_hooks copy_narcs
 	$(NDSTOOL) -c $(BUILDROM) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
 	@echo "✅ $(OUTPUT_FMT)Compiled new ROM as /$(BUILDROM)!$(FMT_OFF)"
 	@echo "🎉 $(OUTPUT_FMT)Happy testing!$(FMT_OFF)"
