@@ -30,5 +30,5 @@ arm9 Summary_Entry_Hook 08090A3A 1
 #0016 BattleScrCmd_Exec 022405FC 2
 
 0016 Calc_MoveDamage 02241374 2
-0016 Calc_Critical 0225A280 2
+0016 Calc_Critical 0225AEE4 2
 0016 Server_InitState 022541C4 1
