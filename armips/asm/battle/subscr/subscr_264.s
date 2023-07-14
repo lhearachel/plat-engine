@@ -33,7 +33,7 @@ subscr_264_NoAbilityTypeMod:
 subscr_264_GetType:
     GetCurrentMoveData                  MOVE_PARAM_TYPE
 subscr_264_Resume:
-    GetItemEffect                       BATTLER_WORKING, VAR_TEMP_WORK
+    GetItemEffect                       BATTLER_DEFENDER, VAR_TEMP_WORK
     // Chilan Berry always activates on Normal-type attacks
     If                                  EQUAL, VAR_TEMP_WORK, HOLD_EFFECT_WEAKEN_NORMAL, subscr_264_CheckNormal
     // Other types: check if the move is super-effective
@@ -59,80 +59,78 @@ subscr_264_Resume:
 subscr_264_CheckNormal:
     // Struggle check; do not consume Chilan berries
     If                                  EQUAL, VAR_CURRENT_MOVE, 165, subscr_264_Exit
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_NORMAL, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_NORMAL, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckFire:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_FIRE, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_FIRE, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckWater:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_WATER, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_WATER, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckElectric:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_ELECTRIC, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_ELECTRIC, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckGrass:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_GRASS, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_GRASS, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckIce:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_ICE, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_ICE, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckFighting:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_FIGHTING, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_FIGHTING, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckPoison:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_POISON, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_POISON, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckGround:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_GROUND, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_GROUND, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckFlying:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_FLYING, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_FLYING, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckPsychic:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_PSYCHIC, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_PSYCHIC, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckBug:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_BUG, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_BUG, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckRock:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_ROCK, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_ROCK, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckGhost:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_GHOST, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_GHOST, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckDragon:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_DRAGON, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_DRAGON, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckDark:
-    If                                  EQUAL, VAR_CALC_WORK, TYPE_DARK, subscr_264_HalveDamage
+    If                                  EQUAL, VAR_CALC_WORK, TYPE_DARK, subscr_264_AnimateAndMessage
     Branch                              subscr_264_Exit
 
 subscr_264_CheckSteel:
     If                                  NOT_EQUAL, VAR_CALC_WORK, TYPE_STEEL, subscr_264_Exit
-subscr_264_HalveDamage:
-    SetStatusEffect                     BATTLER_WORKING, STATUS_HELD_ITEM
+subscr_264_AnimateAndMessage:
+    SetStatusEffect                     BATTLER_DEFENDER, STATUS_HELD_ITEM
     Wait                                
-    DamageDiv                           VAR_HP_TEMP, 2
     // "The {0} weakened {1}'s power!"
-    Message                             1131, TAG_ITEM_MOVE, BATTLER_CLIENT_WORK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
+    Message                             1131, TAG_ITEM_MOVE, BATTLER_DEFENDER, BATTLER_ATTACKER, NaN, NaN, NaN, NaN
     Wait                                
     WaitTime                            30
-    RemoveItem                          BATTLER_WORKING
 subscr_264_Exit:
     End                                 
 

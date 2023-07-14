@@ -195,6 +195,27 @@ static const u8 sGems[] = {
     [TYPE_DARK]         = HOLD_EFFECT_GEM_DARK,
 };
 
+static const u8 sResistBerries[] = {
+    [TYPE_NORMAL]       = HOLD_EFFECT_WEAKEN_NORMAL,
+    [TYPE_FIGHTING]     = HOLD_EFFECT_WEAKEN_SE_FIGHTING,
+    [TYPE_FLYING]       = HOLD_EFFECT_WEAKEN_SE_FLYING,
+    [TYPE_POISON]       = HOLD_EFFECT_WEAKEN_SE_POISON,
+    [TYPE_GROUND]       = HOLD_EFFECT_WEAKEN_SE_GROUND,
+    [TYPE_ROCK]         = HOLD_EFFECT_WEAKEN_SE_ROCK,
+    [TYPE_BUG]          = HOLD_EFFECT_WEAKEN_SE_BUG,
+    [TYPE_GHOST]        = HOLD_EFFECT_WEAKEN_SE_GHOST,
+    [TYPE_STEEL]        = HOLD_EFFECT_WEAKEN_SE_STEEL,
+    [TYPE_FAIRY]        = HOLD_EFFECT_WEAKEN_SE_FAIRY,
+    [TYPE_FIRE]         = HOLD_EFFECT_WEAKEN_SE_FIRE,
+    [TYPE_WATER]        = HOLD_EFFECT_WEAKEN_SE_WATER,
+    [TYPE_GRASS]        = HOLD_EFFECT_WEAKEN_SE_GRASS,
+    [TYPE_ELECTRIC]     = HOLD_EFFECT_WEAKEN_SE_ELECTRIC,
+    [TYPE_PSYCHIC]      = HOLD_EFFECT_WEAKEN_SE_PSYCHIC,
+    [TYPE_ICE]          = HOLD_EFFECT_WEAKEN_SE_ICE,
+    [TYPE_DRAGON]       = HOLD_EFFECT_WEAKEN_SE_DRAGON,
+    [TYPE_DARK]         = HOLD_EFFECT_WEAKEN_SE_DARK,
+};
+
 static inline BOOL WeatherIsActive(struct Battle *battle, struct BattleServer *server, u32 weatherMask)
 {
     return (server->fieldConditions.raw & weatherMask)
@@ -260,6 +281,11 @@ static inline BOOL SlowStartActive(struct Battle *battle, struct BattleServer *s
     return Server_Get(battle, server, SERVER_PARAM_TOTAL_TURNS, 0)
             - BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_SLOW_START_INIT_TURN, NULL)
             < 5;
+}
+
+static inline BOOL CheckResistBerry(int heldItemEffect, u8 moveType)
+{
+    return sResistBerries[moveType] == heldItemEffect;
 }
 
 
@@ -1444,7 +1470,7 @@ _NoScreenReduction:
     }
 
     if (((moveType == TYPE_NORMAL) && (defender->heldItemEffect == HOLD_EFFECT_WEAKEN_NORMAL))
-            || ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) && (HOLD_EFFECT_RESIST_BERRY(defender->heldItemEffect)))) {
+            || ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) && CheckResistBerry(defender->heldItemEffect, moveType))) {
         if (defender->ability == ABILITY_RIPEN) {
             chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_25);
         } else {

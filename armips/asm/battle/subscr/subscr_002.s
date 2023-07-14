@@ -20,8 +20,6 @@ subscr_002:
     PlayMoveSoundEffect                 BATTLER_WORKING
     FlickerMon                          BATTLER_WORKING
     Wait                                
-    If                                  EQUAL, VAR_CLIENT_WORKING_COUNT, 0, subscr_002_NoBlink
-    CallSubscript                       SUBSCR_TYPE_RESIST_BERRIES
 subscr_002_NoBlink:
     SetVar                              OP_CLEAR_FLAG, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_DO_NOT_BLINK
     UpdateHPGauge                       BATTLER_WORKING

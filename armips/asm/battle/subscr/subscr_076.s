@@ -18,8 +18,10 @@
 subscr_076:
     AttackMessage                       
     Wait                                
+    CallSubscript                       SUBSCR_CHECK_TRIGGER_RESIST_BERRY
     PlayAnimation                       BATTLER_ATTACKER
     Wait                                
+    CallSubscript                       SUBSCR_CHECK_REMOVE_RESIST_BERRY
     End                                 
 
 .close
