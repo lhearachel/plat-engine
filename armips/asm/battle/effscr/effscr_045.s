@@ -15,10 +15,9 @@
 .create "build/battle/scr/effscr/be_seq_045.bin", 0
 
 // Crash damage on miss
+//
+// Reckless damage multiplier is handled in the battle calc
 effscr_045:
-    CheckAbility                        MODE_NOT_HAVE, BATTLER_ATTACKER, ABILITY_RECKLESS, effscr_045_Damage
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 12
-effscr_045_Damage:
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_CRASH_DAMAGE
     CriticalCalc                        
     DamageCalc                          

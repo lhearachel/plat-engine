@@ -15,12 +15,10 @@
 .create "build/battle/scr/effscr/be_seq_150.bin", 0
 
 // Double damage to Minimized target; chance to flinch on hit
+//
+// Damage multiplier against Minimized targets is handled in the damage calc
 effscr_150:
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_DEFENDER | ADDL_EFFECT_FLINCH
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 10
-    IfMonData                           FLAG_NEQ, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_MINIMIZED, effscr_150_Damage
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 20
-effscr_150_Damage:
     CriticalCalc                        
     DamageCalc                          
     End                                 

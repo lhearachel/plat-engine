@@ -15,13 +15,10 @@
 .create "build/battle/scr/effscr/be_seq_126.bin", 0
 
 // Magnitude
+//
+// Damage multiplier against underground targets is handled in the damage calc
 effscr_126:
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_HIT_DIGGING_MON
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 10
-    // Increase the damage if the target is underground
-    IfMonData                           FLAG_NEQ, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, 128, effscr_126_Damage
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 20
-effscr_126_Damage:
     SetVar                              OP_SET, VAR_ADD_STATUS_DIRECT, ADDL_EFFECT_DEFENDER | ADDL_EFFECT_FLAG_UPDATE | ADDL_EFFECT_MAGNITUDE
     MagnitudeDamageCalc                 
     CriticalCalc                        

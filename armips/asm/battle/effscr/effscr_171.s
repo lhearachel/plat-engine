@@ -18,10 +18,10 @@
 effscr_171:
     CheckSubstitute                     BATTLER_DEFENDER, effscr_171_Damage
     IfMonData                           FLAG_EQ, BATTLER_DEFENDER, BATTLE_MON_CONDITION, CONDITION_PARALYZED, effscr_171_TargetIsParalyzed
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 10
+    SetVar                              OP_SET, VAR_DAMAGE_MULTI, Q412_1_0
     Branch                              effscr_171_Damage
 effscr_171_TargetIsParalyzed:
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 20
+    SetVar                              OP_SET, VAR_DAMAGE_MULTI, Q412_2_0
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_FLAG_UPDATE | ADDL_EFFECT_CURE_PARALYSIS
 effscr_171_Damage:
     CriticalCalc                        

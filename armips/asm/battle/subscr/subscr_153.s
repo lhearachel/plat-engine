@@ -20,8 +20,8 @@ subscr_153:
 subscr_153_Loop:
     // If no Pursuit damage, bail out
     TryPursuit                          subscr_153_Exit
-    // Double damage on a switch
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 20
+    // Double power on a switch
+    SetVar                              OP_SET, VAR_DAMAGE_MULTI, Q412_2_0
     CriticalCalc                        
     DamageCalc                          
     ApplyTypeMultipliers                

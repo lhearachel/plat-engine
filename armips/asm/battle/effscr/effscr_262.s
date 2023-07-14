@@ -15,10 +15,9 @@
 .create "build/battle/scr/effscr/be_seq_262.bin", 0
 
 // User takes recoil = 1/3 of damage dealt; chance to paralyze on hit
+//
+// Reckless damage multiplier is handled in the battle calc
 effscr_262:
-    CheckAbility                        MODE_NOT_HAVE, BATTLER_ATTACKER, ABILITY_RECKLESS, effscr_262_SkipReckless
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 12
-effscr_262_SkipReckless:
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_DEFENDER | ADDL_EFFECT_HAS_PROBABILITY | ADDL_EFFECT_VOLT_TACKLE
     CriticalCalc                        
     DamageCalc                          

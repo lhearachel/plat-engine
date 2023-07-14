@@ -18,10 +18,10 @@
 effscr_217:
     CheckSubstitute                     BATTLER_DEFENDER, effscr_217_Damage
     IfMonData                           FLAG_EQ, BATTLER_DEFENDER, BATTLE_MON_CONDITION, CONDITION_ASLEEP, effscr_217_TargetIsAsleep
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 10
+    SetVar                              OP_SET, VAR_DAMAGE_MULTI, Q412_1_0
     Branch                              effscr_217_Damage
 effscr_217_TargetIsAsleep:
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 20
+    SetVar                              OP_SET, VAR_DAMAGE_MULTI, Q412_2_0
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_FLAG_UPDATE | ADDL_EFFECT_CURE_SLEEP
 effscr_217_Damage:
     CriticalCalc                        

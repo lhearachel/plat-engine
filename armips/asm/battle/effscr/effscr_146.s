@@ -15,15 +15,11 @@
 .create "build/battle/scr/effscr/be_seq_146.bin", 0
 
 // Twister: chance to flinch + double damage to a target in the air
+//
+// Damage multiplier against airborne targets is handled in the damage calc
 effscr_146:
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_DEFENDER | ADDL_EFFECT_FLINCH
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_HIT_FLYING_MON
-    // This line is technically a no-op; should probably remove it during the revamp
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 10
-    // If the target is airborne, add a multiplication factor of 2x to the damage output
-    IfMonData                           FLAG_NEQ, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_AIRBORNE, effscr_146_Damage
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 20
-effscr_146_Damage:
     CriticalCalc                        
     DamageCalc                          
     End                                 

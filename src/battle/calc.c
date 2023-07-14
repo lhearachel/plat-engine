@@ -1355,6 +1355,11 @@ static u16 Calc_ChainOtherModifiers(
         chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
     }
 
+    if (((moveID == MOVE_TWISTER) || (moveID == MOVE_GUST))
+            && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_AIRBORNE) {
+        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+    }
+
     // Reflect / Light Screen / Aurora Veil checks
     if (attacker->ability == ABILITY_INFILTRATOR) {
         goto _NoScreenReduction;

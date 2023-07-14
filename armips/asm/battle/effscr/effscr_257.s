@@ -15,12 +15,10 @@
 .create "build/battle/scr/effscr/be_seq_257.bin", 0
 
 // Double damage to underwater targets
+//
+// Damage multiplier against underwater targets is handled in the damage calc
 effscr_257:
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_HIT_DIVING_MON
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 10
-    IfMonData                           FLAG_NEQ, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_UNDERWATER, effscr_257_Damage
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 20
-effscr_257_Damage:
     CriticalCalc                        
     DamageCalc                          
     End                                 

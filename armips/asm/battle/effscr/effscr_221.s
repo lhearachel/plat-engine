@@ -19,10 +19,10 @@ effscr_221:
     SetMonDataFromVar                   OP_GET, 2, BATTLE_MON_MAX_HP, VAR_CALC_WORK
     SetVar                              OP_DIV, VAR_CALC_WORK, 2
     JumpIfMonData                       GREATER, BATTLER_DEFENDER, BATTLE_MON_HP, VAR_CALC_WORK, effscr_221_BaseMultiplier
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 20
+    SetVar                              OP_SET, VAR_DAMAGE_MULTI, Q412_2_0
     Branch                              effscr_221_Damage
 effscr_221_BaseMultiplier:
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 10
+    SetVar                              OP_SET, VAR_DAMAGE_MULTI, Q412_1_0
 effscr_221_Damage:
     CriticalCalc                        
     DamageCalc                          

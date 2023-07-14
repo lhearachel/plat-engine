@@ -15,10 +15,9 @@
 .create "build/battle/scr/effscr/be_seq_048.bin", 0
 
 // User takes recoil = 1/4 of damage dealt
+//
+// Reckless damage multiplier is handled in the battle calc
 effscr_048:
-    CheckAbility                        MODE_NOT_HAVE, BATTLER_ATTACKER, ABILITY_RECKLESS, effscr_048_Damage
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 12
-effscr_048_Damage:
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_FLAG_UPDATE | ADDL_EFFECT_TAKE_RECOIL_1_4
     CriticalCalc                        
     DamageCalc                          

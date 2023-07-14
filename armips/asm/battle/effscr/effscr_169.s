@@ -17,7 +17,7 @@
 // Facade (double power if the user is Poisoned, Paralyzed, or Burned)
 effscr_169:
     IfMonData                           FLAG_NEQ, BATTLER_ATTACKER, BATTLE_MON_CONDITION, CONDITION_BOOST_FACADE, effscr_169_Damage
-    SetVar                              OP_SET, VAR_DAMAGE_MULTI, 20
+    SetVar                              OP_SET, VAR_DAMAGE_MULTI, Q412_2_0
 effscr_169_Damage:
     CriticalCalc                        
     DamageCalc                          

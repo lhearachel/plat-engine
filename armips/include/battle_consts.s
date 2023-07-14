@@ -461,3 +461,7 @@ RANGE_ENEMY_SIDE        equ (0x0080)
 RANGE_HELPING_HAND      equ (0x0100)
 RANGE_ACUPRESSURE       equ (0x0200)
 RANGE_ME_FIRST          equ (0x0400)
+
+
+Q412_1_0                equ (4096)
+Q412_2_0                equ (8192)
