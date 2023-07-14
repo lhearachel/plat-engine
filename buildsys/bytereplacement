@@ -33,3 +33,9 @@
 # Critical multiplier refactoring
 # Replace 1 with 0 because Gen4's method is bad
 0016 02241CFC 00 21
+
+# Get rid of a bunch of stuff in the damage calc script command
+# that's now handled by calc.c
+#
+# This just circumvents all that with an early return FALSE;
+0016 022414F6 00 20 38 BD
