@@ -592,8 +592,18 @@ static u16 Calc_ModifiedBasePower(
             powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
         }
     } else if (attacker->heldItemEffect == sGems[moveType]) {
+#ifdef DEBUG_MODE
+        u8 buf[128];
+        sprintf(buf, "[PLAT-ENGINE] Activated Gem %d for move type %d\n", attacker->heldItemEffect, moveType);
+        debugsyscall(buf);
+#endif
+#if defined(GEM_DAMAGE_MULTIPLIER) && GEM_DAMAGE_MULTIPLIER <= GEN5
+        // 1.5x if the attacker is holding a Gem and the used move is of a matching type.
+        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+#else
         // 1.3x if the attacker is holding a Gem and the used move is of a matching type.
         powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
+#endif
     } else if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_PUNCHING_MOVES) {
         // 1.1x if the attacker is holding a Punching Glove and the used move is punching-based.
         if (Moves_IsPunching(moveID)) {
@@ -1472,7 +1482,8 @@ _NoScreenReduction:
         chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
     }
 
-    if ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) && CheckResistBerry(defender->heldItemEffect, moveType)) {
+    if (((moveType == TYPE_NORMAL) && (defender->heldItemEffect == HOLD_EFFECT_WEAKEN_NORMAL))
+            || ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) && CheckResistBerry(defender->heldItemEffect, moveType))) {
 #ifdef DEBUG_MODE
         sprintf(buf, "[PLAT-ENGINE] Activating resist berry %d for type %d\n", defender->heldItemEffect, moveType);
         debugsyscall(buf);

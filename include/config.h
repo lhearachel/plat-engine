@@ -25,12 +25,18 @@
 // If this is defined, determines the base multiplier used for critical hit damage.
 //  - Values <= 5 will cause critical hits to multiply damage by 2x.
 //  - Values >= 6 will cause critical hits to multiply damage by 1.5x.
-// Note that this also affects the multiplier used by Pokemon with the ability Sniper.
-// Such Pokemon will use the multiplier 3x for Gen 4 or 5, and 2.25x for Gen 6+.
 //
 // If this value is undefined, then it acts as GEN6.
 // TODO: Pair with configurable Critical Rate
 #define CRITICAL_DAMAGE_MULTIPLIER      GEN6
+
+// If this is defined, determines the multiplier used for Gem activations on
+// corresponding moves:
+//  - Values <= 5 will cause Gems to multiply damage by 1.5x.
+//  - Values >= 6 will cause Gems to multiply damage by 1.3x.
+//
+// If this value is undefined, then it acts as GEN6.
+#define GEM_DAMAGE_MULTIPLIER           GEN6
 
 // If this is defined, then the save structure will be expanded to allow for
 // additional Pokedex entries and forme changes. This WILL break compatibility
