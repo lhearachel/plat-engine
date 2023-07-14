@@ -817,7 +817,7 @@ static u16 Calc_BaseDamage(
 
     // Other stat modifiers are applied as a chain.
     effectiveOffense = Calc_ChainOffenseMods(battle, server, attacker, defender, effectiveOffense, moveType, movePSS);
-    effectiveDefense = Calc_ChainDefenseMods(battle, server, attacker, defender, effectiveOffense, moveType, movePSS);
+    effectiveDefense = Calc_ChainDefenseMods(battle, server, attacker, defender, effectiveDefense, moveType, movePSS);
 #ifdef DEBUG_MODE
     sprintf(buf, "[PLAT-ENGINE] Offense after modifiers: %ld\n", effectiveOffense);
     debugsyscall(buf);
@@ -1363,6 +1363,9 @@ static u16 Calc_ChainOtherModifiers(
 )
 {
     u16 chainMod = UQ412__1_0;
+#ifdef DEBUG_MODE
+    u8 buf[128];
+#endif
 
     // TODO: Dynamax stuff goes here if we ever implement it (Behemoth Blade, Behemoth Bash, Dynamax Cannon)
 
@@ -1469,13 +1472,24 @@ _NoScreenReduction:
         chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
     }
 
-    if (((moveType == TYPE_NORMAL) && (defender->heldItemEffect == HOLD_EFFECT_WEAKEN_NORMAL))
-            || ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) && CheckResistBerry(defender->heldItemEffect, moveType))) {
+    if ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) && CheckResistBerry(defender->heldItemEffect, moveType)) {
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Activating resist berry %d for type %d\n", defender->heldItemEffect, moveType);
+        debugsyscall(buf);
+#endif
         if (defender->ability == ABILITY_RIPEN) {
             chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_25);
         } else {
+#ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] Applying base resist berry modifier: 0.5x\n", defender->heldItemEffect, moveType);
+            debugsyscall(buf);
+#endif
             chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
         }
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Modifier after resist berries (q412): %d\n", chainMod);
+        debugsyscall(buf);
+#endif
     }
 
     if ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE)
@@ -1723,6 +1737,14 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 
     // Apply all the modifiers.
 #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] STAB Modifier: %d\n", stabMod);
+    debugsyscall(buf);
+    sprintf(buf, "[PLAT-ENGINE] Effectiveness Modifier: %d\n", typeMod);
+    debugsyscall(buf);
+    sprintf(buf, "[PLAT-ENGINE] Burn Modifier: %d\n", burnMod);
+    debugsyscall(buf);
+    sprintf(buf, "[PLAT-ENGINE] Final Modifier: %d\n", lastMod);
+    debugsyscall(buf);
     // If we're in debug mode, then we instead have a whole list of damage values that need to be
     // applied to and printed out.
     sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
