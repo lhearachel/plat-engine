@@ -19,13 +19,29 @@
 # Other options:
 # Generation    6: 10 08 02 01 01
 # Generations 3-5: 10 08 04 03 02
-0016 0226EBA0 18 08 02 01 01
+# 0016 0226EBA0 18 08 02 01 01
 
 # Paralysis speed adjustment
 # This updates the speed penalty for a Pokemon which is paralyzed
 # from 1/4 to 1/2.
 #
 # First instance
-0016 0225310A 76 08
+# 0016 0225310A 76 08
 # Second instance
-0016 022532B6 64 08
+# 0016 022532B6 64 08
+
+# Critical multiplier refactoring
+# Replace 1 with 0 because Gen4's method is bad
+#
+# This one is the value used by the catching demo and the first
+# battle against Barry after getting your starter
+0016 02241CFC 00 21
+
+# Another 1 to replace with a 0 here in the multi-hit code
+0016 02255F9C 00 23
+
+# Get rid of a bunch of stuff in the damage calc script command
+# that's now handled by calc.c
+#
+# This just circumvents all that with an early return FALSE;
+0016 022414F6 00 20 38 BD

@@ -766,7 +766,9 @@ struct Pokemon* __attribute__((long_call)) Party_Member(const struct Party *part
 
 // ===== NOVEL FUNCTIONS ===== //
 
-u16  __attribute__((long_call)) Pokemon_GetHiddenAbility(u16 species, u32 form);
-void __attribute__((long_call)) BoxPokemon_ToggleHiddenAbility(void *boxMon);
+// u16  __attribute__((long_call)) Pokemon_GetHiddenAbility(u16 species, u32 form);
+// void __attribute__((long_call)) BoxPokemon_ToggleHiddenAbility(void *boxMon);
+
+BOOL __attribute__((long_call)) Pokemon_IsNFE(u16 species, u32 form);
 
 #endif // __POKEMON_H

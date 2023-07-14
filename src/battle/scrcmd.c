@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "battle/common.h"
 #include "battle/moves.h"
 #include "battle/scio.h"
@@ -9,7 +11,6 @@
 
 static BOOL __attribute__((long_call)) BattleScrCmd_CheckPowderImmunity(struct Battle *battle, struct BattleServer *server);
 
-//#define DEBUG_BATTLE_SCRIPTS
 #define START_OF_NEW_BATTLE_SCRIPT_COMMANDS 0xDF
 
 typedef BOOL (*BattleScrCmd)(struct Battle *battle, struct BattleServer *server);
@@ -24,14 +25,18 @@ BOOL BattleScrCmd_Exec(struct Battle *battle, struct BattleServer *server)
 {
     BOOL ret;
     u32 word;
-#ifdef DEBUG_BATTLE_SCRIPTS
+#ifdef DEBUG_MODE
     u8 buf[64];
+    sprintf(buf, "[PLAT-ENGINE] moveSeqNum: %ld\n", OFFSET_OF(struct BattleServer, moveSeqNum));
+    debugsyscall(buf);
+    sprintf(buf, "[PLAT-ENGINE] moveSeqWork: %ld\n", OFFSET_OF(struct BattleServer, moveSeqWork));
+    debugsyscall(buf);
 #endif
     
     do {
         word = server->moveSeqWork[server->moveSeqNum];
-#ifdef DEBUG_BATTLE_SCRIPTS
-        sprintf(buf, "Got word: %ld\n", word);
+#ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] Got word: %ld\n", word);
         debugsyscall(buf);
 #endif // DEBUG_BATTLE_SCRIPTS
 

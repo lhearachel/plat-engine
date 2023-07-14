@@ -1,3 +1,6 @@
+.nds
+.thumb
+
 .include "armips/include/abilities.s"
 
 .include "armips/asm/syntheticoverlay.s"

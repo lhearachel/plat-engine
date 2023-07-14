@@ -102,7 +102,7 @@ FIELD_OBJS   := $(FIELD_C_OBJS) $(FIELD_ASM_OBJS) build/thumb_help.d
 include narcs.mk
 
 ####################### Build #########################
-rom_gen.ld:$(LINK) $(OUTPUT) $(BUILDSYS)/rom.ld
+rom_gen.ld: $(BUILDSYS)/rom.ld
 	cp $(BUILDSYS)/rom.ld $(BUILDSYS)/rom_gen.ld
 	$(PYTHON) scripts/generate_ld.py
 

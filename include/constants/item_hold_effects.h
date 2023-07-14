@@ -192,6 +192,8 @@
 #define HOLD_EFFECT_GEM_STEEL                           178
 #define HOLD_EFFECT_GEM_WATER                           179
 
+#define HOLD_EFFECT_IS_GEM(item)   ((item >= HOLD_EFFECT_GEM_BUG) && (item <= HOLD_EFFECT_GEM_WATER))
+
 #define HOLD_EFFECT_BOOST_SPD_NO_STATUS_MOVES           180     // Assault Vest     -> general damage calc, move selection
 #define HOLD_EFFECT_BOOST_DEF_ON_PHYSICAL_HIT           181     // Kee Berry
 #define HOLD_EFFECT_BOOST_SPD_ON_WATER_HIT              182     // Luminous Moss
@@ -203,6 +205,8 @@
 #define HOLD_EFFECT_BOOST_ATK_ON_ICE_HIT                188     // Snowball
 #define HOLD_EFFECT_BOOST_ATK_AND_SPATK_ON_SE           189     // Weakness Policy  -> ItemEffectCheckOnHit
 #define HOLD_EFFECT_EVOLVE_SWIRLIX                      190     // Whipped Dream
+
+#define HOLD_EFFECT_RESIST_BERRY(effect) ((effect >= HOLD_EFFECT_WEAKEN_SE_FIRE && effect <= HOLD_EFFECT_WEAKEN_SE_STEEL) || effect == HOLD_EFFECT_WEAKEN_SE_FAIRY)
 
 #define HOLD_EFFECT_BOOST_SPEED_AFTER_INTIMIDATE        191     // Adrenaline Orb   -> intimidate check (wherever that is)
 #define HOLD_EFFECT_PREVENT_CONTACT_EFFECTS             192     // Protective Pads  -> probably AbilityEffectCheckOnHit

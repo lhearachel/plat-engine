@@ -311,13 +311,14 @@
 #define SUBSCR_GROWTH                           (297)
 
 // new stuff below here
+BOOL __attribute__((long_call)) Moves_BoostedByMinimize(u16 moveID);
 BOOL __attribute__((long_call)) Moves_BoostedByReckless(u16 moveID);
+BOOL __attribute__((long_call)) Moves_CanNormalize(u16 moveID);
 BOOL __attribute__((long_call)) Moves_IsAuraOrPulse(u16 moveID);
 BOOL __attribute__((long_call)) Moves_IsBiting(u16 moveID);
 BOOL __attribute__((long_call)) Moves_IsPowder(u16 moveID);
 BOOL __attribute__((long_call)) Moves_IsPunching(u16 moveID);
 BOOL __attribute__((long_call)) Moves_IsSlashing(u16 moveID);
 BOOL __attribute__((long_call)) Moves_IsSound(u16 moveID);
-BOOL __attribute__((long_call)) Moves_CanNormalize(u16 moveID);
 
 #endif

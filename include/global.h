@@ -21,4 +21,12 @@
  */
 u16   __attribute__((long_call)) GF_RAND(void);
 
+/**
+ * @brief Fills a memory buffer with the specified data up to a
+ * specified size.
+ * 
+ * Original function: 0x020C4BB8 (ARM9)
+ */
+void  __attribute__((long_call)) MemFill(u32 data, void *buf, u32 size);
+
 #endif // __GLOBAL_H

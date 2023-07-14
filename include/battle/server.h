@@ -6,6 +6,10 @@
 
 #include "constants/moves.h"
 
+#define PARTNER(battler)    (battler ^ 2)
+#define ENEMY(battler)      (battler ^ 1)
+#define ACROSS(battler)     (battler ^ 3)
+
 struct __attribute__((packed)) BattleMove {
     u16 effect;
     u8  pss;
@@ -102,7 +106,7 @@ struct __attribute__((packed)) MoveEffects {
         healBlockTurns          :3,
         embargoTurns            :3,
         unburdenActive          :1,     // TODO: make sure this interacts correctly with Neutralizing Gas
-        metronome               :4,
+        metronome               :4,     // this is for the item, not the move; stores the number of consecutive turns the same move has been used; TODO: we can reduce the bit allocation to 3 here
         oneTimeAccuracyMax      :1,     // micle berry
         oneTimeSpeedMax         :1,     // custap berry
         quickClawActive         :1,
@@ -402,9 +406,9 @@ struct __attribute__((packed)) BattleServer {
     int     damage;
     int     trueDamage;     // this is the amount of HP actually reduced (so it accounts for fainted mons)
     int     criticalCount;
-    int     critical;
+    BOOL    critical;
     int     movePower;      // stores the final power of a move (mostly important for variable power moves)
-    int     moveMultiplier; // stores any move-specific contextual damage multipliers (e.g. Revenge)
+    int     powerModifier; // stores any move-specific contextual damage multipliers (e.g. Revenge)
     int     hpCalcWork;
     int     moveType;
     int     moveEffectCounter;
@@ -413,8 +417,8 @@ struct __attribute__((packed)) BattleServer {
     u32     addlDirectStatus;
     u32     addlIndirectStatus;
     u32     addlAbilityStatus;
-    u8      furyCutterCounter;
-    u8      furyCutterCounterTemp;
+    u8      continuationCounter;
+    u8      continuationCounterTemp;
     u8      multiHitLoopCounter;    // for spread moves
     u8      beatUpCount;
 
@@ -457,7 +461,7 @@ struct __attribute__((packed)) BattleServer {
     u16     moveIDConversion2[4];
     u16     moveIDConversion2Client[4];
     u16     moveIDConversion2Type[4];
-    u16     moveIDMetronome[4];
+    u16     moveIDMetronome[4];     // for the item, not the move
 
     int     storedDamage[4];        // for Bide
     int     clientNumHit[4];
@@ -701,6 +705,13 @@ s32 __attribute__((long_call)) Server_HeldItemPower(struct BattleServer *server,
 u8 __attribute__((long_call)) Server_HitCount(struct Battle *battle, struct BattleServer *server, int flag, int battler);
 
 /**
+ * @brief Checks if a given move is a 2-turn move.
+ * 
+ * Original function: 0x0225B6C8 (ov16)
+ */
+BOOL __attribute__((long_call)) Server_CheckTwoTurnMove(struct BattleServer *server, int moveID);
+
+/**
  * @brief Gets a data value for a particular active battler.
  * 
  * Original function: 0x02252060 (ov16)
@@ -708,27 +719,27 @@ u8 __attribute__((long_call)) Server_HitCount(struct Battle *battle, struct Batt
 int __attribute__((long_call)) BattlePokemon_Get(struct BattleServer *server, int battler, int paramID, void *data);
 
 /**
+ * @brief Initializes the battle server. This function is invoked at the start
+ * of battle, after the execution of each move, and at the end of the turn.
+ * 
+ * Hooked into: 0x022541C4 (ov16)
+ */
+void __attribute__((long_call)) Server_InitState(struct BattleServer *server);
+
+/**
  * @brief Master damage calc function.
  * 
- * Hooked into: 0x02241374
+ * Hooked into: 0x02241374 (ov16)
  */
-void __attribute__((long_call)) Server_CalcMoveDamage(struct Battle *battle, struct BattleServer *server);
+void __attribute__((long_call)) Calc_MoveDamage(struct Battle *battle, struct BattleServer *server);
 
 /**
  * @brief Master critical determination function.
  * 
- * Hooked into: 0x0225A280
+ * Hooked into: 0x0225A280 (ov16)
  * 
- * @return 1 if there is no critical, 2 if there is a critical,
- * 3 if there is a critical and the attacker has Sniper.
+ * @return TRUE if a critical hit should occur, FALSE otherwise.
  */
-int __attribute__((long_call)) Server_CalcCritical(
-    struct Battle *battle,
-    struct BattleServer *server,
-    int attacker,
-    int defender,
-    int critStages,
-    u32 sideConditions
-);
+BOOL __attribute__((long_call)) Calc_Critical(struct Battle *battle, struct BattleServer *server);
 
 #endif // __BATTLE_SERVER_H

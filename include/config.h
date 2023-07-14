@@ -1,14 +1,34 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-// The start address for all assembled routines and tables to be inserted into
-// the expanded arm9 (as overlay 129).
-#define START_ADDRESS 0x0
+// Master debug flag. Don't leave this turned on for your final release.
+#define DEBUG_MODE
+
+//#define DEBUG_ALL_CRITS
+#define DEBUG_NO_CRITS
+
+// Generational constant definitions
+#define GEN4    4
+#define GEN5    5
+#define GEN6    6
+#define GEN7    7
+#define GEN8    8
+#define GEN9    9
 
 // If this is defined, then overworld poison damage will be applied when taking
 // steps around the map. Pokemon with the abilities Magic Guard, Immunity, and
 // Poison Heal still will not take Poison damage.
 #define OVERWORLD_POISON_DAMAGE
+
+// If this is defined, determines the base multiplier used for critical hit damage.
+//  - Values <= 5 will cause critical hits to multiply damage by 2x.
+//  - Values >= 6 will cause critical hits to multiply damage by 1.5x.
+// Note that this also affects the multiplier used by Pokemon with the ability Sniper.
+// Such Pokemon will use the multiplier 3x for Gen 4 or 5, and 2.25x for Gen 6+.
+//
+// If this value is undefined, then it acts as GEN6.
+// TODO: Pair with configurable Critical Rate
+#define CRITICAL_DAMAGE_MULTIPLIER      GEN6
 
 // If this is defined, then the save structure will be expanded to allow for
 // additional Pokedex entries and forme changes. This WILL break compatibility
