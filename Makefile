@@ -26,10 +26,12 @@ WAV2SWAV := wine tools/wav2swav.exe
 SWAV2SWAR := mono tools/swav2swar.exe
 endif
 
-default: all
+default: compile_rom
 
 ROMNAME = rom.nds
 BUILDROM = test.nds
+OUTPUT_FMT = \033[4;37m\033[1;37m
+FMT_OFF = \033[0m
 ####################### Tools #########################
 PYTHON = python3
 O2NARC = tools/o2narc
@@ -133,35 +135,64 @@ $(BATTLE_OUTPUT):$(BATTLE_LINK)
 	$(OBJCOPY) -O binary $< $@
 
 
-all: $(OUTPUT) $(BATTLE_OUTPUT)
-	rm -rf $(BASE)
+arm9_extension: $(OUTPUT)
+
+battle_extensions: $(BATTLE_OUTPUT)
+
+c_binaries: arm9_extension battle_extensions
+	@echo "✅ $(OUTPUT_FMT)Compiled C binaries from /$(C_SUBDIR)$(FMT_OFF)"
+	@echo ""
+
+
+output_dirs:
 	mkdir -p $(BASE)
 	mkdir -p $(BUILD)
 	mkdir -p $(BUILD)/battle/scr/effscr $(BUILD)/battle/scr/movscr $(BUILD)/battle/scr/subscr
 	mkdir -p $(BUILD)/narc/battle/skill $(BUILD)/narc/poketool
 
-	$(NDSTOOL) -x $(ROMNAME) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
-	@echo " === ROM decompression successful! === "
-	@echo " ==== Starting code injection... ===== "
 
+decompress_rom:
+	$(NDSTOOL) -x $(ROMNAME) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
+	@echo "✅ $(OUTPUT_FMT)Decompiled ROM to /$(BASE)$(FMT_OFF)"
+	@echo ""
+
+
+clean_output_dirs:
+	rm -rf $(BASE)
+	@$(MAKE) --no-print-directory output_dirs
+	@echo "✅ $(OUTPUT_FMT)Cleaned up output directories$(FMT_OFF)"
+	@echo ""
+
+
+hook_into_rom:
 	$(PYTHON) scripts/make.py
 	$(ARMIPS) armips/global.s
+	@echo "✅ $(OUTPUT_FMT)Injected new code binaries$(FMT_OFF)"
+	@echo ""
 
-	$(MAKE) narcs
-	$(MAKE) copy_narcs
-	
-	@echo " =========== Making ROM... =========== "
+
+narcs: $(NARC_FILES)
+	@echo "✅ $(OUTPUT_FMT)Compiled new NARCs$(FMT_OFF)"
+	@echo ""
+
+
+copy_narcs:
+	cp $(BATTLE_EFFSCR_NARC) $(BATTLE_EFFSCR_TARGET)
+	cp $(BATTLE_MOVSCR_NARC) $(BATTLE_MOVSCR_TARGET)
+	cp $(BATTLE_SUBSCR_NARC) $(BATTLE_SUBSCR_TARGET)
+	@echo "✅ $(OUTPUT_FMT)Copied new NARCs into /$(BASE)$(FMT_OFF)"
+	@echo ""
+
+
+compile_rom: clean_output_dirs c_binaries decompress_rom narcs copy_narcs
 	$(NDSTOOL) -c $(BUILDROM) -9 $(BASE)/arm9.bin -7 $(BASE)/arm7.bin -y9 $(BASE)/y9.bin -y $(BASE)/y7.bin -d $(FILESYS) -y $(BASE)/overlay -t $(BASE)/banner.bin -h $(BASE)/header.bin
-	@echo " =============== Done! =============== "
+	@echo "✅ $(OUTPUT_FMT)Compiled new ROM as /$(BUILDROM)!$(FMT_OFF)"
+	@echo "🎉 $(OUTPUT_FMT)Happy testing!$(FMT_OFF)"
 
 
 build_tools:
 	cd tools/source/msgenc ; $(MAKE)
 	mv tools/source/msgenc/msgenc tools/msgenc
-
-	cd tools ; $(CSC) /target:exe /out:pngtobtx0.exe "source$(SEP)BTX Editor$(SEP)Program-P.cs" "source$(SEP)BTX Editor$(SEP)pngtobtx0.cs" "source$(SEP)BTX Editor$(SEP)BTX0.cs"
-
-	cd tools ; $(CSC) /target:exe /out:swav2swar.exe "source$(SEP)swav2swar$(SEP)Principal.cs"
 
 	rm -r -f tools/source/ndstool
 	cd tools/source ; git clone https://github.com/devkitPro/ndstool.git
@@ -202,12 +233,3 @@ clean_tools:
 	rm -f tools/nitrogfx
 	rm -rf tools/source/ndstool
 	rm -rf tools/source/armips
-
-
-narcs: $(NARC_FILES)
-
-copy_narcs:
-	@echo "copying narcs..."
-	cp $(BATTLE_EFFSCR_NARC) $(BATTLE_EFFSCR_TARGET)
-	cp $(BATTLE_MOVSCR_NARC) $(BATTLE_MOVSCR_TARGET)
-	cp $(BATTLE_SUBSCR_NARC) $(BATTLE_SUBSCR_TARGET)
