@@ -50,7 +50,7 @@ void __attribute__((long_call)) Server_InitState(struct BattleServer *server)
     server->serverStatusFlag2 &= SERVER_STATUS_FLAG2_START_OF_TURN;
 
     for (int client = 0; client < 4; client++) {
-        MemClear(0, &server->stSelfFX[client], sizeof(struct SelfSingleTurnEffects));
+        MemFill(0, &server->stSelfFX[client], sizeof(struct SelfSingleTurnEffects));
         server->aiSwitchSelectedMonNum[client] = 6;
     }
 }

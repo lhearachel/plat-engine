@@ -1604,9 +1604,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // not have a fixed damage value.
     // TODO
 
-    // Step 6: Multiply by the critical hit factor.
-    //  - 1.5x  if the move was a critical hit
-    //  - 2.25x if the move was a critical hit and the attacker has Sniper
+    // Step 6: 1.5x if the attack was a critical hit.
 #if !defined(CRITICAL_DAMAGE_MULTIPLIER) || CRITICAL_DAMAGE_MULTIPLIER >= GEN6
     if (server->critical) {
         damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
@@ -1721,7 +1719,13 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     server->damage = damage * -1;
 }
 
-BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server) {
+BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server)
+{
+#ifdef DEBUG_ALL_CRITS
+    return TRUE;
+#elif defined(DEBUG_NO_CRITS)
+    return FALSE;
+#else
     int ret = FALSE;
 
     u16 species            = server->activePokemon[server->attacker].species;
@@ -1755,4 +1759,5 @@ BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server) {
     }
 
     return ret;
+#endif
 }
