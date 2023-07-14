@@ -16,8 +16,8 @@
 
 // SUBSCR_CRITICAL_HIT
 subscr_016:
-    // This actually checks if the move was NOT a Critical
-    If                                  EQUAL, VAR_WAS_MOVE_CRITICAL, 1, subscr_016_End
+    // Quit out early if the move was NOT a critical hit
+    If                                  EQUAL, VAR_WAS_MOVE_CRITICAL, 0, subscr_016_End
     // "A critical hit!"
     Message                             774, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Wait                                
