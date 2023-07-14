@@ -117,7 +117,7 @@
 #define SERVER_STATUS_FLAG_MOVE_ANIMATIONS_OFF  (0x00004000)
 #define SERVER_STATUS_FLAG_IGNORE_IMMUNITIES    (0x00008000)    // this is specifically for immunities
 #define SERVER_STATUS_FLAG_MULTI_HIT_NO_MESSAGE (0x00010000)
-#define SERVER_STATUS_FLAG_NO_MESSAGE_BETWEEN (0x00020000)
+#define SERVER_STATUS_FLAG_NO_MESSAGE_BETWEEN   (0x00020000)
 #define SERVER_STATUS_FLAG_MESSAGE_AFTER_MISS   (0x00040000)
 #define SERVER_STATUS_FLAG_HIT_SHADOW_FORCE     (0x00080000)
 #define SERVER_STATUS_FLAG_NO_MOVE_SET          (0x00100000)
@@ -129,6 +129,30 @@
 
 #define SERVER_STATUS_FLAG_SELF_DESTRUCT        (0x10000000)
 #define SERVER_STATUS_FLAG_ANY_SELF_DESTRUCTING (0xF0000000)    // this is also 4 flags in 1, 1 for each client
+
+#define SERVER_STATUS_FLAG_START_OF_TURN        (SERVER_STATUS_FLAG_NO_ATTACK_MESSAGE \
+                                                | SERVER_STATUS_FLAG_NO_DOUBLE_CHECK \
+                                                | SERVER_STATUS_FLAG_HIT_FLYING_MON \
+                                                | SERVER_STATUS_FLAG_HIT_DIGGING_MON \
+                                                | SERVER_STATUS_FLAG_HIT_DIVING_MON \
+                                                | SERVER_STATUS_FLAG_TURN_ONE_OF_TWO \
+                                                | SERVER_STATUS_FLAG_DO_NOT_BLINK \
+                                                | SERVER_STATUS_FLAG_SYNCHRONIZE \
+                                                | SERVER_STATUS_FLAG_BATON_PASS \
+                                                | SERVER_STATUS_FLAG_TURN_TWO_OF_TWO \
+                                                | SERVER_STATUS_FLAG_FLAT_HIT_RATE \
+                                                | SERVER_STATUS_FLAG_IGNORE_EFFECTIVENESS \
+                                                | SERVER_STATUS_FLAG_CRASH_DAMAGE \
+                                                | SERVER_STATUS_FLAG_MOVE_SUCCESSFUL \
+                                                | SERVER_STATUS_FLAG_MOVE_ANIMATIONS_OFF \
+                                                | SERVER_STATUS_FLAG_IGNORE_IMMUNITIES \
+                                                | SERVER_STATUS_FLAG_MULTI_HIT_NO_MESSAGE \
+                                                | SERVER_STATUS_FLAG_NO_MESSAGE_BETWEEN \
+                                                | SERVER_STATUS_FLAG_MESSAGE_AFTER_MISS \
+                                                | SERVER_STATUS_FLAG_HIT_SHADOW_FORCE \
+                                                | SERVER_STATUS_FLAG_NO_MOVE_SET \
+                                                | SERVER_STATUS_FLAG_TURN_OFF_MESSAGES \
+                                                | SERVER_STATUS_FLAG_EFFECT) ^ ~0
 
 
 // ========================================================================= //
@@ -148,6 +172,13 @@
 #define SERVER_STATUS_FLAG2_FORM_CHANGE         (0x04000000)
 #define SERVER_STATUS_FLAG2_RECALC_MON_STATS    (0x08000000)
 #define SERVER_STATUS_FLAG2_BATTLER_GETS_EXP    (0xF0000000)    // 4 flags in 1, 1 for each client getting exp
+
+#define SERVER_STATUS_FLAG2_START_OF_TURN       (SERVER_STATUS_FLAG2_UPDATE_STAT_STAGES \
+                                                | SERVER_STATUS_FLAG2_DISPLAY_ATTACK_MSG \
+                                                | SERVER_STATUS_FLAG2_MAGIC_COAT_SWAP \
+                                                | SERVER_STATUS_FLAG2_PIVOT_MOVE \
+                                                | SERVER_STATUS_FLAG2_MOVE_FAILED_ON_USE \
+                                                | SERVER_STATUS_FLAG2_RECOVERY_EFFECT) ^ ~0
 
 
 // ========================================================================= //

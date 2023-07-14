@@ -417,8 +417,8 @@ struct __attribute__((packed)) BattleServer {
     u32     addlDirectStatus;
     u32     addlIndirectStatus;
     u32     addlAbilityStatus;
-    u8      furyCutterCounter;
-    u8      furyCutterCounterTemp;
+    u8      continuationCounter;
+    u8      continuationCounterTemp;
     u8      multiHitLoopCounter;    // for spread moves
     u8      beatUpCount;
 
@@ -719,16 +719,24 @@ BOOL __attribute__((long_call)) Server_CheckTwoTurnMove(struct BattleServer *ser
 int __attribute__((long_call)) BattlePokemon_Get(struct BattleServer *server, int battler, int paramID, void *data);
 
 /**
+ * @brief Initializes the battle server. This function is invoked at the start
+ * of battle, after the execution of each move, and at the end of the turn.
+ * 
+ * Hooked into: 0x022541C4 (ov16)
+ */
+void __attribute__((long_call)) Server_InitState(struct BattleServer *server);
+
+/**
  * @brief Master damage calc function.
  * 
- * Hooked into: 0x02241374
+ * Hooked into: 0x02241374 (ov16)
  */
 void __attribute__((long_call)) Calc_MoveDamage(struct Battle *battle, struct BattleServer *server);
 
 /**
  * @brief Master critical determination function.
  * 
- * Hooked into: 0x0225A280
+ * Hooked into: 0x0225A280 (ov16)
  * 
  * @return TRUE if a critical hit should occur, FALSE otherwise.
  */

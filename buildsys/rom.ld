@@ -2,6 +2,7 @@
 GF_RAND = 0x0201D2E8 | 1;
 Free = 0x020181C4 | 1;
 Malloc = 0x02018144 | 1;
+MemFill = 0x020C4BB8 | 1;
 
 /* archive.h */
 LoadFromNARC = 0x02006AA4 | 1;

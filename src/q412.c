@@ -1,4 +1,3 @@
-#pragma thumb on
 #include "q412.h"
 
 u16 UQ412_Mul_RoundUp(u16 n, u16 by)

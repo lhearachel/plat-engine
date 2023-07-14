@@ -291,7 +291,7 @@ static u16 Calc_ModifiedBasePower(
 )
 {
     /*
-     * Certain moves are expected to input some multipliers as part of their effect scripts:
+     * Certain moves are expected to input some multipliers as part of their effect scripts, e.g.:
      *  - Facade, if the user is burned/paralyzed/poisoned
      *  - Brine, if the target's current HP is half or less of its maximum (rounded down)
      *  - Venoshock and Barb Barrage, if the target is poisoned
@@ -307,7 +307,7 @@ static u16 Calc_ModifiedBasePower(
      * 
      * This multiplier is passed as a value which is expected to be in Q4.12 format.
      */
-    u16 powerMod = UQ412__1_0; // TODO: Set this up correctly
+    u16 powerMod = server->powerModifier;
     
     // 2x if the attacker is under the effect of Charge and the used move is Electric-type.
     if ((server->activePokemon[server->attacker].moveEffectsMask & MOVE_EFFECT_CHARGED) && (moveType == TYPE_ELECTRIC)) {
@@ -1425,7 +1425,7 @@ _NoScreenReduction:
         }
     }
 
-    if ((server->critical > 1) && attacker->ability == ABILITY_SNIPER) {
+    if (server->critical && attacker->ability == ABILITY_SNIPER) {
         chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_5);
     }
 
