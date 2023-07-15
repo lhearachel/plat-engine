@@ -148,7 +148,9 @@ output_dirs:
 	mkdir -p $(BASE)
 	mkdir -p $(BUILD)
 	mkdir -p $(BUILD)/battle/scr/effscr $(BUILD)/battle/scr/movscr $(BUILD)/battle/scr/subscr
+	mkdir -p $(BUILD)/msgdata
 	mkdir -p $(BUILD)/narc/battle/skill $(BUILD)/narc/poketool
+	mkdir -p $(BUILD)/narc/msgdata
 
 
 decompress_rom:
@@ -159,6 +161,7 @@ decompress_rom:
 
 clean_output_dirs:
 	rm -rf $(BASE)
+	rm -rf $(BUILD)
 	@$(MAKE) --no-print-directory output_dirs
 	@echo "✅ $(OUTPUT_FMT)Cleaned up output directories$(FMT_OFF)"
 	@echo ""

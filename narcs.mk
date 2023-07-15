@@ -1,7 +1,10 @@
+# Battle scripting NARCs
+
 BATTLE_SKILL_NARC_DIR := $(BUILD_NARC)/battle/skill
 BATTLE_SKILL_TARGET := $(FILESYS)/battle/skill
 BATTLE_SKILL_DEP_DIR := armips/asm/battle
 
+## be_seq (Effect Scripts)
 
 BATTLE_EFFSCR_DIR := $(BUILD)/battle/scr/effscr
 BATTLE_EFFSCR_NARC := $(BATTLE_SKILL_NARC_DIR)/be_seq.narc
@@ -19,6 +22,7 @@ $(BATTLE_EFFSCR_NARC): $(BATTLE_EFFSCR_OBJS)
 
 NARC_FILES += $(BATTLE_EFFSCR_NARC)
 
+## waza_seq (Move Scripts)
 
 BATTLE_MOVSCR_DIR := $(BUILD)/battle/scr/movscr
 BATTLE_MOVSCR_NARC := $(BATTLE_SKILL_NARC_DIR)/waza_seq.narc
@@ -36,6 +40,8 @@ $(BATTLE_MOVSCR_NARC): $(BATTLE_MOVSCR_OBJS)
 
 NARC_FILES += $(BATTLE_MOVSCR_NARC)
 
+## sub_seq (Subroutine Scripts)
+
 BATTLE_SUBSCR_DIR := $(BUILD)/battle/scr/subscr
 BATTLE_SUBSCR_NARC := $(BATTLE_SKILL_NARC_DIR)/sub_seq.narc
 BATTLE_SUBSCR_DEP_DIR := $(BATTLE_SKILL_DEP_DIR)/subscr
@@ -51,3 +57,20 @@ $(BATTLE_SUBSCR_NARC): $(BATTLE_SUBSCR_OBJS)
 	$(NARCHIVE) create $@ $(BATTLE_SUBSCR_DIR) -nf
 
 NARC_FILES += $(BATTLE_SUBSCR_NARC)
+
+# Text Archives
+
+CHARMAP = data/charmap.txt
+
+TEXT_ARCHIVE_DIR = $(BUILD)/msgdata
+TEXT_ARCHIVE_NARC = $(BUILD_NARC)/msgdata/pl_msg.narc
+TEXT_ARCHIVE_TARGET = $(FILESYS)/msgdata/pl_msg.narc
+
+TEXT_FILES = $(wildcard data/text/*.txt)
+
+$(TEXT_ARCHIVE_NARC): $(TEXT_FILES)
+	$(NARCHIVE) extract $(TEXT_ARCHIVE_TARGET) -o $(TEXT_ARCHIVE_DIR) -nf
+	for file in $^; do $(MSGENC) -e -c $(CHARMAP) $$file $(TEXT_ARCHIVE_DIR)/pl_msg.narc_$$(basename $$file .txt); done
+	$(NARCHIVE) create $@ $(TEXT_ARCHIVE_DIR) -nf
+
+NARC_FILES += $(TEXT_ARCHIVE_NARC)
