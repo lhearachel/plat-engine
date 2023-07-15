@@ -193,28 +193,6 @@ compile_rom: clean_output_dirs rom_hooks copy_narcs
 	@echo "🎉 $(OUTPUT_FMT)Happy testing!$(FMT_OFF)"
 
 
-build_tools:
-	cd tools/source/msgenc ; $(MAKE)
-	mv tools/source/msgenc/msgenc tools/msgenc
-
-	rm -r -f tools/source/ndstool
-	cd tools/source ; git clone https://github.com/devkitPro/ndstool.git
-	cd tools/source/ndstool ; git checkout fa6b6d01881363eb2cd6e31d794f51440791f336
-	cd tools/source/ndstool ; find . -name '*.sh' -execdir chmod +x {} \;
-	cd tools/source/ndstool ; ./autogen.sh
-	cd tools/source/ndstool ; ./configure && $(MAKE)
-	mv tools/source/ndstool/ndstool tools/ndstool
-	rm -r -f tools/source/ndstool
-
-	rm -r -f tools/source/armips
-	cd tools/source ; git clone --recursive https://github.com/Kingcom/armips.git
-	cd tools/source/armips ; mkdir build
-	cd tools/source/armips/build ; cmake -DCMAKE_BUILD_TYPE=Release ..
-	cd tools/source/armips/build ; cmake --build .
-	mv tools/source/armips/build/armips tools/armips
-	rm -r -f tools/source/armips
-
-
 build_nitrogfx:
 	cd tools/source/nitrogfx ; $(MAKE)
 	mv tools/source/nitrogfx/nitrogfx tools/nitrogfx
