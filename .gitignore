@@ -67,6 +67,8 @@ __pycache__/*
 *.nds
 *.xmap
 
+*.DS_Store
+
 # ghidra stuff
 /*.gpr
 /*.lock
