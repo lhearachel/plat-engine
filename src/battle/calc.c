@@ -548,12 +548,12 @@ static u16 Calc_ModifiedBasePower(
     // ==================== END OF ABILITY CHAIN ==================== //
     // ==================== START OF ITEM CHECKS ==================== //
 
-    if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_PHYSICAL) {
+    if (attacker->heldItemEffect == HOLD_EFFECT_MUSCLE_BAND) {
         // 1.1x if the attacker is holding a Muscle Band and the used move is Physical.
         if (movePSS == PSS_PHYSICAL) {
             powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
         }
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_SPECIAL) {
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_WISE_GLASSES) {
         // 1.1x if the attacker is holding Wise Glasses and the used move is Special.
         if (movePSS == PSS_SPECIAL) {
             powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
@@ -1145,7 +1145,7 @@ _SkipDefenseAllyFlowerGift:
 
     // TODO: Protosynthesis, Quark Drive
 
-    if (defender->heldItemEffect == HOLD_EFFECT_BOOST_DEFENSE_DITTO) {
+    if (defender->heldItemEffect == HOLD_EFFECT_METAL_POWDER) {
         // Metal Powder doubles the Defense of Ditto.
         if (defender->species == SPECIES_DITTO && movePSS == PSS_PHYSICAL) {
             statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
@@ -1339,7 +1339,7 @@ static BOOL Calc_ImmunityActive(struct BattleServer *server, struct CalcParams *
             //   - Roost
             //   - Gravity
             //   - TODO: Smack Down, Thousand Arrows
-            if ((defender->heldItemEffect == HOLD_EFFECT_HALVE_SPEED)
+            if ((defender->heldItemEffect == HOLD_EFFECT_IRON_BALL)
                     || (server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_INGRAINED)
                     || (server->stFX[server->defender].roosting)
                     || (server->fieldConditions.raw & FIELD_CONDITION_GRAVITY)) {
@@ -1504,15 +1504,15 @@ _NoScreenReduction:
     }
 
     if ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE)
-            && (attacker->heldItemEffect == HOLD_EFFECT_BOOST_SE)) {
+            && (attacker->heldItemEffect == HOLD_EFFECT_EXPERT_BELT)) {
         chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_2);
     }
 
-    if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_DAMAGE_AND_DRAIN) {
+    if (attacker->heldItemEffect == HOLD_EFFECT_LIFE_ORB) {
         chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_3);
     }
 
-    if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_REPEATED) {
+    if (attacker->heldItemEffect == HOLD_EFFECT_METRONOME) {
         u8 metronomeCount = server->activePokemon[server->attacker].moveEffects.metronome;
         u16 metronomeMod;
         if (metronomeCount < 6) {
@@ -1800,11 +1800,11 @@ BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server)
 
     u16 effectiveStages = (
         server->criticalCount
-        + (itemEffect == HOLD_EFFECT_BOOST_CRIT_RATE)
+        + (itemEffect == HOLD_EFFECT_SCOPE_LENS)
         + (ability == ABILITY_SUPER_LUCK)
         + (((volatileConditions & CONDITION_V_PUMPED) != 0) * 2)
-        + (((itemEffect == HOLD_EFFECT_BOOST_CRIT_RATE_CHANSEY) && (species == SPECIES_CHANSEY)) * 2)
-        + (((itemEffect == HOLD_EFFECT_BOOST_CRIT_RATE_FARFETCHD) && (species == SPECIES_FARFETCHD)) * 2)   // TODO: Farfetch'd-G, Sirfetch'd
+        + (((itemEffect == HOLD_EFFECT_LUCKY_PUNCH) && (species == SPECIES_CHANSEY)) * 2)
+        + (((itemEffect == HOLD_EFFECT_LEEK) && (species == SPECIES_FARFETCHD)) * 2)   // TODO: Farfetch'd-G, Sirfetch'd
     );
 
     effectiveStages = (effectiveStages > 4) ? 4 : effectiveStages;  // crit stages max out at +4

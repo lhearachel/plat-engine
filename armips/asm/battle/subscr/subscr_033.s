@@ -23,7 +23,7 @@ subscr_033:
     If                                  EQUAL, VAR_HP_TEMP, 0, subscr_033_ApplyHealing
     DamageDiv                           VAR_HP_TEMP, 2
     // Check for Big Root
-    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_BOOST_LEECHING, subscr_033_ApplyHealing
+    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_BIG_ROOT, subscr_033_ApplyHealing
     GetItemPower                        BATTLER_ATTACKER, VAR_CALC_WORK
     SetVar                              OP_ADD, VAR_CALC_WORK, 100
     SetVarFromVar                       OP_MUL, VAR_HP_TEMP, VAR_CALC_WORK

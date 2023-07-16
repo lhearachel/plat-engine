@@ -1,0 +1,29 @@
+{
+    "name": "Starf Berry",
+    "price": 20,
+    "battle_effects": {
+        "hold": {
+            "effect": "PINCH_SHARPLY_BOOST_RANDOM",
+            "power": 4
+        },
+        "move": {
+            "pluck": "SHARPLY_RAISE_RANDOM",
+            "fling": {
+                "effect": "SHARPLY_RAISE_RANDOM",
+                "power": 10
+            },
+            "natural_gift": {
+                "type": "PSYCHIC",
+                "power": 80
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "BERRIES",
+    "field_function": "BERRY",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {}
+}

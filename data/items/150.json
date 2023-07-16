@@ -1,0 +1,38 @@
+{
+    "name": "Hondew Berry",
+    "price": 20,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 0
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 10
+            },
+            "natural_gift": {
+                "type": "GROUND",
+                "power": 70
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "BERRIES",
+    "field_function": "BERRY",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {
+        "evs": {
+            "sp_attack": -10
+        },
+        "friendship": {
+            "below_100": 10,
+            "100_to_200": 5,
+            "200_or_more": 2
+        }
+    }
+}

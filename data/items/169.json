@@ -1,0 +1,29 @@
+{
+    "name": "Shuca Berry",
+    "price": 20,
+    "battle_effects": {
+        "hold": {
+            "effect": "WEAKEN_SE_GROUND",
+            "power": 0
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 10
+            },
+            "natural_gift": {
+                "type": "GROUND",
+                "power": 60
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "BERRIES",
+    "field_function": "BERRY",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {}
+}

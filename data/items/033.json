@@ -1,0 +1,33 @@
+{
+    "name": "Moomoo Milk",
+    "price": 500,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 100
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 30
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "MEDICINE",
+    "field_function": "RECOVERY",
+    "battle_pocket": "RECOVERY",
+    "battle_function": "RECOVERY",
+    "is_usable": true,
+    "on_use": {
+        "recover": {
+            "hp": 100
+        }
+    }
+}

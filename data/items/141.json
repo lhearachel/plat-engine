@@ -1,0 +1,29 @@
+{
+    "name": "Iapapa Berry",
+    "price": 20,
+    "battle_effects": {
+        "hold": {
+            "effect": "RESTORE_PERCENT_HP_SOUR",
+            "power": 8
+        },
+        "move": {
+            "pluck": "RESTORE_HP_SOUR",
+            "fling": {
+                "effect": "RESTORE_HP_SOUR",
+                "power": 10
+            },
+            "natural_gift": {
+                "type": "DARK",
+                "power": 60
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "BERRIES",
+    "field_function": "BERRY",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {}
+}

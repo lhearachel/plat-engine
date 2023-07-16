@@ -1,0 +1,33 @@
+{
+    "name": "Red Flute",
+    "price": 300,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 0
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 30
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "BATTLE_ITEMS",
+    "field_function": "NONE",
+    "battle_pocket": "STATUS_HEALING",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {
+        "recover": {
+            "attraction": true
+        }
+    }
+}

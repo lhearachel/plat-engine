@@ -385,7 +385,7 @@ MOVE_COPYCAT                            equ 383
 MOVE_POWER_SWAP                         equ 384
 MOVE_GUARD_SWAP                         equ 385
 MOVE_PUNISHMENT                         equ 386
-MOVE_LAST_RESORT                        equ 387
+LAGGING_TAIL_RESORT                        equ 387
 MOVE_WORRY_SEED                         equ 388
 MOVE_SUCKER_PUNCH                       equ 389
 MOVE_TOXIC_SPIKES                       equ 390

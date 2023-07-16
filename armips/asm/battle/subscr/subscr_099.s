@@ -19,7 +19,7 @@ subscr_099:
     CheckAbility                        MODE_HAVE, BATTLER_SWITCHING, ABILITY_MAGIC_GUARD, subscr_099_Exit
     // Gravity and Iron Ball break all immunities to Spikes/Toxic Spikes
     If                                  FLAG_EQ, VAR_FIELD_CONDITIONS, FIELD_CONDITION_GRAVITY, subscr_099_CheckToxicSpikes
-    CheckItemEffect                     MODE_HAVE, BATTLER_SWITCHING, HOLD_EFFECT_HALVE_SPEED, subscr_099_CheckToxicSpikes
+    CheckItemEffect                     MODE_HAVE, BATTLER_SWITCHING, HOLD_EFFECT_IRON_BALL, subscr_099_CheckToxicSpikes
     // Levitate grants immunity to Spikes/Toxic Spikes
     CheckAbility                        MODE_HAVE, BATTLER_SWITCHING, ABILITY_LEVITATE, subscr_099_CheckStealthRock
     // Flying types are immune to Spikes/Toxic Spikes

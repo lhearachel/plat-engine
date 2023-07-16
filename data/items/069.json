@@ -1,0 +1,29 @@
+{
+    "name": "White Flute",
+    "price": 500,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 150
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 30
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "ITEMS",
+    "field_function": "BAG_MESSAGE",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {}
+}

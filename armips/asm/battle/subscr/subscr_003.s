@@ -28,7 +28,7 @@ subscr_003_Start:
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, BATTLE_TYPE_TOWER, subscr_003_ForfeitTowerBattle
     If                                  FLAG_EQ, VAR_BATTLE_TYPE, BATTLE_TYPE_LINK, subscr_003_ForfeitLinkBattle
     CheckAbility                        MODE_HAVE, BATTLER_ATTACKER, ABILITY_RUN_AWAY, subscr_003_RunAwayMessage
-    CheckItemEffect                     MODE_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_ESCAPE_ENCOUNTER, subscr_003_SmokeBallMessage
+    CheckItemEffect                     MODE_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_SMOKE_BALL, subscr_003_SmokeBallMessage
 subscr_003_GenericEscapeMessage:
     Message                             781, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     Branch                              subscr_003_Continue

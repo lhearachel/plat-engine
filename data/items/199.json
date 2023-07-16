@@ -1,0 +1,28 @@
+{
+    "name": "King’s Rock",
+    "price": 100,
+    "battle_effects": {
+        "hold": {
+            "effect": "KINGS_ROCK",
+            "power": 10
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "FLINCH_TARGET",
+                "power": 30
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "ITEMS",
+    "field_function": "NONE",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": false
+}

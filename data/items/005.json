@@ -1,0 +1,28 @@
+{
+    "name": "Safari Ball",
+    "price": 0,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 0
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 0
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "POKEBALLS",
+    "field_function": "NONE",
+    "battle_pocket": "POKEBALLS",
+    "battle_function": "POKEBALLS",
+    "is_usable": false
+}

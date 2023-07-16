@@ -1,0 +1,28 @@
+{
+    "name": "Point Card",
+    "price": 0,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 0
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 0
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": false,
+    "can_register": true,
+    "field_pocket": "KEY_ITEMS",
+    "field_function": "BAG_MESSAGE",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": false
+}

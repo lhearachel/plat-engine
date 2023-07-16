@@ -26,7 +26,7 @@ subscr_137:
     SetMonDataFromVar                   OP_GET, BATTLER_WORKING, BATTLE_MON_MAX_HP, VAR_HP_TEMP
     DamageDiv                           VAR_HP_TEMP, 16
     // Check for Big Root
-    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_WORKING, HOLD_EFFECT_BOOST_LEECHING, subscr_137_ApplyHeal
+    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_WORKING, HOLD_EFFECT_BIG_ROOT, subscr_137_ApplyHeal
     GetItemPower                        BATTLER_WORKING, VAR_CALC_WORK
     SetVar                              OP_ADD, VAR_CALC_WORK, 100
     SetVarFromVar                       OP_MUL, VAR_HP_TEMP, VAR_CALC_WORK

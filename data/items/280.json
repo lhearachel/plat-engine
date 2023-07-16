@@ -1,0 +1,28 @@
+{
+    "name": "Icicle Plate",
+    "price": 1000,
+    "battle_effects": {
+        "hold": {
+            "effect": "BOOST_ICE_PLATE",
+            "power": 20
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 90
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "ITEMS",
+    "field_function": "NONE",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": false
+}

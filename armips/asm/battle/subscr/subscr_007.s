@@ -33,7 +33,7 @@ subscr_007_CheckProtect:
     If                                  EQUAL, VAR_CURRENT_MOVE, MOVE_SNORE, subscr_007_CheckFailure
     If                                  EQUAL, VAR_CURRENT_MOVE, MOVE_NIGHTMARE, subscr_007_CheckFailure
     If                                  EQUAL, VAR_CURRENT_MOVE, MOVE_FLING, subscr_007_CheckFailure
-    If                                  EQUAL, VAR_CURRENT_MOVE, MOVE_LAST_RESORT, subscr_007_CheckFailure
+    If                                  EQUAL, VAR_CURRENT_MOVE, LAGGING_TAIL_RESORT, subscr_007_CheckFailure
     If                                  EQUAL, VAR_CURRENT_MOVE, MOVE_PSYCHO_SHIFT, subscr_007_CheckFailure
     If                                  EQUAL, VAR_CURRENT_MOVE, MOVE_FAKE_OUT, subscr_007_CheckFailure
     If                                  NOT_EQUAL, VAR_CURRENT_MOVE, MOVE_NATURAL_GIFT, subscr_007_EnemeyProtectedItself

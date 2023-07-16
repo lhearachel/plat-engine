@@ -1,0 +1,33 @@
+{
+    "name": "Pecha Berry",
+    "price": 20,
+    "battle_effects": {
+        "hold": {
+            "effect": "CURE_PSN",
+            "power": 0
+        },
+        "move": {
+            "pluck": "CURE_PSN",
+            "fling": {
+                "effect": "CURE_PSN",
+                "power": 10
+            },
+            "natural_gift": {
+                "type": "ELECTRIC",
+                "power": 60
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "BERRIES",
+    "field_function": "BERRY",
+    "battle_pocket": "STATUS_HEALING",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {
+        "recover": {
+            "poison": true
+        }
+    }
+}

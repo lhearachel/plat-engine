@@ -1,0 +1,31 @@
+{
+    "name": "Water Stone",
+    "price": 2100,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 0
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 30
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "ITEMS",
+    "field_function": "EVOLUTION",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {
+        "evolution": true
+    }
+}

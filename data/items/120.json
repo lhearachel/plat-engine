@@ -1,0 +1,28 @@
+{
+    "name": "Steel Mail",
+    "price": 50,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 0
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 0
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "MAIL",
+    "field_function": "MAIL",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": false
+}

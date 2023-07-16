@@ -1,0 +1,37 @@
+{
+    "name": "Rare Candy",
+    "price": 4800,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 0
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 30
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "MEDICINE",
+    "field_function": "RECOVERY",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {
+        "friendship": {
+            "below_100": 5,
+            "100_to_200": 3,
+            "200_or_more": 2
+        },
+        "revive": true,
+        "level_up": true
+    }
+}

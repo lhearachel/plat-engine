@@ -1,0 +1,29 @@
+{
+    "name": "Petaya Berry",
+    "price": 20,
+    "battle_effects": {
+        "hold": {
+            "effect": "PINCH_BOOST_SPATK",
+            "power": 4
+        },
+        "move": {
+            "pluck": "RAISE_SP_ATTACK",
+            "fling": {
+                "effect": "RAISE_SP_ATTACK",
+                "power": 10
+            },
+            "natural_gift": {
+                "type": "POISON",
+                "power": 80
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "BERRIES",
+    "field_function": "BERRY",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {}
+}

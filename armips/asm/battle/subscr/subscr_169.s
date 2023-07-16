@@ -22,7 +22,7 @@ subscr_169:
     WaitTime                            30
     SetVar                              OP_SET_FLAG, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_DO_NOT_BLINK
     // Check for Big Root
-    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_WORKING, HOLD_EFFECT_BOOST_LEECHING, subscr_169_ApplyHeal
+    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_WORKING, HOLD_EFFECT_BIG_ROOT, subscr_169_ApplyHeal
     GetItemPower                        BATTLER_WORKING, VAR_CALC_WORK
     SetVar                              OP_ADD, VAR_CALC_WORK, 100
     SetVarFromVar                       OP_MUL, VAR_HP_TEMP, VAR_CALC_WORK

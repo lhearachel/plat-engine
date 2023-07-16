@@ -21,7 +21,7 @@ subscr_024:
     DamageDiv                           VAR_HP_TEMP, 2
 subscr_023_SkipDivide:
     // Check for Big Root; increase leeching effect, if so
-    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_BOOST_LEECHING, subscr_023_NoBigRoot
+    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_ATTACKER, HOLD_EFFECT_BIG_ROOT, subscr_023_NoBigRoot
     GetItemPower                        BATTLER_ATTACKER, VAR_CALC_WORK
     SetVar                              OP_ADD, VAR_CALC_WORK, 100
     SetVarFromVar                       OP_MUL, VAR_HP_TEMP, VAR_CALC_WORK

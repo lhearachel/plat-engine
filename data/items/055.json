@@ -1,0 +1,36 @@
+{
+    "name": "Guard Spec.",
+    "price": 700,
+    "battle_effects": {
+        "hold": {
+            "effect": "NONE",
+            "power": 0
+        },
+        "move": {
+            "pluck": "NONE",
+            "fling": {
+                "effect": "NONE",
+                "power": 30
+            },
+            "natural_gift": {
+                "type": "NONE",
+                "power": 0
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "BATTLE_ITEMS",
+    "field_function": "NONE",
+    "battle_pocket": "BATTLE_ITEMS",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {
+        "recover": {},
+        "friendship": {
+            "below_100": 1,
+            "100_to_200": 1
+        },
+        "guard_spec": true
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "Micle Berry",
+    "price": 20,
+    "battle_effects": {
+        "hold": {
+            "effect": "PINCH_WIDE_LENS_ON_NEXT",
+            "power": 4
+        },
+        "move": {
+            "pluck": "RAISE_ACCURACY_NEXT_MOVE",
+            "fling": {
+                "effect": "RAISE_ACCURACY_NEXT_MOVE",
+                "power": 10
+            },
+            "natural_gift": {
+                "type": "ROCK",
+                "power": 80
+            }
+        }
+    },
+    "can_discard": true,
+    "can_register": false,
+    "field_pocket": "BERRIES",
+    "field_function": "BERRY",
+    "battle_pocket": "NONE",
+    "battle_function": "NONE",
+    "is_usable": true,
+    "on_use": {}
+}

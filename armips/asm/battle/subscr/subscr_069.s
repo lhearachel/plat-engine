@@ -28,7 +28,7 @@ subscr_069:
     // Compute damage healed by the attacker
     SetVarFromVar                       OP_SET, VAR_HP_TEMP, VAR_HIT_DAMAGE
     // Check for Big Root
-    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_ATTACKER_WORK, HOLD_EFFECT_BOOST_LEECHING, subscr_069_HealSapper
+    CheckItemEffect                     MODE_NOT_HAVE, BATTLER_ATTACKER_WORK, HOLD_EFFECT_BIG_ROOT, subscr_069_HealSapper
     GetItemPower                        BATTLER_ATTACKER_WORK, VAR_CALC_WORK
     SetVar                              OP_ADD, VAR_CALC_WORK, 100
     SetVarFromVar                       OP_MUL, VAR_HP_TEMP, VAR_CALC_WORK
