@@ -24,27 +24,5 @@
     "field_function": "JOURNAL",
     "battle_pocket": "NONE",
     "battle_function": "NONE",
-    "is_usable": false,
-    "extra_raw_data": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ]
+    "is_usable": false
 }

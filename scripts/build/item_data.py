@@ -140,7 +140,9 @@ def dump_use_data(item: bytes, item_dict: dict) -> dict:
 
 
 def dump_raw_data(item: bytes, item_dict: dict) -> dict:
-    item_dict['extra_raw_data'] = [b for b in item[14:34]]
+    extra_raw_data = [b for b in item[14:34]]
+    if sum(extra_raw_data) > 0:
+        item_dict['extra_raw_data'] = extra_raw_data
 
     return item_dict
 
@@ -383,8 +385,10 @@ def build_item_binary(item: dict) -> bytearray:
 
     if item['is_usable']:
         binary = binary + build_use_data(item['on_use'])
-    else:
+    elif 'extra_raw_data' in item:
         binary = binary + build_raw_data(item['extra_raw_data'])
+    else:
+        binary = binary + zero.to_bytes(20, 'little')
     
     return binary
 
