@@ -58,6 +58,21 @@ $(BATTLE_SUBSCR_NARC): $(BATTLE_SUBSCR_OBJS)
 
 NARC_FILES += $(BATTLE_SUBSCR_NARC)
 
+# Item Data
+
+ITEM_DATA_DIR = $(BUILD)/items
+ITEM_DATA_NARC = $(BUILD_NARC)/itemtool/pl_item_data.narc
+ITEM_DATA_DEP_DIR = data/items
+ITEM_DATA_TARGET = $(FILESYS)/itemtool/itemdata/pl_item_data.narc
+
+ITEM_DATA_SRCS := $(wildcard $(ITEM_DATA_DEP_DIR)/*.json)
+ITEM_DATA_OBJS := $(patsubst $(ITEM_DATA_DEP_DIR)/%.json,$(ITEM_DATA_DIR)/%.bin,$(ITEM_DATA_SRCS))
+
+$(ITEM_DATA_NARC): $(ITEM_DATA_SRCS)
+	$(PYTHON) scripts/build/item_data.py build
+
+NARC_FILES += $(ITEM_DATA_NARC)
+
 # Text Archives
 
 CHARMAP = data/charmap.txt

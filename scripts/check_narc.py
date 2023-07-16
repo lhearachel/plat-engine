@@ -7,6 +7,7 @@ INPUT_DICT = {
     'be_seq': ('narcs', 'base/data/battle/skill/be_seq.narc', 'build/narc/battle/skill/be_seq.narc', True),
     'waza_seq': ('narcs', 'base/data/battle/skill/waza_seq.narc', 'build/narc/battle/skill/waza_seq.narc', True),
     'sub_seq': ('narcs', 'base/data/battle/skill/sub_seq.narc', 'build/narc/battle/skill/sub_seq.narc', True),
+    'item_data': ('narcs', 'base/data/itemtool/itemdata/pl_item_data.narc', 'build/narc/itemtool/pl_item_data.narc', False),
 }
 
 def compare_narcs(orig_f, made_f, word_mode):
@@ -27,6 +28,13 @@ def compare_narcs(orig_f, made_f, word_mode):
 
                     if og_word.hex() != md_word.hex():
                         print(f'-- @ {j // 4} ; e: {og_word.hex()} ; a: {md_word.hex()}')
+            else:
+                for j in range(0, len(orig.files[i])):
+                    og_byte = orig.files[i][j]
+                    md_byte = made.files[i][j]
+
+                    if og_byte != md_byte:
+                        print(f'-- @ {j} ; e: {og_byte} ; a: {md_byte}')
             
 
 params = INPUT_DICT[sys.argv[1]]

@@ -24,5 +24,27 @@
     "field_function": "NONE",
     "battle_pocket": "POKEBALLS",
     "battle_function": "POKEBALLS",
-    "is_usable": false
+    "is_usable": false,
+    "extra_raw_data": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ]
 }

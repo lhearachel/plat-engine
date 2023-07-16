@@ -1,9 +1,10 @@
 import json
 import os
 import subprocess
+import sys
 
 from ndspy.narc import NARC
-from .util import (
+from util import (
     Type,
     ItemHoldEffect,
     ItemMoveEffect,
@@ -11,7 +12,8 @@ from .util import (
     FieldFunction,
     BattlePocket,
     BattleFunction,
-    signed_int
+    signed_int,
+    sint_to_byte
 )
 
 import tools.narcpy as narcpy
@@ -137,8 +139,14 @@ def dump_use_data(item: bytes, item_dict: dict) -> dict:
     return item_dict
 
 
+def dump_raw_data(item: bytes, item_dict: dict) -> dict:
+    item_dict['extra_raw_data'] = [b for b in item[14:34]]
+
+    return item_dict
+
+
 def dump_item(item: bytes, item_name: str) -> dict:
-    print(f'Dumping item {item_name}')
+    #print(f'Dumping item {item_name}')
     bitfield_1 = int.from_bytes(item[8:10], 'little')
     item_core = {
         'name': item_name,
@@ -171,8 +179,214 @@ def dump_item(item: bytes, item_name: str) -> dict:
 
     if item_core['is_usable']:
         item_core = dump_use_data(item, item_core)
+    else:
+        item_core = dump_raw_data(item, item_core)
 
     return item_core
+
+
+def pack_bitfield_1(item: dict) -> bytes:
+    composite = Type[item['battle_effects']['move']['natural_gift']['type']].value
+    composite = composite + (0x20 if not item['can_discard'] else 0)
+    composite = composite + (0x40 if item['can_register'] else 0)
+    
+    field_pocket = FieldPocket[item['field_pocket']].value << 7
+    battle_pocket = BattlePocket[item['battle_pocket']].value << 11
+    composite = composite + field_pocket + battle_pocket
+    
+    return composite.to_bytes(2, 'little')
+
+
+def pack_recovery(on_use: dict) -> bytes:
+    recovery = 0
+    if on_use.get('recover', {}).get('sleep', False):
+        recovery = recovery + 1
+    if on_use.get('recover', {}).get('poison', False):
+        recovery = recovery + 2
+    if on_use.get('recover', {}).get('burn', False):
+        recovery = recovery + 4
+    if on_use.get('recover', {}).get('freeze', False):
+        recovery = recovery + 8
+    if on_use.get('recover', {}).get('paralysis', False):
+        recovery = recovery + 16
+    if on_use.get('recover', {}).get('confusion', False):
+        recovery = recovery + 32
+    if on_use.get('recover', {}).get('attraction', False):
+        recovery = recovery + 64
+    if on_use.get('guard_spec', False):
+        recovery = recovery + 128
+    
+    return recovery.to_bytes(1, 'little')
+
+
+def pack_utility(on_use: dict) -> bytes:
+    utility = 0
+    if on_use.get('revive', False):
+        utility = utility + 1
+    if on_use.get('revive_all', False):
+        utility = utility + 2
+    if on_use.get('level_up', False):
+        utility = utility + 4
+    if on_use.get('evolution', False):
+        utility = utility + 8
+    
+    if 'attack' in on_use.get('raise_stat', {}):
+        utility = utility + ((on_use['raise_stat']['attack'] << 4) & 0xF0)
+    
+    return utility.to_bytes(1, 'little')
+
+
+def pack_boost_1(on_use: dict) -> bytes:
+    boost_1 = 0
+    if 'raise_stat' not in on_use:
+        return boost_1.to_bytes(1, 'little')
+
+    if 'defense' in on_use['raise_stat']:
+        boost_1 = boost_1 + (on_use['raise_stat']['defense'] & 0xF)
+    if 'sp_attack' in on_use['raise_stat']:
+        boost_1 = boost_1 + ((on_use['raise_stat']['sp_attack'] << 4) & 0xF0)
+    
+    return boost_1.to_bytes(1, 'little')
+
+
+def pack_boost_2(on_use: dict) -> bytes:
+    boost_2 = 0
+    if 'raise_stat' not in on_use:
+        return boost_2.to_bytes(1, 'little')
+
+    if 'sp_defense' in on_use['raise_stat']:
+        boost_2 = boost_2 + (on_use['raise_stat']['sp_defense'] & 0xF)
+    if 'speed' in on_use['raise_stat']:
+        boost_2 = boost_2 + ((on_use['raise_stat']['speed'] << 4) & 0xF0)
+    
+    return boost_2.to_bytes(1, 'little')
+
+
+def pack_boost_3(on_use: dict) -> bytes:
+    boost_3 = 0
+
+    if 'accuracy' in on_use.get('raise_stat', {}):
+        boost_3 = boost_3 + (on_use['raise_stat']['accuracy'] & 0xF)
+    if 'critical' in on_use.get('raise_stat', {}):
+        boost_3 = boost_3 + ((on_use['raise_stat']['critical'] << 4) & 0x30)
+    if on_use.get('pp_up', False):
+        boost_3 = boost_3 + 64
+    if on_use.get('pp_max', False):
+        boost_3 = boost_3 + 128
+    
+    return boost_3.to_bytes(1, 'little')
+
+
+def pack_recovery_2(on_use: dict) -> bytes:
+    recovery_2 = 0
+    if 'pp' in on_use.get('recover', {}):
+        recovery_2 = recovery_2 + 1
+    if 'pp_all_moves' in on_use.get('recover', {}):
+        recovery_2 = recovery_2 + 2
+    if 'hp' in on_use.get('recover', {}):
+        recovery_2 = recovery_2 + 4
+    if 'hp' in on_use.get('evs', {}):
+        recovery_2 = recovery_2 + 8
+    if 'attack' in on_use.get('evs', {}):
+        recovery_2 = recovery_2 + 16
+    if 'defense' in on_use.get('evs', {}):
+        recovery_2 = recovery_2 + 32
+    if 'speed' in on_use.get('evs', {}):
+        recovery_2 = recovery_2 + 64
+    if 'sp_attack' in on_use.get('evs', {}):
+        recovery_2 = recovery_2 + 128
+    
+    return recovery_2.to_bytes(1, 'little')
+
+
+def pack_bitfield_2(on_use: dict) -> bytes:
+    bitfield_2 = 0
+    if 'sp_defense' in on_use.get('evs', {}):
+        bitfield_2 = bitfield_2 + 1
+    if 'below_100' in on_use.get('friendship', {}):
+        bitfield_2 = bitfield_2 + 2
+    if '100_to_200' in on_use.get('friendship', {}):
+        bitfield_2 = bitfield_2 + 4
+    if '200_or_more' in on_use.get('friendship', {}):
+        bitfield_2 = bitfield_2 + 8
+    
+    return bitfield_2.to_bytes(1, 'little')
+
+
+def build_use_data(on_use: dict) -> bytes:
+    recovery = pack_recovery(on_use)            # 14
+    utility = pack_utility(on_use)              # 15
+    boost_1 = pack_boost_1(on_use)              # 16
+    boost_2 = pack_boost_2(on_use)              # 17
+    boost_3 = pack_boost_3(on_use)              # 18
+    recovery_2 = pack_recovery_2(on_use)        # 19
+    bitfield_2 = pack_bitfield_2(on_use)        # 20
+
+    hp_ev = sint_to_byte(on_use.get('evs', {}).get('hp', 0))          # 21
+    atk_ev = sint_to_byte(on_use.get('evs', {}).get('attack', 0))     # 22
+    def_ev = sint_to_byte(on_use.get('evs', {}).get('defense', 0))    # 23
+    spe_ev = sint_to_byte(on_use.get('evs', {}).get('speed', 0))      # 24
+    spa_ev = sint_to_byte(on_use.get('evs', {}).get('sp_attack', 0))  # 25
+    spd_ev = sint_to_byte(on_use.get('evs', {}).get('sp_defense', 0)) # 26
+
+    hp_rcv = on_use.get('recover', {}).get('hp', 0).to_bytes(1, 'little') # 27
+    pp_rcv = on_use.get('recover', {}).get('pp', 0)
+    pp_rcv = on_use.get('recover', {}).get('pp_all_moves', pp_rcv).to_bytes(1, 'little')  # 28
+
+    fs_1 = sint_to_byte(on_use.get('friendship', {}).get('below_100', 0))     # 29
+    fs_2 = sint_to_byte(on_use.get('friendship', {}).get('100_to_200', 0))    # 30
+    fs_3 = sint_to_byte(on_use.get('friendship', {}).get('200_or_more', 0))   # 31
+    zero = 0
+
+    use_data = bytearray([])
+    use_data = use_data + recovery
+    use_data = use_data + utility
+    use_data = use_data + boost_1
+    use_data = use_data + boost_2
+    use_data = use_data + boost_3
+    use_data = use_data + recovery_2
+    use_data = use_data + bitfield_2
+    use_data = use_data + hp_ev + atk_ev + def_ev + spe_ev + spa_ev + spd_ev
+    use_data = use_data + hp_rcv + pp_rcv + fs_1 + fs_2 + fs_3
+    use_data = use_data + zero.to_bytes(2, 'little')
+
+    return use_data
+
+
+def build_raw_data(raw_data: list[int]) -> bytes:
+    binary = bytearray([])
+    for b in raw_data:
+        binary = binary + b.to_bytes(1, 'little')
+    
+    return binary
+
+
+def build_item_binary(item: dict) -> bytearray:
+    #print(f'Building item binary {item["name"]}')
+    binary = bytearray([])
+    zero = 0
+    one  = 1
+
+    binary = binary + item['price'].to_bytes(2, 'little')
+    binary = binary + ItemHoldEffect[item['battle_effects']['hold']['effect']].value.to_bytes(1, 'little')
+    binary = binary + item['battle_effects']['hold']['power'].to_bytes(1, 'little')
+    binary = binary + ItemMoveEffect[item['battle_effects']['move']['pluck']].value.to_bytes(1, 'little')
+    binary = binary + ItemMoveEffect[item['battle_effects']['move']['fling']['effect']].value.to_bytes(1, 'little')
+    binary = binary + item['battle_effects']['move']['fling']['power'].to_bytes(1, 'little')
+    binary = binary + item['battle_effects']['move']['natural_gift']['power'].to_bytes(1, 'little')
+    binary = binary + pack_bitfield_1(item)
+    binary = binary + FieldFunction[item['field_function']].value.to_bytes(1, 'little')
+    binary = binary + BattleFunction[item['battle_function']].value.to_bytes(1, 'little')
+    binary = binary + (one.to_bytes(1, 'little') if item['is_usable'] else zero.to_bytes(1, 'little'))
+
+    binary = binary + zero.to_bytes(1, 'little')
+
+    if item['is_usable']:
+        binary = binary + build_use_data(item['on_use'])
+    else:
+        binary = binary + build_raw_data(item['extra_raw_data'])
+    
+    return binary
 
 
 def dump_itemdata():
@@ -192,3 +406,28 @@ def dump_itemdata():
 
     item_names.close()
 
+
+def build_itemdata():
+    if not os.path.exists('build/narc/itemtool'):
+        os.makedirs('build/narc/itemtool')
+    if not os.path.exists('build/items'):
+        os.makedirs('build/items')
+    
+    items_dir = 'data/items'
+    for i, entry in enumerate(os.listdir(items_dir)):
+        file = open(os.path.join(items_dir, entry), 'r')
+        item_json = json.load(file)
+        file.close()
+
+        item_bytes = build_item_binary(item_json)
+        with open(f'build/items/{i:03}.bin', 'wb') as out:
+            out.write(item_bytes)
+    
+    narcpy.create('build/narc/itemtool/pl_item_data.narc', 'build/items')
+
+
+if __name__ == '__main__':
+    if sys.argv[1] == 'dump':
+        dump_itemdata()
+    elif sys.argv[1] == 'build':
+        build_itemdata()

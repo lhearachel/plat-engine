@@ -7,6 +7,14 @@ def signed_int(i: int) -> int:
     return i
 
 
+def sint_to_byte(i: int) -> bytes:
+    sint = i
+    if i < 0:
+        sint = 256 + i
+    
+    return sint.to_bytes(1, 'little')
+
+
 class Type(Enum):
     NORMAL   = 0
     FIGHTING = 1
