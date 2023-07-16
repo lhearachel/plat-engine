@@ -411,6 +411,55 @@ def dump_itemdata():
     item_names.close()
 
 
+def article(item_name: str) -> str:
+    fmt = '{article}{{COLOR 255}}{item_name}{{COLOR 0}}'
+    if item_name in set(['???', 'None']):
+        return '???'
+    elif item_name in set(['Leftovers', 'BlackGlasses', 'Wise Glasses', 'Choice Specs']):
+        article = 'the '
+    elif item_name == 'Oak’s Letter':
+        article = ''
+    elif item_name.startswith(('A', 'E', 'I', 'O', 'U')):
+        article = 'an '
+    elif item_name in set(['HP Up', 'S.S. Ticket']) or item_name.startswith('HM0'):
+        article = 'an '
+    elif item_name.split(' ')[0] == 'X':
+        article = 'an '
+    else:
+        article = 'a '
+    
+    return fmt.format(article=article, item_name=item_name)
+
+
+def plural(item_name: str) -> str:
+    if item_name in set(['???', 'Honey', 'Carbos', 'Leftovers', 'Soft Sand', 'BlackGlasses', 'Wise Glasses', 'Choice Specs']):
+        return item_name
+    elif item_name.split(' ')[-1] in set(['Mulch', 'Mail']):
+        return item_name
+    elif item_name == 'None':
+        return '???'
+    elif item_name == 'Old Gateau':
+        return 'Old Gateaux'
+    elif item_name == 'Guard Spec.':
+        return item_name + '’s'
+    elif item_name == 'X Sp. Def':
+        return 'X Sp. Defs'
+    elif item_name == 'DeepSeaTooth':
+        return 'DeepSeaTeeth'
+    elif item_name == 'Light Clay':
+        return 'Light Clays'
+    elif item_name.split(' ')[-1] == 'Key':
+        return item_name + 's'
+    elif item_name[-1] == 'y':
+        return item_name[:-1] + 'ies'
+    elif item_name[-1] == 'f':
+        return item_name[:-1] + 'ves'
+    elif item_name[-1] == 's' or item_name[-1] == 'x' or item_name[-2:] == 'sh' or item_name[-2:] == 'ch':
+        return item_name + 'es'
+    else:
+        return item_name + 's'
+
+
 def build_itemdata():
     if not os.path.exists('build/narc/itemtool'):
         os.makedirs('build/narc/itemtool')
@@ -419,10 +468,14 @@ def build_itemdata():
     
     items_dir = 'data/items'
     names_txt = open(TEXT_DUMP_TARGET.format(archive=ITEM_NAMES_BANK), 'w')
+    article_txt = open(TEXT_DUMP_TARGET.format(archive=(ITEM_NAMES_BANK + 1)), 'w')
+    plurals_txt = open(TEXT_DUMP_TARGET.format(archive=(ITEM_NAMES_BANK + 2)), 'w')
     for i, entry in enumerate(os.listdir(items_dir)):
         if i == 113:
             for j in range(113, 135):
                 names_txt.write('???\r\n')
+                article_txt.write('???\r\n')
+                plurals_txt.write('???\r\n')
         file = open(os.path.join(items_dir, entry), 'r')
         item_json = json.load(file)
         file.close()
@@ -431,7 +484,12 @@ def build_itemdata():
         with open(f'build/items/{i:03}.bin', 'wb') as out:
             out.write(item_bytes)
         names_txt.write(f'{item_json["name"]}\r\n')
+        article_txt.write(f'{article(item_json["name"])}\r\n')
+        plurals_txt.write(f'{plural(item_json["name"])}\r\n')
     
+    names_txt.close()
+    article_txt.close()
+    plurals_txt.close()
     narcpy.create('build/narc/itemtool/pl_item_data.narc', 'build/items')
 
 
