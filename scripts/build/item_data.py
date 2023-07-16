@@ -414,7 +414,11 @@ def build_itemdata():
         os.makedirs('build/items')
     
     items_dir = 'data/items'
+    names_txt = open(TEXT_DUMP_TARGET.format(archive=ITEM_NAMES_BANK), 'w')
     for i, entry in enumerate(os.listdir(items_dir)):
+        if i == 113:
+            for j in range(113, 135):
+                names_txt.write('???\r\n')
         file = open(os.path.join(items_dir, entry), 'r')
         item_json = json.load(file)
         file.close()
@@ -422,6 +426,7 @@ def build_itemdata():
         item_bytes = build_item_binary(item_json)
         with open(f'build/items/{i:03}.bin', 'wb') as out:
             out.write(item_bytes)
+        names_txt.write(f'{item_json["name"]}\r\n')
     
     narcpy.create('build/narc/itemtool/pl_item_data.narc', 'build/items')
 
