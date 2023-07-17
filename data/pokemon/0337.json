@@ -1,7 +1,7 @@
 {
     "name": "Lunatone",
     "base_stats": {
-        "hp": 90,
+        "hp": 70,
         "attack": 55,
         "defense": 65,
         "sp_attack": 95,

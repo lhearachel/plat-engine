@@ -1,11 +1,11 @@
 {
     "name": "Corsola",
     "base_stats": {
-        "hp": 65,
+        "hp": 55,
         "attack": 55,
-        "defense": 95,
+        "defense": 85,
         "sp_attack": 65,
-        "sp_defense": 95,
+        "sp_defense": 85,
         "speed": 35
     },
     "types": [

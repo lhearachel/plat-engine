@@ -1,11 +1,11 @@
 {
     "name": "Chimecho",
     "base_stats": {
-        "hp": 75,
+        "hp": 65,
         "attack": 50,
-        "defense": 80,
+        "defense": 70,
         "sp_attack": 95,
-        "sp_defense": 90,
+        "sp_defense": 80,
         "speed": 65
     },
     "types": [

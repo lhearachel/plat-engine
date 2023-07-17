@@ -1,7 +1,7 @@
 {
     "name": "Mantine",
     "base_stats": {
-        "hp": 85,
+        "hp": 65,
         "attack": 40,
         "defense": 70,
         "sp_attack": 80,
