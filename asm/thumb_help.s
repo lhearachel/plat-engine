@@ -95,3 +95,55 @@ memcpy:
     blx     0x020D50B8
     pop     {pc}
     .size memcpy, . - memcpy
+
+    .global __gnu_thumb1_case_uhi
+    .thumb_func
+    .type __gnu_thumb1_case_uhi,function
+__gnu_thumb1_case_uhi:
+    push    {r0, r1}
+    mov     r1, lr
+    lsrs    r1, r1, #1
+    lsls    r0, r0, #1
+    lsls    r1, r1, #1
+    ldrh    r1, [r1, r0]
+    lsls    r1, r1, #1
+    add     lr, lr, r1
+    pop     {r0, r1}
+    bx      lr
+    .size __gnu_thumb1_case_uhi, . - __gnu_thumb1_case_uhi
+
+    .force_thumb
+    .syntax unified
+    .global __gnu_thumb1_case_sqi
+    .thumb_func
+    .type __gnu_thumb1_case_sqi,function
+__gnu_thumb1_case_sqi:
+     push   {r1}
+     mov    r1, lr
+     lsrs   r1, r1, #1
+     lsls   r1, r1, #1
+     ldrsb  r1, [r1, r0]
+     lsls   r1, r1, #1
+     add    lr, r1
+     pop    {r1}
+     bx     lr
+    .size __gnu_thumb1_case_sqi, . - __gnu_thumb1_case_sqi
+
+    .force_thumb
+    .syntax unified
+    .global __gnu_thumb1_case_si
+    .thumb_func
+    .type __gnu_thumb1_case_si,function
+__gnu_thumb1_case_si:
+    push {r0, r1}
+    mov r1, lr
+    adds.n r1, r1, #2
+    lsrs r1, r1, #2
+    lsls r0, r0, #2
+    lsls r1, r1, #2
+    ldr r0, [r1, r0]
+    adds r0, r0, r1
+    mov lr, r0
+    pop {r0, r1}
+    mov pc, lr
+    .size __gnu_thumb1_case_uhi, . - __gnu_thumb1_case_uhi
