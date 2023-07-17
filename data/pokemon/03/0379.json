@@ -1,0 +1,113 @@
+{
+    "name": "REGISTEEL",
+    "base_stats": {
+        "hp": 80,
+        "attack": 75,
+        "defense": 150,
+        "sp_attack": 75,
+        "sp_defense": 150,
+        "speed": 50
+    },
+    "types": [
+        "STEEL",
+        "STEEL"
+    ],
+    "abilities": {
+        "0": "CLEAR_BODY",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 215,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 80,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM01",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM20",
+            "TM21",
+            "TM24",
+            "TM25",
+            "TM26",
+            "TM27",
+            "TM31",
+            "TM32",
+            "TM34",
+            "TM37",
+            "TM39",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM52",
+            "TM56",
+            "TM57",
+            "TM58",
+            "TM64",
+            "TM65",
+            "TM68",
+            "TM69",
+            "TM73",
+            "TM76",
+            "TM77",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "TM91",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": [
+                "EXPLOSION",
+                "STOMP"
+            ],
+            "9": "METAL_CLAW",
+            "17": "CURSE",
+            "25": "SUPERPOWER",
+            "33": "ANCIENT_POWER",
+            "41": [
+                "IRON_DEFENSE",
+                "AMNESIA"
+            ],
+            "49": "CHARGE_BEAM",
+            "57": "LOCK_ON",
+            "65": "ZAP_CANNON",
+            "73": [
+                "IRON_HEAD",
+                "FLASH_CANNON"
+            ],
+            "81": "HAMMER_ARM",
+            "89": "HYPER_BEAM"
+        }
+    }
+}

@@ -1,0 +1,99 @@
+{
+    "name": "VAPOREON",
+    "base_stats": {
+        "hp": 130,
+        "attack": 65,
+        "defense": 60,
+        "sp_attack": 110,
+        "sp_defense": 95,
+        "speed": 65
+    },
+    "types": [
+        "WATER",
+        "WATER"
+    ],
+    "abilities": {
+        "0": "WATER_ABSORB",
+        "1": "WATER_ABSORB"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 196,
+    "ev_yields": {
+        "hp": 2,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 35,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM03",
+            "TM05",
+            "TM06",
+            "TM07",
+            "TM10",
+            "TM11",
+            "TM13",
+            "TM14",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM23",
+            "TM27",
+            "TM28",
+            "TM30",
+            "TM32",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM55",
+            "TM58",
+            "TM68",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM03",
+            "HM04",
+            "HM06",
+            "HM07"
+        ],
+        "level_up": {
+            "1": [
+                "TAIL_WHIP",
+                "TACKLE",
+                "HELPING_HAND"
+            ],
+            "8": "SAND_ATTACK",
+            "15": "WATER_GUN",
+            "22": "QUICK_ATTACK",
+            "29": "BITE",
+            "36": "AURORA_BEAM",
+            "43": "AQUA_RING",
+            "50": "LAST_RESORT",
+            "57": "HAZE",
+            "64": "ACID_ARMOR",
+            "71": "HYDRO_PUMP",
+            "78": "MUDDY_WATER"
+        }
+    }
+}

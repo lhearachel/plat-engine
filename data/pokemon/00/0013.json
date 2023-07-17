@@ -1,0 +1,61 @@
+{
+    "name": "WEEDLE",
+    "base_stats": {
+        "hp": 40,
+        "attack": 35,
+        "defense": 30,
+        "sp_attack": 20,
+        "sp_defense": 20,
+        "speed": 50
+    },
+    "types": [
+        "BUG",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "SHIELD_DUST",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 52,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "POISON_STING",
+                "STRING_SHOT"
+            ],
+            "15": "BUG_BITE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            7,
+            "KAKUNA"
+        ]
+    ]
+}

@@ -1,0 +1,99 @@
+{
+    "name": "MAGBY",
+    "base_stats": {
+        "hp": 45,
+        "attack": 75,
+        "defense": 37,
+        "sp_attack": 70,
+        "sp_defense": 55,
+        "speed": 83
+    },
+    "types": [
+        "FIRE",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "FLAME_BODY",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "MAGMARIZER"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 117,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_25",
+    "hatch_multiplier": 25,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": true,
+    "learnset": {
+        "tms": [
+            "TM01",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM17",
+            "TM21",
+            "TM23",
+            "TM27",
+            "TM29",
+            "TM31",
+            "TM32",
+            "TM35",
+            "TM38",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM50",
+            "TM56",
+            "TM58",
+            "TM61",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "SMOG",
+                "LEER"
+            ],
+            "7": "EMBER",
+            "10": "SMOKESCREEN",
+            "16": "FAINT_ATTACK",
+            "19": "FIRE_SPIN",
+            "25": "CONFUSE_RAY",
+            "28": "FIRE_PUNCH",
+            "34": "LAVA_PLUME",
+            "37": "FLAMETHROWER",
+            "43": "SUNNY_DAY",
+            "46": "FIRE_BLAST"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            30,
+            "MAGMAR"
+        ]
+    ]
+}

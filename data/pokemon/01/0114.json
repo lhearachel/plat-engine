@@ -1,0 +1,109 @@
+{
+    "name": "TANGELA",
+    "base_stats": {
+        "hp": 65,
+        "attack": 55,
+        "defense": 115,
+        "sp_attack": 100,
+        "sp_defense": 40,
+        "speed": 60
+    },
+    "types": [
+        "GRASS",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "CHLOROPHYLL",
+        "1": "LEAF_GUARD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 166,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "GRASS",
+        "GRASS"
+    ],
+    "flee_chance": 90,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM09",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM32",
+            "TM33",
+            "TM34",
+            "TM36",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM53",
+            "TM58",
+            "TM68",
+            "TM70",
+            "TM75",
+            "TM77",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM86",
+            "TM87",
+            "TM90",
+            "HM01",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "INGRAIN",
+                "CONSTRICT"
+            ],
+            "5": "SLEEP_POWDER",
+            "8": "ABSORB",
+            "12": "GROWTH",
+            "15": "POISON_POWDER",
+            "19": "VINE_WHIP",
+            "22": "BIND",
+            "26": "MEGA_DRAIN",
+            "29": "STUN_SPORE",
+            "33": "ANCIENT_POWER",
+            "36": "KNOCK_OFF",
+            "40": "NATURAL_GIFT",
+            "43": "SLAM",
+            "47": "TICKLE",
+            "50": "WRING_OUT",
+            "54": "POWER_WHIP"
+        }
+    },
+    "evolutions": [
+        [
+            "KNOW_MOVE",
+            "ANCIENT_POWER",
+            "TANGROWTH"
+        ]
+    ]
+}

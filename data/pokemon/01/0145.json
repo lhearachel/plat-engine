@@ -1,0 +1,101 @@
+{
+    "name": "ZAPDOS",
+    "base_stats": {
+        "hp": 90,
+        "attack": 90,
+        "defense": 85,
+        "sp_attack": 125,
+        "sp_defense": 90,
+        "speed": 100
+    },
+    "types": [
+        "ELECTRIC",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "PRESSURE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 216,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 3,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 80,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM16",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM24",
+            "TM25",
+            "TM27",
+            "TM32",
+            "TM34",
+            "TM37",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM47",
+            "TM51",
+            "TM57",
+            "TM58",
+            "TM68",
+            "TM70",
+            "TM73",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM88",
+            "TM89",
+            "TM90",
+            "HM02",
+            "HM05",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "PECK",
+                "THUNDER_SHOCK"
+            ],
+            "8": "THUNDER_WAVE",
+            "15": "DETECT",
+            "22": "PLUCK",
+            "29": "ANCIENT_POWER",
+            "36": "CHARGE",
+            "43": "AGILITY",
+            "50": "DISCHARGE",
+            "57": "ROOST",
+            "64": "LIGHT_SCREEN",
+            "71": "DRILL_PECK",
+            "78": "THUNDER",
+            "85": "RAIN_DANCE"
+        }
+    }
+}

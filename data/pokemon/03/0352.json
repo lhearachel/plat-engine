@@ -1,0 +1,121 @@
+{
+    "name": "KECLEON",
+    "base_stats": {
+        "hp": 60,
+        "attack": 90,
+        "defense": 70,
+        "sp_attack": 60,
+        "sp_defense": 120,
+        "speed": 40
+    },
+    "types": [
+        "NORMAL",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "COLOR_CHANGE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "PERSIM_BERRY"
+    },
+    "catch_rate": 200,
+    "base_exp_reward": 132,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 120,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM01",
+            "TM03",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM13",
+            "TM14",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM24",
+            "TM25",
+            "TM27",
+            "TM28",
+            "TM30",
+            "TM31",
+            "TM32",
+            "TM34",
+            "TM35",
+            "TM38",
+            "TM39",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM48",
+            "TM49",
+            "TM56",
+            "TM57",
+            "TM58",
+            "TM60",
+            "TM65",
+            "TM67",
+            "TM70",
+            "TM73",
+            "TM76",
+            "TM77",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM86",
+            "TM87",
+            "TM90",
+            "TM92",
+            "HM01",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "THIEF",
+                "TAIL_WHIP",
+                "ASTONISH",
+                "LICK",
+                "SCRATCH"
+            ],
+            "4": "BIND",
+            "7": "FAINT_ATTACK",
+            "10": "FURY_SWIPES",
+            "14": "FEINT",
+            "18": "PSYBEAM",
+            "22": "SHADOW_SNEAK",
+            "27": "SLASH",
+            "32": "SCREECH",
+            "37": "SUBSTITUTE",
+            "43": "SUCKER_PUNCH",
+            "49": "SHADOW_CLAW",
+            "55": "ANCIENT_POWER"
+        }
+    }
+}

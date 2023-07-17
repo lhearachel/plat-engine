@@ -1,0 +1,94 @@
+{
+    "name": "DODUO",
+    "base_stats": {
+        "hp": 35,
+        "attack": 85,
+        "defense": 45,
+        "sp_attack": 35,
+        "sp_defense": 35,
+        "speed": 75
+    },
+    "types": [
+        "NORMAL",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "RUN_AWAY",
+        "1": "EARLY_BIRD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "SHARP_BEAK"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 96,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FLYING",
+        "FLYING"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM17",
+            "TM21",
+            "TM27",
+            "TM32",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM47",
+            "TM51",
+            "TM58",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM88",
+            "TM90",
+            "HM02"
+        ],
+        "level_up": {
+            "1": [
+                "PECK",
+                "GROWL"
+            ],
+            "5": "QUICK_ATTACK",
+            "10": "RAGE",
+            "14": "FURY_ATTACK",
+            "19": "PURSUIT",
+            "23": "UPROAR",
+            "28": "ACUPRESSURE",
+            "32": "DOUBLE_HIT",
+            "37": "AGILITY",
+            "41": "DRILL_PECK",
+            "46": "ENDEAVOR"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            31,
+            "DODRIO"
+        ]
+    ]
+}

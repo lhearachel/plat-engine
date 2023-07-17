@@ -1,0 +1,116 @@
+{
+    "name": "MONFERNO",
+    "base_stats": {
+        "hp": 64,
+        "attack": 78,
+        "defense": 52,
+        "sp_attack": 78,
+        "sp_defense": 52,
+        "speed": 81
+    },
+    "types": [
+        "FIRE",
+        "FIGHTING"
+    ],
+    "abilities": {
+        "0": "BLAZE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 142,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 1,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FIELD",
+        "HUMAN_LIKE"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": true,
+    "learnset": {
+        "tms": [
+            "TM01",
+            "TM06",
+            "TM08",
+            "TM10",
+            "TM11",
+            "TM12",
+            "TM17",
+            "TM21",
+            "TM23",
+            "TM27",
+            "TM28",
+            "TM31",
+            "TM32",
+            "TM35",
+            "TM38",
+            "TM39",
+            "TM40",
+            "TM41",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM50",
+            "TM52",
+            "TM56",
+            "TM58",
+            "TM61",
+            "TM65",
+            "TM75",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM84",
+            "TM86",
+            "TM87",
+            "TM89",
+            "TM90",
+            "HM01",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": [
+                "SCRATCH",
+                "LEER",
+                "EMBER"
+            ],
+            "7": "EMBER",
+            "9": "TAUNT",
+            "14": "MACH_PUNCH",
+            "16": "FURY_SWIPES",
+            "19": "FLAME_WHEEL",
+            "26": "FEINT",
+            "29": "TORMENT",
+            "36": "CLOSE_COMBAT",
+            "39": "FIRE_SPIN",
+            "46": "SLACK_OFF",
+            "49": "FLARE_BLITZ"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            36,
+            "INFERNAPE"
+        ]
+    ]
+}

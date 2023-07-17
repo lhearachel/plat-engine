@@ -1,0 +1,111 @@
+{
+    "name": "SALAMENCE",
+    "base_stats": {
+        "hp": 95,
+        "attack": 135,
+        "defense": 80,
+        "sp_attack": 110,
+        "sp_defense": 80,
+        "speed": 100
+    },
+    "types": [
+        "DRAGON",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "INTIMIDATE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "DRAGON_FANG"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 218,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 3,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 40,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "DRAGON",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM02",
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM23",
+            "TM26",
+            "TM27",
+            "TM31",
+            "TM32",
+            "TM35",
+            "TM38",
+            "TM39",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM47",
+            "TM51",
+            "TM58",
+            "TM59",
+            "TM65",
+            "TM68",
+            "TM71",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM01",
+            "HM02",
+            "HM04",
+            "HM05",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "FIRE_FANG",
+                "THUNDER_FANG",
+                "RAGE",
+                "BITE",
+                "LEER",
+                "HEADBUTT"
+            ],
+            "5": "BITE",
+            "10": "LEER",
+            "16": "HEADBUTT",
+            "20": "FOCUS_ENERGY",
+            "25": "EMBER",
+            "30": "PROTECT",
+            "32": "DRAGON_BREATH",
+            "37": "ZEN_HEADBUTT",
+            "43": "SCARY_FACE",
+            "50": "FLY",
+            "53": "CRUNCH",
+            "61": "DRAGON_CLAW",
+            "70": "DOUBLE_EDGE"
+        }
+    }
+}

@@ -1,0 +1,103 @@
+{
+    "name": "NOSEPASS",
+    "base_stats": {
+        "hp": 30,
+        "attack": 45,
+        "defense": 135,
+        "sp_attack": 45,
+        "sp_defense": 90,
+        "speed": 30
+    },
+    "types": [
+        "ROCK",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "MAGNET_PULL"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "HARD_STONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 108,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM12",
+            "TM17",
+            "TM21",
+            "TM24",
+            "TM25",
+            "TM26",
+            "TM27",
+            "TM32",
+            "TM34",
+            "TM37",
+            "TM39",
+            "TM41",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM58",
+            "TM64",
+            "TM69",
+            "TM71",
+            "TM73",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": "TACKLE",
+            "7": "HARDEN",
+            "13": "ROCK_THROW",
+            "19": "BLOCK",
+            "25": "THUNDER_WAVE",
+            "31": "ROCK_SLIDE",
+            "37": "SANDSTORM",
+            "43": "REST",
+            "49": "POWER_GEM",
+            "55": "DISCHARGE",
+            "61": "STONE_EDGE",
+            "67": "ZAP_CANNON",
+            "73": "LOCK_ON",
+            "79": "EARTH_POWER"
+        }
+    },
+    "evolutions": [
+        [
+            "ELECTRIC_FIELD",
+            "PROBOPASS"
+        ]
+    ]
+}

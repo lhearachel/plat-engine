@@ -1,0 +1,103 @@
+{
+    "name": "RAIKOU",
+    "base_stats": {
+        "hp": 90,
+        "attack": 85,
+        "defense": 75,
+        "sp_attack": 115,
+        "sp_defense": 100,
+        "speed": 115
+    },
+    "types": [
+        "ELECTRIC",
+        "ELECTRIC"
+    ],
+    "abilities": {
+        "0": "PRESSURE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 216,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 1,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 80,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM04",
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM16",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM23",
+            "TM24",
+            "TM25",
+            "TM27",
+            "TM28",
+            "TM30",
+            "TM32",
+            "TM33",
+            "TM34",
+            "TM37",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM57",
+            "TM58",
+            "TM68",
+            "TM70",
+            "TM73",
+            "TM77",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM01",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": [
+                "BITE",
+                "LEER"
+            ],
+            "8": "THUNDER_SHOCK",
+            "15": "ROAR",
+            "22": "QUICK_ATTACK",
+            "29": "SPARK",
+            "36": "REFLECT",
+            "43": "CRUNCH",
+            "50": "THUNDER_FANG",
+            "57": "DISCHARGE",
+            "64": "EXTRASENSORY",
+            "71": "RAIN_DANCE",
+            "78": "CALM_MIND",
+            "85": "THUNDER"
+        }
+    }
+}

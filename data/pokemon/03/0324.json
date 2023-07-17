@@ -1,0 +1,100 @@
+{
+    "name": "TORKOAL",
+    "base_stats": {
+        "hp": 70,
+        "attack": 85,
+        "defense": 140,
+        "sp_attack": 85,
+        "sp_defense": 70,
+        "speed": 20
+    },
+    "types": [
+        "FIRE",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "WHITE_SMOKE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 161,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM26",
+            "TM27",
+            "TM32",
+            "TM35",
+            "TM36",
+            "TM38",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM50",
+            "TM58",
+            "TM61",
+            "TM64",
+            "TM68",
+            "TM71",
+            "TM74",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": "EMBER",
+            "4": "SMOG",
+            "7": "WITHDRAW",
+            "12": "CURSE",
+            "17": "FIRE_SPIN",
+            "20": "SMOKESCREEN",
+            "23": "RAPID_SPIN",
+            "28": "FLAMETHROWER",
+            "33": "BODY_SLAM",
+            "36": "PROTECT",
+            "39": "LAVA_PLUME",
+            "44": "IRON_DEFENSE",
+            "49": "AMNESIA",
+            "52": "FLAIL",
+            "55": "HEAT_WAVE"
+        }
+    }
+}

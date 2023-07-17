@@ -1,0 +1,109 @@
+{
+    "name": "CUBONE",
+    "base_stats": {
+        "hp": 50,
+        "attack": 50,
+        "defense": 95,
+        "sp_attack": 40,
+        "sp_defense": 50,
+        "speed": 35
+    },
+    "types": [
+        "GROUND",
+        "GROUND"
+    ],
+    "abilities": {
+        "0": "ROCK_HEAD",
+        "1": "LIGHTNING_ROD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "THICK_CLUB"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 87,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MONSTER",
+        "MONSTER"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM01",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM13",
+            "TM14",
+            "TM17",
+            "TM21",
+            "TM23",
+            "TM26",
+            "TM27",
+            "TM28",
+            "TM31",
+            "TM32",
+            "TM35",
+            "TM37",
+            "TM38",
+            "TM39",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM54",
+            "TM56",
+            "TM58",
+            "TM75",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": "GROWL",
+            "3": "TAIL_WHIP",
+            "7": "BONE_CLUB",
+            "11": "HEADBUTT",
+            "13": "LEER",
+            "17": "FOCUS_ENERGY",
+            "21": "BONEMERANG",
+            "23": "RAGE",
+            "27": "FALSE_SWIPE",
+            "31": "THRASH",
+            "33": "FLING",
+            "37": "BONE_RUSH",
+            "41": "ENDEAVOR",
+            "43": "DOUBLE_EDGE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            28,
+            "MAROWAK"
+        ]
+    ]
+}

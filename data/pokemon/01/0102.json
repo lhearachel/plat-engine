@@ -1,0 +1,108 @@
+{
+    "name": "EXEGGCUTE",
+    "base_stats": {
+        "hp": 60,
+        "attack": 40,
+        "defense": 80,
+        "sp_attack": 60,
+        "sp_defense": 45,
+        "speed": 40
+    },
+    "types": [
+        "GRASS",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "CHLOROPHYLL",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 98,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "GRASS",
+        "GRASS"
+    ],
+    "flee_chance": 120,
+    "body_color": "PINK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM09",
+            "TM10",
+            "TM11",
+            "TM16",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM29",
+            "TM32",
+            "TM33",
+            "TM36",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM48",
+            "TM53",
+            "TM58",
+            "TM64",
+            "TM70",
+            "TM75",
+            "TM77",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM85",
+            "TM86",
+            "TM87",
+            "TM90",
+            "TM92",
+            "HM04"
+        ],
+        "level_up": {
+            "1": [
+                "BARRAGE",
+                "UPROAR",
+                "HYPNOSIS"
+            ],
+            "7": "REFLECT",
+            "11": "LEECH_SEED",
+            "17": "BULLET_SEED",
+            "19": "STUN_SPORE",
+            "21": "POISON_POWDER",
+            "23": "SLEEP_POWDER",
+            "27": "CONFUSION",
+            "33": "WORRY_SEED",
+            "37": "NATURAL_GIFT",
+            "43": "SOLAR_BEAM",
+            "47": "PSYCHIC"
+        }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM",
+            "LEAF_STONE",
+            "EXEGGUTOR"
+        ]
+    ]
+}

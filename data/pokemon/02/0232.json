@@ -1,0 +1,100 @@
+{
+    "name": "DONPHAN",
+    "base_stats": {
+        "hp": 90,
+        "attack": 120,
+        "defense": 120,
+        "sp_attack": 60,
+        "sp_defense": 60,
+        "speed": 50
+    },
+    "types": [
+        "GROUND",
+        "GROUND"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "PASSHO_BERRY"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 189,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM21",
+            "TM23",
+            "TM26",
+            "TM27",
+            "TM32",
+            "TM37",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM58",
+            "TM68",
+            "TM69",
+            "TM71",
+            "TM74",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM84",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "FIRE_FANG",
+                "THUNDER_FANG",
+                "HORN_ATTACK",
+                "GROWL",
+                "DEFENSE_CURL",
+                "FLAIL"
+            ],
+            "6": "RAPID_SPIN",
+            "10": "KNOCK_OFF",
+            "15": "ROLLOUT",
+            "19": "MAGNITUDE",
+            "24": "SLAM",
+            "25": "FURY_ATTACK",
+            "31": "ASSURANCE",
+            "39": "SCARY_FACE",
+            "46": "EARTHQUAKE",
+            "54": "GIGA_IMPACT"
+        }
+    }
+}

@@ -1,0 +1,100 @@
+{
+    "name": "SEEL",
+    "base_stats": {
+        "hp": 65,
+        "attack": 45,
+        "defense": 55,
+        "sp_attack": 45,
+        "sp_defense": 70,
+        "speed": 45
+    },
+    "types": [
+        "WATER",
+        "WATER"
+    ],
+    "abilities": {
+        "0": "THICK_FAT",
+        "1": "HYDRATION"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 100,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "WATER_1",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "WHITE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM03",
+            "TM06",
+            "TM07",
+            "TM10",
+            "TM13",
+            "TM14",
+            "TM17",
+            "TM18",
+            "TM20",
+            "TM21",
+            "TM27",
+            "TM32",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM55",
+            "TM56",
+            "TM58",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM03",
+            "HM07"
+        ],
+        "level_up": {
+            "1": "HEADBUTT",
+            "3": "GROWL",
+            "7": "WATER_SPORT",
+            "11": "ICY_WIND",
+            "13": "ENCORE",
+            "17": "ICE_SHARD",
+            "21": "REST",
+            "23": "AQUA_RING",
+            "27": "AURORA_BEAM",
+            "31": "AQUA_JET",
+            "33": "BRINE",
+            "37": "TAKE_DOWN",
+            "41": "DIVE",
+            "43": "AQUA_TAIL",
+            "47": "ICE_BEAM",
+            "51": "SAFEGUARD"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            34,
+            "DEWGONG"
+        ]
+    ]
+}

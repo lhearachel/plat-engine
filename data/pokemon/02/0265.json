@@ -1,0 +1,67 @@
+{
+    "name": "WURMPLE",
+    "base_stats": {
+        "hp": 45,
+        "attack": 45,
+        "defense": 35,
+        "sp_attack": 20,
+        "sp_defense": 30,
+        "speed": 20
+    },
+    "types": [
+        "BUG",
+        "BUG"
+    ],
+    "abilities": {
+        "0": "SHIELD_DUST",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 54,
+    "ev_yields": {
+        "hp": 1,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "STRING_SHOT"
+            ],
+            "5": "POISON_STING",
+            "15": "BUG_BITE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_PID_LOW",
+            7,
+            "SILCOON"
+        ],
+        [
+            "LEVEL_PID_HIGH",
+            7,
+            "CASCOON"
+        ]
+    ]
+}

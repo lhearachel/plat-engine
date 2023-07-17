@@ -1,0 +1,59 @@
+{
+    "name": "SMEARGLE",
+    "base_stats": {
+        "hp": 55,
+        "attack": 20,
+        "defense": 35,
+        "sp_attack": 20,
+        "sp_defense": 45,
+        "speed": 75
+    },
+    "types": [
+        "NORMAL",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "OWN_TEMPO",
+        "1": "TECHNICIAN"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 106,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "WHITE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "SKETCH",
+            "11": "SKETCH",
+            "21": "SKETCH",
+            "31": "SKETCH",
+            "41": "SKETCH",
+            "51": "SKETCH",
+            "61": "SKETCH",
+            "71": "SKETCH",
+            "81": "SKETCH",
+            "91": "SKETCH"
+        }
+    }
+}

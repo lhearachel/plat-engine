@@ -1,0 +1,100 @@
+{
+    "name": "ARTICUNO",
+    "base_stats": {
+        "hp": 90,
+        "attack": 85,
+        "defense": 100,
+        "sp_attack": 95,
+        "sp_defense": 125,
+        "speed": 85
+    },
+    "types": [
+        "ICE",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "PRESSURE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 215,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 3,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 80,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM03",
+            "TM05",
+            "TM06",
+            "TM07",
+            "TM10",
+            "TM11",
+            "TM13",
+            "TM14",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM27",
+            "TM32",
+            "TM33",
+            "TM37",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM47",
+            "TM51",
+            "TM58",
+            "TM68",
+            "TM72",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM88",
+            "TM89",
+            "TM90",
+            "HM02",
+            "HM05",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "GUST",
+                "POWDER_SNOW"
+            ],
+            "8": "MIST",
+            "15": "ICE_SHARD",
+            "22": "MIND_READER",
+            "29": "ANCIENT_POWER",
+            "36": "AGILITY",
+            "43": "ICE_BEAM",
+            "50": "REFLECT",
+            "57": "ROOST",
+            "64": "TAILWIND",
+            "71": "BLIZZARD",
+            "78": "SHEER_COLD",
+            "85": "HAIL"
+        }
+    }
+}

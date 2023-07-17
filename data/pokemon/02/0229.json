@@ -1,0 +1,107 @@
+{
+    "name": "HOUNDOOM",
+    "base_stats": {
+        "hp": 75,
+        "attack": 90,
+        "defense": 50,
+        "sp_attack": 110,
+        "sp_defense": 80,
+        "speed": 95
+    },
+    "types": [
+        "DARK",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "EARLY_BIRD",
+        "1": "FLASH_FIRE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 204,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 2,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM12",
+            "TM15",
+            "TM17",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM27",
+            "TM30",
+            "TM32",
+            "TM35",
+            "TM36",
+            "TM38",
+            "TM41",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM49",
+            "TM50",
+            "TM58",
+            "TM61",
+            "TM63",
+            "TM66",
+            "TM68",
+            "TM78",
+            "TM79",
+            "TM82",
+            "TM83",
+            "TM85",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "THUNDER_FANG",
+                "LEER",
+                "EMBER",
+                "HOWL",
+                "SMOG"
+            ],
+            "4": "HOWL",
+            "9": "SMOG",
+            "14": "ROAR",
+            "17": "BITE",
+            "22": "ODOR_SLEUTH",
+            "28": "BEAT_UP",
+            "32": "FIRE_FANG",
+            "38": "FAINT_ATTACK",
+            "44": "EMBARGO",
+            "48": "FLAMETHROWER",
+            "54": "CRUNCH",
+            "60": "NASTY_PLOT"
+        }
+    }
+}

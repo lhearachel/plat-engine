@@ -1,0 +1,104 @@
+{
+    "name": "MAGCARGO",
+    "base_stats": {
+        "hp": 50,
+        "attack": 50,
+        "defense": 120,
+        "sp_attack": 80,
+        "sp_defense": 80,
+        "speed": 30
+    },
+    "types": [
+        "FIRE",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "MAGMA_ARMOR",
+        "1": "FLAME_BODY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 154,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "AMORPHOUS",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM16",
+            "TM17",
+            "TM21",
+            "TM22",
+            "TM26",
+            "TM27",
+            "TM32",
+            "TM33",
+            "TM35",
+            "TM37",
+            "TM38",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM50",
+            "TM58",
+            "TM61",
+            "TM64",
+            "TM68",
+            "TM69",
+            "TM71",
+            "TM74",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "YAWN",
+                "SMOG",
+                "EMBER",
+                "ROCK_THROW"
+            ],
+            "8": "EMBER",
+            "11": "ROCK_THROW",
+            "16": "HARDEN",
+            "23": "RECOVER",
+            "26": "ANCIENT_POWER",
+            "31": "AMNESIA",
+            "40": "LAVA_PLUME",
+            "45": "ROCK_SLIDE",
+            "52": "BODY_SLAM",
+            "61": "FLAMETHROWER",
+            "66": "EARTH_POWER"
+        }
+    }
+}

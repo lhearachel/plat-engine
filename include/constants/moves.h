@@ -388,7 +388,7 @@
 #define MOVE_POWER_SWAP                         384
 #define MOVE_GUARD_SWAP                         385
 #define MOVE_PUNISHMENT                         386
-#define LAGGING_TAIL_RESORT                        387
+#define MOVE_LAST_RESORT                        387
 #define MOVE_WORRY_SEED                         388
 #define MOVE_SUCKER_PUNCH                       389
 #define MOVE_TOXIC_SPIKES                       390

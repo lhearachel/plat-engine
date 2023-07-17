@@ -1,0 +1,107 @@
+{
+    "name": "SCIZOR",
+    "base_stats": {
+        "hp": 70,
+        "attack": 130,
+        "defense": 100,
+        "sp_attack": 55,
+        "sp_defense": 80,
+        "speed": 65
+    },
+    "types": [
+        "BUG",
+        "STEEL"
+    ],
+    "abilities": {
+        "0": "SWARM",
+        "1": "TECHNICIAN"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 25,
+    "base_exp_reward": 200,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM27",
+            "TM31",
+            "TM32",
+            "TM37",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM47",
+            "TM51",
+            "TM54",
+            "TM56",
+            "TM58",
+            "TM62",
+            "TM68",
+            "TM75",
+            "TM78",
+            "TM81",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM89",
+            "TM90",
+            "TM91",
+            "HM01",
+            "HM04",
+            "HM05",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "BULLET_PUNCH",
+                "QUICK_ATTACK",
+                "LEER"
+            ],
+            "5": "FOCUS_ENERGY",
+            "9": "PURSUIT",
+            "13": "FALSE_SWIPE",
+            "17": "AGILITY",
+            "21": "METAL_CLAW",
+            "25": "FURY_CUTTER",
+            "29": "SLASH",
+            "33": "RAZOR_WIND",
+            "37": "IRON_DEFENSE",
+            "41": "X_SCISSOR",
+            "45": "NIGHT_SLASH",
+            "49": "DOUBLE_HIT",
+            "53": "IRON_HEAD",
+            "57": "SWORDS_DANCE",
+            "61": "FEINT"
+        }
+    }
+}

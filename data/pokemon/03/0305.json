@@ -1,0 +1,111 @@
+{
+    "name": "LAIRON",
+    "base_stats": {
+        "hp": 60,
+        "attack": 90,
+        "defense": 140,
+        "sp_attack": 50,
+        "sp_defense": 50,
+        "speed": 40
+    },
+    "types": [
+        "STEEL",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "ROCK_HEAD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "HARD_STONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 152,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 35,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "MONSTER",
+        "MONSTER"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM03",
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM23",
+            "TM26",
+            "TM27",
+            "TM28",
+            "TM32",
+            "TM34",
+            "TM37",
+            "TM39",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM58",
+            "TM65",
+            "TM69",
+            "TM71",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM01",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "HARDEN",
+                "MUD_SLAP",
+                "HEADBUTT"
+            ],
+            "4": "HARDEN",
+            "8": "MUD_SLAP",
+            "11": "HEADBUTT",
+            "15": "METAL_CLAW",
+            "18": "IRON_DEFENSE",
+            "22": "ROAR",
+            "25": "TAKE_DOWN",
+            "29": "IRON_HEAD",
+            "34": "PROTECT",
+            "40": "METAL_SOUND",
+            "45": "IRON_TAIL",
+            "51": "DOUBLE_EDGE",
+            "56": "METAL_BURST"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            42,
+            "AGGRON"
+        ]
+    ]
+}

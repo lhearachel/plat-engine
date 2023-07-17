@@ -1,0 +1,117 @@
+{
+    "name": "EXPLOUD",
+    "base_stats": {
+        "hp": 104,
+        "attack": 91,
+        "defense": 63,
+        "sp_attack": 91,
+        "sp_defense": 63,
+        "speed": 68
+    },
+    "types": [
+        "NORMAL",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "SOUNDPROOF",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "CHESTO_BERRY"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 184,
+    "ev_yields": {
+        "hp": 3,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MONSTER",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM03",
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM12",
+            "TM13",
+            "TM14",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM22",
+            "TM26",
+            "TM27",
+            "TM30",
+            "TM31",
+            "TM32",
+            "TM34",
+            "TM35",
+            "TM38",
+            "TM39",
+            "TM41",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM50",
+            "TM52",
+            "TM56",
+            "TM58",
+            "TM68",
+            "TM72",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM03",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": [
+                "ICE_FANG",
+                "FIRE_FANG",
+                "THUNDER_FANG",
+                "POUND",
+                "UPROAR",
+                "ASTONISH",
+                "HOWL"
+            ],
+            "5": "UPROAR",
+            "11": "ASTONISH",
+            "15": "HOWL",
+            "20": "BITE",
+            "23": "SUPERSONIC",
+            "29": "STOMP",
+            "37": "SCREECH",
+            "40": "CRUNCH",
+            "45": "ROAR",
+            "55": [
+                "REST",
+                "SLEEP_TALK"
+            ],
+            "63": "HYPER_VOICE",
+            "71": "HYPER_BEAM"
+        }
+    }
+}

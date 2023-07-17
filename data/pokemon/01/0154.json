@@ -1,0 +1,104 @@
+{
+    "name": "MEGANIUM",
+    "base_stats": {
+        "hp": 80,
+        "attack": 82,
+        "defense": 100,
+        "sp_attack": 83,
+        "sp_defense": 100,
+        "speed": 80
+    },
+    "types": [
+        "GRASS",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "OVERGROW",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 208,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 2,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MONSTER",
+        "GRASS"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM09",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM16",
+            "TM17",
+            "TM19",
+            "TM20",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM26",
+            "TM27",
+            "TM32",
+            "TM33",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM53",
+            "TM58",
+            "TM68",
+            "TM70",
+            "TM75",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM86",
+            "TM87",
+            "TM90",
+            "HM01",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "GROWL",
+                "RAZOR_LEAF",
+                "POISON_POWDER"
+            ],
+            "6": "RAZOR_LEAF",
+            "9": "POISON_POWDER",
+            "12": "SYNTHESIS",
+            "18": "REFLECT",
+            "22": "MAGICAL_LEAF",
+            "26": "NATURAL_GIFT",
+            "32": "PETAL_DANCE",
+            "34": "SWEET_SCENT",
+            "40": "LIGHT_SCREEN",
+            "46": "BODY_SLAM",
+            "54": "SAFEGUARD",
+            "60": "AROMATHERAPY",
+            "66": "SOLAR_BEAM"
+        }
+    }
+}

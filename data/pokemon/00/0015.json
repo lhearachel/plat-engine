@@ -1,0 +1,99 @@
+{
+    "name": "BEEDRILL",
+    "base_stats": {
+        "hp": 65,
+        "attack": 80,
+        "defense": 40,
+        "sp_attack": 45,
+        "sp_defense": 80,
+        "speed": 75
+    },
+    "types": [
+        "BUG",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "SWARM",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "POISON_BARB"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 159,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM31",
+            "TM32",
+            "TM36",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM51",
+            "TM54",
+            "TM58",
+            "TM62",
+            "TM66",
+            "TM68",
+            "TM70",
+            "TM75",
+            "TM78",
+            "TM81",
+            "TM82",
+            "TM83",
+            "TM84",
+            "TM87",
+            "TM89",
+            "TM90",
+            "HM01",
+            "HM05",
+            "HM06"
+        ],
+        "level_up": {
+            "1": "FURY_ATTACK",
+            "10": "FURY_ATTACK",
+            "13": "FOCUS_ENERGY",
+            "16": "TWINEEDLE",
+            "19": "RAGE",
+            "22": "PURSUIT",
+            "25": "TOXIC_SPIKES",
+            "28": "PIN_MISSILE",
+            "31": "AGILITY",
+            "34": "ASSURANCE",
+            "37": "POISON_JAB",
+            "40": "ENDEAVOR"
+        }
+    }
+}

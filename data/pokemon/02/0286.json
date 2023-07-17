@@ -1,0 +1,110 @@
+{
+    "name": "BRELOOM",
+    "base_stats": {
+        "hp": 60,
+        "attack": 130,
+        "defense": 80,
+        "sp_attack": 60,
+        "sp_defense": 60,
+        "speed": 70
+    },
+    "types": [
+        "GRASS",
+        "FIGHTING"
+    ],
+    "abilities": {
+        "0": "EFFECT_SPORE",
+        "1": "POISON_HEAL"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "KEBIA_BERRY"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 165,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "FLUCTUATING",
+    "egg_groups": [
+        "FAIRY",
+        "GRASS"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM01",
+            "TM06",
+            "TM08",
+            "TM09",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM19",
+            "TM20",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM27",
+            "TM31",
+            "TM32",
+            "TM36",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM49",
+            "TM52",
+            "TM53",
+            "TM56",
+            "TM58",
+            "TM60",
+            "TM68",
+            "TM70",
+            "TM71",
+            "TM75",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM86",
+            "TM87",
+            "TM90",
+            "HM01",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "ABSORB",
+                "TACKLE",
+                "STUN_SPORE",
+                "LEECH_SEED"
+            ],
+            "5": "TACKLE",
+            "9": "STUN_SPORE",
+            "13": "LEECH_SEED",
+            "17": "MEGA_DRAIN",
+            "21": "HEADBUTT",
+            "23": "MACH_PUNCH",
+            "25": "COUNTER",
+            "29": "FORCE_PALM",
+            "33": "SKY_UPPERCUT",
+            "37": "MIND_READER",
+            "41": "SEED_BOMB",
+            "45": "DYNAMIC_PUNCH"
+        }
+    }
+}

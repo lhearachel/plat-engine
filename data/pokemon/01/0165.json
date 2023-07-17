@@ -1,0 +1,106 @@
+{
+    "name": "LEDYBA",
+    "base_stats": {
+        "hp": 40,
+        "attack": 20,
+        "defense": 30,
+        "sp_attack": 40,
+        "sp_defense": 80,
+        "speed": 55
+    },
+    "types": [
+        "BUG",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "SWARM",
+        "1": "EARLY_BIRD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 54,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM01",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM16",
+            "TM17",
+            "TM19",
+            "TM20",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM28",
+            "TM31",
+            "TM32",
+            "TM33",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM51",
+            "TM56",
+            "TM58",
+            "TM60",
+            "TM62",
+            "TM70",
+            "TM75",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM89",
+            "TM90"
+        ],
+        "level_up": {
+            "1": "TACKLE",
+            "6": "SUPERSONIC",
+            "9": "COMET_PUNCH",
+            "14": [
+                "LIGHT_SCREEN",
+                "REFLECT",
+                "SAFEGUARD"
+            ],
+            "17": "MACH_PUNCH",
+            "22": "BATON_PASS",
+            "25": "SILVER_WIND",
+            "30": "AGILITY",
+            "33": "SWIFT",
+            "38": "DOUBLE_EDGE",
+            "41": "BUG_BUZZ"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            18,
+            "LEDIAN"
+        ]
+    ]
+}

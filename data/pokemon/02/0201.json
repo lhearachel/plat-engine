@@ -1,0 +1,50 @@
+{
+    "name": "UNOWN",
+    "base_stats": {
+        "hp": 48,
+        "attack": 72,
+        "defense": 48,
+        "sp_attack": 72,
+        "sp_defense": 48,
+        "speed": 48
+    },
+    "types": [
+        "PSYCHIC",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "LEVITATE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 225,
+    "base_exp_reward": 61,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 1,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 40,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": true,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "HIDDEN_POWER"
+        }
+    }
+}

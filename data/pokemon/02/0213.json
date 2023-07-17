@@ -1,0 +1,93 @@
+{
+    "name": "SHUCKLE",
+    "base_stats": {
+        "hp": 20,
+        "attack": 10,
+        "defense": 230,
+        "sp_attack": 10,
+        "sp_defense": 230,
+        "speed": 5
+    },
+    "types": [
+        "BUG",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "GLUTTONY"
+    },
+    "held_items": {
+        "50%": "ORAN_BERRY",
+        "5%": "ORAN_BERRY"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 80,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM17",
+            "TM20",
+            "TM21",
+            "TM26",
+            "TM27",
+            "TM28",
+            "TM32",
+            "TM36",
+            "TM37",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM58",
+            "TM69",
+            "TM70",
+            "TM71",
+            "TM74",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "WITHDRAW",
+                "CONSTRICT",
+                "BIDE"
+            ],
+            "9": "ENCORE",
+            "14": "SAFEGUARD",
+            "22": "WRAP",
+            "27": "REST",
+            "35": "GASTRO_ACID",
+            "40": "BUG_BITE",
+            "48": "POWER_TRICK"
+        }
+    }
+}

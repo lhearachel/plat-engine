@@ -1,0 +1,96 @@
+{
+    "name": "ARIADOS",
+    "base_stats": {
+        "hp": 70,
+        "attack": 90,
+        "defense": 70,
+        "sp_attack": 60,
+        "sp_defense": 60,
+        "speed": 40
+    },
+    "types": [
+        "BUG",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "SWARM",
+        "1": "INSOMNIA"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 134,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM28",
+            "TM29",
+            "TM32",
+            "TM36",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM58",
+            "TM68",
+            "TM70",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM84",
+            "TM87",
+            "TM90"
+        ],
+        "level_up": {
+            "1": [
+                "BUG_BITE",
+                "POISON_STING",
+                "STRING_SHOT",
+                "SCARY_FACE",
+                "CONSTRICT"
+            ],
+            "5": "SCARY_FACE",
+            "8": "CONSTRICT",
+            "12": "LEECH_LIFE",
+            "15": "NIGHT_SHADE",
+            "19": "SHADOW_SNEAK",
+            "23": "FURY_SWIPES",
+            "28": "SUCKER_PUNCH",
+            "32": "SPIDER_WEB",
+            "37": "AGILITY",
+            "41": "PIN_MISSILE",
+            "46": "PSYCHIC",
+            "50": "POISON_JAB"
+        }
+    }
+}

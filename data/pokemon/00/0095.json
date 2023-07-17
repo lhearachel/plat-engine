@@ -1,0 +1,114 @@
+{
+    "name": "ONIX",
+    "base_stats": {
+        "hp": 35,
+        "attack": 45,
+        "defense": 160,
+        "sp_attack": 30,
+        "sp_defense": 45,
+        "speed": 70
+    },
+    "types": [
+        "ROCK",
+        "GROUND"
+    ],
+    "abilities": {
+        "0": "ROCK_HEAD",
+        "1": "STURDY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 108,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM12",
+            "TM17",
+            "TM21",
+            "TM23",
+            "TM26",
+            "TM27",
+            "TM28",
+            "TM32",
+            "TM37",
+            "TM39",
+            "TM41",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM58",
+            "TM59",
+            "TM64",
+            "TM66",
+            "TM69",
+            "TM71",
+            "TM74",
+            "TM76",
+            "TM77",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "TM91",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": [
+                "MUD_SPORT",
+                "TACKLE",
+                "HARDEN",
+                "BIND"
+            ],
+            "6": "SCREECH",
+            "9": "ROCK_THROW",
+            "14": "RAGE",
+            "17": "ROCK_TOMB",
+            "22": "SANDSTORM",
+            "25": "SLAM",
+            "30": "ROCK_POLISH",
+            "33": "DRAGON_BREATH",
+            "38": "CURSE",
+            "41": "IRON_TAIL",
+            "46": "SAND_TOMB",
+            "49": "DOUBLE_EDGE",
+            "54": "STONE_EDGE"
+        }
+    },
+    "evolutions": [
+        [
+            "TRADE_WITH_ITEM",
+            "METAL_COAT",
+            "STEELIX"
+        ]
+    ]
+}

@@ -1,0 +1,100 @@
+{
+    "name": "BONSLY",
+    "base_stats": {
+        "hp": 50,
+        "attack": 80,
+        "defense": 95,
+        "sp_attack": 10,
+        "sp_defense": 45,
+        "speed": 10
+    },
+    "types": [
+        "ROCK",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "ROCK_HEAD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 68,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM04",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM17",
+            "TM21",
+            "TM27",
+            "TM28",
+            "TM31",
+            "TM32",
+            "TM37",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM58",
+            "TM64",
+            "TM69",
+            "TM76",
+            "TM77",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90"
+        ],
+        "level_up": {
+            "1": [
+                "FAKE_TEARS",
+                "COPYCAT"
+            ],
+            "6": "FLAIL",
+            "9": "LOW_KICK",
+            "14": "ROCK_THROW",
+            "17": "MIMIC",
+            "22": "BLOCK",
+            "25": "FAINT_ATTACK",
+            "30": "ROCK_TOMB",
+            "33": "ROCK_SLIDE",
+            "38": "SLAM",
+            "41": "SUCKER_PUNCH",
+            "46": "DOUBLE_EDGE"
+        }
+    },
+    "evolutions": [
+        [
+            "KNOW_MOVE",
+            "MIMIC",
+            "SUDOWOODO"
+        ]
+    ]
+}

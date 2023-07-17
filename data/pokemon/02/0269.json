@@ -1,0 +1,94 @@
+{
+    "name": "DUSTOX",
+    "base_stats": {
+        "hp": 60,
+        "attack": 50,
+        "defense": 70,
+        "sp_attack": 50,
+        "sp_defense": 90,
+        "speed": 65
+    },
+    "types": [
+        "BUG",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "SHIELD_DUST",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "SHED_SHELL"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 161,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 3,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM16",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM29",
+            "TM30",
+            "TM32",
+            "TM36",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM51",
+            "TM53",
+            "TM58",
+            "TM62",
+            "TM68",
+            "TM70",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM89",
+            "TM90",
+            "HM05"
+        ],
+        "level_up": {
+            "1": "CONFUSION",
+            "10": "CONFUSION",
+            "13": "GUST",
+            "17": "PROTECT",
+            "20": "MOONLIGHT",
+            "24": "PSYBEAM",
+            "27": "WHIRLWIND",
+            "31": "LIGHT_SCREEN",
+            "34": "SILVER_WIND",
+            "38": "TOXIC",
+            "41": "BUG_BUZZ"
+        }
+    }
+}

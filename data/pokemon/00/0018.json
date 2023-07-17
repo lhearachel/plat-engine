@@ -1,0 +1,96 @@
+{
+    "name": "PIDGEOT",
+    "base_stats": {
+        "hp": 83,
+        "attack": 80,
+        "defense": 75,
+        "sp_attack": 70,
+        "sp_defense": 70,
+        "speed": 91
+    },
+    "types": [
+        "NORMAL",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "KEEN_EYE",
+        "1": "TANGLED_FEET"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 172,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 3
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FLYING",
+        "FLYING"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM27",
+            "TM32",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM47",
+            "TM51",
+            "TM58",
+            "TM68",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM88",
+            "TM89",
+            "TM90",
+            "HM02",
+            "HM05"
+        ],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "SAND_ATTACK",
+                "GUST",
+                "QUICK_ATTACK"
+            ],
+            "5": "SAND_ATTACK",
+            "9": "GUST",
+            "13": "QUICK_ATTACK",
+            "17": "WHIRLWIND",
+            "22": "TWISTER",
+            "27": "FEATHER_DANCE",
+            "32": "AGILITY",
+            "38": "WING_ATTACK",
+            "44": "ROOST",
+            "50": "TAILWIND",
+            "56": "MIRROR_MOVE",
+            "62": "AIR_SLASH"
+        }
+    }
+}

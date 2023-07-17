@@ -1,0 +1,97 @@
+{
+    "name": "VENONAT",
+    "base_stats": {
+        "hp": 60,
+        "attack": 55,
+        "defense": 50,
+        "sp_attack": 40,
+        "sp_defense": 55,
+        "speed": 45
+    },
+    "types": [
+        "BUG",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "COMPOUND_EYES",
+        "1": "TINTED_LENS"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 75,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM29",
+            "TM32",
+            "TM36",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM48",
+            "TM58",
+            "TM70",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90"
+        ],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "DISABLE",
+                "FORESIGHT"
+            ],
+            "5": "SUPERSONIC",
+            "11": "CONFUSION",
+            "13": "POISON_POWDER",
+            "17": "LEECH_LIFE",
+            "23": "STUN_SPORE",
+            "25": "PSYBEAM",
+            "29": "SLEEP_POWDER",
+            "35": "SIGNAL_BEAM",
+            "37": "ZEN_HEADBUTT",
+            "41": "POISON_FANG",
+            "47": "PSYCHIC"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            31,
+            "VENOMOTH"
+        ]
+    ]
+}

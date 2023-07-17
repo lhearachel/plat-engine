@@ -1,0 +1,109 @@
+{
+    "name": "UXIE",
+    "base_stats": {
+        "hp": 75,
+        "attack": 75,
+        "defense": 130,
+        "sp_attack": 75,
+        "sp_defense": 130,
+        "speed": 95
+    },
+    "types": [
+        "PSYCHIC",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "LEVITATE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 210,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 80,
+    "base_happiness": 140,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM03",
+            "TM04",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM16",
+            "TM17",
+            "TM18",
+            "TM19",
+            "TM20",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM24",
+            "TM25",
+            "TM27",
+            "TM29",
+            "TM30",
+            "TM32",
+            "TM33",
+            "TM34",
+            "TM37",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM48",
+            "TM53",
+            "TM56",
+            "TM57",
+            "TM58",
+            "TM67",
+            "TM68",
+            "TM70",
+            "TM73",
+            "TM76",
+            "TM77",
+            "TM82",
+            "TM83",
+            "TM85",
+            "TM86",
+            "TM87",
+            "TM89",
+            "TM90",
+            "TM92"
+        ],
+        "level_up": {
+            "1": [
+                "REST",
+                "CONFUSION"
+            ],
+            "6": "IMPRISON",
+            "16": "ENDURE",
+            "21": "SWIFT",
+            "31": "YAWN",
+            "36": "FUTURE_SIGHT",
+            "46": "AMNESIA",
+            "51": "EXTRASENSORY",
+            "61": "FLAIL",
+            "66": "NATURAL_GIFT",
+            "76": "MEMENTO"
+        }
+    }
+}

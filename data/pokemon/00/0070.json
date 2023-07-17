@@ -1,0 +1,101 @@
+{
+    "name": "WEEPINBELL",
+    "base_stats": {
+        "hp": 65,
+        "attack": 90,
+        "defense": 50,
+        "sp_attack": 85,
+        "sp_defense": 45,
+        "speed": 55
+    },
+    "types": [
+        "GRASS",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "CHLOROPHYLL",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 151,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "GRASS",
+        "GRASS"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM09",
+            "TM10",
+            "TM11",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM32",
+            "TM36",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM53",
+            "TM58",
+            "TM70",
+            "TM75",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM86",
+            "TM87",
+            "TM90",
+            "HM01"
+        ],
+        "level_up": {
+            "1": [
+                "VINE_WHIP",
+                "GROWTH",
+                "WRAP"
+            ],
+            "7": "GROWTH",
+            "11": "WRAP",
+            "13": "SLEEP_POWDER",
+            "15": "POISON_POWDER",
+            "17": "STUN_SPORE",
+            "23": "ACID",
+            "27": "KNOCK_OFF",
+            "29": "SWEET_SCENT",
+            "35": "GASTRO_ACID",
+            "39": "RAZOR_LEAF",
+            "41": "SLAM",
+            "47": "WRING_OUT"
+        }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM",
+            "LEAF_STONE",
+            "VICTREEBEL"
+        ]
+    ]
+}

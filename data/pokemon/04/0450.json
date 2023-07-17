@@ -1,0 +1,97 @@
+{
+    "name": "HIPPOWDON",
+    "base_stats": {
+        "hp": 108,
+        "attack": 112,
+        "defense": 118,
+        "sp_attack": 68,
+        "sp_defense": 72,
+        "speed": 47
+    },
+    "types": [
+        "GROUND",
+        "GROUND"
+    ],
+    "abilities": {
+        "0": "SAND_STREAM",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 198,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 30,
+    "base_happiness": 70,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM03",
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM21",
+            "TM23",
+            "TM26",
+            "TM27",
+            "TM32",
+            "TM37",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM58",
+            "TM68",
+            "TM71",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "ICE_FANG",
+                "FIRE_FANG",
+                "THUNDER_FANG",
+                "TACKLE",
+                "SAND_ATTACK",
+                "BITE",
+                "YAWN"
+            ],
+            "7": "BITE",
+            "13": "YAWN",
+            "19": "TAKE_DOWN",
+            "25": "SAND_TOMB",
+            "31": "CRUNCH",
+            "40": "EARTHQUAKE",
+            "50": "DOUBLE_EDGE",
+            "60": "FISSURE"
+        }
+    }
+}

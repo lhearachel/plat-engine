@@ -1,0 +1,109 @@
+{
+    "name": "BASTIODON",
+    "base_stats": {
+        "hp": 60,
+        "attack": 52,
+        "defense": 168,
+        "sp_attack": 47,
+        "sp_defense": 138,
+        "speed": 30
+    },
+    "types": [
+        "ROCK",
+        "STEEL"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 199,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 30,
+    "base_happiness": 70,
+    "growth_rate": "ERRATIC",
+    "egg_groups": [
+        "MONSTER",
+        "MONSTER"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM12",
+            "TM13",
+            "TM14",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM23",
+            "TM24",
+            "TM25",
+            "TM26",
+            "TM27",
+            "TM28",
+            "TM32",
+            "TM34",
+            "TM35",
+            "TM37",
+            "TM38",
+            "TM39",
+            "TM41",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM58",
+            "TM68",
+            "TM69",
+            "TM71",
+            "TM72",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "TM91",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "PROTECT",
+                "TAUNT",
+                "METAL_SOUND"
+            ],
+            "6": "TAUNT",
+            "10": "METAL_SOUND",
+            "15": "TAKE_DOWN",
+            "19": "IRON_DEFENSE",
+            "24": "SWAGGER",
+            "28": "ANCIENT_POWER",
+            "30": "BLOCK",
+            "36": "ENDURE",
+            "43": "METAL_BURST",
+            "52": "IRON_HEAD"
+        }
+    }
+}

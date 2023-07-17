@@ -1,7 +1,5 @@
 import json
 import os
-import subprocess
-import sys
 
 from ndspy.narc import NARC
 from util import (
@@ -23,20 +21,6 @@ BASE_ITEMDATA_NARC = 'base/data/itemtool/itemdata/pl_item_data.narc'
 BASE_MSGDATA_NARC  = 'base/data/msgdata/pl_msg.narc'
 ITEM_NAMES_BANK    = 392
 TEXT_DUMP_TARGET   = 'data/text/{archive}.txt'
-TEMP_DUMP_TARGET   = 'tmp'
-
-MSGENC_DECODE      = ['./tools/msgenc', '-c', 'data/charmap.txt', '-d']
-MSGENC_ENCODE      = ['./tools/msgenc', '-c', 'data/charmap.txt', '-e']
-
-
-def dump_item_names():
-    msgdata = NARC.fromFile(BASE_MSGDATA_NARC)
-    item_names = msgdata.files[ITEM_NAMES_BANK]
-    narcpy.extract(BASE_MSGDATA_NARC, True, TEMP_DUMP_TARGET)
-    subprocess.run(MSGENC_DECODE + [f'tmp/pl_msg.narc_{ITEM_NAMES_BANK}', TEXT_DUMP_TARGET.format(archive=ITEM_NAMES_BANK)],
-        shell=True,
-        check=True
-    )
 
 
 def dump_use_data(item: bytes, item_dict: dict) -> dict:

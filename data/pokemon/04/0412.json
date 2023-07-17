@@ -1,0 +1,65 @@
+{
+    "name": "BURMY",
+    "base_stats": {
+        "hp": 40,
+        "attack": 29,
+        "defense": 45,
+        "sp_attack": 29,
+        "sp_defense": 45,
+        "speed": 36
+    },
+    "types": [
+        "BUG",
+        "BUG"
+    ],
+    "abilities": {
+        "0": "SHED_SKIN",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 61,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "PROTECT",
+            "10": "TACKLE",
+            "15": "BUG_BITE",
+            "20": "HIDDEN_POWER"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_FEMALE",
+            20,
+            "WORMADAM"
+        ],
+        [
+            "LEVEL_MALE",
+            20,
+            "MOTHIM"
+        ]
+    ]
+}

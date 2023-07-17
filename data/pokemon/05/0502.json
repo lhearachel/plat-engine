@@ -1,0 +1,89 @@
+{
+    "name": "Shaymin-Sky",
+    "base_stats": {
+        "hp": 100,
+        "attack": 103,
+        "defense": 75,
+        "sp_attack": 120,
+        "sp_defense": 75,
+        "speed": 127
+    },
+    "types": [
+        "GRASS",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "SERENE_GRACE",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "LUM_BERRY",
+        "5%": "LUM_BERRY"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 64,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 3
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 120,
+    "base_happiness": 100,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": true,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM09",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM19",
+            "TM20",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM29",
+            "TM32",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM53",
+            "TM58",
+            "TM68",
+            "TM70",
+            "TM75",
+            "TM77",
+            "TM82",
+            "TM83",
+            "TM86",
+            "TM87",
+            "TM90"
+        ],
+        "level_up": {
+            "1": "GROWTH",
+            "10": "MAGICAL_LEAF",
+            "19": "LEECH_SEED",
+            "28": "QUICK_ATTACK",
+            "37": "SWEET_SCENT",
+            "46": "NATURAL_GIFT",
+            "55": "WORRY_SEED",
+            "64": "AIR_SLASH",
+            "73": "ENERGY_BALL",
+            "82": "SWEET_KISS",
+            "91": "LEAF_STORM",
+            "100": "SEED_FLARE"
+        }
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "name": "BELDUM",
+    "base_stats": {
+        "hp": 40,
+        "attack": 55,
+        "defense": 80,
+        "sp_attack": 35,
+        "sp_defense": 60,
+        "speed": 30
+    },
+    "types": [
+        "STEEL",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "CLEAR_BODY",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "METAL_COAT"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 103,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 40,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "TAKE_DOWN"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            20,
+            "METANG"
+        ]
+    ]
+}

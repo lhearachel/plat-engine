@@ -1,0 +1,98 @@
+{
+    "name": "SPINARAK",
+    "base_stats": {
+        "hp": 40,
+        "attack": 60,
+        "defense": 40,
+        "sp_attack": 40,
+        "sp_defense": 40,
+        "speed": 30
+    },
+    "types": [
+        "BUG",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "SWARM",
+        "1": "INSOMNIA"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 54,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM28",
+            "TM29",
+            "TM32",
+            "TM36",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM58",
+            "TM70",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM84",
+            "TM87",
+            "TM90"
+        ],
+        "level_up": {
+            "1": [
+                "POISON_STING",
+                "STRING_SHOT"
+            ],
+            "5": "SCARY_FACE",
+            "8": "CONSTRICT",
+            "12": "LEECH_LIFE",
+            "15": "NIGHT_SHADE",
+            "19": "SHADOW_SNEAK",
+            "22": "FURY_SWIPES",
+            "26": "SUCKER_PUNCH",
+            "29": "SPIDER_WEB",
+            "33": "AGILITY",
+            "36": "PIN_MISSILE",
+            "40": "PSYCHIC",
+            "43": "POISON_JAB"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            22,
+            "ARIADOS"
+        ]
+    ]
+}

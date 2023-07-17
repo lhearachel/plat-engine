@@ -1,0 +1,96 @@
+{
+    "name": "FLAREON",
+    "base_stats": {
+        "hp": 65,
+        "attack": 130,
+        "defense": 60,
+        "sp_attack": 95,
+        "sp_defense": 110,
+        "speed": 65
+    },
+    "types": [
+        "FIRE",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "FLASH_FIRE",
+        "1": "FLASH_FIRE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 198,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 35,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM23",
+            "TM27",
+            "TM28",
+            "TM30",
+            "TM32",
+            "TM35",
+            "TM38",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM50",
+            "TM58",
+            "TM61",
+            "TM68",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "TAIL_WHIP",
+                "TACKLE",
+                "HELPING_HAND"
+            ],
+            "8": "SAND_ATTACK",
+            "15": "EMBER",
+            "22": "QUICK_ATTACK",
+            "29": "BITE",
+            "36": "FIRE_SPIN",
+            "43": "FIRE_FANG",
+            "50": "LAST_RESORT",
+            "57": "SMOG",
+            "64": "SCARY_FACE",
+            "71": "FIRE_BLAST",
+            "78": "LAVA_PLUME"
+        }
+    }
+}

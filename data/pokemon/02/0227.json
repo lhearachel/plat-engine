@@ -1,0 +1,105 @@
+{
+    "name": "SKARMORY",
+    "base_stats": {
+        "hp": 65,
+        "attack": 80,
+        "defense": 140,
+        "sp_attack": 40,
+        "sp_defense": 70,
+        "speed": 70
+    },
+    "types": [
+        "STEEL",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "KEEN_EYE",
+        "1": "STURDY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 25,
+    "base_exp_reward": 168,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 70,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "FLYING",
+        "FLYING"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM12",
+            "TM17",
+            "TM21",
+            "TM27",
+            "TM32",
+            "TM37",
+            "TM39",
+            "TM40",
+            "TM41",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM47",
+            "TM51",
+            "TM58",
+            "TM66",
+            "TM70",
+            "TM75",
+            "TM76",
+            "TM78",
+            "TM79",
+            "TM80",
+            "TM81",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM88",
+            "TM90",
+            "TM91",
+            "HM01",
+            "HM02",
+            "HM05",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "LEER",
+                "PECK"
+            ],
+            "6": "SAND_ATTACK",
+            "9": "SWIFT",
+            "12": "AGILITY",
+            "17": "FURY_ATTACK",
+            "20": "FEINT",
+            "23": "AIR_CUTTER",
+            "28": "SPIKES",
+            "31": "METAL_SOUND",
+            "34": "STEEL_WING",
+            "39": "AIR_SLASH",
+            "42": "SLASH",
+            "45": "NIGHT_SLASH"
+        }
+    }
+}

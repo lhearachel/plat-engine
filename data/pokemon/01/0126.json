@@ -1,0 +1,105 @@
+{
+    "name": "MAGMAR",
+    "base_stats": {
+        "hp": 65,
+        "attack": 95,
+        "defense": 57,
+        "sp_attack": 100,
+        "sp_defense": 85,
+        "speed": 93
+    },
+    "types": [
+        "FIRE",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "FLAME_BODY",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "MAGMARIZER"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 167,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 2,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_25",
+    "hatch_multiplier": 25,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "HUMAN_LIKE",
+        "HUMAN_LIKE"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM01",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM21",
+            "TM23",
+            "TM27",
+            "TM29",
+            "TM31",
+            "TM32",
+            "TM35",
+            "TM38",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM50",
+            "TM52",
+            "TM56",
+            "TM58",
+            "TM61",
+            "TM68",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": [
+                "SMOG",
+                "LEER",
+                "EMBER"
+            ],
+            "7": "EMBER",
+            "10": "SMOKESCREEN",
+            "16": "FAINT_ATTACK",
+            "19": "FIRE_SPIN",
+            "25": "CONFUSE_RAY",
+            "28": "FIRE_PUNCH",
+            "36": "LAVA_PLUME",
+            "41": "FLAMETHROWER",
+            "49": "SUNNY_DAY",
+            "54": "FIRE_BLAST"
+        }
+    },
+    "evolutions": [
+        [
+            "TRADE_WITH_ITEM",
+            "MAGMARIZER",
+            "MAGMORTAR"
+        ]
+    ]
+}

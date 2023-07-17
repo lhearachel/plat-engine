@@ -1,0 +1,112 @@
+{
+    "name": "PILOSWINE",
+    "base_stats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 80,
+        "sp_attack": 60,
+        "sp_defense": 60,
+        "speed": 50
+    },
+    "types": [
+        "ICE",
+        "GROUND"
+    ],
+    "abilities": {
+        "0": "OBLIVIOUS",
+        "1": "SNOW_CLOAK"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 160,
+    "ev_yields": {
+        "hp": 1,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM07",
+            "TM10",
+            "TM13",
+            "TM14",
+            "TM15",
+            "TM16",
+            "TM17",
+            "TM18",
+            "TM21",
+            "TM26",
+            "TM27",
+            "TM28",
+            "TM32",
+            "TM33",
+            "TM37",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM58",
+            "TM68",
+            "TM71",
+            "TM72",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "ANCIENT_POWER",
+                "PECK",
+                "ODOR_SLEUTH",
+                "MUD_SPORT",
+                "POWDER_SNOW"
+            ],
+            "4": "MUD_SPORT",
+            "8": "POWDER_SNOW",
+            "13": "MUD_SLAP",
+            "16": "ENDURE",
+            "20": "MUD_BOMB",
+            "25": "ICY_WIND",
+            "28": "ICE_FANG",
+            "32": "TAKE_DOWN",
+            "33": "FURY_ATTACK",
+            "40": "EARTHQUAKE",
+            "48": "MIST",
+            "56": "BLIZZARD",
+            "65": "AMNESIA"
+        }
+    },
+    "evolutions": [
+        [
+            "KNOW_MOVE",
+            "ANCIENT_POWER",
+            "MAMOSWINE"
+        ]
+    ]
+}

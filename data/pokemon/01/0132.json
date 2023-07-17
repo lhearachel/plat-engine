@@ -1,0 +1,50 @@
+{
+    "name": "DITTO",
+    "base_stats": {
+        "hp": 48,
+        "attack": 48,
+        "defense": 48,
+        "sp_attack": 48,
+        "sp_defense": 48,
+        "speed": 48
+    },
+    "types": [
+        "NORMAL",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "LIMBER",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "QUICK_POWDER",
+        "5%": "METAL_POWDER"
+    },
+    "catch_rate": 35,
+    "base_exp_reward": 61,
+    "ev_yields": {
+        "hp": 1,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "DITTO",
+        "DITTO"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "TRANSFORM"
+        }
+    }
+}

@@ -1,0 +1,97 @@
+{
+    "name": "DELCATTY",
+    "base_stats": {
+        "hp": 70,
+        "attack": 65,
+        "defense": 65,
+        "sp_attack": 55,
+        "sp_defense": 55,
+        "speed": 70
+    },
+    "types": [
+        "NORMAL",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "CUTE_CHARM",
+        "1": "NORMALIZE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "LEPPA_BERRY"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 138,
+    "ev_yields": {
+        "hp": 1,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_75",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "FIELD",
+        "FAIRY"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM03",
+            "TM04",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM13",
+            "TM14",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM20",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM24",
+            "TM25",
+            "TM27",
+            "TM28",
+            "TM30",
+            "TM32",
+            "TM34",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM57",
+            "TM58",
+            "TM66",
+            "TM68",
+            "TM70",
+            "TM73",
+            "TM77",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM85",
+            "TM86",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "FAKE_OUT",
+                "ATTRACT",
+                "SING",
+                "DOUBLE_SLAP"
+            ]
+        }
+    }
+}

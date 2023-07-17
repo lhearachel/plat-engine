@@ -1,0 +1,111 @@
+{
+    "name": "TORTERRA",
+    "base_stats": {
+        "hp": 95,
+        "attack": 109,
+        "defense": 105,
+        "sp_attack": 75,
+        "sp_defense": 85,
+        "speed": 56
+    },
+    "types": [
+        "GRASS",
+        "GROUND"
+    ],
+    "abilities": {
+        "0": "OVERGROW",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 208,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MONSTER",
+        "GRASS"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": true,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM09",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM16",
+            "TM17",
+            "TM19",
+            "TM20",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM26",
+            "TM27",
+            "TM32",
+            "TM33",
+            "TM37",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM53",
+            "TM58",
+            "TM68",
+            "TM69",
+            "TM70",
+            "TM71",
+            "TM75",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM86",
+            "TM87",
+            "TM90",
+            "HM01",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": [
+                "WOOD_HAMMER",
+                "TACKLE",
+                "WITHDRAW",
+                "ABSORB",
+                "RAZOR_LEAF"
+            ],
+            "5": "WITHDRAW",
+            "9": "ABSORB",
+            "13": "RAZOR_LEAF",
+            "17": "CURSE",
+            "22": "BITE",
+            "27": "MEGA_DRAIN",
+            "32": "EARTHQUAKE",
+            "33": "LEECH_SEED",
+            "39": "SYNTHESIS",
+            "45": "CRUNCH",
+            "51": "GIGA_DRAIN",
+            "57": "LEAF_STORM"
+        }
+    }
+}

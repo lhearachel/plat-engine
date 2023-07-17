@@ -1,0 +1,91 @@
+{
+    "name": "ARCANINE",
+    "base_stats": {
+        "hp": 90,
+        "attack": 110,
+        "defense": 80,
+        "sp_attack": 100,
+        "sp_defense": 80,
+        "speed": 95
+    },
+    "types": [
+        "FIRE",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "INTIMIDATE",
+        "1": "FLASH_FIRE"
+    },
+    "held_items": {
+        "50%": "RAWST_BERRY",
+        "5%": "RAWST_BERRY"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 213,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_25",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM27",
+            "TM28",
+            "TM32",
+            "TM35",
+            "TM38",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM50",
+            "TM58",
+            "TM59",
+            "TM61",
+            "TM68",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06",
+            "HM08"
+        ],
+        "level_up": {
+            "1": [
+                "THUNDER_FANG",
+                "BITE",
+                "ROAR",
+                "FIRE_FANG",
+                "ODOR_SLEUTH"
+            ],
+            "39": "EXTREME_SPEED"
+        }
+    }
+}

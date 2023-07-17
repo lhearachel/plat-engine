@@ -1,0 +1,116 @@
+{
+    "name": "KADABRA",
+    "base_stats": {
+        "hp": 40,
+        "attack": 35,
+        "defense": 30,
+        "sp_attack": 120,
+        "sp_defense": 70,
+        "speed": 105
+    },
+    "types": [
+        "PSYCHIC",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "SYNCHRONIZE",
+        "1": "INNER_FOCUS"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "TWISTED_SPOON"
+    },
+    "catch_rate": 100,
+    "base_exp_reward": 145,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 2,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_25",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "HUMAN_LIKE",
+        "HUMAN_LIKE"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM01",
+            "TM04",
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM12",
+            "TM16",
+            "TM17",
+            "TM18",
+            "TM20",
+            "TM21",
+            "TM23",
+            "TM27",
+            "TM29",
+            "TM30",
+            "TM32",
+            "TM33",
+            "TM34",
+            "TM41",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM48",
+            "TM49",
+            "TM53",
+            "TM56",
+            "TM57",
+            "TM58",
+            "TM60",
+            "TM63",
+            "TM67",
+            "TM70",
+            "TM73",
+            "TM77",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM85",
+            "TM86",
+            "TM87",
+            "TM90",
+            "TM92"
+        ],
+        "level_up": {
+            "1": [
+                "TELEPORT",
+                "KINESIS",
+                "CONFUSION"
+            ],
+            "16": "CONFUSION",
+            "18": "DISABLE",
+            "22": "MIRACLE_EYE",
+            "24": "PSYBEAM",
+            "28": "REFLECT",
+            "30": "RECOVER",
+            "34": "PSYCHO_CUT",
+            "36": "ROLE_PLAY",
+            "40": "PSYCHIC",
+            "42": "FUTURE_SIGHT",
+            "46": "TRICK"
+        }
+    },
+    "evolutions": [
+        [
+            "TRADE",
+            "ALAKAZAM"
+        ]
+    ]
+}

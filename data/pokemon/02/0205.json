@@ -1,0 +1,108 @@
+{
+    "name": "FORRETRESS",
+    "base_stats": {
+        "hp": 75,
+        "attack": 90,
+        "defense": 140,
+        "sp_attack": 60,
+        "sp_defense": 60,
+        "speed": 40
+    },
+    "types": [
+        "BUG",
+        "STEEL"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 118,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM16",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM26",
+            "TM27",
+            "TM28",
+            "TM32",
+            "TM33",
+            "TM37",
+            "TM39",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM58",
+            "TM64",
+            "TM66",
+            "TM68",
+            "TM69",
+            "TM74",
+            "TM76",
+            "TM78",
+            "TM80",
+            "TM82",
+            "TM83",
+            "TM87",
+            "TM90",
+            "TM91",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "TOXIC_SPIKES",
+                "TACKLE",
+                "PROTECT",
+                "SELF_DESTRUCT",
+                "BUG_BITE"
+            ],
+            "6": "SELF_DESTRUCT",
+            "9": "BUG_BITE",
+            "12": "TAKE_DOWN",
+            "17": "RAPID_SPIN",
+            "20": "BIDE",
+            "23": "NATURAL_GIFT",
+            "28": "SPIKES",
+            "31": "MIRROR_SHOT",
+            "33": "PAYBACK",
+            "38": "EXPLOSION",
+            "45": "IRON_DEFENSE",
+            "50": "GYRO_BALL",
+            "55": "DOUBLE_EDGE",
+            "62": "MAGNET_RISE",
+            "67": "ZAP_CANNON"
+        }
+    }
+}

@@ -1,0 +1,61 @@
+{
+    "name": "KRICKETOT",
+    "base_stats": {
+        "hp": 37,
+        "attack": 25,
+        "defense": 41,
+        "sp_attack": 25,
+        "sp_defense": 41,
+        "speed": 25
+    },
+    "types": [
+        "BUG",
+        "BUG"
+    ],
+    "abilities": {
+        "0": "SHED_SKIN",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "METRONOME"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 54,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "GROWL",
+                "BIDE"
+            ],
+            "16": "BUG_BITE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            10,
+            "KRICKETUNE"
+        ]
+    ]
+}

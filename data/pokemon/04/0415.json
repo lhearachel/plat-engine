@@ -1,0 +1,61 @@
+{
+    "name": "COMBEE",
+    "base_stats": {
+        "hp": 30,
+        "attack": 30,
+        "defense": 42,
+        "sp_attack": 30,
+        "sp_defense": 42,
+        "speed": 70
+    },
+    "types": [
+        "BUG",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "HONEY_GATHER",
+        "1": "NONE"
+    },
+    "held_items": {
+        "50%": "HONEY",
+        "5%": "HONEY"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 63,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "SWEET_SCENT",
+                "GUST"
+            ],
+            "13": "BUG_BITE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_FEMALE",
+            21,
+            "VESPIQUEN"
+        ]
+    ]
+}

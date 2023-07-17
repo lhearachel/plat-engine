@@ -1,0 +1,101 @@
+{
+    "name": "LEAFEON",
+    "base_stats": {
+        "hp": 65,
+        "attack": 110,
+        "defense": 130,
+        "sp_attack": 60,
+        "sp_defense": 65,
+        "speed": 95
+    },
+    "types": [
+        "GRASS",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "LEAF_GUARD",
+        "1": "LEAF_GUARD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 196,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 35,
+    "base_happiness": 35,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM05",
+            "TM06",
+            "TM09",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM18",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM23",
+            "TM27",
+            "TM28",
+            "TM30",
+            "TM32",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM53",
+            "TM58",
+            "TM68",
+            "TM70",
+            "TM75",
+            "TM78",
+            "TM81",
+            "TM82",
+            "TM83",
+            "TM86",
+            "TM87",
+            "TM90",
+            "HM04",
+            "HM06"
+        ],
+        "level_up": {
+            "1": [
+                "TAIL_WHIP",
+                "TACKLE",
+                "HELPING_HAND"
+            ],
+            "8": "SAND_ATTACK",
+            "15": "RAZOR_LEAF",
+            "22": "QUICK_ATTACK",
+            "29": "SYNTHESIS",
+            "36": "MAGICAL_LEAF",
+            "43": "GIGA_DRAIN",
+            "50": "LAST_RESORT",
+            "57": "GRASS_WHISTLE",
+            "64": "SUNNY_DAY",
+            "71": "LEAF_BLADE",
+            "78": "SWORDS_DANCE"
+        }
+    }
+}

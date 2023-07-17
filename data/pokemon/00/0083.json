@@ -1,0 +1,99 @@
+{
+    "name": "FARFETCH’D",
+    "base_stats": {
+        "hp": 52,
+        "attack": 65,
+        "defense": 55,
+        "sp_attack": 58,
+        "sp_defense": 62,
+        "speed": 60
+    },
+    "types": [
+        "NORMAL",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "KEEN_EYE",
+        "1": "INNER_FOCUS"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "STICK"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 94,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FLYING",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM10",
+            "TM11",
+            "TM17",
+            "TM21",
+            "TM23",
+            "TM27",
+            "TM32",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM46",
+            "TM47",
+            "TM51",
+            "TM54",
+            "TM58",
+            "TM75",
+            "TM77",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM84",
+            "TM87",
+            "TM88",
+            "TM89",
+            "TM90",
+            "HM01",
+            "HM02",
+            "HM05"
+        ],
+        "level_up": {
+            "1": [
+                "POISON_JAB",
+                "PECK",
+                "SAND_ATTACK",
+                "LEER",
+                "FURY_CUTTER"
+            ],
+            "7": "FURY_ATTACK",
+            "9": "KNOCK_OFF",
+            "13": "AERIAL_ACE",
+            "19": "SLASH",
+            "21": "AIR_CUTTER",
+            "25": "SWORDS_DANCE",
+            "31": "AGILITY",
+            "33": "NIGHT_SLASH",
+            "37": "AIR_SLASH",
+            "43": "FEINT",
+            "45": "FALSE_SWIPE"
+        }
+    }
+}

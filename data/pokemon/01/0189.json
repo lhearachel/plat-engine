@@ -1,0 +1,100 @@
+{
+    "name": "JUMPLUFF",
+    "base_stats": {
+        "hp": 75,
+        "attack": 55,
+        "defense": 70,
+        "sp_attack": 55,
+        "sp_defense": 85,
+        "speed": 110
+    },
+    "types": [
+        "GRASS",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "CHLOROPHYLL",
+        "1": "LEAF_GUARD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 176,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 3
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FAIRY",
+        "GRASS"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [
+            "TM06",
+            "TM09",
+            "TM10",
+            "TM11",
+            "TM15",
+            "TM17",
+            "TM19",
+            "TM21",
+            "TM22",
+            "TM27",
+            "TM32",
+            "TM40",
+            "TM42",
+            "TM43",
+            "TM44",
+            "TM45",
+            "TM53",
+            "TM58",
+            "TM62",
+            "TM68",
+            "TM70",
+            "TM75",
+            "TM78",
+            "TM82",
+            "TM83",
+            "TM86",
+            "TM87",
+            "TM89",
+            "TM90"
+        ],
+        "level_up": {
+            "1": [
+                "SPLASH",
+                "SYNTHESIS",
+                "TAIL_WHIP",
+                "TACKLE"
+            ],
+            "4": "SYNTHESIS",
+            "7": "TAIL_WHIP",
+            "10": "TACKLE",
+            "12": "POISON_POWDER",
+            "14": "STUN_SPORE",
+            "16": "SLEEP_POWDER",
+            "20": "BULLET_SEED",
+            "24": "LEECH_SEED",
+            "28": "MEGA_DRAIN",
+            "32": "COTTON_SPORE",
+            "36": "U_TURN",
+            "40": "WORRY_SEED",
+            "44": "GIGA_DRAIN",
+            "48": "BOUNCE",
+            "52": "MEMENTO"
+        }
+    }
+}
