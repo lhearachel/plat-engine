@@ -2,7 +2,7 @@
     "name": "Poliwrath",
     "base_stats": {
         "hp": 90,
-        "attack": 85,
+        "attack": 95,
         "defense": 95,
         "sp_attack": 70,
         "sp_defense": 90,

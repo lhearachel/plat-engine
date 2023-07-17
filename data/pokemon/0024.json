@@ -2,7 +2,7 @@
     "name": "Arbok",
     "base_stats": {
         "hp": 60,
-        "attack": 85,
+        "attack": 95,
         "defense": 69,
         "sp_attack": 65,
         "sp_defense": 79,

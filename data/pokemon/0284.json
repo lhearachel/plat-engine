@@ -4,9 +4,9 @@
         "hp": 70,
         "attack": 60,
         "defense": 62,
-        "sp_attack": 80,
+        "sp_attack": 100,
         "sp_defense": 82,
-        "speed": 60
+        "speed": 80
     },
     "types": [
         "BUG",
