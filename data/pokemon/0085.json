@@ -6,7 +6,7 @@
         "defense": 70,
         "sp_attack": 60,
         "sp_defense": 60,
-        "speed": 100
+        "speed": 110
     },
     "types": [
         "NORMAL",
