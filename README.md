@@ -20,16 +20,15 @@ Since the project is still in-progress, it is more sensible to list out the goal
 
 ## Table of Contents
 
-- [Complete Platinum Upgrade Engine](#complete-platinum-upgrade-engine)
-  - [About](#about)
-    - [Project Goals](#project-goals)
-  - [Table of Contents](#table-of-contents)
-  - [Setup Instructions](#setup-instructions)
-    - [Windows](#windows)
-    - [Mac OSX](#mac-osx)
-    - [Linux](#linux)
-  - [Build Instructions](#build-instructions)
-  - [Credits](#credits)
+- [About](#about)
+  - [Project Goals](#project-goals)
+- [Table of Contents](#table-of-contents)
+- [Setup Instructions](#setup-instructions)
+  - [Windows](#windows)
+  - [Mac OSX](#mac-osx)
+  - [Linux](#linux)
+- [Build Instructions](#build-instructions)
+- [Credits](#credits)
 
 ## Setup Instructions
 
@@ -85,7 +84,7 @@ Since the project is still in-progress, it is more sensible to list out the goal
       3. `export DEVKITARM=$DEVKITPRO/devkitARM`
       4. `echo "export DEVKITARM=$DEVKITARM" >> ~/.bashrc`
       5. `cd Documents` (or wherever else you want to store your project)
-      6. `git clone https://github.com/lhearachel/Complete-Platinum-Upgrade-Engine.git`
+      6. `git clone https://github.com/lhearachel/plat-engine.git`
 
 From here, continue to [Build Instructions](#Build-Instructions).
 
