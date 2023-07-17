@@ -146,10 +146,9 @@ From here, continue to [Build Instructions](#Build-Instructions).
    3. It is **highly** recommended that you do all scripting and mapping updates to this file **before** you run the build process for the engine, then apply the engine at the end!
 2. Place your ROM in the same directory as this file and rename it to `rom.nds`.
 3. In Terminal/WSL, navigate to this directory.
-4. Run `make build_tools --jobs`. This will compile most of the tools that the engine needs to build.
-5. Run `make build_nitrogfx --jobs`. This will compile `nitrogfx`, another tool needed to build.
-6. Run `make --jobs`.
-7. After the above process is complete, a new file will appear in this folder named `test.nds`. This new file is a copy of your ROM with the engine applied to it.
+4. Run `./install_deps.sh`. This will compile most of the tools that the engine needs to build.
+5. Run `make`.
+6. After the above process is complete, a new file will appear in this folder named `test.nds`. This new file is a copy of your ROM with the engine applied to it.
 
 ## Credits
 
