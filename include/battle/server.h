@@ -742,4 +742,11 @@ void __attribute__((long_call)) Calc_MoveDamage(struct Battle *battle, struct Ba
  */
 BOOL __attribute__((long_call)) Calc_Critical(struct Battle *battle, struct BattleServer *server);
 
+/**
+ * @brief Only here to hook into the Stealth Rock check.
+ * 
+ * Hooked into: 0x022558CC (ov16)
+ */
+int  __attribute__((long_call)) Calc_TypeEffectivenessPower(u8 moveType, u8 pokeType1, u8 pokeType2);
+
 #endif // __BATTLE_SERVER_H

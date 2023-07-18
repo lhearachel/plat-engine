@@ -9,6 +9,7 @@
 #include "constants/item_hold_effects.h"
 #include "constants/misc.h"
 
+static BOOL __attribute__((long_call)) BattleScrCmd_CheckStealthRock(struct Battle *battle, struct BattleServer *server);   // hook from 0x02247D04
 static BOOL __attribute__((long_call)) BattleScrCmd_CheckPowderImmunity(struct Battle *battle, struct BattleServer *server);
 
 #define START_OF_NEW_BATTLE_SCRIPT_COMMANDS 0xDF

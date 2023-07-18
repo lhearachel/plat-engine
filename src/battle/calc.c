@@ -1825,3 +1825,27 @@ BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server)
     return ret;
 #endif
 }
+
+int Calc_TypeEffectivenessPower(u8 moveType, u8 pokeType1, u8 pokeType2)
+{
+    /*
+     * Unlike the function above for the modifier, this function is ONLY used
+     * by Stealth Rock checks; we'll just adhere to the standard that it expects.
+     * 
+     * This function does NOT check and should NEVER check for modified typings,
+     * since it's only used for entry-hazard checks.
+     */
+    u8 matchup = sTypeEffectiveness[moveType][pokeType1];
+    if (pokeType1 != pokeType2 && matchup != _IMMUN) {
+        matchup = matchup + sTypeEffectiveness[moveType][pokeType2];
+    }
+
+    switch (matchup) {
+        case      2:    return 160; // quad-effective
+        case _SPEFF:    return 80;
+        case __NORM:    return 40;
+        case _NVEFF:    return 20;
+        case     -2:    return 10;  // quad-resist
+        default:        return 0;   // immune
+    }
+}
