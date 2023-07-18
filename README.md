@@ -20,15 +20,16 @@ Since the project is still in-progress, it is more sensible to list out the goal
 
 ## Table of Contents
 
-- [About](#about)
-  - [Project Goals](#project-goals)
-- [Table of Contents](#table-of-contents)
-- [Setup Instructions](#setup-instructions)
-  - [Windows](#windows)
-  - [Mac OSX](#mac-osx)
-  - [Linux](#linux)
-- [Build Instructions](#build-instructions)
-- [Credits](#credits)
+- [Platinum Engine](#platinum-engine)
+  - [About](#about)
+    - [Project Goals](#project-goals)
+  - [Table of Contents](#table-of-contents)
+  - [Setup Instructions](#setup-instructions)
+    - [Windows](#windows)
+    - [Mac OSX](#mac-osx)
+    - [Linux](#linux)
+  - [Build Instructions](#build-instructions)
+  - [Credits](#credits)
 
 ## Setup Instructions
 
@@ -158,3 +159,4 @@ From here, continue to [Build Instructions](#Build-Instructions).
 * [BluRose and turtleisaac (hg-engine)](https://github.com/BluRosie/hg-engine)
 * [Rafael Vuijik (ndstool)](https://github.com/devkitPro/ndstool)
 * [Kingcom (armips)](https://github.com/Kingcom/armips)
+* [Drayano (Fairy-type graphical resources from Renegade Platinum)](https://projectpokemon.org/home/forums/topic/52294-pok%C3%A9mon-renegade-platinum/)
