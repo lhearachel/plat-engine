@@ -9,7 +9,7 @@
         "speed": 40
     },
     "types": [
-        "NORMAL",
+        "FAIRY",
         "FLYING"
     ],
     "abilities": {

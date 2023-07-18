@@ -9,8 +9,8 @@
         "speed": 30
     },
     "types": [
-        "NORMAL",
-        "NORMAL"
+        "FAIRY",
+        "FAIRY"
     ],
     "abilities": {
         "0": "INTIMIDATE",

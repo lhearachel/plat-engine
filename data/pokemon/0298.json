@@ -10,7 +10,7 @@
     },
     "types": [
         "NORMAL",
-        "NORMAL"
+        "FAIRY"
     ],
     "abilities": {
         "0": "THICK_FAT",
