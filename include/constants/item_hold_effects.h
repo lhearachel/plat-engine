@@ -154,51 +154,51 @@
 #define HOLD_EFFECT_EVOLVE_DUSKNOIR                     146
 
 // EXPANSION
-#define HOLD_EFFECT_BOOST_SPA_ON_WATER_HIT              147     // Absorb Bulb
-#define HOLD_EFFECT_UNGROUND_DESTROYED_ON_HIT           148     // Air Balloon  -> DamageCalc, ItemEffectCheckOnHit
-#define HOLD_EFFECT_INCREASE_TRAPPING_DAMAGE            149     // Binding Band -> end of turn condition check (ServerPokeConditionCheck)
-#define HOLD_EFFECT_BOOST_ATK_ON_ELECTRIC_HIT           150     // Cell Battery
-#define HOLD_EFFECT_SWITCH_OUT_WHEN_HIT                 151     // Eject Button
-#define HOLD_EFFECT_EVIOLITE                            152     // Eviolite     -> general damage calc
-#define HOLD_EFFECT_HALVE_WEIGHT                        153     // Float Stone  -> GetBattleMonWeight
-#define HOLD_EFFECT_EVOLVE_FEEBAS                       154     // Prism Scale
-#define HOLD_EFFECT_FORCE_SWITCH_ON_DAMAGE              155     // Red Card
-#define HOLD_EFFECT_REMOVE_IMMUNITIES                   156     // Ring Target  -> general damage calc
-#define HOLD_EFFECT_DAMAGE_ON_CONTACT                   157     // Rocky Helmet
+#define HOLD_EFFECT_BOOST_FAIRY_PLATE                   147
+#define HOLD_EFFECT_BOOST_SPA_ON_WATER_HIT              148     // Absorb Bulb
+#define HOLD_EFFECT_UNGROUND_DESTROYED_ON_HIT           149     // Air Balloon  -> DamageCalc, ItemEffectCheckOnHit
+#define HOLD_EFFECT_INCREASE_TRAPPING_DAMAGE            150     // Binding Band -> end of turn condition check (ServerPokeConditionCheck)
+#define HOLD_EFFECT_BOOST_ATK_ON_ELECTRIC_HIT           151     // Cell Battery
+#define HOLD_EFFECT_SWITCH_OUT_WHEN_HIT                 152     // Eject Button
+#define HOLD_EFFECT_EVIOLITE                            153     // Eviolite     -> general damage calc
+#define HOLD_EFFECT_HALVE_WEIGHT                        154     // Float Stone  -> GetBattleMonWeight
+#define HOLD_EFFECT_EVOLVE_FEEBAS                       155     // Prism Scale
+#define HOLD_EFFECT_FORCE_SWITCH_ON_DAMAGE              156     // Red Card
+#define HOLD_EFFECT_REMOVE_IMMUNITIES                   157     // Ring Target  -> general damage calc
+#define HOLD_EFFECT_DAMAGE_ON_CONTACT                   158     // Rocky Helmet
 
 // drives
-#define HOLD_EFFECT_BURN_DRIVE                          158
-#define HOLD_EFFECT_CHILL_DRIVE                         159
-#define HOLD_EFFECT_DOUSE_DRIVE                         160
-#define HOLD_EFFECT_SHOCK_DRIVE                         161
+#define HOLD_EFFECT_BURN_DRIVE                          159
+#define HOLD_EFFECT_CHILL_DRIVE                         160
+#define HOLD_EFFECT_DOUSE_DRIVE                         161
+#define HOLD_EFFECT_SHOCK_DRIVE                         162
 
 // gems
-#define HOLD_EFFECT_GEM_BUG                             162
-#define HOLD_EFFECT_GEM_DARK                            163
-#define HOLD_EFFECT_GEM_DRAGON                          164
-#define HOLD_EFFECT_GEM_ELECTRIC                        165
-#define HOLD_EFFECT_GEM_FAIRY                           166
-#define HOLD_EFFECT_GEM_FIGHTING                        167
-#define HOLD_EFFECT_GEM_FIRE                            168
-#define HOLD_EFFECT_GEM_FLYING                          169
-#define HOLD_EFFECT_GEM_GHOST                           170
-#define HOLD_EFFECT_GEM_GRASS                           171
-#define HOLD_EFFECT_GEM_GROUND                          172
-#define HOLD_EFFECT_GEM_ICE                             173
-#define HOLD_EFFECT_GEM_NORMAL                          174
-#define HOLD_EFFECT_GEM_POISON                          175
-#define HOLD_EFFECT_GEM_PSYCHIC                         176
-#define HOLD_EFFECT_GEM_ROCK                            177
-#define HOLD_EFFECT_GEM_STEEL                           178
-#define HOLD_EFFECT_GEM_WATER                           179
+#define HOLD_EFFECT_GEM_BUG                             163
+#define HOLD_EFFECT_GEM_DARK                            164
+#define HOLD_EFFECT_GEM_DRAGON                          165
+#define HOLD_EFFECT_GEM_ELECTRIC                        166
+#define HOLD_EFFECT_GEM_FAIRY                           167
+#define HOLD_EFFECT_GEM_FIGHTING                        168
+#define HOLD_EFFECT_GEM_FIRE                            169
+#define HOLD_EFFECT_GEM_FLYING                          170
+#define HOLD_EFFECT_GEM_GHOST                           171
+#define HOLD_EFFECT_GEM_GRASS                           172
+#define HOLD_EFFECT_GEM_GROUND                          173
+#define HOLD_EFFECT_GEM_ICE                             174
+#define HOLD_EFFECT_GEM_NORMAL                          175
+#define HOLD_EFFECT_GEM_POISON                          176
+#define HOLD_EFFECT_GEM_PSYCHIC                         177
+#define HOLD_EFFECT_GEM_ROCK                            178
+#define HOLD_EFFECT_GEM_STEEL                           179
+#define HOLD_EFFECT_GEM_WATER                           180
 
 #define HOLD_EFFECT_IS_GEM(item)   ((item >= HOLD_EFFECT_GEM_BUG) && (item <= HOLD_EFFECT_GEM_WATER))
 
-#define HOLD_EFFECT_BOOST_SPD_NO_STATUS_MOVES           180     // Assault Vest     -> general damage calc, move selection
-#define HOLD_EFFECT_BOOST_DEF_ON_PHYSICAL_HIT           181     // Kee Berry
-#define HOLD_EFFECT_BOOST_SPD_ON_WATER_HIT              182     // Luminous Moss
-#define HOLD_EFFECT_BOOST_SPD_ON_SPECIAL_HIT            183     // Maranga Berry
-#define HOLD_EFFECT_BOOST_FAIRY_PLATE                   184     // Pixie Plate      -> general damage calc
+#define HOLD_EFFECT_BOOST_SPD_NO_STATUS_MOVES           181     // Assault Vest     -> general damage calc, move selection
+#define HOLD_EFFECT_BOOST_DEF_ON_PHYSICAL_HIT           182     // Kee Berry
+#define HOLD_EFFECT_BOOST_SPD_ON_WATER_HIT              183     // Luminous Moss
+#define HOLD_EFFECT_BOOST_SPD_ON_SPECIAL_HIT            184     // Maranga Berry
 #define HOLD_EFFECT_WEAKEN_SE_FAIRY                     185     // Roseli Berry     -> sub_264
 #define HOLD_EFFECT_EVOLVE_SPRITZEE                     186     // Sachet
 #define HOLD_EFFECT_SAFETY_GOGGLES                      187     // Safety Goggles   -> WeatherDamageCalc
