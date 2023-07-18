@@ -10,7 +10,7 @@
  *  - The Judgment battle script
  *  - The Roseli Berry and Pixie Plate implementations
  *
- * Credits to BluRose for this setup.
+ * Adapted from BluRose's setup in hg-engine.
  */
 
 .open "base/arm9.bin", 0x02000000
@@ -65,3 +65,62 @@ PlateToTypeTable:   // 21 bytes
 .close
 
 
+/*
+ * Other references to plate-type checks:
+ *  - FUN_overlay_14__02222e84
+ *  - FUN_overlay_14__0222327c
+ *  - FUN_overlay_16__0225b734
+ *  - FUN_overlay_16__0225b910
+ *  - FUN_overlay_16__0225be3c
+ *
+ * These functions all use a switch-jump table that we can cleanly
+ * replace with the function defined above.
+ */
+
+.open "base/overlay/overlay_0014.bin", 0x0221FC20   // battle AI overlay
+
+.org 0x02222F72 // hook from FUN_overlay_14__02222e84
+
+Hook_AI_DamageCalc:
+    bl      Pokemon_ArceusType
+    mov     r7, r0          // base routine sets the type value in r7
+    b       0x022231B4      // continue with the routine
+
+
+.org 0x022232C0 // hook from FUN_overlay_14__0222327c
+
+Hook_AI_MoveType:
+    bl      Pokemon_ArceusType
+    mov     r5, r0          // base routine sets the type value in r5
+    b       0x022233E4      // continue with the routine
+
+
+.close
+
+
+.open "base/overlay/overlay_0016.bin", 0x0223B140   // battle code overlay
+
+.org 0x0225B786 // hook from FUN_overlay_16__0225b734
+
+Hook_Server_BattlePokemonType:
+    bl      Pokemon_ArceusType
+    mov     r4, r0          // base routine sets the type value in r4
+    b       0x0225B7FA      // continue with the routine
+
+
+.org 0x0225B954 // hook from FUN_overlay_16__0225b910
+
+Hook_Server_AIMoveType:
+    bl      Pokemon_ArceusType
+    mov     r5, r0          // base routine sets the type value in r5
+    b       0x0225BA78      // continue with the routine
+
+
+.org 0x0225BEA2 // hook from FUN_overlay_16__0225be3c
+
+Hook_Server_AIMoveType2:    // not sure why these are separate but ok
+    bl      Pokemon_ArceusType
+    mov     r5, r0          // base routine sets the type value in r5
+    b       0x0225BFEE      // continue with the routine
+
+.close
