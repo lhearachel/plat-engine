@@ -150,7 +150,7 @@ Hook_Server_AIMoveType2:    // not sure why these are separate but ok
  * This updates the rendering for the Fairy type in the Pokedex (which
  * would otherwise default to Ghost).
  */
-.orga 0x021DF180 // Pokedex type icon function
+.org 0x021DF180 // Pokedex type icon function
 
 Pokedex_TypeOffset:
     cmp     r0, #0x11
@@ -166,7 +166,7 @@ Pokedex_TypeOffset:
 .align 2
 .pool
 
-TypeOffsetTable:
+TypeOffsetTable:    // 18 bytes
     .byte   0x00    // NORMAL
     .byte   0x06    // FIGHTING
     .byte   0x0E    // FLYING
@@ -185,7 +185,5 @@ TypeOffsetTable:
     .byte   0x0D    // ICE
     .byte   0x10    // DRAGON
     .byte   0x0C    // DARK
-    .byte   0x00    // padding
-    .byte   0x00    // padding
 
 .close
