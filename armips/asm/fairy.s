@@ -124,3 +124,19 @@ Hook_Server_AIMoveType2:    // not sure why these are separate but ok
     b       0x0225BFEE      // continue with the routine
 
 .close
+
+
+/*
+ * Credit to Mikelan98 and BagBoy for this tidbit.
+ *
+ * This updates the palette used by the move-selection view on the bottom
+ * screen during a battle.
+ *
+ * https://pokehacking.com/r/20071800
+ */
+.open "base/overlay/overlay_0011.bin", 0x0221F800
+
+.orga 0x290 // palette for move selection
+.halfword 0x7EDF 0xF23F 0x6A1E 0x59DD 0xCD5B 0xC117 0xB4D6 0xFB3F
+
+.close
