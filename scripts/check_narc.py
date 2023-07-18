@@ -8,15 +8,17 @@ INPUT_DICT = {
     'waza_seq': ('narcs', 'base/data/battle/skill/waza_seq.narc', 'build/narc/battle/skill/waza_seq.narc', True),
     'sub_seq': ('narcs', 'base/data/battle/skill/sub_seq.narc', 'build/narc/battle/skill/sub_seq.narc', True),
     'item_data': ('narcs', 'base/data/itemtool/itemdata/pl_item_data.narc', 'build/narc/itemtool/pl_item_data.narc', False),
-    'personal': ('narcs', 'base/data/poketool/personal/pl_personal.narc', 'build/narc/pl_personal.narc', False),
-    'evo': ('narcs', 'base/data/poketool/personal/evo.narc', 'build/narc/evo.narc', False),
-    'wotbl': ('narcs', 'base/data/poketool/personal/wotbl.narc', 'build/narc/wotbl.narc', False),
+    'personal': ('narcs', 'base/data/poketool/personal/pl_personal.narc', 'build/narc/poketool/personal/pl_personal.narc', False),
+    'evo': ('narcs', 'base/data/poketool/personal/evo.narc', 'build/narc/poketool/personal/evo.narc', False),
+    'wotbl': ('narcs', 'base/data/poketool/personal/wotbl.narc', 'build/narc/poketool/personal/wotbl.narc', False),
 }
 
 def compare_narcs(orig_f, made_f, word_mode):
     orig = NARC.fromFile(orig_f)
     made = NARC.fromFile(made_f)
 
+    print(f'original file count: {len(orig.files)}')
+    print(f'rebuilt  file count: {len(made.files)}')
     assert len(orig.files) == len(made.files)
     for i in range(len(orig.files)):
         og_hex = orig.files[i].hex()

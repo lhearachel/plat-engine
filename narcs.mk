@@ -104,24 +104,15 @@ WOTBL_NARC := $(BUILD_NARC)/poketool/personal/wotbl.narc
 WOTBL_TARGET := $(FILESYS)/poketool/personal/wotbl.narc
 
 POKEMON_DATA_DIR := data/pokemon
-POKEMON_DATA_SRCS := $(wildcard $(POKEMON_DATA_DIR)/*.json)
-POKEMON_DATA_OBJS := $(patsubst $(POKEMON_DATA_DIR)/%.json,$(POKEMON_DATA_DIR)/%.bin,$(POKEMON_DATA_DIR))
+POKEMON_DATA_OBJS := $(wildcard $(POKEMON_DATA_DIR)/*.json)
 
-$(POKEMON_DATA_OBJS): $(POKEMON_DATA_SRCS)
-	$(PYTHON) scripts/build/item_data.py build
-
-$(PERSONAL_NARC): $(POKEMON_DATA_OBJS)
+$(PERSONAL_NARC):
+	$(PYTHON) scripts/build/pokemon_data.py build
+	$(NARCHIVE) create $(EVO_NARC) $(EVO_DATA_DIR) -nf
+	$(NARCHIVE) create $(WOTBL_NARC) $(WOTBL_DATA_DIR) -nf
 	$(NARCHIVE) create $@ $(PERSONAL_DATA_DIR) -nf
 
-$(EVO_NARC): $(POKEMON_DATA_OBJS)
-	$(NARCHIVE) create $@ $(EVO_DATA_DIR) -nf
-
-$(WOTBL_NARC): $(POKEMON_DATA_OBJS)
-	$(NARCHIVE) create $@ $(WOTBL_DATA_DIR) -nf
-
-NARC_FILES += $(PERSONAL_NARC)
-NARC_FILES += $(EVO_NARC)
-NARC_FILES += $(WOTBL_NARC)
+NARC_FILES += $(PERSONAL_NARC)	# Only track the last one since they all get built at the same time
 
 # Text Archives
 
