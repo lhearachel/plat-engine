@@ -31,4 +31,9 @@ cd $PROJECT_ROOT
 mv tools/source/armips/build/armips tools/armips
 rm -rf tools/source/armips
 
+cd tools/source/nitrogfx
+make
+cd $PROJECT_ROOT
+mv tools/source/nitrogfx/nitrogfx tools/nitrogfx
+
 echo 'export PYTHONPATH=${PYTHONPATH}:${pwd}/tools' >> ~/.bashrc
