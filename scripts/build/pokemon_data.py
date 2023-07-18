@@ -1,8 +1,9 @@
 import json
 import os
+import sys
 
 from ndspy.narc import NARC
-from .util import (
+from util import (
     Type,
     Ability,
     GenderRatio,
@@ -15,11 +16,13 @@ from .util import (
     Species
 )
 
+
 BASE_PERSONAL_NARC = 'base/data/poketool/personal/pl_personal.narc'
 BASE_EVOTABLE_NARC = 'base/data/poketool/personal/evo.narc'
 BASE_LEARNSET_NARC = 'base/data/poketool/personal/wotbl.narc'
 TEXT_DUMP_TARGET   = 'data/text/{archive}.txt'
 POKEMON_NAMES_BANK = 412
+BUILD_PERSONAL_DIR = 'build/poketool/personal'
 
 
 def dump_tm_list(packed_tms_1: int, packed_tms_2: int, packed_tms_3: int, packed_tms_4: int) -> list[int]:
@@ -157,7 +160,11 @@ def parse_evo_params(params: bytes, method: EvoMethod) -> int | str | None:
     # These specify an item
     if method in set([
         EvoMethod.TRADE_WITH_ITEM,
-        EvoMethod.USE_ITEM]):
+        EvoMethod.USE_ITEM,
+        EvoMethod.USE_ITEM_MALE,
+        EvoMethod.USE_ITEM_FEMALE,
+        EvoMethod.USE_ITEM_DAY,
+        EvoMethod.USE_ITEM_NIGHT]):
         return Item(int.from_bytes(params, 'little')).name
 
     if method == EvoMethod.KNOW_MOVE:
@@ -228,8 +235,253 @@ def dump_pokemon():
         pokemon = dump_levelup_learnset(learnset.files[i], pokemon)
         pokemon = dump_evolutions(evotable.files[i], pokemon)
 
-        folder = f'{i // 100:02}'
-        with open(f'data/pokemon/{folder}/{i:04}.json', 'w', encoding='utf8') as out:
+        with open(f'data/pokemon/{i:04}.json', 'w', encoding='utf8') as out:
             json.dump(pokemon, out, indent=4, ensure_ascii=False)
     
     name_txt.close()
+
+
+def pack_ev_yields(ev_yields: dict) -> bytes:
+    packed = ev_yields['hp']
+    packed = packed + (ev_yields['attack'] << 2)
+    packed = packed + (ev_yields['defense'] << 4)
+    packed = packed + (ev_yields['speed'] << 6)
+    packed = packed + (ev_yields['sp_attack'] << 8)
+    packed = packed + (ev_yields['sp_defense'] << 10)
+
+    return packed.to_bytes(2, 'little')
+
+
+def pack_color(body_color: BodyColor, flip: bool) -> bytes:
+    packed = BodyColor[body_color].value
+    packed = packed + ((1 if flip else 0) << 7)
+    return packed.to_bytes(1, 'little')
+
+
+def pack_tms(tms: list[str]) -> bytes:
+    tms_1, tms_2, tms_3, tms_4 = (0, 0, 0, 0)
+    for tm_str in tms:
+        tm_idx = Item[tm_str].value - 328
+        if tm_idx < 32:
+            tms_1 = tms_1 | (1 << tm_idx)
+        elif tm_idx < 64:
+            tms_2 = tms_2 | (1 << tm_idx - 32)
+        elif tm_idx < 96:
+            tms_3 = tms_3 | (1 << tm_idx - 64)
+        else:
+            tms_4 = tms_4 | (1 << tm_idx - 96)
+
+    
+    binary = bytearray([])
+    binary = binary + tms_1.to_bytes(4, 'little')
+    binary = binary + tms_2.to_bytes(4, 'little')
+    binary = binary + tms_3.to_bytes(4, 'little')
+    binary = binary + tms_4.to_bytes(4, 'little')
+    return binary
+
+
+def build_personal(pokemon: dict, i: int):
+    if not pokemon:
+        return
+    
+    binary = bytearray([])
+
+    # base stats
+    base_stats = pokemon['base_stats']
+    binary = binary + base_stats['hp'].to_bytes(1, 'little')
+    binary = binary + base_stats['attack'].to_bytes(1, 'little')
+    binary = binary + base_stats['defense'].to_bytes(1, 'little')
+    binary = binary + base_stats['speed'].to_bytes(1, 'little')
+    binary = binary + base_stats['sp_attack'].to_bytes(1, 'little')
+    binary = binary + base_stats['sp_defense'].to_bytes(1, 'little')
+
+    # types
+    binary = binary + Type[pokemon['types'][0]].value.to_bytes(1, 'little')
+    binary = binary + Type[pokemon['types'][1]].value.to_bytes(1, 'little')
+    
+    # catch rate
+    binary = binary + pokemon['catch_rate'].to_bytes(1, 'little')
+
+    # base experience
+    binary = binary + pokemon['base_exp_reward'].to_bytes(1, 'little')
+
+    # ev yields
+    binary = binary + pack_ev_yields(pokemon['ev_yields'])
+
+    # held items
+    binary = binary + Item[pokemon['held_items']['50%']].value.to_bytes(2, 'little')
+    binary = binary + Item[pokemon['held_items']['5%']].value.to_bytes(2, 'little')
+    
+    # gender ratio
+    binary = binary + GenderRatio[pokemon['gender_ratio']].value.to_bytes(1, 'little')
+
+    # hatch multiplier
+    binary = binary + pokemon['hatch_multiplier'].to_bytes(1, 'little')
+
+    # base happiness
+    binary = binary + pokemon['base_happiness'].to_bytes(1, 'little')
+
+    # growth rate
+    binary = binary + GrowthRate[pokemon['growth_rate']].value.to_bytes(1, 'little')
+
+    # egg groups
+    binary = binary + EggGroup[pokemon['egg_groups'][0]].value.to_bytes(1, 'little')
+    binary = binary + EggGroup[pokemon['egg_groups'][1]].value.to_bytes(1, 'little')
+
+    # abilities
+    binary = binary + Ability[pokemon['abilities']['0']].value.to_bytes(1, 'little')
+    binary = binary + Ability[pokemon['abilities']['1']].value.to_bytes(1, 'little')
+
+    # flee chance
+    binary = binary + pokemon['flee_chance'].to_bytes(1, 'little')
+
+    # body color + flip sprite
+    binary = binary + pack_color(pokemon['body_color'], pokemon['flip_sprite'])
+
+    # 2 bytes of padding
+    binary = binary + (0).to_bytes(2, 'little')
+
+    # tm learnset
+    binary = binary + pack_tms(pokemon['learnset']['tms'])
+
+    with open(BUILD_PERSONAL_DIR + f'/pl_personal/{i:04}.bin', 'wb') as out:
+        out.write(binary)
+
+
+def build_evo_params(method: EvoMethod, evo: list) -> bytes:
+    maybe_param = evo[1]
+    final_param = 0
+    # None of these take an extra parameter
+    if method in set([
+        EvoMethod.NONE,
+        EvoMethod.HAPPINESS,
+        EvoMethod.HAPPINESS_DAY,
+        EvoMethod.HAPPINESS_NIGHT,
+        EvoMethod.TRADE,
+        EvoMethod.ELECTRIC_FIELD,
+        EvoMethod.MOSSY_STONE,
+        EvoMethod.ICY_STONE]):
+        final_param = 0
+    # These all specify a basic integer param
+    elif method in set([
+        EvoMethod.LEVEL_UP,
+        EvoMethod.LEVEL_ATK_GT_DEF,
+        EvoMethod.LEVEL_ATK_EQ_DEF,
+        EvoMethod.LEVEL_ATK_LT_DEF,
+        EvoMethod.LEVEL_PID_LOW,
+        EvoMethod.LEVEL_PID_HIGH,
+        EvoMethod.LEVEL_NINJASK,
+        EvoMethod.LEVEL_SHEDINJA,
+        EvoMethod.LEVEL_MALE,
+        EvoMethod.LEVEL_FEMALE,
+        EvoMethod.BEAUTY]):
+        final_param = maybe_param
+    # These specify an item
+    elif method in set([
+        EvoMethod.TRADE_WITH_ITEM,
+        EvoMethod.USE_ITEM,
+        EvoMethod.USE_ITEM_MALE,
+        EvoMethod.USE_ITEM_FEMALE,
+        EvoMethod.USE_ITEM_DAY,
+        EvoMethod.USE_ITEM_NIGHT]):
+        final_param = Item[maybe_param].value
+    elif method == EvoMethod.KNOW_MOVE:
+        final_param = Move[maybe_param].value
+    elif method == EvoMethod.MON_IN_PARTY:
+        final_param = Species[maybe_param].value
+    
+    return final_param.to_bytes(2, 'little')
+
+
+def build_evotable(pokemon: dict, i: int):
+    out = open(BUILD_PERSONAL_DIR + f'/evo/{i:04}.bin', 'wb')
+    if 'evolutions' not in pokemon: # no evos, write all 0s
+        out.write((0).to_bytes(44, 'little'))
+        return
+    
+    evos = pokemon['evolutions']
+    if len(evos) > 7:
+        print(f'Found {len(evos)} evolutions in file {i:04}.json')
+        print(f'Only the first 7 evolutions will be translated')
+
+    # 6 bytes per entry, 7 entries total = 42 bytes
+    # 2 bytes of 0 padding at the end = 44 bytes
+    binary = bytearray([])
+    for j in range(min(len(evos), 7)):
+        evo = evos[j]
+        method = EvoMethod[evo[0]]
+        params = build_evo_params(method, evo)
+        target = Species[evo[-1]]
+
+        binary = binary + method.value.to_bytes(2, 'little')
+        binary = binary + params
+        binary = binary + target.value.to_bytes(2, 'little')
+
+    if len(binary) < 42:
+        binary = binary + (0).to_bytes(42 - len(binary), 'little')
+    
+    binary = binary + (0).to_bytes(2, 'little')
+    out.write(binary)
+    out.close()
+
+
+def build_learnset(pokemon: dict, i: int):
+    out = open(BUILD_PERSONAL_DIR + f'/wotbl/{i:04}.bin', 'wb')
+    if 'learnset' not in pokemon or 'level_up' not in pokemon['learnset']:
+        out.write((65535).to_bytes(4, 'little'))
+        out.close()
+        return
+
+    level_up = { int(k): v for (k, v) in pokemon['learnset']['level_up'].items() }
+    num_moves = 0
+    binary = bytearray([])
+    for level in sorted(level_up.keys()):
+        if num_moves >= 20:
+            break
+        if isinstance(level_up[level], list):
+            for move in level_up[level]:
+                if num_moves >= 20:
+                    break
+                packed = ((level & 0x7f) << 9) | (Move[move].value & 0x1ff)
+                binary = binary + packed.to_bytes(2, 'little')
+                num_moves = num_moves + 1
+        else:
+            move = level_up[level]
+            packed = ((level & 0x7f) << 9) | (Move[move].value & 0x1ff)
+            binary = binary + packed.to_bytes(2, 'little')
+            num_moves = num_moves + 1
+
+    if (num_moves * 2) % 4 == 0:
+        binary = binary + (65535).to_bytes(4, 'little')
+    else:
+        binary = binary + (65535).to_bytes(2, 'little')
+    
+    out.write(binary)
+    out.close()
+
+
+def build_pokemon():
+    if not os.path.exists(BUILD_PERSONAL_DIR):
+        os.makedirs(BUILD_PERSONAL_DIR)
+    if not os.path.exists(BUILD_PERSONAL_DIR + '/pl_personal'):
+        os.makedirs(BUILD_PERSONAL_DIR + '/pl_personal')
+    if not os.path.exists(BUILD_PERSONAL_DIR + '/evo'):
+        os.makedirs(BUILD_PERSONAL_DIR + '/evo')
+    if not os.path.exists(BUILD_PERSONAL_DIR + '/wotbl'):
+        os.makedirs(BUILD_PERSONAL_DIR + '/wotbl')
+
+    for i in range(508):
+        pokemon = {}
+        with open(f'data/pokemon/{i:04}.json', 'r', encoding='utf8') as data:
+            pokemon = json.load(data)
+
+            build_personal(pokemon, i)
+            build_evotable(pokemon, i)
+            build_learnset(pokemon, i)
+
+
+if __name__ == '__main__':
+    if sys.argv[1] == 'dump':
+        dump_pokemon()
+    elif sys.argv[1] == 'build':
+        build_pokemon()

@@ -93,6 +93,7 @@
     "evolutions": [
         [
             "USE_ITEM_DAY",
+            "OVAL_STONE",
             "CHANSEY"
         ]
     ]

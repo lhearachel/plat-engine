@@ -60,18 +60,53 @@ NARC_FILES += $(BATTLE_SUBSCR_NARC)
 
 # Item Data
 
-ITEM_DATA_DIR = $(BUILD)/items
-ITEM_DATA_NARC = $(BUILD_NARC)/itemtool/pl_item_data.narc
-ITEM_DATA_DEP_DIR = data/items
-ITEM_DATA_TARGET = $(FILESYS)/itemtool/itemdata/pl_item_data.narc
+ITEM_DATA_DIR := $(BUILD)/itemtool
+ITEM_DATA_NARC := $(BUILD_NARC)/itemtool/pl_item_data.narc
+ITEM_DATA_DEP_DIR := data/items
+ITEM_DATA_TARGET := $(FILESYS)/itemtool/itemdata/pl_item_data.narc
 
 ITEM_DATA_SRCS := $(wildcard $(ITEM_DATA_DEP_DIR)/*.json)
 ITEM_DATA_OBJS := $(patsubst $(ITEM_DATA_DEP_DIR)/%.json,$(ITEM_DATA_DIR)/%.bin,$(ITEM_DATA_SRCS))
 
-$(ITEM_DATA_NARC): $(ITEM_DATA_SRCS)
+$(ITEM_DATA_OBJS): $(ITEM_DATA_SRCS)
 	$(PYTHON) scripts/build/item_data.py build
 
+$(ITEM_DATA_NARC): $(ITEM_DATA_OBJS)
+	$(NARCHIVE) create $@ $(ITEM_DATA_DIR) -nf
+
 NARC_FILES += $(ITEM_DATA_NARC)
+
+# Pokemon Data
+
+PERSONAL_DATA_DIR := $(BUILD)/poketool/personal/pl_personal
+PERSONAL_NARC := $(BUILD_NARC)/poketool/personal/pl_personal.narc
+PERSONAL_TARGET := $(FILESYS)/poketool/personal/pl_personal.narc
+EVO_DATA_DIR := $(BUILD)/poketool/personal/evo
+EVO_NARC := $(BUILD_NARC)/poketool/personal/evo.narc
+EVO_TARGET := $(FILESYS)/poketool/personal/evo.narc
+WOTBL_DATA_DIR := $(BUILD)/poketool/personal/wotbl
+WOTBL_NARC := $(BUILD_NARC)/poketool/personal/wotbl.narc
+WOTBL_TARGET := $(FILESYS)/poketool/personal/wotbl.narc
+
+POKEMON_DATA_DIR := data/pokemon
+POKEMON_DATA_SRCS := $(wildcard $(POKEMON_DATA_DIR)/*.json)
+POKEMON_DATA_OBJS := $(patsubst $(POKEMON_DATA_DIR)/%.json,$(POKEMON_DATA_DIR)/%.bin,$(POKEMON_DATA_DIR))
+
+$(POKEMON_DATA_OBJS): $(POKEMON_DATA_SRCS)
+	$(PYTHON) scripts/build/item_data.py build
+
+$(PERSONAL_NARC): $(POKEMON_DATA_OBJS)
+	$(NARCHIVE) create $@ $(PERSONAL_DATA_DIR) -nf
+
+$(EVO_NARC): $(POKEMON_DATA_OBJS)
+	$(NARCHIVE) create $@ $(EVO_DATA_DIR) -nf
+
+$(WOTBL_NARC): $(POKEMON_DATA_OBJS)
+	$(NARCHIVE) create $@ $(WOTBL_DATA_DIR) -nf
+
+NARC_FILES += $(PERSONAL_NARC)
+NARC_FILES += $(EVO_NARC)
+NARC_FILES += $(WOTBL_NARC)
 
 # Text Archives
 

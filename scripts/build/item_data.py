@@ -15,8 +15,6 @@ from util import (
     sint_to_byte
 )
 
-import tools.narcpy as narcpy
-
 
 BASE_ITEMDATA_NARC = 'base/data/itemtool/itemdata/pl_item_data.narc'
 BASE_MSGDATA_NARC  = 'base/data/msgdata/pl_msg.narc'
@@ -445,11 +443,19 @@ def plural(item_name: str) -> str:
         return item_name + 's'
 
 
+def build_single(fname: str):
+    i = fname.split('/')[-1].split('.')[0]
+    item_data = json.load(open(fname, 'r'))
+    item_bytes = build_item_binary(item_data)
+    with open(f'build/itemtool/{i}.bin', 'wb') as out:
+        out.write(item_bytes)
+
+
 def build_itemdata():
     if not os.path.exists('build/narc/itemtool'):
         os.makedirs('build/narc/itemtool')
-    if not os.path.exists('build/items'):
-        os.makedirs('build/items')
+    if not os.path.exists('build/itemtool'):
+        os.makedirs('build/itemtool')
     
     items_dir = 'data/items'
     names_txt = open(TEXT_DUMP_TARGET.format(archive=ITEM_NAMES_BANK), 'w')
@@ -466,7 +472,7 @@ def build_itemdata():
         file.close()
 
         item_bytes = build_item_binary(item_json)
-        with open(f'build/items/{i:03}.bin', 'wb') as out:
+        with open(f'build/itemtool/{i:03}.bin', 'wb') as out:
             out.write(item_bytes)
         names_txt.write(f'{item_json["name"]}\r\n')
         article_txt.write(f'{article(item_json["name"])}\r\n')
@@ -475,11 +481,13 @@ def build_itemdata():
     names_txt.close()
     article_txt.close()
     plurals_txt.close()
-    narcpy.create('build/narc/itemtool/pl_item_data.narc', 'build/items')
 
 
 if __name__ == '__main__':
     if sys.argv[1] == 'dump':
         dump_itemdata()
     elif sys.argv[1] == 'build':
-        build_itemdata()
+        if len(sys.argv) > 2:
+            build_single(sys.argv[2])
+        else:
+            build_itemdata()

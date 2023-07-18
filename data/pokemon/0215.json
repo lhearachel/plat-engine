@@ -113,6 +113,7 @@
     "evolutions": [
         [
             "USE_ITEM_NIGHT",
+            "RAZOR_CLAW",
             "WEAVILE"
         ]
     ]

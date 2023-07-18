@@ -8,6 +8,9 @@ INPUT_DICT = {
     'waza_seq': ('narcs', 'base/data/battle/skill/waza_seq.narc', 'build/narc/battle/skill/waza_seq.narc', True),
     'sub_seq': ('narcs', 'base/data/battle/skill/sub_seq.narc', 'build/narc/battle/skill/sub_seq.narc', True),
     'item_data': ('narcs', 'base/data/itemtool/itemdata/pl_item_data.narc', 'build/narc/itemtool/pl_item_data.narc', False),
+    'personal': ('narcs', 'base/data/poketool/personal/pl_personal.narc', 'build/narc/pl_personal.narc', False),
+    'evo': ('narcs', 'base/data/poketool/personal/evo.narc', 'build/narc/evo.narc', False),
+    'wotbl': ('narcs', 'base/data/poketool/personal/wotbl.narc', 'build/narc/wotbl.narc', False),
 }
 
 def compare_narcs(orig_f, made_f, word_mode):

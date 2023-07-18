@@ -110,6 +110,7 @@
     "evolutions": [
         [
             "USE_ITEM_NIGHT",
+            "RAZOR_FANG",
             "GLISCOR"
         ]
     ]
