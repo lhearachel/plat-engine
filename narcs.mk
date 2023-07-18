@@ -1,18 +1,3 @@
-# Battle graphics
-
-BATTLE_OBJ_DIR := $(BUILD)/pl_batt_obj
-BATTLE_OBJ_NARC := $(BUILD_NARC)/battle/pl_batt_obj
-BATTLE_OBJ_TARGET := $(FILESYS)/battle/graphic/pl_batt_obj.narc
-BATTLE_OBJ_DEPS_DIR := data/raw/pl_batt_obj
-BATTLE_OBJ_DEPS := $(wildcard $(BATTLE_OBJ_DEPS_DIR)/*)
-
-$(BATTLE_OBJ_NARC): $(BATTLE_OBJ_DEPS)
-	$(NARCHIVE) extract $(BATTLE_OBJ_TARGET) -o $(BATTLE_OBJ_DIR) -nf
-	cp -r $(BATTLE_OBJ_DEPS_DIR)/. $(BATTLE_OBJ_DIR)
-	$(NARCHIVE) create $@ $(BATTLE_OBJ_DIR) -nf
-
-NARC_FILES += $(BATTLE_OBJ_NARC)
-
 # Battle scripting NARCs
 
 BATTLE_SKILL_NARC_DIR := $(BUILD_NARC)/battle/skill
@@ -72,6 +57,21 @@ $(BATTLE_SUBSCR_NARC): $(BATTLE_SUBSCR_OBJS)
 	$(NARCHIVE) create $@ $(BATTLE_SUBSCR_DIR) -nf
 
 NARC_FILES += $(BATTLE_SUBSCR_NARC)
+
+# Battle graphics
+
+BATTLE_OBJ_DIR := $(BUILD)/pl_batt_obj
+BATTLE_OBJ_NARC := $(BUILD_NARC)/battle/pl_batt_obj.narc
+BATTLE_OBJ_TARGET := $(FILESYS)/battle/graphic/pl_batt_obj.narc
+BATTLE_OBJ_DEPS_DIR := data/raw/pl_batt_obj
+BATTLE_OBJ_DEPS := $(wildcard $(BATTLE_OBJ_DEPS_DIR)/*)
+
+$(BATTLE_OBJ_NARC): $(BATTLE_OBJ_DEPS)
+	$(NARCHIVE) extract $(BATTLE_OBJ_TARGET) -o $(BATTLE_OBJ_DIR) -nf
+	cp -r $(BATTLE_OBJ_DEPS_DIR)/. $(BATTLE_OBJ_DIR)
+	$(NARCHIVE) create $@ $(BATTLE_OBJ_DIR) -nf
+
+NARC_FILES += $(BATTLE_OBJ_NARC)
 
 # Item Data
 

@@ -171,7 +171,7 @@ clean_output_dirs:
 	@echo ""
 
 
-rom_hooks: c_binaries decompress_rom
+rom_hooks: decompress_rom c_binaries
 	$(PYTHON) scripts/make.py
 	@echo "✅ $(OUTPUT_FMT)Compiled overlays and code hooks$(FMT_OFF)"
 	@echo ""
@@ -187,6 +187,7 @@ narcs: $(NARC_FILES)
 
 
 copy_narcs: narcs
+	cp $(BATTLE_OBJ_NARC) $(BATTLE_OBJ_TARGET)
 	cp $(BATTLE_EFFSCR_NARC) $(BATTLE_EFFSCR_TARGET)
 	cp $(BATTLE_MOVSCR_NARC) $(BATTLE_MOVSCR_TARGET)
 	cp $(BATTLE_SUBSCR_NARC) $(BATTLE_SUBSCR_TARGET)
