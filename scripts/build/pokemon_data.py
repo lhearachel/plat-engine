@@ -22,6 +22,8 @@ BASE_EVOTABLE_NARC = 'base/data/poketool/personal/evo.narc'
 BASE_LEARNSET_NARC = 'base/data/poketool/personal/wotbl.narc'
 TEXT_DUMP_TARGET   = 'data/text/{archive}.txt'
 POKEMON_NAMES_BANK = 412
+POKEMON_ARTICLES   = 413
+POKEDEX_NAMES_BANK = 712
 BUILD_PERSONAL_DIR = 'build/poketool/personal'
 
 
@@ -470,14 +472,33 @@ def build_pokemon():
     if not os.path.exists(BUILD_PERSONAL_DIR + '/wotbl'):
         os.makedirs(BUILD_PERSONAL_DIR + '/wotbl')
 
+    names_file = open(TEXT_DUMP_TARGET.format(archive=POKEDEX_NAMES_BANK), 'w', encoding='utf8')
+    articles_file = open(TEXT_DUMP_TARGET.format(archive=POKEMON_ARTICLES), 'w', encoding='utf8')
+    pokedex_file = open(TEXT_DUMP_TARGET.format(archive=POKEDEX_NAMES_BANK), 'w', encoding='utf8')
     for i in range(508):
         pokemon = {}
         with open(f'data/pokemon/{i:04}.json', 'r', encoding='utf8') as data:
             pokemon = json.load(data)
+            name = pokemon['name']
+            if i == 0:
+                articles_file.write('\r\n')
+                pokedex_file.write('----------\r\n')
+            elif i < 494:
+                article = 'a '
+                if name[0] in ['A', 'E', 'I', 'O', 'U']:
+                    article = 'an '
 
+                articles_file.write(f'{article}{{COLOR 255}}{name}{{COLOR 0}}\r\n')
+                pokedex_file.write(f'{i:03}  {name}\r\n')
+
+            names_file.write(f'{name}\r\n')
             build_personal(pokemon, i)
             build_evotable(pokemon, i)
             build_learnset(pokemon, i)
+    
+    names_file.close()
+    articles_file.close()
+    pokedex_file.close()
 
 
 if __name__ == '__main__':
