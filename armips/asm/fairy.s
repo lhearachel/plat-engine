@@ -127,16 +127,65 @@ Hook_Server_AIMoveType2:    // not sure why these are separate but ok
 
 
 /*
- * Credit to Mikelan98 and BagBoy for this tidbit.
- *
- * This updates the palette used by the move-selection view on the bottom
- * screen during a battle.
+ * Credit to Mikelan98 and BagBoy for these graphical tidbits.
  *
  * https://pokehacking.com/r/20071800
  */
+
 .open "base/overlay/overlay_0011.bin", 0x0221F800
 
+/*
+ * This updates the palette used by the move-selection view on the bottom
+ * screen during a battle.
+ */
 .orga 0x290 // palette for move selection
 .halfword 0x7EDF, 0xF23F, 0x6A1E, 0x59DD, 0xCD5B, 0xC117, 0xB4D6, 0xFB3F
+
+.close
+
+
+.open "base/overlay/overlay_0021.bin", 0x021D0D80
+
+/*
+ * This updates the rendering for the Fairy type in the Pokedex (which
+ * would otherwise default to Ghost).
+ */
+.orga 0x021DF180 // Pokedex type icon function
+
+Pokedex_TypeOffset:
+    cmp     r0, #0x11
+    bhi     @@normal_override
+    ldr     r1, =TypeOffsetTable
+    ldrb    r0, [r1, r0]
+    bx      lr
+
+@@normal_override:
+    mov     r0, 0x0
+    bx      lr
+
+.align 2
+.pool
+
+TypeOffsetTable:
+    .byte   0x00    // NORMAL
+    .byte   0x06    // FIGHTING
+    .byte   0x0E    // FLYING
+    .byte   0x0A    // POISON
+    .byte   0x08    // GROUND
+    .byte   0x05    // ROCK
+    .byte   0x0B    // BUG
+    .byte   0x07    // GHOST
+    .byte   0x09    // STEEL
+    .byte   0x12    // FAIRY
+    .byte   0x01    // FIRE
+    .byte   0x03    // WATER
+    .byte   0x02    // GRASS
+    .byte   0x04    // ELECTRIC
+    .byte   0x0F    // PSYCHIC
+    .byte   0x0D    // ICE
+    .byte   0x10    // DRAGON
+    .byte   0x0C    // DARK
+    .byte   0x00    // padding
+    .byte   0x00    // padding
 
 .close

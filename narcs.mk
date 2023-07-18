@@ -73,6 +73,21 @@ $(BATTLE_OBJ_NARC): $(BATTLE_OBJ_DEPS)
 
 NARC_FILES += $(BATTLE_OBJ_NARC)
 
+# Pokedex graphics
+
+ZUKAN_DIR := $(BUILD)/zukan
+ZUKAN_NARC := $(BUILD_NARC)/resource/eng/zukan.narc
+ZUKAN_TARGET := $(FILESYS)/resource/eng/zukan/zukan.narc
+ZUKAN_DEPS_DIR := data/raw/zukan
+ZUKAN_DEPS := $(wildcard $(BATTLE_OBJ_DEPS_DIR)/*)
+
+$(ZUKAN_NARC): $(ZUKAN_DEPS)
+	$(NARCHIVE) extract $(ZUKAN_TARGET) -o $(ZUKAN_DIR) -nf
+	cp -r $(ZUKAN_DEPS_DIR)/. $(ZUKAN_DIR)
+	$(NARCHIVE) create $@ $(ZUKAN_DIR) -nf
+
+NARC_FILES += $(ZUKAN_NARC)
+
 # Item Data
 
 ITEM_DATA_DIR := $(BUILD)/itemtool

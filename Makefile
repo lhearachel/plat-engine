@@ -150,11 +150,13 @@ output_dirs:
 	mkdir -p $(BUILD)/battle/scr/effscr $(BUILD)/battle/scr/movscr $(BUILD)/battle/scr/subscr
 	mkdir -p $(BUILD)/msgdata
 	mkdir -p $(BUILD)/itemtool
+	mkdir -p $(BUILD)/zukan
 	mkdir -p $(BUILD)/poketool/personal/pl_personal $(BUILD)/poketool/personal/evo $(BUILD)/poketool/personal/wotbl
 	mkdir -p $(BUILD)/narc/battle/skill
 	mkdir -p $(BUILD)/narc/msgdata
 	mkdir -p $(BUILD)/narc/itemtool
 	mkdir -p $(BUILD)/narc/poketool/personal
+	mkdir -p $(BUILD)/narc/resource/eng
 
 
 decompress_rom:
@@ -195,6 +197,7 @@ copy_narcs: narcs
 	cp $(PERSONAL_NARC) $(PERSONAL_TARGET)
 	cp $(EVO_NARC) $(EVO_TARGET)
 	cp $(WOTBL_NARC) $(WOTBL_TARGET)
+	cp $(ZUKAN_NARC) $(ZUKAN_TARGET)
 	cp $(TEXT_ARCHIVE_NARC) $(TEXT_ARCHIVE_TARGET)
 	@echo "✅ $(OUTPUT_FMT)Copied new NARCs into /$(BASE)$(FMT_OFF)"
 	@echo ""
