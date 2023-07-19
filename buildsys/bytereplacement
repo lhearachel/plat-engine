@@ -53,3 +53,6 @@
 #   ldr     r0, [sp, #8]
 #   mov     r8, r8
 0016 0224E748 02 98 C0 46
+
+# Low effort Fire Fang Wonder Guard glitch fix
+0016 0225B714 10 32
