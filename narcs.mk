@@ -145,3 +145,23 @@ $(TEXT_ARCHIVE_NARC): $(TEXT_FILES)
 	$(NARCHIVE) create $@ $(TEXT_ARCHIVE_DIR) -nf
 
 NARC_FILES += $(TEXT_ARCHIVE_NARC)
+
+# Pokemon Icons
+
+POKEMON_ICONS_DIR := $(BUILD)/pokeicon
+POKEMON_ICONS_NARC := $(BUILD_NARC)/pokeicon.narc
+POKEMON_ICONS_TARGET := $(FILESYS)/poketool/icongra/pl_poke_icon.narc
+POKEMON_ICONS_DEPS_DIR := data/graphics/pokeicons
+POKEMON_ICONS_RAWS_DIR := data/raw/pl_poke_icon
+
+POKEMON_ICONS_SRCS := $(wildcard $(POKEMON_ICONS_DEPS_DIR)/*.png)
+POKEMON_ICONS_OBJS := $(patsubst $(POKEMON_ICONS_DEPS_DIR)/%.png,$(POKEMON_ICONS_DIR)/1_%.NCGR,$(POKEMON_ICONS_SRCS))
+
+$(POKEMON_ICONS_DIR)/1_%.NCGR: $(POKEMON_ICONS_DEPS_DIR)/%.png
+	$(GFX) $< $@ -clobbersize -version101
+
+$(POKEMON_ICONS_NARC): $(POKEMON_ICONS_OBJS)
+	cp -r $(POKEMON_ICONS_RAWS_DIR)/. $(POKEMON_ICONS_DIR)
+	$(NARCHIVE) create $@ $(POKEMON_ICONS_DIR) -nf
+
+NARC_FILES += $(POKEMON_ICONS_NARC)

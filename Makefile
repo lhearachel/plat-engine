@@ -151,6 +151,7 @@ output_dirs:
 	mkdir -p $(BUILD)/msgdata
 	mkdir -p $(BUILD)/itemtool
 	mkdir -p $(BUILD)/zukan
+	mkdir -p $(BUILD)/pokeicon
 	mkdir -p $(BUILD)/poketool/personal/pl_personal $(BUILD)/poketool/personal/evo $(BUILD)/poketool/personal/wotbl
 	mkdir -p $(BUILD)/narc/battle/skill
 	mkdir -p $(BUILD)/narc/msgdata
@@ -199,6 +200,7 @@ copy_narcs: narcs
 	cp $(WOTBL_NARC) $(WOTBL_TARGET)
 	cp $(ZUKAN_NARC) $(ZUKAN_TARGET)
 	cp $(TEXT_ARCHIVE_NARC) $(TEXT_ARCHIVE_TARGET)
+	cp $(POKEMON_ICONS_NARC) $(POKEMON_ICONS_TARGET)
 	@echo "✅ $(OUTPUT_FMT)Copied new NARCs into /$(BASE)$(FMT_OFF)"
 	@echo ""
 
