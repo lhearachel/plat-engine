@@ -14,7 +14,7 @@
 
 .create "build/battle/scr/subscr/sub_seq_118.bin", 0
 
-// SUBSCR_SYNCHRONIZE
+// SUBSCR_PSYCHO_SHIFT
 subscr_118:
     IfMonData                           FLAG_NEQ, BATTLER_ATTACKER, BATTLE_MON_CONDITION, CONDITION_ASLEEP, subscr_118_Poison
     CallSubscript                       SUBSCR_APPLY_SLEEP

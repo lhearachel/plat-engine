@@ -129,7 +129,7 @@
 #define SUBSCR_RAPID_SPIN                       (115)
 #define SUBSCR_BREAK_CLAMP                      (116)
 #define SUBSCR_BLOW_AWAY_HAZARDS_MESSAGE        (117)
-#define SUBSCR_SYNCHRONIZE                      (118)
+#define SUBSCR_PSYCHO_SHIFT                     (118)
 #define SUBSCR_OMNIBOOST                        (119)
 #define SUBSCR_BELLY_DRUM                       (120)
 #define SUBSCR_FUTURE_SIGHT_DAMAGE              (121)
