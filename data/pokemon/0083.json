@@ -2,7 +2,7 @@
     "name": "Farfetch’d",
     "base_stats": {
         "hp": 52,
-        "attack": 65,
+        "attack": 90,
         "defense": 55,
         "sp_attack": 58,
         "sp_defense": 62,

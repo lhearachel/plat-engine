@@ -2,7 +2,7 @@
     "name": "Dugtrio",
     "base_stats": {
         "hp": 35,
-        "attack": 80,
+        "attack": 100,
         "defense": 50,
         "sp_attack": 50,
         "sp_defense": 70,

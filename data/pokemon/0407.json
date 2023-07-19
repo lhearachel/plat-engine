@@ -3,7 +3,7 @@
     "base_stats": {
         "hp": 60,
         "attack": 70,
-        "defense": 55,
+        "defense": 65,
         "sp_attack": 125,
         "sp_defense": 105,
         "speed": 90
