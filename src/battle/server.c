@@ -119,6 +119,7 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             result  = TRUE;
         }
     case ABILITY_ROUGH_SKIN:
+    case ABILITY_IRON_BARBS:
         // Attacker is still alive after the attack
         if (server->activePokemon[server->attacker].curHP
                 // Attacker does not have Magic Guard
