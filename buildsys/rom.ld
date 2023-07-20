@@ -76,6 +76,8 @@ Server_HeldItemEffect = 0x02258AB8 | 1;
 Server_HeldItemPower = 0x02258ACC | 1;
 Server_HitCount = 0x022554E0 | 1;
 Server_CheckTwoTurnMove = 0x0225B6C8 | 1;
+Server_CheckSubstitute = 0x02259AC0 | 1;
+Server_DivideBy = 0x022563F8 | 1;
 BattlePokemon_Get = 0x02252060 | 1;
 
 /* Damage Calc */
