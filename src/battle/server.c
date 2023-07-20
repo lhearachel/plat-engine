@@ -5,9 +5,8 @@
 #include "constants/misc.h"
 
 #include "battle/common.h"
+#include "battle/moves.h"
 #include "battle/server.h"
-
-#include "moves.h"
 
 void Server_InitState(struct BattleServer *server)
 {
@@ -58,7 +57,7 @@ void Server_InitState(struct BattleServer *server)
     }
 }
 
-static inline DamageWasDealt(struct BattleServer *server)
+static inline BOOL DamageWasDealt(struct BattleServer *server)
 {
     return server->stSelfFX[server->defender].physicalDamage
         || server->stSelfFX[server->defender].specialDamage;
