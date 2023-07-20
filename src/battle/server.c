@@ -1,7 +1,9 @@
 #include "global.h"
 #include "q412.h"
+#include "archive.h"
 
 #include "constants/abilities.h"
+#include "constants/item_hold_effects.h"
 #include "constants/misc.h"
 
 #include "battle/common.h"
@@ -224,6 +226,40 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
         break;
     default:
         break;
+    }
+
+    return result;
+}
+
+BOOL Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server)
+{
+    if (server->defender == 0xFF) {
+        return FALSE;
+    }
+
+    if (server->activePokemon[server->defender].curHP) {
+        return FALSE;
+    }
+
+    if (server->moveStatusFlag & MOVE_STATUS_FLAG_NO_HIT_EFFECTS) {
+        return FALSE;
+    }
+
+    BOOL result        = FALSE;
+    int heldItemEffect = Server_HeldItemEffect(server, server->attacker);
+    int heldItemPower  = Server_HeldItemPower(server, server->attacker, 0);
+    if (heldItemEffect == HOLD_EFFECT_KINGS_ROCK
+            && DamageWasDealt(server)
+            && (Battle_Random(battle) % 100) < heldItemPower
+            && (server->aiWork.moveTable[server->moveIDCurr].flag & MOVE_FLAG_TRIGGERS_KINGS_ROCK)) {
+        server->addlEffectClient = server->defender;
+        server->addlEffectType   = ADDL_EFFECT_INDIRECT;
+        
+        Server_LoadSequence(server, ARCHIVE_SUBSCR, SUBSCR_TRY_FLINCH);
+
+        server->serverSeqNext = server->serverSeqNum;
+        server->serverSeqNext = 21; // todo: enum
+        result = FALSE;
     }
 
     return result;

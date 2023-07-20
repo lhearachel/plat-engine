@@ -64,6 +64,7 @@ SCIO_ClearQueue = 0x02266ABC | 1;
 
 /* battle/scrcmd.h */
 BattleScrCmd_ReadWord = 0x02248AD0 | 1;
+BattleScrCmd_TrueBattler = 0x0224A984 | 1;
 gBattleScriptCommandTable_Old = 0x0226E72C;
 
 /* battle/server.h */
@@ -78,6 +79,7 @@ Server_HitCount = 0x022554E0 | 1;
 Server_CheckTwoTurnMove = 0x0225B6C8 | 1;
 Server_CheckSubstitute = 0x02259AC0 | 1;
 Server_DivideBy = 0x022563F8 | 1;
+Server_LoadSequence = 0x02251E1C | 1;
 BattlePokemon_Get = 0x02252060 | 1;
 
 /* Damage Calc */

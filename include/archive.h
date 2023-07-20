@@ -1,10 +1,7 @@
 #ifndef __ARCHIVE_H
 #define __ARCHIVE_H
 
-#define ARC_CODE_ADDONS 122
-
-#define CODE_ADDON_SYNTHETIC_NARC_EXTENSION 0
-#define CODE_ADDON_HIDDEN_ABILITY_LIST 7
+#define ARCHIVE_SUBSCR 1
 
 /**
  * @brief Load data from an archive into an allocated buffer.

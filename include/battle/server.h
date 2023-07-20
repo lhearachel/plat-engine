@@ -726,6 +726,19 @@ u8 __attribute__((long_call)) Server_HitCount(struct Battle *battle, struct Batt
 BOOL __attribute__((long_call)) Server_CheckTwoTurnMove(struct BattleServer *server, int moveID);
 
 /**
+ * @brief Load a sequence by its ID from a given archive.
+ * 
+ * This is used to queue up individual subscripts, mostly.
+ * 
+ * Original function: 0x02251E1C (ov16)
+ * 
+ * @param server
+ * @param archive   ID for a given script archive.
+ * @param id        ID of the script to load.
+ */
+void __attribute__((long_call)) Server_LoadSequence(struct BattleServer *server, int archive, int id);
+
+/**
  * @brief Gets a data value for a particular active battler.
  * 
  * Original function: 0x02252060 (ov16)
@@ -776,5 +789,16 @@ int  __attribute__((long_call)) Calc_TypeEffectivenessPower(u8 moveType, u8 poke
  * @return TRUE if a sequence needs to be loaded for follow-up, otherwise FALSE.
  */
 BOOL __attribute__((long_call)) Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server, int *seqNum);
+
+/**
+ * @brief Check for King's Rock application.
+ * 
+ * Hooked into: 0x022512F8 (ov16)
+ * 
+ * @param battle
+ * @param server
+ * @return TRUE if King's Rock activates, otherwise FALSE.
+ */
+BOOL __attribute__((long_call)) Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server);
 
 #endif // __BATTLE_SERVER_H

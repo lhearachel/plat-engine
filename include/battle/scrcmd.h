@@ -18,6 +18,8 @@ BOOL __attribute__((long_call)) BattleScrCmd_Exec(struct Battle *battle, struct 
 /**
  * @brief Gets the actual client number behind a battler definition.
  * 
+ * Original function: 0x0224A984 (ov16)
+ * 
  * @param battle
  * @param server
  * @param battlerDef    Refer to the BATTLER definitions from battle_scrcmd.s
