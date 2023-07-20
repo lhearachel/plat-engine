@@ -4,7 +4,7 @@
         "hp": 60,
         "attack": 85,
         "defense": 60,
-        "sp_attack": 50,
+        "sp_attack": 75,
         "sp_defense": 50,
         "speed": 125
     },
