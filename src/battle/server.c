@@ -123,8 +123,6 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
         if (server->activePokemon[server->attacker].curHP
                 // Attacker does not have Magic Guard
                 && Server_Ability(server, server->attacker) != ABILITY_MAGIC_GUARD
-                // Damage was actually dealt
-                && DamageWasDealt(server)
                 // Move makes contact
                 && server->aiWork.moveTable[server->moveIDCurr].flag & MOVE_FLAG_MAKES_CONTACT) {
             server->hpCalcWork = Server_DivideBy(server->activePokemon[server->attacker].maxHP * -1, 8);
@@ -136,6 +134,8 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
     case ABILITY_EFFECT_SPORE:
         // Attacker is still alive after the attack
         if (server->activePokemon[server->attacker].curHP
+                // Attacker does not have Overcoat
+                && Server_Ability(server, server->attacker) != ABILITY_OVERCOAT
                 // Attacker has no present status condition
                 && server->activePokemon[server->attacker].condition == 0
                 // Move makes contact
