@@ -279,6 +279,15 @@
 
 #define CONDITION_TOXIC_COUNT_START (0x00000100)
 
+// These are constants for the messages associated with each condition
+#define	MSG_COND_ASLEEP     (0)
+#define	MSG_COND_POISONED   (1)
+#define	MSG_COND_BURNED     (2)
+#define	MSG_COND_PARALYZED  (3)
+#define	MSG_COND_FROZEN     (4)
+#define	MSG_COND_CONFUSED   (5)
+#define	MSG_COND_INFATUATED (6)
+
 // These are volatile conditions: those which disappear upon switching.
 #define CONDITION_V_NONE            (0x00000000)
 #define CONDITION_V_CONFUSED        (0x00000007)    // Bits 1 through 3 define how many turns of confusion remain

@@ -313,3 +313,54 @@ int Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker,
 
     return nextScript;
 }
+
+BOOL Server_CheckEndOfTurnAbility(struct Battle *battle, struct BattleServer *server, int battler)
+{
+    if (server->activePokemon[battler].curHP == 0) {
+        return FALSE;
+    }
+
+    BOOL result = FALSE;
+    int nextScript = 0;
+
+    u16 ability = Server_Ability(server, battler);
+    if (ability == ABILITY_SPEED_BOOST) {
+        // Don't activate on the first turn that we switch in
+        if (server->activePokemon[battler].moveEffects.fakeOutTurnCount != server->totalTurns + 1
+                // Don't activate if we're already at +6
+                && server->activePokemon[battler].statBoosts[STAT_SPEED] < 12) {
+            server->addlEffectParam  = ADDL_EFFECT_SPE_UP_1;
+            server->addlEffectType   = ADDL_EFFECT_FROM_ABILITY;
+            server->addlEffectClient = battler;
+            nextScript = SUBSCR_BOOST_STATS;
+            result     = TRUE;
+        }
+    } else if (ability == ABILITY_SHED_SKIN) {
+        if (server->activePokemon[battler].condition & CONDITION_STATUSED
+                && Battle_Random(battle) % 10 < 3) {
+            if (server->activePokemon[battler].condition & CONDITION_ASLEEP) {
+                server->messageWork = MSG_COND_ASLEEP;
+            } else if (server->activePokemon[battler].condition & CONDITION_POISON_ALL) {
+                server->messageWork = MSG_COND_POISONED;
+            } else if (server->activePokemon[battler].condition & CONDITION_BURNED) {
+                server->messageWork = MSG_COND_BURNED;
+            } else if (server->activePokemon[battler].condition & CONDITION_PARALYZED) {
+                server->messageWork = MSG_COND_PARALYZED;
+            } else {
+                server->messageWork = MSG_COND_FROZEN;
+            }
+
+            server->clientWork = battler;
+            nextScript = SUBSCR_SHED_SKIN;
+            result     = TRUE;
+        }
+    }
+
+    if (result) {
+        Server_LoadSequence(server, ARCHIVE_SUBSCR, nextScript);
+        server->serverSeqNext = server->serverSeqNum;
+        server->serverSeqNum = 21;
+    }
+
+    return result;
+}

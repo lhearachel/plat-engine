@@ -815,4 +815,16 @@ BOOL __attribute__((long_call)) Server_CheckExtraFlinch(struct Battle *battle, s
  */
 int  __attribute__((long_call)) Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker, int defender);
 
+/**
+ * @brief Check for abilities which trigger at the end of the turn.
+ * 
+ * Hooked into: 0x022562E8 (ov16)
+ * 
+ * @param battle
+ * @param server
+ * @param battler
+ * @return TRUE if a subscript needs to be invoked, otherwise FALSE.
+ */
+BOOL __attribute__((long_call)) Server_CheckEndOfTurnAbility(struct Battle *battle, struct BattleServer *server, int battler);
+
 #endif // __BATTLE_SERVER_H
