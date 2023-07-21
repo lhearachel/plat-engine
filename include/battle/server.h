@@ -801,4 +801,18 @@ BOOL __attribute__((long_call)) Server_CheckAbilityOnHit(struct Battle *battle, 
  */
 BOOL __attribute__((long_call)) Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server);
 
+/**
+ * @brief Check for abilities which alter the damaging properties of moves.
+ * 
+ * This is for stuff like Volt Absorb and Flash Fire.
+ * 
+ * Hooked into: 0x02256148 (ov16)
+ * 
+ * @param server
+ * @param attacker
+ * @param defender
+ * @return ID of the subscript to invoke next for the ability trigger, if any.
+ */
+int  __attribute__((long_call)) Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker, int defender);
+
 #endif // __BATTLE_SERVER_H

@@ -264,3 +264,52 @@ BOOL Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server)
 
     return result;
 }
+
+int Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker, int defender)
+{
+    int nextScript = 0;
+    int moveType;
+    if (Server_Ability(server, attacker) == ABILITY_NORMALIZE && Moves_CanNormalize(server->moveIDCurr)) {
+        moveType = TYPE_NORMAL;
+    } else if (server->moveType) {
+        moveType = server->moveType;
+    } else {
+        moveType = server->aiWork.moveTable[server->moveIDCurr].type;
+    }
+
+    if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_VOLT_ABSORB)) {
+        if (moveType == TYPE_ELECTRIC
+                && server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO == FALSE
+                && attacker != defender) {
+            server->hpCalcWork = Server_DivideBy(server->activePokemon[defender].maxHP, 4);
+            nextScript = SUBSCR_ABILITY_HP_RESTORE;
+        }
+    } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_WATER_ABSORB)
+            || Server_CheckDefenderAbility(server, attacker, defender, ABILITY_DRY_SKIN)) {
+        if (moveType == TYPE_WATER
+                && server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO == FALSE
+                && attacker != defender) {
+            server->hpCalcWork = Server_DivideBy(server->activePokemon[defender].maxHP, 4);
+            nextScript = SUBSCR_ABILITY_HP_RESTORE;
+        }
+    } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_FLASH_FIRE)) {
+        if (moveType == TYPE_FIRE
+                && server->activePokemon[defender].condition & CONDITION_FROZEN == FALSE
+                && server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO == FALSE
+                && attacker != defender) {
+            nextScript = SUBSCR_FLASH_FIRE;
+        }
+    } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_SOUNDPROOF)) {
+        if (Moves_IsSound(server->moveIDCurr)) {
+            nextScript = SUBSCR_SOUNDPROOF;
+        }
+    } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_MOTOR_DRIVE)) {
+        if (moveType == TYPE_ELECTRIC
+                && server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO == FALSE
+                && attacker != defender) {
+            nextScript = SUBSCR_MOTOR_DRIVE;
+        }
+    }
+
+    return nextScript;
+}
