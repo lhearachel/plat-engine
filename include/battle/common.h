@@ -214,7 +214,7 @@
 #define MOVE_STATUS_FLAG_MISSED_DURING_FLY          (0x00010000)    // also includes Bounce, Dive, Dig, Shadow Force
 #define MOVE_STATUS_FLAG_LOST_FOCUS                 (0x00020000)
 #define MOVE_STATUS_FLAG_PROTECTED_BY_WONDER_GUARD  (0x00040000)
-#define MOVE_STATUS_FLAG_ENDURED_BY_STURDY          (0x00080000)
+#define MOVE_STATUS_FLAG_ENDURED_BY_STURDY          (0x00080000)    // specifically against OHKO moves, NOT gen5 sturdy
 #define MOVE_STATUS_FLAG_MISSED_BY_MAGNET_RISE      (0x00100000)
 // 0x00200000 unused
 // 0x00400000 unused
@@ -227,6 +227,23 @@
 // 0x20000000 unused
 // 0x40000000 unused
 #define MOVE_STATUS_FLAG_GENERAL_FAILURE            (0x80000000)
+
+#define MOVE_STATUS_FLAG_DID_NOT_HIT                (MOVE_STATUS_FLAG_MISSED \
+                                                    | MOVE_STATUS_FLAG_DOES_NOT_AFFECT \
+                                                    | MOVE_STATUS_FLAG_FAILED \
+                                                    | MOVE_STATUS_FLAG_MISSED_BY_ABILITY \
+                                                    | MOVE_STATUS_FLAG_ONE_HIT_KO_FAILED \
+                                                    | MOVE_STATUS_FLAG_MISSED_IN_SERIES \
+                                                    | MOVE_STATUS_FLAG_PROTECTED \
+                                                    | MOVE_STATUS_FLAG_MISSED_DURING_FLY \
+                                                    | MOVE_STATUS_FLAG_LOST_FOCUS \
+                                                    | MOVE_STATUS_FLAG_PROTECTED_BY_WONDER_GUARD \
+                                                    | MOVE_STATUS_FLAG_ENDURED_BY_STURDY \
+                                                    | MOVE_STATUS_FLAG_MISSED_BY_MAGNET_RISE)
+
+#define MOVE_STATUS_FLAG_NO_HIT_EFFECTS             (MOVE_STATUS_FLAG_DID_NOT_HIT \
+                                                    | MOVE_STATUS_FLAG_NO_PP \
+                                                    | MOVE_STATUS_FLAG_GENERAL_FAILURE)
 
 
 // ========================================================================= //
@@ -261,6 +278,15 @@
 #define CONDITION_ALL_POISON_OFF    (CONDITION_POISON_ALL    ^ CONDITION_CLEAR)
 
 #define CONDITION_TOXIC_COUNT_START (0x00000100)
+
+// These are constants for the messages associated with each condition
+#define	MSG_COND_ASLEEP     (0)
+#define	MSG_COND_POISONED   (1)
+#define	MSG_COND_BURNED     (2)
+#define	MSG_COND_PARALYZED  (3)
+#define	MSG_COND_FROZEN     (4)
+#define	MSG_COND_CONFUSED   (5)
+#define	MSG_COND_INFATUATED (6)
 
 // These are volatile conditions: those which disappear upon switching.
 #define CONDITION_V_NONE            (0x00000000)

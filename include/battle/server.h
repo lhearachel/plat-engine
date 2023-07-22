@@ -675,6 +675,13 @@ int __attribute__((long_call)) Server_CheckAbility(struct Battle *battle, struct
 BOOL __attribute__((long_call)) Server_CheckDefenderAbility(struct BattleServer *server, int attacker, int defender, int ability);
 
 /**
+ * @brief Checks if a given battler is behind a Substitute.
+ * 
+ * Original function: 0x02259AC0 (ov16)
+ */
+BOOL __attribute__((long_call)) Server_CheckSubstitute(struct BattleServer *server, int battler);
+
+/**
  * @brief Gets the held item effect of a given active battler.
  * 
  * Original function: 0x02258AB8 (ov16)
@@ -692,6 +699,13 @@ s32 __attribute__((long_call)) Server_HeldItemEffect(struct BattleServer *server
  * - 2: Checks for Embargo before getting the item
  */
 s32 __attribute__((long_call)) Server_HeldItemPower(struct BattleServer *server, int battler, int flag);
+
+/**
+ * @brief Divide one value by another.
+ * 
+ * Original function: 0x022563F8 (ov16)
+ */
+int __attribute__((long_call)) Server_DivideBy(int numerator, int denominator);
 
 /**
  * @brief Checks how many hits occurred for the current move.
@@ -712,11 +726,26 @@ u8 __attribute__((long_call)) Server_HitCount(struct Battle *battle, struct Batt
 BOOL __attribute__((long_call)) Server_CheckTwoTurnMove(struct BattleServer *server, int moveID);
 
 /**
+ * @brief Load a sequence by its ID from a given archive.
+ * 
+ * This is used to queue up individual subscripts, mostly.
+ * 
+ * Original function: 0x02251E1C (ov16)
+ * 
+ * @param server
+ * @param archive   ID for a given script archive.
+ * @param id        ID of the script to load.
+ */
+void __attribute__((long_call)) Server_LoadSequence(struct BattleServer *server, int archive, int id);
+
+/**
  * @brief Gets a data value for a particular active battler.
  * 
  * Original function: 0x02252060 (ov16)
  */
 int __attribute__((long_call)) BattlePokemon_Get(struct BattleServer *server, int battler, int paramID, void *data);
+
+
 
 /**
  * @brief Initializes the battle server. This function is invoked at the start
@@ -748,5 +777,54 @@ BOOL __attribute__((long_call)) Calc_Critical(struct Battle *battle, struct Batt
  * Hooked into: 0x022558CC (ov16)
  */
 int  __attribute__((long_call)) Calc_TypeEffectivenessPower(u8 moveType, u8 pokeType1, u8 pokeType2);
+
+/**
+ * @brief Checks for abilities which trigger after a move deals damage.
+ * 
+ * Hooked into: 0x0225708C (ov16)
+ * 
+ * @param battle
+ * @param server
+ * @param seqNum Outputs the script sequence to next invoke, if any
+ * @return TRUE if a sequence needs to be loaded for follow-up, otherwise FALSE.
+ */
+BOOL __attribute__((long_call)) Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server, int *seqNum);
+
+/**
+ * @brief Check for King's Rock application.
+ * 
+ * Hooked into: 0x022512F8 (ov16)
+ * 
+ * @param battle
+ * @param server
+ * @return TRUE if King's Rock activates, otherwise FALSE.
+ */
+BOOL __attribute__((long_call)) Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server);
+
+/**
+ * @brief Check for abilities which alter the damaging properties of moves.
+ * 
+ * This is for stuff like Volt Absorb and Flash Fire.
+ * 
+ * Hooked into: 0x02256148 (ov16)
+ * 
+ * @param server
+ * @param attacker
+ * @param defender
+ * @return ID of the subscript to invoke next for the ability trigger, if any.
+ */
+int  __attribute__((long_call)) Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker, int defender);
+
+/**
+ * @brief Check for abilities which trigger at the end of the turn.
+ * 
+ * Hooked into: 0x022562E8 (ov16)
+ * 
+ * @param battle
+ * @param server
+ * @param battler
+ * @return TRUE if a subscript needs to be invoked, otherwise FALSE.
+ */
+BOOL __attribute__((long_call)) Server_CheckEndOfTurnAbility(struct Battle *battle, struct BattleServer *server, int battler);
 
 #endif // __BATTLE_SERVER_H

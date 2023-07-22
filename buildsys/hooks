@@ -1,5 +1,3 @@
-# This is empty for now; it will be filled in as functions are built
-
 # hooks jumps from the code to your code, overwriting 8-10 bytes of code to do so.  an example:
 #
 #   0002 AddWildPartyPokemon_hook 080029E0 5
@@ -35,3 +33,10 @@ arm9 Summary_Entry_Hook 08090A3A 1
 
 # Stealth Rock and switch AI call into the new type table
 0016 Calc_TypeEffectivenessPower 022558CC 3
+
+# On-Hit Checks for Ability Effects
+0016 Server_CheckAbilityOnHit 0225708C 3
+0016 BattleScrCmd_CheckLeaveWith1HP 02248660 2
+0016 Server_CheckExtraFlinch 022512F8 2
+0016 Server_CheckAbilityDamageOverride 02256148 3
+0016 Server_CheckEndOfTurnAbility 022562E8 3
