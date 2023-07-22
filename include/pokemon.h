@@ -522,6 +522,26 @@ BOOL __attribute__((long_call)) BoxPokemon_Lock(struct BoxPokemon *boxMon);
 BOOL __attribute__((long_call)) BoxPokemon_Unlock(struct BoxPokemon *boxMon, BOOL flag);
 
 /**
+ * @brief Allocate space for a new Pokemon on the given heap.
+ * 
+ * Original function: 0x02073C74 (arm9)
+ * 
+ * @param heapID
+ * @return              Pointer to the allocated Pokemon struct.
+ */
+struct Pokemon* __attribute__((long_call)) Pokemon_Alloc(u32 heapID);
+
+/**
+ * @brief Copies attributes from a BoxPokemon to a party Pokemon.
+ * 
+ * Original function: 0x020774C8 (arm9)
+ * 
+ * @param src           The BoxPokemon source data
+ * @param dst           An allocated Pokemon to receive the data
+ */
+void __attribute__((long_call)) Pokemon_FromBox(struct BoxPokemon *src, struct Pokemon *dst);
+
+/**
  * @brief Get data from the Pokemon structure.
  * 
  * Original Function: [`GetPkmnData @ 0x02074470` (ARM9)](https://github.com/JimB16/PokePlat/blob/ccbdf7ea8b08f23d3adcb6baa7d1f2b8dc24bbc1/source/arm9_pkmndata.s#L1198)
