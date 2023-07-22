@@ -28,10 +28,10 @@ struct DamageDealtToMon {
     int dealt[4];       // This is the amount of damage dealt to a given mon by each client
     int lastDamager;    // This is the *last* client that dealt damage to this mon
     int allDamagers;    // This is a mask of *all* clients that dealt damage to this mon
-};
+};  // size: 0x18
 
 struct __attribute__((packed)) SingleTurnEffects {
-    u32 struggling      :1,
+    u32 struggling      :1,                 // 0x00
         ppDecremented   :1,
         protected       :1,
         helpingHand     :1,
@@ -42,13 +42,13 @@ struct __attribute__((packed)) SingleTurnEffects {
         enduring        :1,
         _padding        :22;
 
-    struct DamageDealtToMon physDamage;
-    struct DamageDealtToMon specDamage;
+    struct DamageDealtToMon physDamage;     // 0x04
+    struct DamageDealtToMon specDamage;     // 0x1C
     
     int lastDamageDealt;    // This is for all damage types
     int lastDamagingClient;
     int assuranceDamageReceived;
-};
+};  // size: 0x40
 
 struct __attribute__((packed)) SelfSingleTurnEffects {
     u32 noPressure          :1, // this should normally be on
@@ -58,7 +58,7 @@ struct __attribute__((packed)) SelfSingleTurnEffects {
         trickRoom           :1,
         endureItem          :1,
         rolloutCount        :3,
-        _padding            :23;
+        _padding            :23;    // 0x00
     
     int physicalDamage;
     int physicalTarget;
@@ -66,7 +66,7 @@ struct __attribute__((packed)) SelfSingleTurnEffects {
     int specialTarget;
     int statusFlag;
     int shellBellDamage;
-};
+};  // size: 0x1C
 
 struct __attribute__((packed)) MoveFailedChecks {
     u32 fullyParalyzed      :1,
@@ -80,7 +80,7 @@ struct __attribute__((packed)) MoveFailedChecks {
         gravityActive       :1,
         healBlockActive     :1,
         _padding            :22;
-};
+};  // size: 0x04
 
 struct __attribute__((packed)) MoveEffects {
     u32 disabledTurns           :3,
@@ -129,7 +129,7 @@ struct __attribute__((packed)) MoveEffects {
     u16 transformedGender;
 
     int itemHPRestore;
-};
+};  // size: 0x0D
 
 struct __attribute__((packed)) BattlePokemon {
     u16 species;
@@ -206,25 +206,25 @@ struct __attribute__((packed)) BattlePokemon {
 };
 
 struct __attribute__((packed)) FieldConditionCounts {
-    u32 weatherTurns;
+    u32 weatherTurns;               // 0x00
 
-    u8  futureSightTurns[4];
-    u8  wishTurns[4];
+    u8  futureSightTurns[4];        // 0x04
+    u8  wishTurns[4];               // 0x08
 
-    u16 futureSightMoveID[4];
-    int futureSightAttacker[4];
-    s32 futureSightDamage[4];
+    u16 futureSightMoveID[4];       // 0x0C
+    int futureSightAttacker[4];     // 0x14
+    s32 futureSightDamage[4];       // 0x24
 
-    u8  wishSelectedMon[4];
-};
+    u8  wishSelectedMon[4];         // 0x34
+};  // size: 0x38
 
 struct __attribute__((packed)) FieldConditions {
-    u32 raw;
-    struct FieldConditionCounts counts;
-};
+    u32 raw;                                // 0x00
+    struct FieldConditionCounts counts;     // 0x04
+};  // size: 0x3C
 
 struct __attribute__((packed)) SideConditionCounts {
-    u32 reflectUser         :2,
+    u32 reflectUser         :2,     // 0x00
         reflectTurns        :3,
         lightScreenUser     :2,
         lightScreenTurns    :3,
@@ -237,15 +237,15 @@ struct __attribute__((packed)) SideConditionCounts {
         knockedOffItemID    :6,
         tailwindTurns       :3;
     
-    u32 spikesLayers        :2,
+    u32 spikesLayers        :2,     // 0x04
         toxicSpikesLayers   :2,
         _padding            :28;
-};
+};  // size: 0x08
 
 struct __attribute__((packed)) SideConditions {
-    u32 raw[2];
-    struct SideConditionCounts counts[2];
-};
+    u32 raw[2];                             // 0x00
+    struct SideConditionCounts counts[2];   // 0x08
+};  // size: 0x18
 
 struct __attribute__((packed)) SeqAndCheck {
     int     seqNum;
@@ -253,13 +253,13 @@ struct __attribute__((packed)) SeqAndCheck {
 };
 
 struct __attribute__((packed)) MessageParams {
-    u8  commandCode;
-    u8  tag;
-    u16 id;
-    int params[6];
-    int digits;
-    int client;
-};
+    u8  commandCode;    // 0x00
+    u8  tag;            // 0x01
+    u16 id;             // 0x02
+    int params[6];      // 0x04
+    int digits;         // 0x1C
+    int client;         // 0x20
+};  // size: 0x24
 
 // This struct needs to be hella-investigated still
 // mostly just what the fields actually are and do,
@@ -311,90 +311,90 @@ struct __attribute__((packed)) AIWork {
 };
 
 struct __attribute__((packed)) BattleServer {
-    u8      comSeqNum[4];
-    u8      retSeqNum[4];
-    int     serverSeqNum;
-    int     serverSeqNext;
+/* 0x0000 */  u8      comSeqNum[4];
+/* 0x0004 */  u8      retSeqNum[4];
+/* 0x0008 */  int     serverSeqNum;
+/* 0x000C */  int     serverSeqNext;
 
-    struct SeqAndCheck fieldConditionCheck;
-    struct SeqAndCheck pokeConditionCheck;
-    struct SeqAndCheck sideConditionCheck;
-    struct SeqAndCheck beforeActions;
-    struct SeqAndCheck afterMoveHitCheck;
+/* 0x0010 */  struct SeqAndCheck fieldConditionCheck;
+/* 0x0018 */  struct SeqAndCheck pokeConditionCheck;
+/* 0x0020 */  struct SeqAndCheck sideConditionCheck;
+/* 0x0028 */  struct SeqAndCheck beforeActions;
+/* 0x0030 */  struct SeqAndCheck afterMoveHitCheck;
 
-    int     afterMoveFailMessageType;
-    int     afterMoveFailMessageSeqNum;
+/* 0x0038 */  int     afterMoveFailMessageType;
+/* 0x003C */  int     afterMoveFailMessageSeqNum;
 
-    struct SeqAndCheck afterMoveFailEffects;
+/* 0x0040 */  struct SeqAndCheck afterMoveFailEffects;
 
-    int     beforeMoveSeq;
-    int     moveFailCheckSeq;
-    int     serverStatusCheckSeq;
-    int     serverAbilityCheckSeq;
-    int     serverPokemonFormCheckSeq;
-    int     serverVanishCheckTemp;
+/* 0x0048 */  int     beforeMoveSeq;
+/* 0x004C */  int     moveFailCheckSeq;
+/* 0x0050 */  int     serverStatusCheckSeq;
+/* 0x0054 */  int     serverAbilityCheckSeq;
+/* 0x0058 */  int     serverPokemonFormCheckSeq;
+/* 0x005C */  int     serverVanishCheckTemp;
 
-    int     moveSeqAddress;
-    int     attacker;
-    int     attackerTemp;
-    int     defender;
-    int     defenderTemp;
-    int     faintingClient;
-    int     switchingClient;
-    int     switchingClientTemp;
-    int     abilityCheckClient;
-    int     magicCoatClient;
+/* 0x0060 */  int     moveSeqAddress;
+/* 0x0064 */  int     attacker;
+/* 0x0068 */  int     attackerTemp;
+/* 0x006C */  int     defender;
+/* 0x0070 */  int     defenderTemp;
+/* 0x0074 */  int     faintingClient;
+/* 0x0078 */  int     switchingClient;
+/* 0x007C */  int     switchingClientTemp;
+/* 0x0080 */  int     abilityCheckClient;
+/* 0x0084 */  int     magicCoatClient;
 
-    int     addlEffectType;
-    int     addlEffectParam;
-    int     addlEffectFlags;
-    int     addlEffectClient;
+/* 0x0088 */  int     addlEffectType;
+/* 0x008C */  int     addlEffectParam;
+/* 0x0090 */  int     addlEffectFlags;
+/* 0x0094 */  int     addlEffectClient;
 
-    int     clientStorage;
+/* 0x0098 */  int     clientStorage;
 
-    int     expGained;
-    int     extraExpGained;
-    u32     monsGainingExp[2];
+/* 0x009C */  int     expGained;
+/* 0x00A0 */  int     extraExpGained;
+/* 0x00A4 */  u32     monsGainingExp[2];
 
-    int     moveSeqArchive;     // which archive to load from
-    int     moveSeqIndex;       // which sequence to load
-    int     moveSeqNum;         // where we are in the sequence
+/* 0x00AC */  int     moveSeqArchive;     // which archive to load from
+/* 0x00B0 */  int     moveSeqIndex;       // which sequence to load
+/* 0x00B4 */  int     moveSeqNum;         // where we are in the sequence
 
-    int     stackPtr;
-    int     stackPtrMoveSeqArchive[4];
-    int     stackPtrMoveSeqIndex[4];
-    int     stackPtrMoveSeqNum[4];
+/* 0x00B8 */  int     stackPtr;
+/* 0x00BC */  int     stackPtrMoveSeqArchive[4];
+/* 0x00CC */  int     stackPtrMoveSeqIndex[4];
+/* 0x00DC */  int     stackPtrMoveSeqNum[4];
 
-    int     speedCount;
-    int     waitCount;
+/* 0x00EC */  int     speedCount;
+/* 0x00F0 */  int     waitCount;
 
-    struct MessageParams messageParams;
+/* 0x00F4 */  struct MessageParams messageParams;
 
-    int     clientWork;
-    int     attackerWork;
-    int     defenderWork;
-    int     moveWork;
-    int     itemWork;
-    int     abilityWork;
-    int     messageWork;
-    int     calcWork;
-    int     tempWork;
+/* 0x0118 */  int     clientWork;
+/* 0x011C */  int     attackerWork;
+/* 0x0120 */  int     defenderWork;
+/* 0x0124 */  int     moveWork;
+/* 0x0128 */  int     itemWork;
+/* 0x012C */  int     abilityWork;
+/* 0x0130 */  int     messageWork;
+/* 0x0134 */  int     calcWork;
+/* 0x0138 */  int     tempWork;
 
-    u32     clientStatus[4];
-    u32     payDayCount;
-    int     totalTurns;
-    int     totalDeaths[4];
-    int     totalDamage[4];
-    int     meFirstTotalTurnOrder;
+/* 0x013C */  u32     clientStatus[4];
+/* 0x014C */  u32     payDayCount;
+/* 0x0150 */  int     totalTurns;
+/* 0x0154 */  int     totalDeaths[4];
+/* 0x0164 */  int     totalDamage[4];
+/* 0x0174 */  int     meFirstTotalTurnOrder;
 
-    void *skillSequenceWork;    // TODO: document
-    void *work;
+/* 0x0178 */  void *skillSequenceWork;    // TODO: document
+/* 0x017C */  void *work;
 
-    struct FieldConditions       fieldConditions;
-    struct SideConditions        sideConditions;
-    struct SingleTurnEffects     stFX[4];
-    struct SelfSingleTurnEffects stSelfFX[4];
-    struct MoveFailedChecks      moveFailChecks[4];
+/* 0x0180 */  struct FieldConditions       fieldConditions;
+/* 0x01BC */  struct SideConditions        sideConditions;
+/* 0x01D4 */  struct SingleTurnEffects     stFX[4];
+/* 0x02D4 */  struct SelfSingleTurnEffects stSelfFX[4];
+/* 0x0334 */  struct MoveFailedChecks      moveFailChecks[4];
 
     struct AIWork aiWork;
     u32           *aiSeqWork;
@@ -408,7 +408,7 @@ struct __attribute__((packed)) BattleServer {
     int     criticalCount;
     BOOL    critical;
     int     movePower;      // stores the final power of a move (mostly important for variable power moves)
-    int     powerModifier; // stores any move-specific contextual damage multipliers (e.g. Revenge)
+    u32     powerModifier; // stores any move-specific contextual damage multipliers (e.g. Revenge)
     int     hpCalcWork;
     int     moveType;
     int     moveEffectCounter;
@@ -745,15 +745,6 @@ void __attribute__((long_call)) Server_LoadSequence(struct BattleServer *server,
  */
 int __attribute__((long_call)) BattlePokemon_Get(struct BattleServer *server, int battler, int paramID, void *data);
 
-
-
-/**
- * @brief Initializes the battle server. This function is invoked at the start
- * of battle, after the execution of each move, and at the end of the turn.
- * 
- * Hooked into: 0x022541C4 (ov16)
- */
-void __attribute__((long_call)) Server_InitState(struct BattleServer *server);
 
 /**
  * @brief Master damage calc function.

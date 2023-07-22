@@ -25,11 +25,10 @@ arm9 Summary_Entry_Hook 08090A3A 1
 #arm9 Pokemon_OverworldPoisonDamage 08054B04 2
 
 #0016 ClientCommand_Main 0225C0DC 2
-#0016 BattleScrCmd_Exec 022405FC 2
+0016 BattleScrCmd_Exec 022405FC 2
 
 0016 Calc_MoveDamage 02241374 2
 0016 Calc_Critical 0225AEE4 2
-0016 Server_InitState 022541C4 1
 
 # Stealth Rock and switch AI call into the new type table
 0016 Calc_TypeEffectivenessPower 022558CC 3

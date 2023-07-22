@@ -56,3 +56,11 @@
 
 # Low effort Fire Fang Wonder Guard glitch fix
 0016 0225B714 10 32
+
+# These two lines modify the server initialization routine that
+# runs at the start of each turn.
+#
+# These basically set the critical flag to 0 and the power modifier
+# to 4096 (1.0 in Q4.12 format).
+0016 022541D4 2C 50
+0016 022541E4 12 03
