@@ -279,7 +279,7 @@ int Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker,
 
     if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_VOLT_ABSORB)) {
         if (moveType == TYPE_ELECTRIC
-                && server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO == FALSE
+                && (server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) == FALSE
                 && attacker != defender) {
             server->hpCalcWork = Server_DivideBy(server->activePokemon[defender].maxHP, 4);
             nextScript = SUBSCR_ABILITY_HP_RESTORE;
@@ -287,7 +287,7 @@ int Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker,
     } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_WATER_ABSORB)
             || Server_CheckDefenderAbility(server, attacker, defender, ABILITY_DRY_SKIN)) {
         if (moveType == TYPE_WATER
-                && server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO == FALSE
+                && (server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) == FALSE
                 && attacker != defender) {
             server->hpCalcWork = Server_DivideBy(server->activePokemon[defender].maxHP, 4);
             nextScript = SUBSCR_ABILITY_HP_RESTORE;
@@ -295,7 +295,7 @@ int Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker,
     } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_FLASH_FIRE)) {
         if (moveType == TYPE_FIRE
                 && server->activePokemon[defender].condition & CONDITION_FROZEN == FALSE
-                && server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO == FALSE
+                && (server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) == FALSE
                 && attacker != defender) {
             nextScript = SUBSCR_FLASH_FIRE;
         }
@@ -305,7 +305,7 @@ int Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker,
         }
     } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_MOTOR_DRIVE)) {
         if (moveType == TYPE_ELECTRIC
-                && server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO == FALSE
+                && (server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) == FALSE
                 && attacker != defender) {
             nextScript = SUBSCR_MOTOR_DRIVE;
         }
