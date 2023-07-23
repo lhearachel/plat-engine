@@ -4,23 +4,27 @@
 
 #define SUMMARY_SCREEN_HEAP_ID  19
 
-typedef u32 (*PokemonDataFunc)(void*, int, void*);
-
 static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
 {
-    void *pokemon = Summary_GetPokemonData(summary);
+    void *maybeBoxMon = Summary_GetPokemonData(summary);
+    struct Pokemon *pokemon;
 
-    // Use a different data accessor for summary screens from a PC box
-    PokemonDataFunc dataFunc = &Pokemon_Get;
+    // If we're loading from the box, we need to copy the BoxPokemon
+    // into a full Pokemon so that its stats are calculated correctly.
+    // 
+    // https://github.com/lhearachel/plat-engine/issues/76
     if (summary->baseData->dataType == 2) {
-        dataFunc = &BoxPokemon_Get;
+        pokemon = Pokemon_Alloc(SUMMARY_SCREEN_HEAP_ID);
+        Pokemon_FromBox(maybeBoxMon, pokemon);
+    } else {
+        pokemon = maybeBoxMon;
     }
 
     int paramStart = MON_PARAM_MAX_HP;
 
     // Pokemon struct orders current HP before max HP, so need to handle mode == 0 as a special case
     if (mode == 0) {
-        summary->pokemonData.hp = (u16) dataFunc(pokemon, MON_PARAM_CURRENT_HP, NULL);
+        summary->pokemonData.hp = (u16) Pokemon_Get(pokemon, MON_PARAM_CURRENT_HP, NULL);
     } else {
         if (mode == 1) {
             paramStart = MON_PARAM_HP_EV;
@@ -28,16 +32,16 @@ static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
             paramStart = MON_PARAM_HP_IV;
         }
 
-        summary->pokemonData.hp = (u16) dataFunc(pokemon, paramStart, NULL);
+        summary->pokemonData.hp = (u16) Pokemon_Get(pokemon, paramStart, NULL);
     }
 
     // Pokemon struct orders all data parameters as such:
     // Attack -> Defense -> Speed -> SpAttack -> SpDefense
-    summary->pokemonData.attack    = (u16) dataFunc(pokemon, paramStart + 1, NULL);
-    summary->pokemonData.defense   = (u16) dataFunc(pokemon, paramStart + 2, NULL);
-    summary->pokemonData.speed     = (u16) dataFunc(pokemon, paramStart + 3, NULL);
-    summary->pokemonData.spAttack  = (u16) dataFunc(pokemon, paramStart + 4, NULL);
-    summary->pokemonData.spDefense = (u16) dataFunc(pokemon, paramStart + 5, NULL);
+    summary->pokemonData.attack    = (u16) Pokemon_Get(pokemon, paramStart + 1, NULL);
+    summary->pokemonData.defense   = (u16) Pokemon_Get(pokemon, paramStart + 2, NULL);
+    summary->pokemonData.speed     = (u16) Pokemon_Get(pokemon, paramStart + 3, NULL);
+    summary->pokemonData.spAttack  = (u16) Pokemon_Get(pokemon, paramStart + 4, NULL);
+    summary->pokemonData.spDefense = (u16) Pokemon_Get(pokemon, paramStart + 5, NULL);
 }
 
 // Components here are indices into the system font palette.
