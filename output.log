@@ -1,0 +1,2454 @@
+mkdir -p base
+mkdir -p build
+mkdir -p build/battle/scr/effscr build/battle/scr/movscr build/battle/scr/subscr
+mkdir -p build/msgdata
+mkdir -p build/itemtool
+mkdir -p build/zukan
+mkdir -p build/pokeicon
+mkdir -p build/poketool/personal/pl_personal build/poketool/personal/evo build/poketool/personal/wotbl
+mkdir -p build/narc/battle/skill
+mkdir -p build/narc/msgdata
+mkdir -p build/narc/itemtool
+mkdir -p build/narc/poketool/personal
+mkdir -p build/narc/resource/eng
+tools/ndstool -x rom.nds -9 base/arm9.bin -7 base/arm7.bin -y9 base/y9.bin -y base/y7.bin -d base/data -y base/overlay -t base/banner.bin -h base/header.bin
+Nintendo DS rom tool 2.1.2 - Jul 22 2023
+by Rafael Vuijk, Dave Murphy, Alexei Karpenko
+9i (null), 7i (null), unitcode 0
+✅ [4;37m[1;37mDecompiled ROM to /base[0m
+
+mkdir -p build build/field build/battle
+-e Compiling
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta -c src/overlay.c -o build/overlay.o
+mkdir -p build build/field build/battle
+-e Compiling
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta -c src/pokemon.c -o build/pokemon.o
+src/pokemon.c: In function 'Pokemon_IsNFE':
+src/pokemon.c:48:24: warning: unused parameter 'species' [-Wunused-parameter]
+   48 | BOOL Pokemon_IsNFE(u16 species, u32 form)
+      |                    ~~~~^~~~~~~
+src/pokemon.c:48:37: warning: unused parameter 'form' [-Wunused-parameter]
+   48 | BOOL Pokemon_IsNFE(u16 species, u32 form)
+      |                                 ~~~~^~~~
+src/pokemon.c: At top level:
+src/pokemon.c:17:12: warning: 'Pokemon_OverworldPoisonDamage' defined but not used [-Wunused-function]
+   17 | static int Pokemon_OverworldPoisonDamage(struct Party *party, u16 zoneID)
+      |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+mkdir -p build build/field build/battle
+-e Compiling
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta -c src/q412.c -o build/q412.o
+make: Warning: File 'src/summary.c' has modification time 59643 s in the future
+mkdir -p build build/field build/battle
+-e Compiling
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta -c src/summary.c -o build/summary.o
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-as -mthumb -I ./data -c asm/summary_screen.s -o build/summary_screen.d
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-as -mthumb -I ./data -c asm/thumb_help.s -o build/thumb_help.d
+asm/thumb_help.s: Assembler messages:
+asm/thumb_help.s: Warning: end of file not at end of a line; newline inserted
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-ld buildsys/rom.ld -T buildsys/linker.ld -o build/linked.o build/overlay.o build/pokemon.o build/q412.o build/summary.o build/summary_screen.d build/thumb_help.d
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-ld: warning: build/linked.o has a LOAD segment with RWX permissions
+cp buildsys/rom.ld buildsys/rom_gen.ld
+python3 scripts/generate_ld.py
+Generating linker script...
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-objcopy -O binary build/linked.o build/output.bin
+mkdir -p build build/field build/battle
+-e Compiling
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta -c src/battle/calc.c -o build/battle/calc.o
+src/battle/calc.c: In function 'Calc_ChainOffenseMods':
+src/battle/calc.c:877:24: warning: unused parameter 'defender' [-Wunused-parameter]
+  877 |     struct CalcParams *defender,
+      |     ~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/battle/calc.c: In function 'Calc_ChainDefenseMods':
+src/battle/calc.c:1087:24: warning: unused parameter 'attacker' [-Wunused-parameter]
+ 1087 |     struct CalcParams *attacker,
+      |     ~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/battle/calc.c:1090:8: warning: unused parameter 'moveType' [-Wunused-parameter]
+ 1090 |     u8 moveType,
+      |     ~~~^~~~~~~~
+src/battle/calc.c: In function 'Calc_TypeEffectivenessPower':
+src/battle/calc.c:1847:9: warning: case label value is less than minimum value for type [-Wswitch-outside-range]
+ 1847 |         case _NVEFF:    return 20;
+      |         ^~~~
+src/battle/calc.c:1848:9: warning: case label value is less than minimum value for type [-Wswitch-outside-range]
+ 1848 |         case     -2:    return 10;  // quad-resist
+      |         ^~~~
+mkdir -p build build/field build/battle
+-e Compiling
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta -c src/battle/client.c -o build/battle/client.o
+src/battle/client.c: In function 'ClientCommand_Main':
+src/battle/client.c:23:37: warning: array subscript <unknown> is outside array bounds of 'void (* const[0])(struct Battle *, struct BattleClient *)' [-Warray-bounds=]
+   23 |             gClientFunctionTable_New[commandCode - CLIENT_NUM_VANILLA_MESSAGES](battle, client);
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/battle/client.c:11:18: note: while referencing 'gClientFunctionTable_New'
+   11 | const ClientFunc gClientFunctionTable_New[] = {
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~
+mkdir -p build build/field build/battle
+-e Compiling
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta -c src/battle/moves.c -o build/battle/moves.o
+mkdir -p build build/field build/battle
+-e Compiling
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta -c src/battle/scrcmd.c -o build/battle/scrcmd.o
+src/battle/scrcmd.c: In function 'BattleScrCmd_CheckLeaveWith1HP':
+src/battle/scrcmd.c:65:53: warning: comparison of integer expressions of different signedness: 's32' {aka 'long int'} and 'u32' {aka 'long unsigned int'} [-Wsign-compare]
+   65 |             && server->activePokemon[battler].curHP == server->activePokemon[battler].maxHP) {
+      |                                                     ^~
+mkdir -p build build/field build/battle
+-e Compiling
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc -I ./include -mthumb -mno-thumb-interwork -mcpu=arm7tdmi -mtune=arm7tdmi -mno-long-calls -march=armv4t -Wall -Wextra -Os -fira-loop-pressure -fipa-pta -c src/battle/server.c -o build/battle/server.o
+src/battle/server.c: In function 'Server_CheckAbilityDamageOverride':
+src/battle/server.c:248:62: warning: suggest parentheses around comparison in operand of '&' [-Wparentheses]
+  248 |                 && server->activePokemon[defender].condition & CONDITION_FROZEN == FALSE
+      |                                                              ^
+src/battle/server.c: In function 'Server_CheckAbilityOnHit':
+src/battle/server.c:61:12: warning: this statement may fall through [-Wimplicit-fallthrough=]
+   61 |         if (server->activePokemon[server->defender].curHP
+      |            ^
+src/battle/server.c:73:5: note: here
+   73 |     case ABILITY_ROUGH_SKIN:
+      |     ^~~~
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-ld buildsys/rom_gen.ld -T buildsys/linker_battle.ld -o build/battle_linked.o build/battle/calc.o build/battle/client.o build/battle/moves.o build/battle/scrcmd.o build/battle/server.o  build/thumb_help.d
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-objcopy -O binary build/battle_linked.o build/output_battle.bin
+✅ [4;37m[1;37mCompiled C binaries from /src[0m
+
+python3 scripts/make.py
+Inserting code to base/overlay/overlay_0122.bin.
+Inserting code to base/overlay/overlay_0123.bin.
+✅ [4;37m[1;37mCompiled overlays and code hooks[0m
+
+tools/armips armips/global.s
+✅ [4;37m[1;37mCompiled ARM9 expansion and overlay table[0m
+
+tools/armips armips/asm/battle/effscr/effscr_000.s
+tools/armips armips/asm/battle/effscr/effscr_001.s
+tools/armips armips/asm/battle/effscr/effscr_002.s
+tools/armips armips/asm/battle/effscr/effscr_003.s
+tools/armips armips/asm/battle/effscr/effscr_004.s
+tools/armips armips/asm/battle/effscr/effscr_005.s
+tools/armips armips/asm/battle/effscr/effscr_006.s
+tools/armips armips/asm/battle/effscr/effscr_007.s
+tools/armips armips/asm/battle/effscr/effscr_008.s
+tools/armips armips/asm/battle/effscr/effscr_009.s
+tools/armips armips/asm/battle/effscr/effscr_010.s
+tools/armips armips/asm/battle/effscr/effscr_011.s
+tools/armips armips/asm/battle/effscr/effscr_012.s
+tools/armips armips/asm/battle/effscr/effscr_013.s
+tools/armips armips/asm/battle/effscr/effscr_014.s
+tools/armips armips/asm/battle/effscr/effscr_015.s
+tools/armips armips/asm/battle/effscr/effscr_016.s
+tools/armips armips/asm/battle/effscr/effscr_017.s
+tools/armips armips/asm/battle/effscr/effscr_018.s
+tools/armips armips/asm/battle/effscr/effscr_019.s
+tools/armips armips/asm/battle/effscr/effscr_020.s
+tools/armips armips/asm/battle/effscr/effscr_021.s
+tools/armips armips/asm/battle/effscr/effscr_022.s
+tools/armips armips/asm/battle/effscr/effscr_023.s
+tools/armips armips/asm/battle/effscr/effscr_024.s
+tools/armips armips/asm/battle/effscr/effscr_025.s
+tools/armips armips/asm/battle/effscr/effscr_026.s
+tools/armips armips/asm/battle/effscr/effscr_027.s
+tools/armips armips/asm/battle/effscr/effscr_028.s
+tools/armips armips/asm/battle/effscr/effscr_029.s
+tools/armips armips/asm/battle/effscr/effscr_030.s
+tools/armips armips/asm/battle/effscr/effscr_031.s
+tools/armips armips/asm/battle/effscr/effscr_032.s
+tools/armips armips/asm/battle/effscr/effscr_033.s
+tools/armips armips/asm/battle/effscr/effscr_034.s
+tools/armips armips/asm/battle/effscr/effscr_035.s
+tools/armips armips/asm/battle/effscr/effscr_036.s
+tools/armips armips/asm/battle/effscr/effscr_037.s
+tools/armips armips/asm/battle/effscr/effscr_038.s
+tools/armips armips/asm/battle/effscr/effscr_039.s
+tools/armips armips/asm/battle/effscr/effscr_040.s
+tools/armips armips/asm/battle/effscr/effscr_041.s
+tools/armips armips/asm/battle/effscr/effscr_042.s
+tools/armips armips/asm/battle/effscr/effscr_043.s
+tools/armips armips/asm/battle/effscr/effscr_044.s
+tools/armips armips/asm/battle/effscr/effscr_045.s
+tools/armips armips/asm/battle/effscr/effscr_046.s
+tools/armips armips/asm/battle/effscr/effscr_047.s
+tools/armips armips/asm/battle/effscr/effscr_048.s
+tools/armips armips/asm/battle/effscr/effscr_049.s
+tools/armips armips/asm/battle/effscr/effscr_050.s
+tools/armips armips/asm/battle/effscr/effscr_051.s
+tools/armips armips/asm/battle/effscr/effscr_052.s
+tools/armips armips/asm/battle/effscr/effscr_053.s
+tools/armips armips/asm/battle/effscr/effscr_054.s
+tools/armips armips/asm/battle/effscr/effscr_055.s
+tools/armips armips/asm/battle/effscr/effscr_056.s
+tools/armips armips/asm/battle/effscr/effscr_057.s
+tools/armips armips/asm/battle/effscr/effscr_058.s
+tools/armips armips/asm/battle/effscr/effscr_059.s
+tools/armips armips/asm/battle/effscr/effscr_060.s
+tools/armips armips/asm/battle/effscr/effscr_061.s
+tools/armips armips/asm/battle/effscr/effscr_062.s
+tools/armips armips/asm/battle/effscr/effscr_063.s
+tools/armips armips/asm/battle/effscr/effscr_064.s
+tools/armips armips/asm/battle/effscr/effscr_065.s
+tools/armips armips/asm/battle/effscr/effscr_066.s
+tools/armips armips/asm/battle/effscr/effscr_067.s
+tools/armips armips/asm/battle/effscr/effscr_068.s
+tools/armips armips/asm/battle/effscr/effscr_069.s
+tools/armips armips/asm/battle/effscr/effscr_070.s
+tools/armips armips/asm/battle/effscr/effscr_071.s
+tools/armips armips/asm/battle/effscr/effscr_072.s
+tools/armips armips/asm/battle/effscr/effscr_073.s
+tools/armips armips/asm/battle/effscr/effscr_074.s
+tools/armips armips/asm/battle/effscr/effscr_075.s
+tools/armips armips/asm/battle/effscr/effscr_076.s
+tools/armips armips/asm/battle/effscr/effscr_077.s
+tools/armips armips/asm/battle/effscr/effscr_078.s
+tools/armips armips/asm/battle/effscr/effscr_079.s
+tools/armips armips/asm/battle/effscr/effscr_080.s
+tools/armips armips/asm/battle/effscr/effscr_081.s
+tools/armips armips/asm/battle/effscr/effscr_082.s
+tools/armips armips/asm/battle/effscr/effscr_083.s
+tools/armips armips/asm/battle/effscr/effscr_084.s
+tools/armips armips/asm/battle/effscr/effscr_085.s
+tools/armips armips/asm/battle/effscr/effscr_086.s
+tools/armips armips/asm/battle/effscr/effscr_087.s
+tools/armips armips/asm/battle/effscr/effscr_088.s
+tools/armips armips/asm/battle/effscr/effscr_089.s
+tools/armips armips/asm/battle/effscr/effscr_090.s
+tools/armips armips/asm/battle/effscr/effscr_091.s
+tools/armips armips/asm/battle/effscr/effscr_092.s
+tools/armips armips/asm/battle/effscr/effscr_093.s
+tools/armips armips/asm/battle/effscr/effscr_094.s
+tools/armips armips/asm/battle/effscr/effscr_095.s
+tools/armips armips/asm/battle/effscr/effscr_096.s
+tools/armips armips/asm/battle/effscr/effscr_097.s
+tools/armips armips/asm/battle/effscr/effscr_098.s
+tools/armips armips/asm/battle/effscr/effscr_099.s
+tools/armips armips/asm/battle/effscr/effscr_100.s
+tools/armips armips/asm/battle/effscr/effscr_101.s
+tools/armips armips/asm/battle/effscr/effscr_102.s
+tools/armips armips/asm/battle/effscr/effscr_103.s
+tools/armips armips/asm/battle/effscr/effscr_104.s
+tools/armips armips/asm/battle/effscr/effscr_105.s
+tools/armips armips/asm/battle/effscr/effscr_106.s
+tools/armips armips/asm/battle/effscr/effscr_107.s
+tools/armips armips/asm/battle/effscr/effscr_108.s
+tools/armips armips/asm/battle/effscr/effscr_109.s
+tools/armips armips/asm/battle/effscr/effscr_110.s
+tools/armips armips/asm/battle/effscr/effscr_111.s
+tools/armips armips/asm/battle/effscr/effscr_112.s
+tools/armips armips/asm/battle/effscr/effscr_113.s
+tools/armips armips/asm/battle/effscr/effscr_114.s
+tools/armips armips/asm/battle/effscr/effscr_115.s
+tools/armips armips/asm/battle/effscr/effscr_116.s
+tools/armips armips/asm/battle/effscr/effscr_117.s
+tools/armips armips/asm/battle/effscr/effscr_118.s
+tools/armips armips/asm/battle/effscr/effscr_119.s
+tools/armips armips/asm/battle/effscr/effscr_120.s
+tools/armips armips/asm/battle/effscr/effscr_121.s
+tools/armips armips/asm/battle/effscr/effscr_122.s
+tools/armips armips/asm/battle/effscr/effscr_123.s
+tools/armips armips/asm/battle/effscr/effscr_124.s
+tools/armips armips/asm/battle/effscr/effscr_125.s
+tools/armips armips/asm/battle/effscr/effscr_126.s
+tools/armips armips/asm/battle/effscr/effscr_127.s
+tools/armips armips/asm/battle/effscr/effscr_128.s
+tools/armips armips/asm/battle/effscr/effscr_129.s
+tools/armips armips/asm/battle/effscr/effscr_130.s
+tools/armips armips/asm/battle/effscr/effscr_131.s
+tools/armips armips/asm/battle/effscr/effscr_132.s
+tools/armips armips/asm/battle/effscr/effscr_133.s
+tools/armips armips/asm/battle/effscr/effscr_134.s
+tools/armips armips/asm/battle/effscr/effscr_135.s
+tools/armips armips/asm/battle/effscr/effscr_136.s
+tools/armips armips/asm/battle/effscr/effscr_137.s
+tools/armips armips/asm/battle/effscr/effscr_138.s
+tools/armips armips/asm/battle/effscr/effscr_139.s
+tools/armips armips/asm/battle/effscr/effscr_140.s
+tools/armips armips/asm/battle/effscr/effscr_141.s
+tools/armips armips/asm/battle/effscr/effscr_142.s
+tools/armips armips/asm/battle/effscr/effscr_143.s
+tools/armips armips/asm/battle/effscr/effscr_144.s
+tools/armips armips/asm/battle/effscr/effscr_145.s
+tools/armips armips/asm/battle/effscr/effscr_146.s
+tools/armips armips/asm/battle/effscr/effscr_147.s
+tools/armips armips/asm/battle/effscr/effscr_148.s
+tools/armips armips/asm/battle/effscr/effscr_149.s
+tools/armips armips/asm/battle/effscr/effscr_150.s
+tools/armips armips/asm/battle/effscr/effscr_151.s
+tools/armips armips/asm/battle/effscr/effscr_152.s
+tools/armips armips/asm/battle/effscr/effscr_153.s
+tools/armips armips/asm/battle/effscr/effscr_154.s
+tools/armips armips/asm/battle/effscr/effscr_155.s
+tools/armips armips/asm/battle/effscr/effscr_156.s
+tools/armips armips/asm/battle/effscr/effscr_157.s
+tools/armips armips/asm/battle/effscr/effscr_158.s
+tools/armips armips/asm/battle/effscr/effscr_159.s
+tools/armips armips/asm/battle/effscr/effscr_160.s
+tools/armips armips/asm/battle/effscr/effscr_161.s
+tools/armips armips/asm/battle/effscr/effscr_162.s
+tools/armips armips/asm/battle/effscr/effscr_163.s
+tools/armips armips/asm/battle/effscr/effscr_164.s
+tools/armips armips/asm/battle/effscr/effscr_165.s
+tools/armips armips/asm/battle/effscr/effscr_166.s
+tools/armips armips/asm/battle/effscr/effscr_167.s
+tools/armips armips/asm/battle/effscr/effscr_168.s
+tools/armips armips/asm/battle/effscr/effscr_169.s
+tools/armips armips/asm/battle/effscr/effscr_170.s
+tools/armips armips/asm/battle/effscr/effscr_171.s
+tools/armips armips/asm/battle/effscr/effscr_172.s
+tools/armips armips/asm/battle/effscr/effscr_173.s
+tools/armips armips/asm/battle/effscr/effscr_174.s
+tools/armips armips/asm/battle/effscr/effscr_175.s
+tools/armips armips/asm/battle/effscr/effscr_176.s
+tools/armips armips/asm/battle/effscr/effscr_177.s
+tools/armips armips/asm/battle/effscr/effscr_178.s
+tools/armips armips/asm/battle/effscr/effscr_179.s
+tools/armips armips/asm/battle/effscr/effscr_180.s
+tools/armips armips/asm/battle/effscr/effscr_181.s
+tools/armips armips/asm/battle/effscr/effscr_182.s
+tools/armips armips/asm/battle/effscr/effscr_183.s
+tools/armips armips/asm/battle/effscr/effscr_184.s
+tools/armips armips/asm/battle/effscr/effscr_185.s
+tools/armips armips/asm/battle/effscr/effscr_186.s
+tools/armips armips/asm/battle/effscr/effscr_187.s
+tools/armips armips/asm/battle/effscr/effscr_188.s
+tools/armips armips/asm/battle/effscr/effscr_189.s
+tools/armips armips/asm/battle/effscr/effscr_190.s
+tools/armips armips/asm/battle/effscr/effscr_191.s
+tools/armips armips/asm/battle/effscr/effscr_192.s
+tools/armips armips/asm/battle/effscr/effscr_193.s
+tools/armips armips/asm/battle/effscr/effscr_194.s
+tools/armips armips/asm/battle/effscr/effscr_195.s
+tools/armips armips/asm/battle/effscr/effscr_196.s
+tools/armips armips/asm/battle/effscr/effscr_197.s
+tools/armips armips/asm/battle/effscr/effscr_198.s
+tools/armips armips/asm/battle/effscr/effscr_199.s
+tools/armips armips/asm/battle/effscr/effscr_200.s
+tools/armips armips/asm/battle/effscr/effscr_201.s
+tools/armips armips/asm/battle/effscr/effscr_202.s
+tools/armips armips/asm/battle/effscr/effscr_203.s
+tools/armips armips/asm/battle/effscr/effscr_204.s
+tools/armips armips/asm/battle/effscr/effscr_205.s
+tools/armips armips/asm/battle/effscr/effscr_206.s
+tools/armips armips/asm/battle/effscr/effscr_207.s
+tools/armips armips/asm/battle/effscr/effscr_208.s
+tools/armips armips/asm/battle/effscr/effscr_209.s
+tools/armips armips/asm/battle/effscr/effscr_210.s
+tools/armips armips/asm/battle/effscr/effscr_211.s
+tools/armips armips/asm/battle/effscr/effscr_212.s
+tools/armips armips/asm/battle/effscr/effscr_213.s
+tools/armips armips/asm/battle/effscr/effscr_214.s
+tools/armips armips/asm/battle/effscr/effscr_215.s
+tools/armips armips/asm/battle/effscr/effscr_216.s
+tools/armips armips/asm/battle/effscr/effscr_217.s
+tools/armips armips/asm/battle/effscr/effscr_218.s
+tools/armips armips/asm/battle/effscr/effscr_219.s
+tools/armips armips/asm/battle/effscr/effscr_220.s
+tools/armips armips/asm/battle/effscr/effscr_221.s
+tools/armips armips/asm/battle/effscr/effscr_222.s
+tools/armips armips/asm/battle/effscr/effscr_223.s
+tools/armips armips/asm/battle/effscr/effscr_224.s
+tools/armips armips/asm/battle/effscr/effscr_225.s
+tools/armips armips/asm/battle/effscr/effscr_226.s
+tools/armips armips/asm/battle/effscr/effscr_227.s
+tools/armips armips/asm/battle/effscr/effscr_228.s
+tools/armips armips/asm/battle/effscr/effscr_229.s
+tools/armips armips/asm/battle/effscr/effscr_230.s
+tools/armips armips/asm/battle/effscr/effscr_231.s
+tools/armips armips/asm/battle/effscr/effscr_232.s
+tools/armips armips/asm/battle/effscr/effscr_233.s
+tools/armips armips/asm/battle/effscr/effscr_234.s
+tools/armips armips/asm/battle/effscr/effscr_235.s
+tools/armips armips/asm/battle/effscr/effscr_236.s
+tools/armips armips/asm/battle/effscr/effscr_237.s
+tools/armips armips/asm/battle/effscr/effscr_238.s
+tools/armips armips/asm/battle/effscr/effscr_239.s
+tools/armips armips/asm/battle/effscr/effscr_240.s
+tools/armips armips/asm/battle/effscr/effscr_241.s
+tools/armips armips/asm/battle/effscr/effscr_242.s
+tools/armips armips/asm/battle/effscr/effscr_243.s
+tools/armips armips/asm/battle/effscr/effscr_244.s
+tools/armips armips/asm/battle/effscr/effscr_245.s
+tools/armips armips/asm/battle/effscr/effscr_246.s
+tools/armips armips/asm/battle/effscr/effscr_247.s
+tools/armips armips/asm/battle/effscr/effscr_248.s
+tools/armips armips/asm/battle/effscr/effscr_249.s
+tools/armips armips/asm/battle/effscr/effscr_250.s
+tools/armips armips/asm/battle/effscr/effscr_251.s
+tools/armips armips/asm/battle/effscr/effscr_252.s
+tools/armips armips/asm/battle/effscr/effscr_253.s
+tools/armips armips/asm/battle/effscr/effscr_254.s
+tools/armips armips/asm/battle/effscr/effscr_255.s
+tools/armips armips/asm/battle/effscr/effscr_256.s
+tools/armips armips/asm/battle/effscr/effscr_257.s
+tools/armips armips/asm/battle/effscr/effscr_258.s
+tools/armips armips/asm/battle/effscr/effscr_259.s
+tools/armips armips/asm/battle/effscr/effscr_260.s
+tools/armips armips/asm/battle/effscr/effscr_261.s
+tools/armips armips/asm/battle/effscr/effscr_262.s
+tools/armips armips/asm/battle/effscr/effscr_263.s
+tools/armips armips/asm/battle/effscr/effscr_264.s
+tools/armips armips/asm/battle/effscr/effscr_265.s
+tools/armips armips/asm/battle/effscr/effscr_266.s
+tools/armips armips/asm/battle/effscr/effscr_267.s
+tools/armips armips/asm/battle/effscr/effscr_268.s
+tools/armips armips/asm/battle/effscr/effscr_269.s
+tools/armips armips/asm/battle/effscr/effscr_270.s
+tools/armips armips/asm/battle/effscr/effscr_271.s
+tools/armips armips/asm/battle/effscr/effscr_272.s
+tools/armips armips/asm/battle/effscr/effscr_273.s
+tools/armips armips/asm/battle/effscr/effscr_274.s
+tools/armips armips/asm/battle/effscr/effscr_275.s
+tools/armips armips/asm/battle/effscr/effscr_276.s
+python3 tools/narcpy.py create build/narc/battle/skill/be_seq.narc build/battle/scr/effscr -nf
+tools/armips armips/asm/battle/movscr/movscr_000.s
+tools/armips armips/asm/battle/movscr/movscr_001.s
+tools/armips armips/asm/battle/movscr/movscr_002.s
+tools/armips armips/asm/battle/movscr/movscr_003.s
+tools/armips armips/asm/battle/movscr/movscr_004.s
+tools/armips armips/asm/battle/movscr/movscr_005.s
+tools/armips armips/asm/battle/movscr/movscr_006.s
+tools/armips armips/asm/battle/movscr/movscr_007.s
+tools/armips armips/asm/battle/movscr/movscr_008.s
+tools/armips armips/asm/battle/movscr/movscr_009.s
+tools/armips armips/asm/battle/movscr/movscr_010.s
+tools/armips armips/asm/battle/movscr/movscr_011.s
+tools/armips armips/asm/battle/movscr/movscr_012.s
+tools/armips armips/asm/battle/movscr/movscr_013.s
+tools/armips armips/asm/battle/movscr/movscr_014.s
+tools/armips armips/asm/battle/movscr/movscr_015.s
+tools/armips armips/asm/battle/movscr/movscr_016.s
+tools/armips armips/asm/battle/movscr/movscr_017.s
+tools/armips armips/asm/battle/movscr/movscr_018.s
+tools/armips armips/asm/battle/movscr/movscr_019.s
+tools/armips armips/asm/battle/movscr/movscr_020.s
+tools/armips armips/asm/battle/movscr/movscr_021.s
+tools/armips armips/asm/battle/movscr/movscr_022.s
+tools/armips armips/asm/battle/movscr/movscr_023.s
+tools/armips armips/asm/battle/movscr/movscr_024.s
+tools/armips armips/asm/battle/movscr/movscr_025.s
+tools/armips armips/asm/battle/movscr/movscr_026.s
+tools/armips armips/asm/battle/movscr/movscr_027.s
+tools/armips armips/asm/battle/movscr/movscr_028.s
+tools/armips armips/asm/battle/movscr/movscr_029.s
+tools/armips armips/asm/battle/movscr/movscr_030.s
+tools/armips armips/asm/battle/movscr/movscr_031.s
+tools/armips armips/asm/battle/movscr/movscr_032.s
+tools/armips armips/asm/battle/movscr/movscr_033.s
+tools/armips armips/asm/battle/movscr/movscr_034.s
+tools/armips armips/asm/battle/movscr/movscr_035.s
+tools/armips armips/asm/battle/movscr/movscr_036.s
+tools/armips armips/asm/battle/movscr/movscr_037.s
+tools/armips armips/asm/battle/movscr/movscr_038.s
+tools/armips armips/asm/battle/movscr/movscr_039.s
+tools/armips armips/asm/battle/movscr/movscr_040.s
+tools/armips armips/asm/battle/movscr/movscr_041.s
+tools/armips armips/asm/battle/movscr/movscr_042.s
+tools/armips armips/asm/battle/movscr/movscr_043.s
+tools/armips armips/asm/battle/movscr/movscr_044.s
+tools/armips armips/asm/battle/movscr/movscr_045.s
+tools/armips armips/asm/battle/movscr/movscr_046.s
+tools/armips armips/asm/battle/movscr/movscr_047.s
+tools/armips armips/asm/battle/movscr/movscr_048.s
+tools/armips armips/asm/battle/movscr/movscr_049.s
+tools/armips armips/asm/battle/movscr/movscr_050.s
+tools/armips armips/asm/battle/movscr/movscr_051.s
+tools/armips armips/asm/battle/movscr/movscr_052.s
+tools/armips armips/asm/battle/movscr/movscr_053.s
+tools/armips armips/asm/battle/movscr/movscr_054.s
+tools/armips armips/asm/battle/movscr/movscr_055.s
+tools/armips armips/asm/battle/movscr/movscr_056.s
+tools/armips armips/asm/battle/movscr/movscr_057.s
+tools/armips armips/asm/battle/movscr/movscr_058.s
+tools/armips armips/asm/battle/movscr/movscr_059.s
+tools/armips armips/asm/battle/movscr/movscr_060.s
+tools/armips armips/asm/battle/movscr/movscr_061.s
+tools/armips armips/asm/battle/movscr/movscr_062.s
+tools/armips armips/asm/battle/movscr/movscr_063.s
+tools/armips armips/asm/battle/movscr/movscr_064.s
+tools/armips armips/asm/battle/movscr/movscr_065.s
+tools/armips armips/asm/battle/movscr/movscr_066.s
+tools/armips armips/asm/battle/movscr/movscr_067.s
+tools/armips armips/asm/battle/movscr/movscr_068.s
+tools/armips armips/asm/battle/movscr/movscr_069.s
+tools/armips armips/asm/battle/movscr/movscr_070.s
+tools/armips armips/asm/battle/movscr/movscr_071.s
+tools/armips armips/asm/battle/movscr/movscr_072.s
+tools/armips armips/asm/battle/movscr/movscr_073.s
+tools/armips armips/asm/battle/movscr/movscr_074.s
+tools/armips armips/asm/battle/movscr/movscr_075.s
+tools/armips armips/asm/battle/movscr/movscr_076.s
+tools/armips armips/asm/battle/movscr/movscr_077.s
+tools/armips armips/asm/battle/movscr/movscr_078.s
+tools/armips armips/asm/battle/movscr/movscr_079.s
+tools/armips armips/asm/battle/movscr/movscr_080.s
+tools/armips armips/asm/battle/movscr/movscr_081.s
+tools/armips armips/asm/battle/movscr/movscr_082.s
+tools/armips armips/asm/battle/movscr/movscr_083.s
+tools/armips armips/asm/battle/movscr/movscr_084.s
+tools/armips armips/asm/battle/movscr/movscr_085.s
+tools/armips armips/asm/battle/movscr/movscr_086.s
+tools/armips armips/asm/battle/movscr/movscr_087.s
+tools/armips armips/asm/battle/movscr/movscr_088.s
+tools/armips armips/asm/battle/movscr/movscr_089.s
+tools/armips armips/asm/battle/movscr/movscr_090.s
+tools/armips armips/asm/battle/movscr/movscr_091.s
+tools/armips armips/asm/battle/movscr/movscr_092.s
+tools/armips armips/asm/battle/movscr/movscr_093.s
+tools/armips armips/asm/battle/movscr/movscr_094.s
+tools/armips armips/asm/battle/movscr/movscr_095.s
+tools/armips armips/asm/battle/movscr/movscr_096.s
+tools/armips armips/asm/battle/movscr/movscr_097.s
+tools/armips armips/asm/battle/movscr/movscr_098.s
+tools/armips armips/asm/battle/movscr/movscr_099.s
+tools/armips armips/asm/battle/movscr/movscr_100.s
+tools/armips armips/asm/battle/movscr/movscr_101.s
+tools/armips armips/asm/battle/movscr/movscr_102.s
+tools/armips armips/asm/battle/movscr/movscr_103.s
+tools/armips armips/asm/battle/movscr/movscr_104.s
+tools/armips armips/asm/battle/movscr/movscr_105.s
+tools/armips armips/asm/battle/movscr/movscr_106.s
+tools/armips armips/asm/battle/movscr/movscr_107.s
+tools/armips armips/asm/battle/movscr/movscr_108.s
+tools/armips armips/asm/battle/movscr/movscr_109.s
+tools/armips armips/asm/battle/movscr/movscr_110.s
+tools/armips armips/asm/battle/movscr/movscr_111.s
+tools/armips armips/asm/battle/movscr/movscr_112.s
+tools/armips armips/asm/battle/movscr/movscr_113.s
+tools/armips armips/asm/battle/movscr/movscr_114.s
+tools/armips armips/asm/battle/movscr/movscr_115.s
+tools/armips armips/asm/battle/movscr/movscr_116.s
+tools/armips armips/asm/battle/movscr/movscr_117.s
+tools/armips armips/asm/battle/movscr/movscr_118.s
+tools/armips armips/asm/battle/movscr/movscr_119.s
+tools/armips armips/asm/battle/movscr/movscr_120.s
+tools/armips armips/asm/battle/movscr/movscr_121.s
+tools/armips armips/asm/battle/movscr/movscr_122.s
+tools/armips armips/asm/battle/movscr/movscr_123.s
+tools/armips armips/asm/battle/movscr/movscr_124.s
+tools/armips armips/asm/battle/movscr/movscr_125.s
+tools/armips armips/asm/battle/movscr/movscr_126.s
+tools/armips armips/asm/battle/movscr/movscr_127.s
+tools/armips armips/asm/battle/movscr/movscr_128.s
+tools/armips armips/asm/battle/movscr/movscr_129.s
+tools/armips armips/asm/battle/movscr/movscr_130.s
+tools/armips armips/asm/battle/movscr/movscr_131.s
+tools/armips armips/asm/battle/movscr/movscr_132.s
+tools/armips armips/asm/battle/movscr/movscr_133.s
+tools/armips armips/asm/battle/movscr/movscr_134.s
+tools/armips armips/asm/battle/movscr/movscr_135.s
+tools/armips armips/asm/battle/movscr/movscr_136.s
+tools/armips armips/asm/battle/movscr/movscr_137.s
+tools/armips armips/asm/battle/movscr/movscr_138.s
+tools/armips armips/asm/battle/movscr/movscr_139.s
+tools/armips armips/asm/battle/movscr/movscr_140.s
+tools/armips armips/asm/battle/movscr/movscr_141.s
+tools/armips armips/asm/battle/movscr/movscr_142.s
+tools/armips armips/asm/battle/movscr/movscr_143.s
+tools/armips armips/asm/battle/movscr/movscr_144.s
+tools/armips armips/asm/battle/movscr/movscr_145.s
+tools/armips armips/asm/battle/movscr/movscr_146.s
+tools/armips armips/asm/battle/movscr/movscr_147.s
+tools/armips armips/asm/battle/movscr/movscr_148.s
+tools/armips armips/asm/battle/movscr/movscr_149.s
+tools/armips armips/asm/battle/movscr/movscr_150.s
+tools/armips armips/asm/battle/movscr/movscr_151.s
+tools/armips armips/asm/battle/movscr/movscr_152.s
+tools/armips armips/asm/battle/movscr/movscr_153.s
+tools/armips armips/asm/battle/movscr/movscr_154.s
+tools/armips armips/asm/battle/movscr/movscr_155.s
+tools/armips armips/asm/battle/movscr/movscr_156.s
+tools/armips armips/asm/battle/movscr/movscr_157.s
+tools/armips armips/asm/battle/movscr/movscr_158.s
+tools/armips armips/asm/battle/movscr/movscr_159.s
+tools/armips armips/asm/battle/movscr/movscr_160.s
+tools/armips armips/asm/battle/movscr/movscr_161.s
+tools/armips armips/asm/battle/movscr/movscr_162.s
+tools/armips armips/asm/battle/movscr/movscr_163.s
+tools/armips armips/asm/battle/movscr/movscr_164.s
+tools/armips armips/asm/battle/movscr/movscr_165.s
+tools/armips armips/asm/battle/movscr/movscr_166.s
+tools/armips armips/asm/battle/movscr/movscr_167.s
+tools/armips armips/asm/battle/movscr/movscr_168.s
+tools/armips armips/asm/battle/movscr/movscr_169.s
+tools/armips armips/asm/battle/movscr/movscr_170.s
+tools/armips armips/asm/battle/movscr/movscr_171.s
+tools/armips armips/asm/battle/movscr/movscr_172.s
+tools/armips armips/asm/battle/movscr/movscr_173.s
+tools/armips armips/asm/battle/movscr/movscr_174.s
+tools/armips armips/asm/battle/movscr/movscr_175.s
+tools/armips armips/asm/battle/movscr/movscr_176.s
+tools/armips armips/asm/battle/movscr/movscr_177.s
+tools/armips armips/asm/battle/movscr/movscr_178.s
+tools/armips armips/asm/battle/movscr/movscr_179.s
+tools/armips armips/asm/battle/movscr/movscr_180.s
+tools/armips armips/asm/battle/movscr/movscr_181.s
+tools/armips armips/asm/battle/movscr/movscr_182.s
+tools/armips armips/asm/battle/movscr/movscr_183.s
+tools/armips armips/asm/battle/movscr/movscr_184.s
+tools/armips armips/asm/battle/movscr/movscr_185.s
+tools/armips armips/asm/battle/movscr/movscr_186.s
+tools/armips armips/asm/battle/movscr/movscr_187.s
+tools/armips armips/asm/battle/movscr/movscr_188.s
+tools/armips armips/asm/battle/movscr/movscr_189.s
+tools/armips armips/asm/battle/movscr/movscr_190.s
+tools/armips armips/asm/battle/movscr/movscr_191.s
+tools/armips armips/asm/battle/movscr/movscr_192.s
+tools/armips armips/asm/battle/movscr/movscr_193.s
+tools/armips armips/asm/battle/movscr/movscr_194.s
+tools/armips armips/asm/battle/movscr/movscr_195.s
+tools/armips armips/asm/battle/movscr/movscr_196.s
+tools/armips armips/asm/battle/movscr/movscr_197.s
+tools/armips armips/asm/battle/movscr/movscr_198.s
+tools/armips armips/asm/battle/movscr/movscr_199.s
+tools/armips armips/asm/battle/movscr/movscr_200.s
+tools/armips armips/asm/battle/movscr/movscr_201.s
+tools/armips armips/asm/battle/movscr/movscr_202.s
+tools/armips armips/asm/battle/movscr/movscr_203.s
+tools/armips armips/asm/battle/movscr/movscr_204.s
+tools/armips armips/asm/battle/movscr/movscr_205.s
+tools/armips armips/asm/battle/movscr/movscr_206.s
+tools/armips armips/asm/battle/movscr/movscr_207.s
+tools/armips armips/asm/battle/movscr/movscr_208.s
+tools/armips armips/asm/battle/movscr/movscr_209.s
+tools/armips armips/asm/battle/movscr/movscr_210.s
+tools/armips armips/asm/battle/movscr/movscr_211.s
+tools/armips armips/asm/battle/movscr/movscr_212.s
+tools/armips armips/asm/battle/movscr/movscr_213.s
+tools/armips armips/asm/battle/movscr/movscr_214.s
+tools/armips armips/asm/battle/movscr/movscr_215.s
+tools/armips armips/asm/battle/movscr/movscr_216.s
+tools/armips armips/asm/battle/movscr/movscr_217.s
+tools/armips armips/asm/battle/movscr/movscr_218.s
+tools/armips armips/asm/battle/movscr/movscr_219.s
+tools/armips armips/asm/battle/movscr/movscr_220.s
+tools/armips armips/asm/battle/movscr/movscr_221.s
+tools/armips armips/asm/battle/movscr/movscr_222.s
+tools/armips armips/asm/battle/movscr/movscr_223.s
+tools/armips armips/asm/battle/movscr/movscr_224.s
+tools/armips armips/asm/battle/movscr/movscr_225.s
+tools/armips armips/asm/battle/movscr/movscr_226.s
+tools/armips armips/asm/battle/movscr/movscr_227.s
+tools/armips armips/asm/battle/movscr/movscr_228.s
+tools/armips armips/asm/battle/movscr/movscr_229.s
+tools/armips armips/asm/battle/movscr/movscr_230.s
+tools/armips armips/asm/battle/movscr/movscr_231.s
+tools/armips armips/asm/battle/movscr/movscr_232.s
+tools/armips armips/asm/battle/movscr/movscr_233.s
+tools/armips armips/asm/battle/movscr/movscr_234.s
+tools/armips armips/asm/battle/movscr/movscr_235.s
+tools/armips armips/asm/battle/movscr/movscr_236.s
+tools/armips armips/asm/battle/movscr/movscr_237.s
+tools/armips armips/asm/battle/movscr/movscr_238.s
+tools/armips armips/asm/battle/movscr/movscr_239.s
+tools/armips armips/asm/battle/movscr/movscr_240.s
+tools/armips armips/asm/battle/movscr/movscr_241.s
+tools/armips armips/asm/battle/movscr/movscr_242.s
+tools/armips armips/asm/battle/movscr/movscr_243.s
+tools/armips armips/asm/battle/movscr/movscr_244.s
+tools/armips armips/asm/battle/movscr/movscr_245.s
+tools/armips armips/asm/battle/movscr/movscr_246.s
+tools/armips armips/asm/battle/movscr/movscr_247.s
+tools/armips armips/asm/battle/movscr/movscr_248.s
+tools/armips armips/asm/battle/movscr/movscr_249.s
+tools/armips armips/asm/battle/movscr/movscr_250.s
+tools/armips armips/asm/battle/movscr/movscr_251.s
+tools/armips armips/asm/battle/movscr/movscr_252.s
+tools/armips armips/asm/battle/movscr/movscr_253.s
+tools/armips armips/asm/battle/movscr/movscr_254.s
+tools/armips armips/asm/battle/movscr/movscr_255.s
+tools/armips armips/asm/battle/movscr/movscr_256.s
+tools/armips armips/asm/battle/movscr/movscr_257.s
+tools/armips armips/asm/battle/movscr/movscr_258.s
+tools/armips armips/asm/battle/movscr/movscr_259.s
+tools/armips armips/asm/battle/movscr/movscr_260.s
+tools/armips armips/asm/battle/movscr/movscr_261.s
+tools/armips armips/asm/battle/movscr/movscr_262.s
+tools/armips armips/asm/battle/movscr/movscr_263.s
+tools/armips armips/asm/battle/movscr/movscr_264.s
+tools/armips armips/asm/battle/movscr/movscr_265.s
+tools/armips armips/asm/battle/movscr/movscr_266.s
+tools/armips armips/asm/battle/movscr/movscr_267.s
+tools/armips armips/asm/battle/movscr/movscr_268.s
+tools/armips armips/asm/battle/movscr/movscr_269.s
+tools/armips armips/asm/battle/movscr/movscr_270.s
+tools/armips armips/asm/battle/movscr/movscr_271.s
+tools/armips armips/asm/battle/movscr/movscr_272.s
+tools/armips armips/asm/battle/movscr/movscr_273.s
+tools/armips armips/asm/battle/movscr/movscr_274.s
+tools/armips armips/asm/battle/movscr/movscr_275.s
+tools/armips armips/asm/battle/movscr/movscr_276.s
+tools/armips armips/asm/battle/movscr/movscr_277.s
+tools/armips armips/asm/battle/movscr/movscr_278.s
+tools/armips armips/asm/battle/movscr/movscr_279.s
+tools/armips armips/asm/battle/movscr/movscr_280.s
+tools/armips armips/asm/battle/movscr/movscr_281.s
+tools/armips armips/asm/battle/movscr/movscr_282.s
+tools/armips armips/asm/battle/movscr/movscr_283.s
+tools/armips armips/asm/battle/movscr/movscr_284.s
+tools/armips armips/asm/battle/movscr/movscr_285.s
+tools/armips armips/asm/battle/movscr/movscr_286.s
+tools/armips armips/asm/battle/movscr/movscr_287.s
+tools/armips armips/asm/battle/movscr/movscr_288.s
+tools/armips armips/asm/battle/movscr/movscr_289.s
+tools/armips armips/asm/battle/movscr/movscr_290.s
+tools/armips armips/asm/battle/movscr/movscr_291.s
+tools/armips armips/asm/battle/movscr/movscr_292.s
+tools/armips armips/asm/battle/movscr/movscr_293.s
+tools/armips armips/asm/battle/movscr/movscr_294.s
+tools/armips armips/asm/battle/movscr/movscr_295.s
+tools/armips armips/asm/battle/movscr/movscr_296.s
+tools/armips armips/asm/battle/movscr/movscr_297.s
+tools/armips armips/asm/battle/movscr/movscr_298.s
+tools/armips armips/asm/battle/movscr/movscr_299.s
+tools/armips armips/asm/battle/movscr/movscr_300.s
+tools/armips armips/asm/battle/movscr/movscr_301.s
+tools/armips armips/asm/battle/movscr/movscr_302.s
+tools/armips armips/asm/battle/movscr/movscr_303.s
+tools/armips armips/asm/battle/movscr/movscr_304.s
+tools/armips armips/asm/battle/movscr/movscr_305.s
+tools/armips armips/asm/battle/movscr/movscr_306.s
+tools/armips armips/asm/battle/movscr/movscr_307.s
+tools/armips armips/asm/battle/movscr/movscr_308.s
+tools/armips armips/asm/battle/movscr/movscr_309.s
+tools/armips armips/asm/battle/movscr/movscr_310.s
+tools/armips armips/asm/battle/movscr/movscr_311.s
+tools/armips armips/asm/battle/movscr/movscr_312.s
+tools/armips armips/asm/battle/movscr/movscr_313.s
+tools/armips armips/asm/battle/movscr/movscr_314.s
+tools/armips armips/asm/battle/movscr/movscr_315.s
+tools/armips armips/asm/battle/movscr/movscr_316.s
+tools/armips armips/asm/battle/movscr/movscr_317.s
+tools/armips armips/asm/battle/movscr/movscr_318.s
+tools/armips armips/asm/battle/movscr/movscr_319.s
+tools/armips armips/asm/battle/movscr/movscr_320.s
+tools/armips armips/asm/battle/movscr/movscr_321.s
+tools/armips armips/asm/battle/movscr/movscr_322.s
+tools/armips armips/asm/battle/movscr/movscr_323.s
+tools/armips armips/asm/battle/movscr/movscr_324.s
+tools/armips armips/asm/battle/movscr/movscr_325.s
+tools/armips armips/asm/battle/movscr/movscr_326.s
+tools/armips armips/asm/battle/movscr/movscr_327.s
+tools/armips armips/asm/battle/movscr/movscr_328.s
+tools/armips armips/asm/battle/movscr/movscr_329.s
+tools/armips armips/asm/battle/movscr/movscr_330.s
+tools/armips armips/asm/battle/movscr/movscr_331.s
+tools/armips armips/asm/battle/movscr/movscr_332.s
+tools/armips armips/asm/battle/movscr/movscr_333.s
+tools/armips armips/asm/battle/movscr/movscr_334.s
+tools/armips armips/asm/battle/movscr/movscr_335.s
+tools/armips armips/asm/battle/movscr/movscr_336.s
+tools/armips armips/asm/battle/movscr/movscr_337.s
+tools/armips armips/asm/battle/movscr/movscr_338.s
+tools/armips armips/asm/battle/movscr/movscr_339.s
+tools/armips armips/asm/battle/movscr/movscr_340.s
+tools/armips armips/asm/battle/movscr/movscr_341.s
+tools/armips armips/asm/battle/movscr/movscr_342.s
+tools/armips armips/asm/battle/movscr/movscr_343.s
+tools/armips armips/asm/battle/movscr/movscr_344.s
+tools/armips armips/asm/battle/movscr/movscr_345.s
+tools/armips armips/asm/battle/movscr/movscr_346.s
+tools/armips armips/asm/battle/movscr/movscr_347.s
+tools/armips armips/asm/battle/movscr/movscr_348.s
+tools/armips armips/asm/battle/movscr/movscr_349.s
+tools/armips armips/asm/battle/movscr/movscr_350.s
+tools/armips armips/asm/battle/movscr/movscr_351.s
+tools/armips armips/asm/battle/movscr/movscr_352.s
+tools/armips armips/asm/battle/movscr/movscr_353.s
+tools/armips armips/asm/battle/movscr/movscr_354.s
+tools/armips armips/asm/battle/movscr/movscr_355.s
+tools/armips armips/asm/battle/movscr/movscr_356.s
+tools/armips armips/asm/battle/movscr/movscr_357.s
+tools/armips armips/asm/battle/movscr/movscr_358.s
+tools/armips armips/asm/battle/movscr/movscr_359.s
+tools/armips armips/asm/battle/movscr/movscr_360.s
+tools/armips armips/asm/battle/movscr/movscr_361.s
+tools/armips armips/asm/battle/movscr/movscr_362.s
+tools/armips armips/asm/battle/movscr/movscr_363.s
+tools/armips armips/asm/battle/movscr/movscr_364.s
+tools/armips armips/asm/battle/movscr/movscr_365.s
+tools/armips armips/asm/battle/movscr/movscr_366.s
+tools/armips armips/asm/battle/movscr/movscr_367.s
+tools/armips armips/asm/battle/movscr/movscr_368.s
+tools/armips armips/asm/battle/movscr/movscr_369.s
+tools/armips armips/asm/battle/movscr/movscr_370.s
+tools/armips armips/asm/battle/movscr/movscr_371.s
+tools/armips armips/asm/battle/movscr/movscr_372.s
+tools/armips armips/asm/battle/movscr/movscr_373.s
+tools/armips armips/asm/battle/movscr/movscr_374.s
+tools/armips armips/asm/battle/movscr/movscr_375.s
+tools/armips armips/asm/battle/movscr/movscr_376.s
+tools/armips armips/asm/battle/movscr/movscr_377.s
+tools/armips armips/asm/battle/movscr/movscr_378.s
+tools/armips armips/asm/battle/movscr/movscr_379.s
+tools/armips armips/asm/battle/movscr/movscr_380.s
+tools/armips armips/asm/battle/movscr/movscr_381.s
+tools/armips armips/asm/battle/movscr/movscr_382.s
+tools/armips armips/asm/battle/movscr/movscr_383.s
+tools/armips armips/asm/battle/movscr/movscr_384.s
+tools/armips armips/asm/battle/movscr/movscr_385.s
+tools/armips armips/asm/battle/movscr/movscr_386.s
+tools/armips armips/asm/battle/movscr/movscr_387.s
+tools/armips armips/asm/battle/movscr/movscr_388.s
+tools/armips armips/asm/battle/movscr/movscr_389.s
+tools/armips armips/asm/battle/movscr/movscr_390.s
+tools/armips armips/asm/battle/movscr/movscr_391.s
+tools/armips armips/asm/battle/movscr/movscr_392.s
+tools/armips armips/asm/battle/movscr/movscr_393.s
+tools/armips armips/asm/battle/movscr/movscr_394.s
+tools/armips armips/asm/battle/movscr/movscr_395.s
+tools/armips armips/asm/battle/movscr/movscr_396.s
+tools/armips armips/asm/battle/movscr/movscr_397.s
+tools/armips armips/asm/battle/movscr/movscr_398.s
+tools/armips armips/asm/battle/movscr/movscr_399.s
+tools/armips armips/asm/battle/movscr/movscr_400.s
+tools/armips armips/asm/battle/movscr/movscr_401.s
+tools/armips armips/asm/battle/movscr/movscr_402.s
+tools/armips armips/asm/battle/movscr/movscr_403.s
+tools/armips armips/asm/battle/movscr/movscr_404.s
+tools/armips armips/asm/battle/movscr/movscr_405.s
+tools/armips armips/asm/battle/movscr/movscr_406.s
+tools/armips armips/asm/battle/movscr/movscr_407.s
+tools/armips armips/asm/battle/movscr/movscr_408.s
+tools/armips armips/asm/battle/movscr/movscr_409.s
+tools/armips armips/asm/battle/movscr/movscr_410.s
+tools/armips armips/asm/battle/movscr/movscr_411.s
+tools/armips armips/asm/battle/movscr/movscr_412.s
+tools/armips armips/asm/battle/movscr/movscr_413.s
+tools/armips armips/asm/battle/movscr/movscr_414.s
+tools/armips armips/asm/battle/movscr/movscr_415.s
+tools/armips armips/asm/battle/movscr/movscr_416.s
+tools/armips armips/asm/battle/movscr/movscr_417.s
+tools/armips armips/asm/battle/movscr/movscr_418.s
+tools/armips armips/asm/battle/movscr/movscr_419.s
+tools/armips armips/asm/battle/movscr/movscr_420.s
+tools/armips armips/asm/battle/movscr/movscr_421.s
+tools/armips armips/asm/battle/movscr/movscr_422.s
+tools/armips armips/asm/battle/movscr/movscr_423.s
+tools/armips armips/asm/battle/movscr/movscr_424.s
+tools/armips armips/asm/battle/movscr/movscr_425.s
+tools/armips armips/asm/battle/movscr/movscr_426.s
+tools/armips armips/asm/battle/movscr/movscr_427.s
+tools/armips armips/asm/battle/movscr/movscr_428.s
+tools/armips armips/asm/battle/movscr/movscr_429.s
+tools/armips armips/asm/battle/movscr/movscr_430.s
+tools/armips armips/asm/battle/movscr/movscr_431.s
+tools/armips armips/asm/battle/movscr/movscr_432.s
+tools/armips armips/asm/battle/movscr/movscr_433.s
+tools/armips armips/asm/battle/movscr/movscr_434.s
+tools/armips armips/asm/battle/movscr/movscr_435.s
+tools/armips armips/asm/battle/movscr/movscr_436.s
+tools/armips armips/asm/battle/movscr/movscr_437.s
+tools/armips armips/asm/battle/movscr/movscr_438.s
+tools/armips armips/asm/battle/movscr/movscr_439.s
+tools/armips armips/asm/battle/movscr/movscr_440.s
+tools/armips armips/asm/battle/movscr/movscr_441.s
+tools/armips armips/asm/battle/movscr/movscr_442.s
+tools/armips armips/asm/battle/movscr/movscr_443.s
+tools/armips armips/asm/battle/movscr/movscr_444.s
+tools/armips armips/asm/battle/movscr/movscr_445.s
+tools/armips armips/asm/battle/movscr/movscr_446.s
+tools/armips armips/asm/battle/movscr/movscr_447.s
+tools/armips armips/asm/battle/movscr/movscr_448.s
+tools/armips armips/asm/battle/movscr/movscr_449.s
+tools/armips armips/asm/battle/movscr/movscr_450.s
+tools/armips armips/asm/battle/movscr/movscr_451.s
+tools/armips armips/asm/battle/movscr/movscr_452.s
+tools/armips armips/asm/battle/movscr/movscr_453.s
+tools/armips armips/asm/battle/movscr/movscr_454.s
+tools/armips armips/asm/battle/movscr/movscr_455.s
+tools/armips armips/asm/battle/movscr/movscr_456.s
+tools/armips armips/asm/battle/movscr/movscr_457.s
+tools/armips armips/asm/battle/movscr/movscr_458.s
+tools/armips armips/asm/battle/movscr/movscr_459.s
+tools/armips armips/asm/battle/movscr/movscr_460.s
+tools/armips armips/asm/battle/movscr/movscr_461.s
+tools/armips armips/asm/battle/movscr/movscr_462.s
+tools/armips armips/asm/battle/movscr/movscr_463.s
+tools/armips armips/asm/battle/movscr/movscr_464.s
+tools/armips armips/asm/battle/movscr/movscr_465.s
+tools/armips armips/asm/battle/movscr/movscr_466.s
+tools/armips armips/asm/battle/movscr/movscr_467.s
+tools/armips armips/asm/battle/movscr/movscr_468.s
+tools/armips armips/asm/battle/movscr/movscr_469.s
+tools/armips armips/asm/battle/movscr/movscr_470.s
+tools/armips armips/asm/battle/movscr/movscr_471.s
+tools/armips armips/asm/battle/movscr/movscr_472.s
+tools/armips armips/asm/battle/movscr/movscr_473.s
+tools/armips armips/asm/battle/movscr/movscr_474.s
+tools/armips armips/asm/battle/movscr/movscr_475.s
+tools/armips armips/asm/battle/movscr/movscr_476.s
+tools/armips armips/asm/battle/movscr/movscr_477.s
+tools/armips armips/asm/battle/movscr/movscr_478.s
+tools/armips armips/asm/battle/movscr/movscr_479.s
+tools/armips armips/asm/battle/movscr/movscr_480.s
+tools/armips armips/asm/battle/movscr/movscr_481.s
+tools/armips armips/asm/battle/movscr/movscr_482.s
+tools/armips armips/asm/battle/movscr/movscr_483.s
+tools/armips armips/asm/battle/movscr/movscr_484.s
+tools/armips armips/asm/battle/movscr/movscr_485.s
+tools/armips armips/asm/battle/movscr/movscr_486.s
+tools/armips armips/asm/battle/movscr/movscr_487.s
+tools/armips armips/asm/battle/movscr/movscr_488.s
+tools/armips armips/asm/battle/movscr/movscr_489.s
+tools/armips armips/asm/battle/movscr/movscr_490.s
+tools/armips armips/asm/battle/movscr/movscr_491.s
+tools/armips armips/asm/battle/movscr/movscr_492.s
+tools/armips armips/asm/battle/movscr/movscr_493.s
+tools/armips armips/asm/battle/movscr/movscr_494.s
+tools/armips armips/asm/battle/movscr/movscr_495.s
+tools/armips armips/asm/battle/movscr/movscr_496.s
+tools/armips armips/asm/battle/movscr/movscr_497.s
+tools/armips armips/asm/battle/movscr/movscr_498.s
+tools/armips armips/asm/battle/movscr/movscr_499.s
+tools/armips armips/asm/battle/movscr/movscr_500.s
+python3 tools/narcpy.py create build/narc/battle/skill/waza_seq.narc build/battle/scr/movscr -nf
+tools/armips armips/asm/battle/subscr/subscr_000.s
+tools/armips armips/asm/battle/subscr/subscr_001.s
+tools/armips armips/asm/battle/subscr/subscr_002.s
+tools/armips armips/asm/battle/subscr/subscr_003.s
+tools/armips armips/asm/battle/subscr/subscr_004.s
+tools/armips armips/asm/battle/subscr/subscr_005.s
+tools/armips armips/asm/battle/subscr/subscr_006.s
+tools/armips armips/asm/battle/subscr/subscr_007.s
+tools/armips armips/asm/battle/subscr/subscr_008.s
+tools/armips armips/asm/battle/subscr/subscr_009.s
+tools/armips armips/asm/battle/subscr/subscr_010.s
+tools/armips armips/asm/battle/subscr/subscr_011.s
+tools/armips armips/asm/battle/subscr/subscr_012.s
+tools/armips armips/asm/battle/subscr/subscr_013.s
+tools/armips armips/asm/battle/subscr/subscr_014.s
+tools/armips armips/asm/battle/subscr/subscr_015.s
+tools/armips armips/asm/battle/subscr/subscr_016.s
+tools/armips armips/asm/battle/subscr/subscr_017.s
+tools/armips armips/asm/battle/subscr/subscr_018.s
+tools/armips armips/asm/battle/subscr/subscr_019.s
+tools/armips armips/asm/battle/subscr/subscr_020.s
+tools/armips armips/asm/battle/subscr/subscr_021.s
+tools/armips armips/asm/battle/subscr/subscr_022.s
+tools/armips armips/asm/battle/subscr/subscr_023.s
+tools/armips armips/asm/battle/subscr/subscr_024.s
+tools/armips armips/asm/battle/subscr/subscr_025.s
+tools/armips armips/asm/battle/subscr/subscr_026.s
+tools/armips armips/asm/battle/subscr/subscr_027.s
+tools/armips armips/asm/battle/subscr/subscr_028.s
+tools/armips armips/asm/battle/subscr/subscr_029.s
+tools/armips armips/asm/battle/subscr/subscr_030.s
+tools/armips armips/asm/battle/subscr/subscr_031.s
+tools/armips armips/asm/battle/subscr/subscr_032.s
+tools/armips armips/asm/battle/subscr/subscr_033.s
+tools/armips armips/asm/battle/subscr/subscr_034.s
+tools/armips armips/asm/battle/subscr/subscr_035.s
+tools/armips armips/asm/battle/subscr/subscr_036.s
+tools/armips armips/asm/battle/subscr/subscr_037.s
+tools/armips armips/asm/battle/subscr/subscr_038.s
+tools/armips armips/asm/battle/subscr/subscr_039.s
+tools/armips armips/asm/battle/subscr/subscr_040.s
+tools/armips armips/asm/battle/subscr/subscr_041.s
+tools/armips armips/asm/battle/subscr/subscr_042.s
+tools/armips armips/asm/battle/subscr/subscr_043.s
+tools/armips armips/asm/battle/subscr/subscr_044.s
+tools/armips armips/asm/battle/subscr/subscr_045.s
+tools/armips armips/asm/battle/subscr/subscr_046.s
+tools/armips armips/asm/battle/subscr/subscr_047.s
+tools/armips armips/asm/battle/subscr/subscr_048.s
+tools/armips armips/asm/battle/subscr/subscr_049.s
+tools/armips armips/asm/battle/subscr/subscr_050.s
+tools/armips armips/asm/battle/subscr/subscr_051.s
+tools/armips armips/asm/battle/subscr/subscr_052.s
+tools/armips armips/asm/battle/subscr/subscr_053.s
+tools/armips armips/asm/battle/subscr/subscr_054.s
+tools/armips armips/asm/battle/subscr/subscr_055.s
+tools/armips armips/asm/battle/subscr/subscr_056.s
+tools/armips armips/asm/battle/subscr/subscr_057.s
+tools/armips armips/asm/battle/subscr/subscr_058.s
+tools/armips armips/asm/battle/subscr/subscr_059.s
+tools/armips armips/asm/battle/subscr/subscr_060.s
+tools/armips armips/asm/battle/subscr/subscr_061.s
+tools/armips armips/asm/battle/subscr/subscr_062.s
+tools/armips armips/asm/battle/subscr/subscr_063.s
+tools/armips armips/asm/battle/subscr/subscr_064.s
+tools/armips armips/asm/battle/subscr/subscr_065.s
+tools/armips armips/asm/battle/subscr/subscr_066.s
+tools/armips armips/asm/battle/subscr/subscr_067.s
+tools/armips armips/asm/battle/subscr/subscr_068.s
+tools/armips armips/asm/battle/subscr/subscr_069.s
+tools/armips armips/asm/battle/subscr/subscr_070.s
+tools/armips armips/asm/battle/subscr/subscr_071.s
+tools/armips armips/asm/battle/subscr/subscr_072.s
+tools/armips armips/asm/battle/subscr/subscr_073.s
+tools/armips armips/asm/battle/subscr/subscr_074.s
+tools/armips armips/asm/battle/subscr/subscr_075.s
+tools/armips armips/asm/battle/subscr/subscr_076.s
+tools/armips armips/asm/battle/subscr/subscr_077.s
+tools/armips armips/asm/battle/subscr/subscr_078.s
+tools/armips armips/asm/battle/subscr/subscr_079.s
+tools/armips armips/asm/battle/subscr/subscr_080.s
+tools/armips armips/asm/battle/subscr/subscr_081.s
+tools/armips armips/asm/battle/subscr/subscr_082.s
+tools/armips armips/asm/battle/subscr/subscr_083.s
+tools/armips armips/asm/battle/subscr/subscr_084.s
+tools/armips armips/asm/battle/subscr/subscr_085.s
+tools/armips armips/asm/battle/subscr/subscr_086.s
+tools/armips armips/asm/battle/subscr/subscr_087.s
+tools/armips armips/asm/battle/subscr/subscr_088.s
+tools/armips armips/asm/battle/subscr/subscr_089.s
+tools/armips armips/asm/battle/subscr/subscr_090.s
+tools/armips armips/asm/battle/subscr/subscr_091.s
+tools/armips armips/asm/battle/subscr/subscr_092.s
+tools/armips armips/asm/battle/subscr/subscr_093.s
+tools/armips armips/asm/battle/subscr/subscr_094.s
+tools/armips armips/asm/battle/subscr/subscr_095.s
+tools/armips armips/asm/battle/subscr/subscr_096.s
+tools/armips armips/asm/battle/subscr/subscr_097.s
+tools/armips armips/asm/battle/subscr/subscr_098.s
+tools/armips armips/asm/battle/subscr/subscr_099.s
+tools/armips armips/asm/battle/subscr/subscr_100.s
+tools/armips armips/asm/battle/subscr/subscr_101.s
+tools/armips armips/asm/battle/subscr/subscr_102.s
+tools/armips armips/asm/battle/subscr/subscr_103.s
+tools/armips armips/asm/battle/subscr/subscr_104.s
+tools/armips armips/asm/battle/subscr/subscr_105.s
+tools/armips armips/asm/battle/subscr/subscr_106.s
+tools/armips armips/asm/battle/subscr/subscr_107.s
+tools/armips armips/asm/battle/subscr/subscr_108.s
+tools/armips armips/asm/battle/subscr/subscr_109.s
+tools/armips armips/asm/battle/subscr/subscr_110.s
+tools/armips armips/asm/battle/subscr/subscr_111.s
+tools/armips armips/asm/battle/subscr/subscr_112.s
+tools/armips armips/asm/battle/subscr/subscr_113.s
+tools/armips armips/asm/battle/subscr/subscr_114.s
+tools/armips armips/asm/battle/subscr/subscr_115.s
+tools/armips armips/asm/battle/subscr/subscr_116.s
+tools/armips armips/asm/battle/subscr/subscr_117.s
+tools/armips armips/asm/battle/subscr/subscr_118.s
+tools/armips armips/asm/battle/subscr/subscr_119.s
+tools/armips armips/asm/battle/subscr/subscr_120.s
+tools/armips armips/asm/battle/subscr/subscr_121.s
+tools/armips armips/asm/battle/subscr/subscr_122.s
+tools/armips armips/asm/battle/subscr/subscr_123.s
+tools/armips armips/asm/battle/subscr/subscr_124.s
+tools/armips armips/asm/battle/subscr/subscr_125.s
+tools/armips armips/asm/battle/subscr/subscr_126.s
+tools/armips armips/asm/battle/subscr/subscr_127.s
+tools/armips armips/asm/battle/subscr/subscr_128.s
+tools/armips armips/asm/battle/subscr/subscr_129.s
+tools/armips armips/asm/battle/subscr/subscr_130.s
+tools/armips armips/asm/battle/subscr/subscr_131.s
+tools/armips armips/asm/battle/subscr/subscr_132.s
+tools/armips armips/asm/battle/subscr/subscr_133.s
+tools/armips armips/asm/battle/subscr/subscr_134.s
+tools/armips armips/asm/battle/subscr/subscr_135.s
+tools/armips armips/asm/battle/subscr/subscr_136.s
+tools/armips armips/asm/battle/subscr/subscr_137.s
+tools/armips armips/asm/battle/subscr/subscr_138.s
+tools/armips armips/asm/battle/subscr/subscr_139.s
+tools/armips armips/asm/battle/subscr/subscr_140.s
+tools/armips armips/asm/battle/subscr/subscr_141.s
+tools/armips armips/asm/battle/subscr/subscr_142.s
+tools/armips armips/asm/battle/subscr/subscr_143.s
+tools/armips armips/asm/battle/subscr/subscr_144.s
+tools/armips armips/asm/battle/subscr/subscr_145.s
+tools/armips armips/asm/battle/subscr/subscr_146.s
+tools/armips armips/asm/battle/subscr/subscr_147.s
+tools/armips armips/asm/battle/subscr/subscr_148.s
+tools/armips armips/asm/battle/subscr/subscr_149.s
+tools/armips armips/asm/battle/subscr/subscr_150.s
+tools/armips armips/asm/battle/subscr/subscr_151.s
+tools/armips armips/asm/battle/subscr/subscr_152.s
+tools/armips armips/asm/battle/subscr/subscr_153.s
+tools/armips armips/asm/battle/subscr/subscr_154.s
+tools/armips armips/asm/battle/subscr/subscr_155.s
+tools/armips armips/asm/battle/subscr/subscr_156.s
+tools/armips armips/asm/battle/subscr/subscr_157.s
+tools/armips armips/asm/battle/subscr/subscr_158.s
+tools/armips armips/asm/battle/subscr/subscr_159.s
+tools/armips armips/asm/battle/subscr/subscr_160.s
+tools/armips armips/asm/battle/subscr/subscr_161.s
+tools/armips armips/asm/battle/subscr/subscr_162.s
+tools/armips armips/asm/battle/subscr/subscr_163.s
+tools/armips armips/asm/battle/subscr/subscr_164.s
+tools/armips armips/asm/battle/subscr/subscr_165.s
+tools/armips armips/asm/battle/subscr/subscr_166.s
+tools/armips armips/asm/battle/subscr/subscr_167.s
+tools/armips armips/asm/battle/subscr/subscr_168.s
+tools/armips armips/asm/battle/subscr/subscr_169.s
+tools/armips armips/asm/battle/subscr/subscr_170.s
+tools/armips armips/asm/battle/subscr/subscr_171.s
+tools/armips armips/asm/battle/subscr/subscr_172.s
+tools/armips armips/asm/battle/subscr/subscr_173.s
+tools/armips armips/asm/battle/subscr/subscr_174.s
+tools/armips armips/asm/battle/subscr/subscr_175.s
+tools/armips armips/asm/battle/subscr/subscr_176.s
+tools/armips armips/asm/battle/subscr/subscr_177.s
+tools/armips armips/asm/battle/subscr/subscr_178.s
+tools/armips armips/asm/battle/subscr/subscr_179.s
+tools/armips armips/asm/battle/subscr/subscr_180.s
+tools/armips armips/asm/battle/subscr/subscr_181.s
+tools/armips armips/asm/battle/subscr/subscr_182.s
+tools/armips armips/asm/battle/subscr/subscr_183.s
+tools/armips armips/asm/battle/subscr/subscr_184.s
+tools/armips armips/asm/battle/subscr/subscr_185.s
+tools/armips armips/asm/battle/subscr/subscr_186.s
+tools/armips armips/asm/battle/subscr/subscr_187.s
+tools/armips armips/asm/battle/subscr/subscr_188.s
+tools/armips armips/asm/battle/subscr/subscr_189.s
+tools/armips armips/asm/battle/subscr/subscr_190.s
+tools/armips armips/asm/battle/subscr/subscr_191.s
+tools/armips armips/asm/battle/subscr/subscr_192.s
+tools/armips armips/asm/battle/subscr/subscr_193.s
+tools/armips armips/asm/battle/subscr/subscr_194.s
+tools/armips armips/asm/battle/subscr/subscr_195.s
+tools/armips armips/asm/battle/subscr/subscr_196.s
+tools/armips armips/asm/battle/subscr/subscr_197.s
+tools/armips armips/asm/battle/subscr/subscr_198.s
+tools/armips armips/asm/battle/subscr/subscr_199.s
+tools/armips armips/asm/battle/subscr/subscr_200.s
+tools/armips armips/asm/battle/subscr/subscr_201.s
+tools/armips armips/asm/battle/subscr/subscr_202.s
+tools/armips armips/asm/battle/subscr/subscr_203.s
+tools/armips armips/asm/battle/subscr/subscr_204.s
+tools/armips armips/asm/battle/subscr/subscr_205.s
+tools/armips armips/asm/battle/subscr/subscr_206.s
+tools/armips armips/asm/battle/subscr/subscr_207.s
+tools/armips armips/asm/battle/subscr/subscr_208.s
+tools/armips armips/asm/battle/subscr/subscr_209.s
+tools/armips armips/asm/battle/subscr/subscr_210.s
+tools/armips armips/asm/battle/subscr/subscr_211.s
+tools/armips armips/asm/battle/subscr/subscr_212.s
+tools/armips armips/asm/battle/subscr/subscr_213.s
+tools/armips armips/asm/battle/subscr/subscr_214.s
+tools/armips armips/asm/battle/subscr/subscr_215.s
+tools/armips armips/asm/battle/subscr/subscr_216.s
+tools/armips armips/asm/battle/subscr/subscr_217.s
+tools/armips armips/asm/battle/subscr/subscr_218.s
+tools/armips armips/asm/battle/subscr/subscr_219.s
+tools/armips armips/asm/battle/subscr/subscr_220.s
+tools/armips armips/asm/battle/subscr/subscr_221.s
+tools/armips armips/asm/battle/subscr/subscr_222.s
+tools/armips armips/asm/battle/subscr/subscr_223.s
+tools/armips armips/asm/battle/subscr/subscr_224.s
+tools/armips armips/asm/battle/subscr/subscr_225.s
+tools/armips armips/asm/battle/subscr/subscr_226.s
+tools/armips armips/asm/battle/subscr/subscr_227.s
+tools/armips armips/asm/battle/subscr/subscr_228.s
+tools/armips armips/asm/battle/subscr/subscr_229.s
+tools/armips armips/asm/battle/subscr/subscr_230.s
+tools/armips armips/asm/battle/subscr/subscr_231.s
+tools/armips armips/asm/battle/subscr/subscr_232.s
+tools/armips armips/asm/battle/subscr/subscr_233.s
+tools/armips armips/asm/battle/subscr/subscr_234.s
+tools/armips armips/asm/battle/subscr/subscr_235.s
+tools/armips armips/asm/battle/subscr/subscr_236.s
+tools/armips armips/asm/battle/subscr/subscr_237.s
+tools/armips armips/asm/battle/subscr/subscr_238.s
+tools/armips armips/asm/battle/subscr/subscr_239.s
+tools/armips armips/asm/battle/subscr/subscr_240.s
+tools/armips armips/asm/battle/subscr/subscr_241.s
+tools/armips armips/asm/battle/subscr/subscr_242.s
+tools/armips armips/asm/battle/subscr/subscr_243.s
+tools/armips armips/asm/battle/subscr/subscr_244.s
+tools/armips armips/asm/battle/subscr/subscr_245.s
+tools/armips armips/asm/battle/subscr/subscr_246.s
+tools/armips armips/asm/battle/subscr/subscr_247.s
+tools/armips armips/asm/battle/subscr/subscr_248.s
+tools/armips armips/asm/battle/subscr/subscr_249.s
+tools/armips armips/asm/battle/subscr/subscr_250.s
+tools/armips armips/asm/battle/subscr/subscr_251.s
+tools/armips armips/asm/battle/subscr/subscr_252.s
+tools/armips armips/asm/battle/subscr/subscr_253.s
+tools/armips armips/asm/battle/subscr/subscr_254.s
+tools/armips armips/asm/battle/subscr/subscr_255.s
+tools/armips armips/asm/battle/subscr/subscr_256.s
+tools/armips armips/asm/battle/subscr/subscr_257.s
+tools/armips armips/asm/battle/subscr/subscr_258.s
+tools/armips armips/asm/battle/subscr/subscr_259.s
+tools/armips armips/asm/battle/subscr/subscr_260.s
+tools/armips armips/asm/battle/subscr/subscr_261.s
+tools/armips armips/asm/battle/subscr/subscr_262.s
+tools/armips armips/asm/battle/subscr/subscr_263.s
+tools/armips armips/asm/battle/subscr/subscr_264.s
+tools/armips armips/asm/battle/subscr/subscr_265.s
+tools/armips armips/asm/battle/subscr/subscr_266.s
+tools/armips armips/asm/battle/subscr/subscr_267.s
+tools/armips armips/asm/battle/subscr/subscr_268.s
+tools/armips armips/asm/battle/subscr/subscr_269.s
+tools/armips armips/asm/battle/subscr/subscr_270.s
+tools/armips armips/asm/battle/subscr/subscr_271.s
+tools/armips armips/asm/battle/subscr/subscr_272.s
+tools/armips armips/asm/battle/subscr/subscr_273.s
+tools/armips armips/asm/battle/subscr/subscr_274.s
+tools/armips armips/asm/battle/subscr/subscr_275.s
+tools/armips armips/asm/battle/subscr/subscr_276.s
+tools/armips armips/asm/battle/subscr/subscr_277.s
+tools/armips armips/asm/battle/subscr/subscr_278.s
+tools/armips armips/asm/battle/subscr/subscr_279.s
+tools/armips armips/asm/battle/subscr/subscr_280.s
+tools/armips armips/asm/battle/subscr/subscr_281.s
+tools/armips armips/asm/battle/subscr/subscr_282.s
+tools/armips armips/asm/battle/subscr/subscr_283.s
+tools/armips armips/asm/battle/subscr/subscr_284.s
+tools/armips armips/asm/battle/subscr/subscr_285.s
+tools/armips armips/asm/battle/subscr/subscr_286.s
+tools/armips armips/asm/battle/subscr/subscr_287.s
+tools/armips armips/asm/battle/subscr/subscr_288.s
+tools/armips armips/asm/battle/subscr/subscr_289.s
+tools/armips armips/asm/battle/subscr/subscr_290.s
+tools/armips armips/asm/battle/subscr/subscr_291.s
+tools/armips armips/asm/battle/subscr/subscr_292.s
+tools/armips armips/asm/battle/subscr/subscr_293.s
+tools/armips armips/asm/battle/subscr/subscr_294.s
+tools/armips armips/asm/battle/subscr/subscr_295.s
+tools/armips armips/asm/battle/subscr/subscr_296.s
+tools/armips armips/asm/battle/subscr/subscr_297.s
+tools/armips armips/asm/battle/subscr/subscr_298.s
+tools/armips armips/asm/battle/subscr/subscr_299.s
+python3 tools/narcpy.py create build/narc/battle/skill/sub_seq.narc build/battle/scr/subscr -nf
+python3 tools/narcpy.py extract base/data/battle/graphic/pl_batt_obj.narc -o build/pl_batt_obj -nf
+cp -r data/raw/pl_batt_obj/. build/pl_batt_obj
+python3 tools/narcpy.py create build/narc/battle/pl_batt_obj.narc build/pl_batt_obj -nf
+python3 tools/narcpy.py extract base/data/resource/eng/zukan/zukan.narc -o build/zukan -nf
+cp -r data/raw/zukan/. build/zukan
+python3 tools/narcpy.py create build/narc/resource/eng/zukan.narc build/zukan -nf
+python3 scripts/build/item_data.py build
+python3 tools/narcpy.py create build/narc/itemtool/pl_item_data.narc build/itemtool -nf
+python3 scripts/build/pokemon_data.py build
+python3 tools/narcpy.py create build/narc/poketool/personal/evo.narc build/poketool/personal/evo -nf
+python3 tools/narcpy.py create build/narc/poketool/personal/wotbl.narc build/poketool/personal/wotbl -nf
+python3 tools/narcpy.py create build/narc/poketool/personal/pl_personal.narc build/poketool/personal/pl_personal -nf
+python3 tools/narcpy.py extract base/data/msgdata/pl_msg.narc -o build/msgdata -nf
+for file in data/text/368.txt data/text/392.txt data/text/393.txt data/text/394.txt data/text/412.txt data/text/413.txt data/text/610.txt data/text/611.txt data/text/612.txt data/text/712.txt; do tools/msgenc -e -c data/charmap.txt $file build/msgdata/pl_msg.narc_$(basename $file .txt); done
+python3 tools/narcpy.py create build/narc/msgdata/pl_msg.narc build/msgdata -nf
+tools/nitrogfx data/graphics/pokeicons/0000.png build/pokeicon/1_0000.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0001.png build/pokeicon/1_0001.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0002.png build/pokeicon/1_0002.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0003.png build/pokeicon/1_0003.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0004.png build/pokeicon/1_0004.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0005.png build/pokeicon/1_0005.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0006.png build/pokeicon/1_0006.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0007.png build/pokeicon/1_0007.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0008.png build/pokeicon/1_0008.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0009.png build/pokeicon/1_0009.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0010.png build/pokeicon/1_0010.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0011.png build/pokeicon/1_0011.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0012.png build/pokeicon/1_0012.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0013.png build/pokeicon/1_0013.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0014.png build/pokeicon/1_0014.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0015.png build/pokeicon/1_0015.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0016.png build/pokeicon/1_0016.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0017.png build/pokeicon/1_0017.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0018.png build/pokeicon/1_0018.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0019.png build/pokeicon/1_0019.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0020.png build/pokeicon/1_0020.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0021.png build/pokeicon/1_0021.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0022.png build/pokeicon/1_0022.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0023.png build/pokeicon/1_0023.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0024.png build/pokeicon/1_0024.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0025.png build/pokeicon/1_0025.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0026.png build/pokeicon/1_0026.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0027.png build/pokeicon/1_0027.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0028.png build/pokeicon/1_0028.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0029.png build/pokeicon/1_0029.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0030.png build/pokeicon/1_0030.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0031.png build/pokeicon/1_0031.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0032.png build/pokeicon/1_0032.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0033.png build/pokeicon/1_0033.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0034.png build/pokeicon/1_0034.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0035.png build/pokeicon/1_0035.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0036.png build/pokeicon/1_0036.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0037.png build/pokeicon/1_0037.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0038.png build/pokeicon/1_0038.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0039.png build/pokeicon/1_0039.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0040.png build/pokeicon/1_0040.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0041.png build/pokeicon/1_0041.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0042.png build/pokeicon/1_0042.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0043.png build/pokeicon/1_0043.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0044.png build/pokeicon/1_0044.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0045.png build/pokeicon/1_0045.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0046.png build/pokeicon/1_0046.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0047.png build/pokeicon/1_0047.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0048.png build/pokeicon/1_0048.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0049.png build/pokeicon/1_0049.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0050.png build/pokeicon/1_0050.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0051.png build/pokeicon/1_0051.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0052.png build/pokeicon/1_0052.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0053.png build/pokeicon/1_0053.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0054.png build/pokeicon/1_0054.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0055.png build/pokeicon/1_0055.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0056.png build/pokeicon/1_0056.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0057.png build/pokeicon/1_0057.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0058.png build/pokeicon/1_0058.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0059.png build/pokeicon/1_0059.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0060.png build/pokeicon/1_0060.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0061.png build/pokeicon/1_0061.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0062.png build/pokeicon/1_0062.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0063.png build/pokeicon/1_0063.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0064.png build/pokeicon/1_0064.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0065.png build/pokeicon/1_0065.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0066.png build/pokeicon/1_0066.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0067.png build/pokeicon/1_0067.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0068.png build/pokeicon/1_0068.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0069.png build/pokeicon/1_0069.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0070.png build/pokeicon/1_0070.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0071.png build/pokeicon/1_0071.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0072.png build/pokeicon/1_0072.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0073.png build/pokeicon/1_0073.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0074.png build/pokeicon/1_0074.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0075.png build/pokeicon/1_0075.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0076.png build/pokeicon/1_0076.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0077.png build/pokeicon/1_0077.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0078.png build/pokeicon/1_0078.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0079.png build/pokeicon/1_0079.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0080.png build/pokeicon/1_0080.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0081.png build/pokeicon/1_0081.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0082.png build/pokeicon/1_0082.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0083.png build/pokeicon/1_0083.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0084.png build/pokeicon/1_0084.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0085.png build/pokeicon/1_0085.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0086.png build/pokeicon/1_0086.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0087.png build/pokeicon/1_0087.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0088.png build/pokeicon/1_0088.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0089.png build/pokeicon/1_0089.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0090.png build/pokeicon/1_0090.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0091.png build/pokeicon/1_0091.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0092.png build/pokeicon/1_0092.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0093.png build/pokeicon/1_0093.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0094.png build/pokeicon/1_0094.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0095.png build/pokeicon/1_0095.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0096.png build/pokeicon/1_0096.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0097.png build/pokeicon/1_0097.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0098.png build/pokeicon/1_0098.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0099.png build/pokeicon/1_0099.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0100.png build/pokeicon/1_0100.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0101.png build/pokeicon/1_0101.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0102.png build/pokeicon/1_0102.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0103.png build/pokeicon/1_0103.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0104.png build/pokeicon/1_0104.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0105.png build/pokeicon/1_0105.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0106.png build/pokeicon/1_0106.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0107.png build/pokeicon/1_0107.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0108.png build/pokeicon/1_0108.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0109.png build/pokeicon/1_0109.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0110.png build/pokeicon/1_0110.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0111.png build/pokeicon/1_0111.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0112.png build/pokeicon/1_0112.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0113.png build/pokeicon/1_0113.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0114.png build/pokeicon/1_0114.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0115.png build/pokeicon/1_0115.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0116.png build/pokeicon/1_0116.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0117.png build/pokeicon/1_0117.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0118.png build/pokeicon/1_0118.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0119.png build/pokeicon/1_0119.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0120.png build/pokeicon/1_0120.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0121.png build/pokeicon/1_0121.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0122.png build/pokeicon/1_0122.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0123.png build/pokeicon/1_0123.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0124.png build/pokeicon/1_0124.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0125.png build/pokeicon/1_0125.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0126.png build/pokeicon/1_0126.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0127.png build/pokeicon/1_0127.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0128.png build/pokeicon/1_0128.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0129.png build/pokeicon/1_0129.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0130.png build/pokeicon/1_0130.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0131.png build/pokeicon/1_0131.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0132.png build/pokeicon/1_0132.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0133.png build/pokeicon/1_0133.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0134.png build/pokeicon/1_0134.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0135.png build/pokeicon/1_0135.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0136.png build/pokeicon/1_0136.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0137.png build/pokeicon/1_0137.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0138.png build/pokeicon/1_0138.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0139.png build/pokeicon/1_0139.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0140.png build/pokeicon/1_0140.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0141.png build/pokeicon/1_0141.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0142.png build/pokeicon/1_0142.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0143.png build/pokeicon/1_0143.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0144.png build/pokeicon/1_0144.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0145.png build/pokeicon/1_0145.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0146.png build/pokeicon/1_0146.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0147.png build/pokeicon/1_0147.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0148.png build/pokeicon/1_0148.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0149.png build/pokeicon/1_0149.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0150.png build/pokeicon/1_0150.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0151.png build/pokeicon/1_0151.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0152.png build/pokeicon/1_0152.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0153.png build/pokeicon/1_0153.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0154.png build/pokeicon/1_0154.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0155.png build/pokeicon/1_0155.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0156.png build/pokeicon/1_0156.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0157.png build/pokeicon/1_0157.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0158.png build/pokeicon/1_0158.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0159.png build/pokeicon/1_0159.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0160.png build/pokeicon/1_0160.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0161.png build/pokeicon/1_0161.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0162.png build/pokeicon/1_0162.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0163.png build/pokeicon/1_0163.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0164.png build/pokeicon/1_0164.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0165.png build/pokeicon/1_0165.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0166.png build/pokeicon/1_0166.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0167.png build/pokeicon/1_0167.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0168.png build/pokeicon/1_0168.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0169.png build/pokeicon/1_0169.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0170.png build/pokeicon/1_0170.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0171.png build/pokeicon/1_0171.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0172.png build/pokeicon/1_0172.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0173.png build/pokeicon/1_0173.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0174.png build/pokeicon/1_0174.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0175.png build/pokeicon/1_0175.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0176.png build/pokeicon/1_0176.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0177.png build/pokeicon/1_0177.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0178.png build/pokeicon/1_0178.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0179.png build/pokeicon/1_0179.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0180.png build/pokeicon/1_0180.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0181.png build/pokeicon/1_0181.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0182.png build/pokeicon/1_0182.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0183.png build/pokeicon/1_0183.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0184.png build/pokeicon/1_0184.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0185.png build/pokeicon/1_0185.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0186.png build/pokeicon/1_0186.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0187.png build/pokeicon/1_0187.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0188.png build/pokeicon/1_0188.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0189.png build/pokeicon/1_0189.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0190.png build/pokeicon/1_0190.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0191.png build/pokeicon/1_0191.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0192.png build/pokeicon/1_0192.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0193.png build/pokeicon/1_0193.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0194.png build/pokeicon/1_0194.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0195.png build/pokeicon/1_0195.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0196.png build/pokeicon/1_0196.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0197.png build/pokeicon/1_0197.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0198.png build/pokeicon/1_0198.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0199.png build/pokeicon/1_0199.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0200.png build/pokeicon/1_0200.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0201.png build/pokeicon/1_0201.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0202.png build/pokeicon/1_0202.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0203.png build/pokeicon/1_0203.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0204.png build/pokeicon/1_0204.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0205.png build/pokeicon/1_0205.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0206.png build/pokeicon/1_0206.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0207.png build/pokeicon/1_0207.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0208.png build/pokeicon/1_0208.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0209.png build/pokeicon/1_0209.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0210.png build/pokeicon/1_0210.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0211.png build/pokeicon/1_0211.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0212.png build/pokeicon/1_0212.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0213.png build/pokeicon/1_0213.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0214.png build/pokeicon/1_0214.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0215.png build/pokeicon/1_0215.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0216.png build/pokeicon/1_0216.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0217.png build/pokeicon/1_0217.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0218.png build/pokeicon/1_0218.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0219.png build/pokeicon/1_0219.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0220.png build/pokeicon/1_0220.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0221.png build/pokeicon/1_0221.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0222.png build/pokeicon/1_0222.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0223.png build/pokeicon/1_0223.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0224.png build/pokeicon/1_0224.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0225.png build/pokeicon/1_0225.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0226.png build/pokeicon/1_0226.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0227.png build/pokeicon/1_0227.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0228.png build/pokeicon/1_0228.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0229.png build/pokeicon/1_0229.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0230.png build/pokeicon/1_0230.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0231.png build/pokeicon/1_0231.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0232.png build/pokeicon/1_0232.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0233.png build/pokeicon/1_0233.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0234.png build/pokeicon/1_0234.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0235.png build/pokeicon/1_0235.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0236.png build/pokeicon/1_0236.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0237.png build/pokeicon/1_0237.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0238.png build/pokeicon/1_0238.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0239.png build/pokeicon/1_0239.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0240.png build/pokeicon/1_0240.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0241.png build/pokeicon/1_0241.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0242.png build/pokeicon/1_0242.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0243.png build/pokeicon/1_0243.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0244.png build/pokeicon/1_0244.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0245.png build/pokeicon/1_0245.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0246.png build/pokeicon/1_0246.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0247.png build/pokeicon/1_0247.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0248.png build/pokeicon/1_0248.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0249.png build/pokeicon/1_0249.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0250.png build/pokeicon/1_0250.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0251.png build/pokeicon/1_0251.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0252.png build/pokeicon/1_0252.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0253.png build/pokeicon/1_0253.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0254.png build/pokeicon/1_0254.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0255.png build/pokeicon/1_0255.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0256.png build/pokeicon/1_0256.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0257.png build/pokeicon/1_0257.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0258.png build/pokeicon/1_0258.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0259.png build/pokeicon/1_0259.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0260.png build/pokeicon/1_0260.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0261.png build/pokeicon/1_0261.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0262.png build/pokeicon/1_0262.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0263.png build/pokeicon/1_0263.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0264.png build/pokeicon/1_0264.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0265.png build/pokeicon/1_0265.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0266.png build/pokeicon/1_0266.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0267.png build/pokeicon/1_0267.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0268.png build/pokeicon/1_0268.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0269.png build/pokeicon/1_0269.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0270.png build/pokeicon/1_0270.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0271.png build/pokeicon/1_0271.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0272.png build/pokeicon/1_0272.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0273.png build/pokeicon/1_0273.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0274.png build/pokeicon/1_0274.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0275.png build/pokeicon/1_0275.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0276.png build/pokeicon/1_0276.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0277.png build/pokeicon/1_0277.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0278.png build/pokeicon/1_0278.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0279.png build/pokeicon/1_0279.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0280.png build/pokeicon/1_0280.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0281.png build/pokeicon/1_0281.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0282.png build/pokeicon/1_0282.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0283.png build/pokeicon/1_0283.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0284.png build/pokeicon/1_0284.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0285.png build/pokeicon/1_0285.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0286.png build/pokeicon/1_0286.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0287.png build/pokeicon/1_0287.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0288.png build/pokeicon/1_0288.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0289.png build/pokeicon/1_0289.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0290.png build/pokeicon/1_0290.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0291.png build/pokeicon/1_0291.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0292.png build/pokeicon/1_0292.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0293.png build/pokeicon/1_0293.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0294.png build/pokeicon/1_0294.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0295.png build/pokeicon/1_0295.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0296.png build/pokeicon/1_0296.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0297.png build/pokeicon/1_0297.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0298.png build/pokeicon/1_0298.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0299.png build/pokeicon/1_0299.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0300.png build/pokeicon/1_0300.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0301.png build/pokeicon/1_0301.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0302.png build/pokeicon/1_0302.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0303.png build/pokeicon/1_0303.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0304.png build/pokeicon/1_0304.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0305.png build/pokeicon/1_0305.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0306.png build/pokeicon/1_0306.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0307.png build/pokeicon/1_0307.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0308.png build/pokeicon/1_0308.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0309.png build/pokeicon/1_0309.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0310.png build/pokeicon/1_0310.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0311.png build/pokeicon/1_0311.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0312.png build/pokeicon/1_0312.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0313.png build/pokeicon/1_0313.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0314.png build/pokeicon/1_0314.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0315.png build/pokeicon/1_0315.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0316.png build/pokeicon/1_0316.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0317.png build/pokeicon/1_0317.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0318.png build/pokeicon/1_0318.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0319.png build/pokeicon/1_0319.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0320.png build/pokeicon/1_0320.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0321.png build/pokeicon/1_0321.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0322.png build/pokeicon/1_0322.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0323.png build/pokeicon/1_0323.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0324.png build/pokeicon/1_0324.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0325.png build/pokeicon/1_0325.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0326.png build/pokeicon/1_0326.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0327.png build/pokeicon/1_0327.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0328.png build/pokeicon/1_0328.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0329.png build/pokeicon/1_0329.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0330.png build/pokeicon/1_0330.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0331.png build/pokeicon/1_0331.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0332.png build/pokeicon/1_0332.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0333.png build/pokeicon/1_0333.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0334.png build/pokeicon/1_0334.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0335.png build/pokeicon/1_0335.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0336.png build/pokeicon/1_0336.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0337.png build/pokeicon/1_0337.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0338.png build/pokeicon/1_0338.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0339.png build/pokeicon/1_0339.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0340.png build/pokeicon/1_0340.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0341.png build/pokeicon/1_0341.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0342.png build/pokeicon/1_0342.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0343.png build/pokeicon/1_0343.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0344.png build/pokeicon/1_0344.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0345.png build/pokeicon/1_0345.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0346.png build/pokeicon/1_0346.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0347.png build/pokeicon/1_0347.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0348.png build/pokeicon/1_0348.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0349.png build/pokeicon/1_0349.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0350.png build/pokeicon/1_0350.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0351.png build/pokeicon/1_0351.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0352.png build/pokeicon/1_0352.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0353.png build/pokeicon/1_0353.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0354.png build/pokeicon/1_0354.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0355.png build/pokeicon/1_0355.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0356.png build/pokeicon/1_0356.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0357.png build/pokeicon/1_0357.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0358.png build/pokeicon/1_0358.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0359.png build/pokeicon/1_0359.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0360.png build/pokeicon/1_0360.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0361.png build/pokeicon/1_0361.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0362.png build/pokeicon/1_0362.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0363.png build/pokeicon/1_0363.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0364.png build/pokeicon/1_0364.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0365.png build/pokeicon/1_0365.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0366.png build/pokeicon/1_0366.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0367.png build/pokeicon/1_0367.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0368.png build/pokeicon/1_0368.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0369.png build/pokeicon/1_0369.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0370.png build/pokeicon/1_0370.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0371.png build/pokeicon/1_0371.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0372.png build/pokeicon/1_0372.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0373.png build/pokeicon/1_0373.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0374.png build/pokeicon/1_0374.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0375.png build/pokeicon/1_0375.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0376.png build/pokeicon/1_0376.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0377.png build/pokeicon/1_0377.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0378.png build/pokeicon/1_0378.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0379.png build/pokeicon/1_0379.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0380.png build/pokeicon/1_0380.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0381.png build/pokeicon/1_0381.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0382.png build/pokeicon/1_0382.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0383.png build/pokeicon/1_0383.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0384.png build/pokeicon/1_0384.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0385.png build/pokeicon/1_0385.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0386.png build/pokeicon/1_0386.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0387.png build/pokeicon/1_0387.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0388.png build/pokeicon/1_0388.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0389.png build/pokeicon/1_0389.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0390.png build/pokeicon/1_0390.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0391.png build/pokeicon/1_0391.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0392.png build/pokeicon/1_0392.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0393.png build/pokeicon/1_0393.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0394.png build/pokeicon/1_0394.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0395.png build/pokeicon/1_0395.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0396.png build/pokeicon/1_0396.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0397.png build/pokeicon/1_0397.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0398.png build/pokeicon/1_0398.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0399.png build/pokeicon/1_0399.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0400.png build/pokeicon/1_0400.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0401.png build/pokeicon/1_0401.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0402.png build/pokeicon/1_0402.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0403.png build/pokeicon/1_0403.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0404.png build/pokeicon/1_0404.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0405.png build/pokeicon/1_0405.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0406.png build/pokeicon/1_0406.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0407.png build/pokeicon/1_0407.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0408.png build/pokeicon/1_0408.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0409.png build/pokeicon/1_0409.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0410.png build/pokeicon/1_0410.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0411.png build/pokeicon/1_0411.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0412.png build/pokeicon/1_0412.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0413.png build/pokeicon/1_0413.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0414.png build/pokeicon/1_0414.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0415.png build/pokeicon/1_0415.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0416.png build/pokeicon/1_0416.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0417.png build/pokeicon/1_0417.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0418.png build/pokeicon/1_0418.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0419.png build/pokeicon/1_0419.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0420.png build/pokeicon/1_0420.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0421.png build/pokeicon/1_0421.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0422.png build/pokeicon/1_0422.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0423.png build/pokeicon/1_0423.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0424.png build/pokeicon/1_0424.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0425.png build/pokeicon/1_0425.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0426.png build/pokeicon/1_0426.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0427.png build/pokeicon/1_0427.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0428.png build/pokeicon/1_0428.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0429.png build/pokeicon/1_0429.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0430.png build/pokeicon/1_0430.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0431.png build/pokeicon/1_0431.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0432.png build/pokeicon/1_0432.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0433.png build/pokeicon/1_0433.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0434.png build/pokeicon/1_0434.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0435.png build/pokeicon/1_0435.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0436.png build/pokeicon/1_0436.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0437.png build/pokeicon/1_0437.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0438.png build/pokeicon/1_0438.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0439.png build/pokeicon/1_0439.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0440.png build/pokeicon/1_0440.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0441.png build/pokeicon/1_0441.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0442.png build/pokeicon/1_0442.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0443.png build/pokeicon/1_0443.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0444.png build/pokeicon/1_0444.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0445.png build/pokeicon/1_0445.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0446.png build/pokeicon/1_0446.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0447.png build/pokeicon/1_0447.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0448.png build/pokeicon/1_0448.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0449.png build/pokeicon/1_0449.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0450.png build/pokeicon/1_0450.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0451.png build/pokeicon/1_0451.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0452.png build/pokeicon/1_0452.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0453.png build/pokeicon/1_0453.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0454.png build/pokeicon/1_0454.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0455.png build/pokeicon/1_0455.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0456.png build/pokeicon/1_0456.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0457.png build/pokeicon/1_0457.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0458.png build/pokeicon/1_0458.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0459.png build/pokeicon/1_0459.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0460.png build/pokeicon/1_0460.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0461.png build/pokeicon/1_0461.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0462.png build/pokeicon/1_0462.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0463.png build/pokeicon/1_0463.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0464.png build/pokeicon/1_0464.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0465.png build/pokeicon/1_0465.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0466.png build/pokeicon/1_0466.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0467.png build/pokeicon/1_0467.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0468.png build/pokeicon/1_0468.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0469.png build/pokeicon/1_0469.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0470.png build/pokeicon/1_0470.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0471.png build/pokeicon/1_0471.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0472.png build/pokeicon/1_0472.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0473.png build/pokeicon/1_0473.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0474.png build/pokeicon/1_0474.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0475.png build/pokeicon/1_0475.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0476.png build/pokeicon/1_0476.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0477.png build/pokeicon/1_0477.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0478.png build/pokeicon/1_0478.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0479.png build/pokeicon/1_0479.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0480.png build/pokeicon/1_0480.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0481.png build/pokeicon/1_0481.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0482.png build/pokeicon/1_0482.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0483.png build/pokeicon/1_0483.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0484.png build/pokeicon/1_0484.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0485.png build/pokeicon/1_0485.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0486.png build/pokeicon/1_0486.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0487.png build/pokeicon/1_0487.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0488.png build/pokeicon/1_0488.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0489.png build/pokeicon/1_0489.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0490.png build/pokeicon/1_0490.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0491.png build/pokeicon/1_0491.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0492.png build/pokeicon/1_0492.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0493.png build/pokeicon/1_0493.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0494.png build/pokeicon/1_0494.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0495.png build/pokeicon/1_0495.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0496.png build/pokeicon/1_0496.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0497.png build/pokeicon/1_0497.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0498.png build/pokeicon/1_0498.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0499.png build/pokeicon/1_0499.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0500.png build/pokeicon/1_0500.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0501.png build/pokeicon/1_0501.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0502.png build/pokeicon/1_0502.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0503.png build/pokeicon/1_0503.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0504.png build/pokeicon/1_0504.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0505.png build/pokeicon/1_0505.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0506.png build/pokeicon/1_0506.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0507.png build/pokeicon/1_0507.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0508.png build/pokeicon/1_0508.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0509.png build/pokeicon/1_0509.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0510.png build/pokeicon/1_0510.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0511.png build/pokeicon/1_0511.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0512.png build/pokeicon/1_0512.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0513.png build/pokeicon/1_0513.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0514.png build/pokeicon/1_0514.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0515.png build/pokeicon/1_0515.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0516.png build/pokeicon/1_0516.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0517.png build/pokeicon/1_0517.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0518.png build/pokeicon/1_0518.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0519.png build/pokeicon/1_0519.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0520.png build/pokeicon/1_0520.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0521.png build/pokeicon/1_0521.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0522.png build/pokeicon/1_0522.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0523.png build/pokeicon/1_0523.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0524.png build/pokeicon/1_0524.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0525.png build/pokeicon/1_0525.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0526.png build/pokeicon/1_0526.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0527.png build/pokeicon/1_0527.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0528.png build/pokeicon/1_0528.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0529.png build/pokeicon/1_0529.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0530.png build/pokeicon/1_0530.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0531.png build/pokeicon/1_0531.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0532.png build/pokeicon/1_0532.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0533.png build/pokeicon/1_0533.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0534.png build/pokeicon/1_0534.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0535.png build/pokeicon/1_0535.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0536.png build/pokeicon/1_0536.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0537.png build/pokeicon/1_0537.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0538.png build/pokeicon/1_0538.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0539.png build/pokeicon/1_0539.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0540.png build/pokeicon/1_0540.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0541.png build/pokeicon/1_0541.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0542.png build/pokeicon/1_0542.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0543.png build/pokeicon/1_0543.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0544.png build/pokeicon/1_0544.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0545.png build/pokeicon/1_0545.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0546.png build/pokeicon/1_0546.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0547.png build/pokeicon/1_0547.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0548.png build/pokeicon/1_0548.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0549.png build/pokeicon/1_0549.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0550.png build/pokeicon/1_0550.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0551.png build/pokeicon/1_0551.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0552.png build/pokeicon/1_0552.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0553.png build/pokeicon/1_0553.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0554.png build/pokeicon/1_0554.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0555.png build/pokeicon/1_0555.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0556.png build/pokeicon/1_0556.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0557.png build/pokeicon/1_0557.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0558.png build/pokeicon/1_0558.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0559.png build/pokeicon/1_0559.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0560.png build/pokeicon/1_0560.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0561.png build/pokeicon/1_0561.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0562.png build/pokeicon/1_0562.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0563.png build/pokeicon/1_0563.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0564.png build/pokeicon/1_0564.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0565.png build/pokeicon/1_0565.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0566.png build/pokeicon/1_0566.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0567.png build/pokeicon/1_0567.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0568.png build/pokeicon/1_0568.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0569.png build/pokeicon/1_0569.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0570.png build/pokeicon/1_0570.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0571.png build/pokeicon/1_0571.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0572.png build/pokeicon/1_0572.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0573.png build/pokeicon/1_0573.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0574.png build/pokeicon/1_0574.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0575.png build/pokeicon/1_0575.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0576.png build/pokeicon/1_0576.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0577.png build/pokeicon/1_0577.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0578.png build/pokeicon/1_0578.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0579.png build/pokeicon/1_0579.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0580.png build/pokeicon/1_0580.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0581.png build/pokeicon/1_0581.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0582.png build/pokeicon/1_0582.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0583.png build/pokeicon/1_0583.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0584.png build/pokeicon/1_0584.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0585.png build/pokeicon/1_0585.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0586.png build/pokeicon/1_0586.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0587.png build/pokeicon/1_0587.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0588.png build/pokeicon/1_0588.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0589.png build/pokeicon/1_0589.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0590.png build/pokeicon/1_0590.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0591.png build/pokeicon/1_0591.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0592.png build/pokeicon/1_0592.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0593.png build/pokeicon/1_0593.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0594.png build/pokeicon/1_0594.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0595.png build/pokeicon/1_0595.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0596.png build/pokeicon/1_0596.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0597.png build/pokeicon/1_0597.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0598.png build/pokeicon/1_0598.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0599.png build/pokeicon/1_0599.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0600.png build/pokeicon/1_0600.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0601.png build/pokeicon/1_0601.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0602.png build/pokeicon/1_0602.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0603.png build/pokeicon/1_0603.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0604.png build/pokeicon/1_0604.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0605.png build/pokeicon/1_0605.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0606.png build/pokeicon/1_0606.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0607.png build/pokeicon/1_0607.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0608.png build/pokeicon/1_0608.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0609.png build/pokeicon/1_0609.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0610.png build/pokeicon/1_0610.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0611.png build/pokeicon/1_0611.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0612.png build/pokeicon/1_0612.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0613.png build/pokeicon/1_0613.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0614.png build/pokeicon/1_0614.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0615.png build/pokeicon/1_0615.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0616.png build/pokeicon/1_0616.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0617.png build/pokeicon/1_0617.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0618.png build/pokeicon/1_0618.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0619.png build/pokeicon/1_0619.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0620.png build/pokeicon/1_0620.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0621.png build/pokeicon/1_0621.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0622.png build/pokeicon/1_0622.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0623.png build/pokeicon/1_0623.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0624.png build/pokeicon/1_0624.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0625.png build/pokeicon/1_0625.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0626.png build/pokeicon/1_0626.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0627.png build/pokeicon/1_0627.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0628.png build/pokeicon/1_0628.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0629.png build/pokeicon/1_0629.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0630.png build/pokeicon/1_0630.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0631.png build/pokeicon/1_0631.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0632.png build/pokeicon/1_0632.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0633.png build/pokeicon/1_0633.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0634.png build/pokeicon/1_0634.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0635.png build/pokeicon/1_0635.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0636.png build/pokeicon/1_0636.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0637.png build/pokeicon/1_0637.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0638.png build/pokeicon/1_0638.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0639.png build/pokeicon/1_0639.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0640.png build/pokeicon/1_0640.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0641.png build/pokeicon/1_0641.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0642.png build/pokeicon/1_0642.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0643.png build/pokeicon/1_0643.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0644.png build/pokeicon/1_0644.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0645.png build/pokeicon/1_0645.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0646.png build/pokeicon/1_0646.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0647.png build/pokeicon/1_0647.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0648.png build/pokeicon/1_0648.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0649.png build/pokeicon/1_0649.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0650.png build/pokeicon/1_0650.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0651.png build/pokeicon/1_0651.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0652.png build/pokeicon/1_0652.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0653.png build/pokeicon/1_0653.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0654.png build/pokeicon/1_0654.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0655.png build/pokeicon/1_0655.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0656.png build/pokeicon/1_0656.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0657.png build/pokeicon/1_0657.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0658.png build/pokeicon/1_0658.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0659.png build/pokeicon/1_0659.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0660.png build/pokeicon/1_0660.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0661.png build/pokeicon/1_0661.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0662.png build/pokeicon/1_0662.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0663.png build/pokeicon/1_0663.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0664.png build/pokeicon/1_0664.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0665.png build/pokeicon/1_0665.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0666.png build/pokeicon/1_0666.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0667.png build/pokeicon/1_0667.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0668.png build/pokeicon/1_0668.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0669.png build/pokeicon/1_0669.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0670.png build/pokeicon/1_0670.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0671.png build/pokeicon/1_0671.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0672.png build/pokeicon/1_0672.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0673.png build/pokeicon/1_0673.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0674.png build/pokeicon/1_0674.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0675.png build/pokeicon/1_0675.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0676.png build/pokeicon/1_0676.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0677.png build/pokeicon/1_0677.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0678.png build/pokeicon/1_0678.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0679.png build/pokeicon/1_0679.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0680.png build/pokeicon/1_0680.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0681.png build/pokeicon/1_0681.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0682.png build/pokeicon/1_0682.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0683.png build/pokeicon/1_0683.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0684.png build/pokeicon/1_0684.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0685.png build/pokeicon/1_0685.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0686.png build/pokeicon/1_0686.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0687.png build/pokeicon/1_0687.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0688.png build/pokeicon/1_0688.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0689.png build/pokeicon/1_0689.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0690.png build/pokeicon/1_0690.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0691.png build/pokeicon/1_0691.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0692.png build/pokeicon/1_0692.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0693.png build/pokeicon/1_0693.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0694.png build/pokeicon/1_0694.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0695.png build/pokeicon/1_0695.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0696.png build/pokeicon/1_0696.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0697.png build/pokeicon/1_0697.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0698.png build/pokeicon/1_0698.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0699.png build/pokeicon/1_0699.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0700.png build/pokeicon/1_0700.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0701.png build/pokeicon/1_0701.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0702.png build/pokeicon/1_0702.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0703.png build/pokeicon/1_0703.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0704.png build/pokeicon/1_0704.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0705.png build/pokeicon/1_0705.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0706.png build/pokeicon/1_0706.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0707.png build/pokeicon/1_0707.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0708.png build/pokeicon/1_0708.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0709.png build/pokeicon/1_0709.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0710.png build/pokeicon/1_0710.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0711.png build/pokeicon/1_0711.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0712.png build/pokeicon/1_0712.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0713.png build/pokeicon/1_0713.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0714.png build/pokeicon/1_0714.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0715.png build/pokeicon/1_0715.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0716.png build/pokeicon/1_0716.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0717.png build/pokeicon/1_0717.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0718.png build/pokeicon/1_0718.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0719.png build/pokeicon/1_0719.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0720.png build/pokeicon/1_0720.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0721.png build/pokeicon/1_0721.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0722.png build/pokeicon/1_0722.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0723.png build/pokeicon/1_0723.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0724.png build/pokeicon/1_0724.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0725.png build/pokeicon/1_0725.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0726.png build/pokeicon/1_0726.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0727.png build/pokeicon/1_0727.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0728.png build/pokeicon/1_0728.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0729.png build/pokeicon/1_0729.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0730.png build/pokeicon/1_0730.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0731.png build/pokeicon/1_0731.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0732.png build/pokeicon/1_0732.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0733.png build/pokeicon/1_0733.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0734.png build/pokeicon/1_0734.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0735.png build/pokeicon/1_0735.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0736.png build/pokeicon/1_0736.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0737.png build/pokeicon/1_0737.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0738.png build/pokeicon/1_0738.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0739.png build/pokeicon/1_0739.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0740.png build/pokeicon/1_0740.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0741.png build/pokeicon/1_0741.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0742.png build/pokeicon/1_0742.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0743.png build/pokeicon/1_0743.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0744.png build/pokeicon/1_0744.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0745.png build/pokeicon/1_0745.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0746.png build/pokeicon/1_0746.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0747.png build/pokeicon/1_0747.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0748.png build/pokeicon/1_0748.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0749.png build/pokeicon/1_0749.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0750.png build/pokeicon/1_0750.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0751.png build/pokeicon/1_0751.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0752.png build/pokeicon/1_0752.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0753.png build/pokeicon/1_0753.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0754.png build/pokeicon/1_0754.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0755.png build/pokeicon/1_0755.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0756.png build/pokeicon/1_0756.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0757.png build/pokeicon/1_0757.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0758.png build/pokeicon/1_0758.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0759.png build/pokeicon/1_0759.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0760.png build/pokeicon/1_0760.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0761.png build/pokeicon/1_0761.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0762.png build/pokeicon/1_0762.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0763.png build/pokeicon/1_0763.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0764.png build/pokeicon/1_0764.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0765.png build/pokeicon/1_0765.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0766.png build/pokeicon/1_0766.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0767.png build/pokeicon/1_0767.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0768.png build/pokeicon/1_0768.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0769.png build/pokeicon/1_0769.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0770.png build/pokeicon/1_0770.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0771.png build/pokeicon/1_0771.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0772.png build/pokeicon/1_0772.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0773.png build/pokeicon/1_0773.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0774.png build/pokeicon/1_0774.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0775.png build/pokeicon/1_0775.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0776.png build/pokeicon/1_0776.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0777.png build/pokeicon/1_0777.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0778.png build/pokeicon/1_0778.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0779.png build/pokeicon/1_0779.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0780.png build/pokeicon/1_0780.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0781.png build/pokeicon/1_0781.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0782.png build/pokeicon/1_0782.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0783.png build/pokeicon/1_0783.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0784.png build/pokeicon/1_0784.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0785.png build/pokeicon/1_0785.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0786.png build/pokeicon/1_0786.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0787.png build/pokeicon/1_0787.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0788.png build/pokeicon/1_0788.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0789.png build/pokeicon/1_0789.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0790.png build/pokeicon/1_0790.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0791.png build/pokeicon/1_0791.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0792.png build/pokeicon/1_0792.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0793.png build/pokeicon/1_0793.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0794.png build/pokeicon/1_0794.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0795.png build/pokeicon/1_0795.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0796.png build/pokeicon/1_0796.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0797.png build/pokeicon/1_0797.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0798.png build/pokeicon/1_0798.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0799.png build/pokeicon/1_0799.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0800.png build/pokeicon/1_0800.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0801.png build/pokeicon/1_0801.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0802.png build/pokeicon/1_0802.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0803.png build/pokeicon/1_0803.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0804.png build/pokeicon/1_0804.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0805.png build/pokeicon/1_0805.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0806.png build/pokeicon/1_0806.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0807.png build/pokeicon/1_0807.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0808.png build/pokeicon/1_0808.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0809.png build/pokeicon/1_0809.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0810.png build/pokeicon/1_0810.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0811.png build/pokeicon/1_0811.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0812.png build/pokeicon/1_0812.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0813.png build/pokeicon/1_0813.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0814.png build/pokeicon/1_0814.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0815.png build/pokeicon/1_0815.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0816.png build/pokeicon/1_0816.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0817.png build/pokeicon/1_0817.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0818.png build/pokeicon/1_0818.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0819.png build/pokeicon/1_0819.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0820.png build/pokeicon/1_0820.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0821.png build/pokeicon/1_0821.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0822.png build/pokeicon/1_0822.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0823.png build/pokeicon/1_0823.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0824.png build/pokeicon/1_0824.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0825.png build/pokeicon/1_0825.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0826.png build/pokeicon/1_0826.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0827.png build/pokeicon/1_0827.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0828.png build/pokeicon/1_0828.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0829.png build/pokeicon/1_0829.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0830.png build/pokeicon/1_0830.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0831.png build/pokeicon/1_0831.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0832.png build/pokeicon/1_0832.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0833.png build/pokeicon/1_0833.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0834.png build/pokeicon/1_0834.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0835.png build/pokeicon/1_0835.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0836.png build/pokeicon/1_0836.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0837.png build/pokeicon/1_0837.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0838.png build/pokeicon/1_0838.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0839.png build/pokeicon/1_0839.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0840.png build/pokeicon/1_0840.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0841.png build/pokeicon/1_0841.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0842.png build/pokeicon/1_0842.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0843.png build/pokeicon/1_0843.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0844.png build/pokeicon/1_0844.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0845.png build/pokeicon/1_0845.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0846.png build/pokeicon/1_0846.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0847.png build/pokeicon/1_0847.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0848.png build/pokeicon/1_0848.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0849.png build/pokeicon/1_0849.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0850.png build/pokeicon/1_0850.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0851.png build/pokeicon/1_0851.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0852.png build/pokeicon/1_0852.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0853.png build/pokeicon/1_0853.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0854.png build/pokeicon/1_0854.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0855.png build/pokeicon/1_0855.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0856.png build/pokeicon/1_0856.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0857.png build/pokeicon/1_0857.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0858.png build/pokeicon/1_0858.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0859.png build/pokeicon/1_0859.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0860.png build/pokeicon/1_0860.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0861.png build/pokeicon/1_0861.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0862.png build/pokeicon/1_0862.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0863.png build/pokeicon/1_0863.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0864.png build/pokeicon/1_0864.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0865.png build/pokeicon/1_0865.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0866.png build/pokeicon/1_0866.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0867.png build/pokeicon/1_0867.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0868.png build/pokeicon/1_0868.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0869.png build/pokeicon/1_0869.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0870.png build/pokeicon/1_0870.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0871.png build/pokeicon/1_0871.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0872.png build/pokeicon/1_0872.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0873.png build/pokeicon/1_0873.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0874.png build/pokeicon/1_0874.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0875.png build/pokeicon/1_0875.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0876.png build/pokeicon/1_0876.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0877.png build/pokeicon/1_0877.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0878.png build/pokeicon/1_0878.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0879.png build/pokeicon/1_0879.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0880.png build/pokeicon/1_0880.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0881.png build/pokeicon/1_0881.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0882.png build/pokeicon/1_0882.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0883.png build/pokeicon/1_0883.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0884.png build/pokeicon/1_0884.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0885.png build/pokeicon/1_0885.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0886.png build/pokeicon/1_0886.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0887.png build/pokeicon/1_0887.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0888.png build/pokeicon/1_0888.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0889.png build/pokeicon/1_0889.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0890.png build/pokeicon/1_0890.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0891.png build/pokeicon/1_0891.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0892.png build/pokeicon/1_0892.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0893.png build/pokeicon/1_0893.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0894.png build/pokeicon/1_0894.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0895.png build/pokeicon/1_0895.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0896.png build/pokeicon/1_0896.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0897.png build/pokeicon/1_0897.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0898.png build/pokeicon/1_0898.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0899.png build/pokeicon/1_0899.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0900.png build/pokeicon/1_0900.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0901.png build/pokeicon/1_0901.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0902.png build/pokeicon/1_0902.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0903.png build/pokeicon/1_0903.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0904.png build/pokeicon/1_0904.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0905.png build/pokeicon/1_0905.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0906.png build/pokeicon/1_0906.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0907.png build/pokeicon/1_0907.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0908.png build/pokeicon/1_0908.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0909.png build/pokeicon/1_0909.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0910.png build/pokeicon/1_0910.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0911.png build/pokeicon/1_0911.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0912.png build/pokeicon/1_0912.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0913.png build/pokeicon/1_0913.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0914.png build/pokeicon/1_0914.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0915.png build/pokeicon/1_0915.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0916.png build/pokeicon/1_0916.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0917.png build/pokeicon/1_0917.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0918.png build/pokeicon/1_0918.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0919.png build/pokeicon/1_0919.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0920.png build/pokeicon/1_0920.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0921.png build/pokeicon/1_0921.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0922.png build/pokeicon/1_0922.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0923.png build/pokeicon/1_0923.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0924.png build/pokeicon/1_0924.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0925.png build/pokeicon/1_0925.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0926.png build/pokeicon/1_0926.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0927.png build/pokeicon/1_0927.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0928.png build/pokeicon/1_0928.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0929.png build/pokeicon/1_0929.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0930.png build/pokeicon/1_0930.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0931.png build/pokeicon/1_0931.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0932.png build/pokeicon/1_0932.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0933.png build/pokeicon/1_0933.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0934.png build/pokeicon/1_0934.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0935.png build/pokeicon/1_0935.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0936.png build/pokeicon/1_0936.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0937.png build/pokeicon/1_0937.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0938.png build/pokeicon/1_0938.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0939.png build/pokeicon/1_0939.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0940.png build/pokeicon/1_0940.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0941.png build/pokeicon/1_0941.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0942.png build/pokeicon/1_0942.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0943.png build/pokeicon/1_0943.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0944.png build/pokeicon/1_0944.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0945.png build/pokeicon/1_0945.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0946.png build/pokeicon/1_0946.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0947.png build/pokeicon/1_0947.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0948.png build/pokeicon/1_0948.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0949.png build/pokeicon/1_0949.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0950.png build/pokeicon/1_0950.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0951.png build/pokeicon/1_0951.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0952.png build/pokeicon/1_0952.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0953.png build/pokeicon/1_0953.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0954.png build/pokeicon/1_0954.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0955.png build/pokeicon/1_0955.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0956.png build/pokeicon/1_0956.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0957.png build/pokeicon/1_0957.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0958.png build/pokeicon/1_0958.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0959.png build/pokeicon/1_0959.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0960.png build/pokeicon/1_0960.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0961.png build/pokeicon/1_0961.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0962.png build/pokeicon/1_0962.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0963.png build/pokeicon/1_0963.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0964.png build/pokeicon/1_0964.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0965.png build/pokeicon/1_0965.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0966.png build/pokeicon/1_0966.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0967.png build/pokeicon/1_0967.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0968.png build/pokeicon/1_0968.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0969.png build/pokeicon/1_0969.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0970.png build/pokeicon/1_0970.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0971.png build/pokeicon/1_0971.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0972.png build/pokeicon/1_0972.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0973.png build/pokeicon/1_0973.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0974.png build/pokeicon/1_0974.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0975.png build/pokeicon/1_0975.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0976.png build/pokeicon/1_0976.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0977.png build/pokeicon/1_0977.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0978.png build/pokeicon/1_0978.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0979.png build/pokeicon/1_0979.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0980.png build/pokeicon/1_0980.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0981.png build/pokeicon/1_0981.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0982.png build/pokeicon/1_0982.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0983.png build/pokeicon/1_0983.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0984.png build/pokeicon/1_0984.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0985.png build/pokeicon/1_0985.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0986.png build/pokeicon/1_0986.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0987.png build/pokeicon/1_0987.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0988.png build/pokeicon/1_0988.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0989.png build/pokeicon/1_0989.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0990.png build/pokeicon/1_0990.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0991.png build/pokeicon/1_0991.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0992.png build/pokeicon/1_0992.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0993.png build/pokeicon/1_0993.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0994.png build/pokeicon/1_0994.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0995.png build/pokeicon/1_0995.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0996.png build/pokeicon/1_0996.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0997.png build/pokeicon/1_0997.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0998.png build/pokeicon/1_0998.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/0999.png build/pokeicon/1_0999.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1000.png build/pokeicon/1_1000.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1001.png build/pokeicon/1_1001.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1002.png build/pokeicon/1_1002.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1003.png build/pokeicon/1_1003.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1004.png build/pokeicon/1_1004.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1005.png build/pokeicon/1_1005.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1006.png build/pokeicon/1_1006.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1007.png build/pokeicon/1_1007.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1008.png build/pokeicon/1_1008.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1009.png build/pokeicon/1_1009.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1010.png build/pokeicon/1_1010.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1011.png build/pokeicon/1_1011.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1012.png build/pokeicon/1_1012.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1013.png build/pokeicon/1_1013.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1014.png build/pokeicon/1_1014.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1015.png build/pokeicon/1_1015.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1016.png build/pokeicon/1_1016.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1017.png build/pokeicon/1_1017.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1018.png build/pokeicon/1_1018.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1019.png build/pokeicon/1_1019.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1020.png build/pokeicon/1_1020.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1021.png build/pokeicon/1_1021.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1022.png build/pokeicon/1_1022.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1023.png build/pokeicon/1_1023.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1024.png build/pokeicon/1_1024.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1025.png build/pokeicon/1_1025.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1026.png build/pokeicon/1_1026.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1027.png build/pokeicon/1_1027.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1028.png build/pokeicon/1_1028.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1029.png build/pokeicon/1_1029.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1030.png build/pokeicon/1_1030.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1031.png build/pokeicon/1_1031.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1032.png build/pokeicon/1_1032.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1033.png build/pokeicon/1_1033.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1034.png build/pokeicon/1_1034.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1035.png build/pokeicon/1_1035.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1036.png build/pokeicon/1_1036.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1037.png build/pokeicon/1_1037.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1038.png build/pokeicon/1_1038.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1039.png build/pokeicon/1_1039.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1040.png build/pokeicon/1_1040.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1041.png build/pokeicon/1_1041.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1042.png build/pokeicon/1_1042.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1043.png build/pokeicon/1_1043.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1044.png build/pokeicon/1_1044.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1045.png build/pokeicon/1_1045.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1046.png build/pokeicon/1_1046.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1047.png build/pokeicon/1_1047.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1048.png build/pokeicon/1_1048.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1049.png build/pokeicon/1_1049.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1050.png build/pokeicon/1_1050.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1051.png build/pokeicon/1_1051.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1052.png build/pokeicon/1_1052.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1053.png build/pokeicon/1_1053.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1054.png build/pokeicon/1_1054.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1055.png build/pokeicon/1_1055.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1056.png build/pokeicon/1_1056.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1057.png build/pokeicon/1_1057.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1058.png build/pokeicon/1_1058.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1059.png build/pokeicon/1_1059.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1060.png build/pokeicon/1_1060.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1061.png build/pokeicon/1_1061.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1062.png build/pokeicon/1_1062.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1063.png build/pokeicon/1_1063.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1064.png build/pokeicon/1_1064.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1065.png build/pokeicon/1_1065.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1066.png build/pokeicon/1_1066.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1067.png build/pokeicon/1_1067.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1068.png build/pokeicon/1_1068.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1069.png build/pokeicon/1_1069.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1070.png build/pokeicon/1_1070.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1071.png build/pokeicon/1_1071.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1072.png build/pokeicon/1_1072.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1073.png build/pokeicon/1_1073.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1074.png build/pokeicon/1_1074.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1075.png build/pokeicon/1_1075.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1076.png build/pokeicon/1_1076.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1077.png build/pokeicon/1_1077.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1078.png build/pokeicon/1_1078.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1079.png build/pokeicon/1_1079.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1080.png build/pokeicon/1_1080.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1081.png build/pokeicon/1_1081.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1082.png build/pokeicon/1_1082.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1083.png build/pokeicon/1_1083.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1084.png build/pokeicon/1_1084.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1085.png build/pokeicon/1_1085.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1086.png build/pokeicon/1_1086.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1087.png build/pokeicon/1_1087.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1088.png build/pokeicon/1_1088.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1089.png build/pokeicon/1_1089.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1090.png build/pokeicon/1_1090.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1091.png build/pokeicon/1_1091.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1092.png build/pokeicon/1_1092.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1093.png build/pokeicon/1_1093.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1094.png build/pokeicon/1_1094.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1095.png build/pokeicon/1_1095.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1096.png build/pokeicon/1_1096.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1097.png build/pokeicon/1_1097.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1098.png build/pokeicon/1_1098.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1099.png build/pokeicon/1_1099.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1100.png build/pokeicon/1_1100.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1101.png build/pokeicon/1_1101.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1102.png build/pokeicon/1_1102.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1103.png build/pokeicon/1_1103.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1104.png build/pokeicon/1_1104.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1105.png build/pokeicon/1_1105.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1106.png build/pokeicon/1_1106.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1107.png build/pokeicon/1_1107.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1108.png build/pokeicon/1_1108.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1109.png build/pokeicon/1_1109.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1110.png build/pokeicon/1_1110.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1111.png build/pokeicon/1_1111.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1112.png build/pokeicon/1_1112.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1113.png build/pokeicon/1_1113.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1114.png build/pokeicon/1_1114.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1115.png build/pokeicon/1_1115.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1116.png build/pokeicon/1_1116.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1117.png build/pokeicon/1_1117.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1118.png build/pokeicon/1_1118.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1119.png build/pokeicon/1_1119.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1120.png build/pokeicon/1_1120.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1121.png build/pokeicon/1_1121.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1122.png build/pokeicon/1_1122.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1123.png build/pokeicon/1_1123.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1124.png build/pokeicon/1_1124.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1125.png build/pokeicon/1_1125.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1126.png build/pokeicon/1_1126.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1127.png build/pokeicon/1_1127.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1128.png build/pokeicon/1_1128.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1129.png build/pokeicon/1_1129.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1130.png build/pokeicon/1_1130.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1131.png build/pokeicon/1_1131.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1132.png build/pokeicon/1_1132.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1133.png build/pokeicon/1_1133.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1134.png build/pokeicon/1_1134.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1135.png build/pokeicon/1_1135.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1136.png build/pokeicon/1_1136.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1137.png build/pokeicon/1_1137.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1138.png build/pokeicon/1_1138.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1139.png build/pokeicon/1_1139.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1140.png build/pokeicon/1_1140.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1141.png build/pokeicon/1_1141.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1142.png build/pokeicon/1_1142.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1143.png build/pokeicon/1_1143.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1144.png build/pokeicon/1_1144.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1145.png build/pokeicon/1_1145.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1146.png build/pokeicon/1_1146.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1147.png build/pokeicon/1_1147.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1148.png build/pokeicon/1_1148.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1149.png build/pokeicon/1_1149.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1150.png build/pokeicon/1_1150.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1151.png build/pokeicon/1_1151.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1152.png build/pokeicon/1_1152.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1153.png build/pokeicon/1_1153.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1154.png build/pokeicon/1_1154.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1155.png build/pokeicon/1_1155.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1156.png build/pokeicon/1_1156.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1157.png build/pokeicon/1_1157.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1158.png build/pokeicon/1_1158.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1159.png build/pokeicon/1_1159.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1160.png build/pokeicon/1_1160.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1161.png build/pokeicon/1_1161.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1162.png build/pokeicon/1_1162.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1163.png build/pokeicon/1_1163.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1164.png build/pokeicon/1_1164.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1165.png build/pokeicon/1_1165.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1166.png build/pokeicon/1_1166.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1167.png build/pokeicon/1_1167.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1168.png build/pokeicon/1_1168.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1169.png build/pokeicon/1_1169.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1170.png build/pokeicon/1_1170.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1171.png build/pokeicon/1_1171.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1172.png build/pokeicon/1_1172.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1173.png build/pokeicon/1_1173.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1174.png build/pokeicon/1_1174.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1175.png build/pokeicon/1_1175.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1176.png build/pokeicon/1_1176.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1177.png build/pokeicon/1_1177.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1178.png build/pokeicon/1_1178.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1179.png build/pokeicon/1_1179.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1180.png build/pokeicon/1_1180.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1181.png build/pokeicon/1_1181.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1182.png build/pokeicon/1_1182.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1183.png build/pokeicon/1_1183.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1184.png build/pokeicon/1_1184.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1185.png build/pokeicon/1_1185.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1186.png build/pokeicon/1_1186.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1187.png build/pokeicon/1_1187.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1188.png build/pokeicon/1_1188.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1189.png build/pokeicon/1_1189.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1190.png build/pokeicon/1_1190.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1191.png build/pokeicon/1_1191.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1192.png build/pokeicon/1_1192.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1193.png build/pokeicon/1_1193.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1194.png build/pokeicon/1_1194.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1195.png build/pokeicon/1_1195.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1196.png build/pokeicon/1_1196.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1197.png build/pokeicon/1_1197.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1198.png build/pokeicon/1_1198.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1199.png build/pokeicon/1_1199.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1200.png build/pokeicon/1_1200.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1201.png build/pokeicon/1_1201.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1202.png build/pokeicon/1_1202.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1203.png build/pokeicon/1_1203.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1204.png build/pokeicon/1_1204.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1205.png build/pokeicon/1_1205.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1206.png build/pokeicon/1_1206.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1207.png build/pokeicon/1_1207.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1208.png build/pokeicon/1_1208.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1209.png build/pokeicon/1_1209.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1210.png build/pokeicon/1_1210.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1211.png build/pokeicon/1_1211.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1212.png build/pokeicon/1_1212.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1213.png build/pokeicon/1_1213.NCGR -clobbersize -version101
+tools/nitrogfx data/graphics/pokeicons/1214.png build/pokeicon/1_1214.NCGR -clobbersize -version101
+cp -r data/raw/pl_poke_icon/. build/pokeicon
+python3 tools/narcpy.py create build/narc/pokeicon.narc build/pokeicon -nf
+✅ [4;37m[1;37mCompiled new NARCs[0m
+
+cp build/narc/battle/pl_batt_obj.narc base/data/battle/graphic/pl_batt_obj.narc
+cp build/narc/battle/skill/be_seq.narc base/data/battle/skill/be_seq.narc
+cp build/narc/battle/skill/waza_seq.narc base/data/battle/skill/waza_seq.narc
+cp build/narc/battle/skill/sub_seq.narc base/data/battle/skill/sub_seq.narc
+cp build/narc/itemtool/pl_item_data.narc base/data/itemtool/itemdata/pl_item_data.narc
+cp build/narc/poketool/personal/pl_personal.narc base/data/poketool/personal/pl_personal.narc
+cp build/narc/poketool/personal/evo.narc base/data/poketool/personal/evo.narc
+cp build/narc/poketool/personal/wotbl.narc base/data/poketool/personal/wotbl.narc
+cp build/narc/resource/eng/zukan.narc base/data/resource/eng/zukan/zukan.narc
+cp build/narc/msgdata/pl_msg.narc base/data/msgdata/pl_msg.narc
+cp build/narc/pokeicon.narc base/data/poketool/icongra/pl_poke_icon.narc
+✅ [4;37m[1;37mCopied new NARCs into /base[0m
+
+tools/ndstool -c test.nds -9 base/arm9.bin -7 base/arm7.bin -y9 base/y9.bin -y base/y7.bin -d base/data -y base/overlay -t base/banner.bin -h base/header.bin
+Nintendo DS rom tool 2.1.2 - Jul 22 2023
+by Rafael Vuijk, Dave Murphy, Alexei Karpenko
+✅ [4;37m[1;37mCompiled new ROM as /test.nds![0m
+🎉 [4;37m[1;37mHappy testing![0m
+make: warning:  Clock skew detected.  Your build may be incomplete.
