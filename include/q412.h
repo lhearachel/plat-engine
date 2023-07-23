@@ -105,6 +105,6 @@ u16 __attribute__((long_call)) UQ412_Mul_RoundDown(u16 n, u16 by);
  */
 u16 __attribute__((long_call)) UQ412_Mul_IntByQ_RoundDown(u16 i, u16 q);
 
-s32 __attribute__((long_call)) Q412_Mul_IntByQ_RoundDown(s32 i, u16 q);
+u32 __attribute__((long_call)) Q412_Mul_IntByQ_RoundDown(u32 i, u16 q);
 
 #endif // __Q412_H

@@ -31,15 +31,15 @@ u16 UQ412_Mul_IntByQ_RoundDown(u16 i, u16 q)
     return temp >> UQ412_INT_BITSHIFT;          // undo the initial shift
 }
 
-s32 Q412_Mul_IntByQ_RoundDown(s32 i, u16 q)
+u32 Q412_Mul_IntByQ_RoundDown(u32 i, u16 q)
 {
     if (q == UQ412__1_0) {
         return i;
     }
 
-    s32 temp = (s32) i << UQ412_INT_BITSHIFT;   // transform to Q20.12 fixed-point
-    temp = temp * (s32) q;                      // implicit shift here
+    u32 temp = (u32) (i << UQ412_INT_BITSHIFT); // transform to Q20.12 fixed-point
+    temp = temp * (u32) q;                      // implicit shift here
+    temp = temp + UQ412__0_5 - 1;               // round the result tail (down at 0.5)
     temp = temp >> UQ412_INT_BITSHIFT;          // undo the implicit shift
-    temp = temp + UQ412__0_5 - 1;               // round the result (down at 0.5)
-    return temp >> UQ412_INT_BITSHIFT;          // undo the initial shift
+    return (u32) (temp >> UQ412_INT_BITSHIFT);  // undo the initial shift
 }

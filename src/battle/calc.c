@@ -86,7 +86,7 @@ extern const u8 gStatModifierTable[][2];  // 0x0226EBE0
 extern const u8 gCriticalRateTable[];     // 0x0226EBA0
 
 #define __NORM     0
-#define _IMMUN  0xFF
+#define _IMMUN  0x7F
 #define _NVEFF    -1
 #define _SPEFF     1
 
@@ -96,7 +96,7 @@ extern const u8 gCriticalRateTable[];     // 0x0226EBA0
  *   -    0 -> no modifier
  *   -    1 -> attacking type is super effective
  *   -   -1 -> attacking type is not very effective
- *   - 0xFF -> defending type is immune
+ *   - 0x7F -> defending type is immune
  * 
  * These values can be interpreted as the leftward shift to apply to
  * UQ412__1_0 for a particular matchup. e.g., if an attacking type is
@@ -620,9 +620,9 @@ static u16 Calc_ModifiedBasePower(
      */
 #ifdef DEBUG_MODE
     u8 buf[128];
-    sprintf(buf, "[PLAT-ENGINE] Final modifier (q412): %ld\n", powerMod);
+    sprintf(buf, "[PLAT-ENGINE] Final modifier (q412): %d\n", powerMod);
     debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Raw move power: %ld\n", movePower);
+    sprintf(buf, "[PLAT-ENGINE] Raw move power: %d\n", movePower);
     debugsyscall(buf);
 #endif
     u32 modifiedPower = UQ412_Mul_IntByQ_RoundDown(movePower, powerMod);
@@ -718,7 +718,7 @@ static u16 Calc_BaseDamage(
     );
 #ifdef DEBUG_MODE
     u8 buf[128];
-    sprintf(buf, "[PLAT-ENGINE] Modified base power: %ld\n", modifiedBasePower);
+    sprintf(buf, "[PLAT-ENGINE] Modified base power: %d\n", modifiedBasePower);
     debugsyscall(buf);
 #endif
 
@@ -803,9 +803,9 @@ static u16 Calc_BaseDamage(
             effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, attackerUnaware, server->critical);
         }
 #ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Effective offensive stat: %ld\n", effectiveOffense);
+        sprintf(buf, "[PLAT-ENGINE] Effective offensive stat: %d\n", effectiveOffense);
         debugsyscall(buf);
-        sprintf(buf, "[PLAT-ENGINE] Effective defensive stat: %ld\n", effectiveDefense);
+        sprintf(buf, "[PLAT-ENGINE] Effective defensive stat: %d\n", effectiveDefense);
         debugsyscall(buf);
 #endif
     }
@@ -829,9 +829,9 @@ static u16 Calc_BaseDamage(
     effectiveOffense = Calc_ChainOffenseMods(battle, server, attacker, defender, effectiveOffense, moveType, movePSS);
     effectiveDefense = Calc_ChainDefenseMods(battle, server, attacker, defender, effectiveDefense, moveType, movePSS);
 #ifdef DEBUG_MODE
-    sprintf(buf, "[PLAT-ENGINE] Offense after modifiers: %ld\n", effectiveOffense);
+    sprintf(buf, "[PLAT-ENGINE] Offense after modifiers: %d\n", effectiveOffense);
     debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Defense after modifiers: %ld\n", effectiveDefense);
+    sprintf(buf, "[PLAT-ENGINE] Defense after modifiers: %d\n", effectiveDefense);
     debugsyscall(buf);
 #endif
 
@@ -1222,16 +1222,16 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     const s8 *typeMatchups = sTypeEffectiveness[server->moveType];
 #ifdef DEBUG_MODE
     u8 buf[128];
-    sprintf(buf, "[PLAT-ENGINE] Move type: %ld\n", server->moveType);
+    sprintf(buf, "[PLAT-ENGINE] Move type: %d\n", server->moveType);
     debugsyscall(buf);
 #endif
 
     if (type1 != TYPE_NONE) {
         s8 type1Matchup = typeMatchups[type1];
 #ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] vs. Type 1: %ld\n", type1);
+        sprintf(buf, "[PLAT-ENGINE] vs. Type 1: %d\n", type1);
         debugsyscall(buf);
-        sprintf(buf, "[PLAT-ENGINE] Table Entry: %ld\n", type1Matchup);
+        sprintf(buf, "[PLAT-ENGINE] Table Entry: %d\n", type1Matchup);
         debugsyscall(buf);
 #endif
         switch (type1Matchup) {
@@ -1254,9 +1254,9 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     if (type1 != type2 && type2 != TYPE_NONE) {
         s8 type2Matchup = typeMatchups[type2];
 #ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] vs. Type 2: %ld\n", type2);
+        sprintf(buf, "[PLAT-ENGINE] vs. Type 2: %d\n", type2);
         debugsyscall(buf);
-        sprintf(buf, "[PLAT-ENGINE] Table Entry: %ld\n", type2Matchup);
+        sprintf(buf, "[PLAT-ENGINE] Table Entry: %d\n", type2Matchup);
         debugsyscall(buf);
 #endif
         switch (type2Matchup) {
@@ -1492,7 +1492,7 @@ _NoScreenReduction:
             chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_25);
         } else {
 #ifdef DEBUG_MODE
-            sprintf(buf, "[PLAT-ENGINE] Applying base resist berry modifier: 0.5x\n", defender->heldItemEffect, moveType);
+            sprintf(buf, "[PLAT-ENGINE] Applying base resist berry modifier: 0.5x\n");
             debugsyscall(buf);
 #endif
             chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
@@ -1580,10 +1580,10 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     };
 
     // Step 1: Calculate the base damage value.
-    s32 damage = Calc_BaseDamage(battle, server, &attackerParams, &defenderParams);
+    u32 damage = Calc_BaseDamage(battle, server, &attackerParams, &defenderParams);
 #ifdef DEBUG_MODE
     u8 buf[128];
-    sprintf(buf, "[PLAT-ENGINE] Base damage: %ld\n", damage);
+    sprintf(buf, "[PLAT-ENGINE] Base damage: %d\n", damage);
     debugsyscall(buf);
 #endif
 
@@ -1597,7 +1597,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 #endif
         damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_75);
 #ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Damage after double battle factor: %ld\n", damage);
+        sprintf(buf, "[PLAT-ENGINE] Damage after double battle factor: %d\n", damage);
         debugsyscall(buf);
 #endif
     }
@@ -1628,7 +1628,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
             damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
         }
 #ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Damage after sun factor: %ld\n", damage);
+        sprintf(buf, "[PLAT-ENGINE] Damage after sun factor: %d\n", damage);
         debugsyscall(buf);
 #endif
     } else if (WeatherIsActive(battle, server, FIELD_CONDITION_RAINING)
@@ -1651,7 +1651,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
             damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
         }
 #ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Damage after rain factor: %ld\n", damage);
+        sprintf(buf, "[PLAT-ENGINE] Damage after rain factor: %d\n", damage);
         debugsyscall(buf);
 #endif
     }
@@ -1665,7 +1665,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     if (server->critical) {
         damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
 #ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Critical hit damage: %ld\n", damage);
+        sprintf(buf, "[PLAT-ENGINE] Critical hit damage: %d\n", damage);
         debugsyscall(buf);
 #endif
     }
@@ -1673,7 +1673,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     if (server->critical) {
         damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__2_0);
 #ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Critical hit damage: %ld\n", damage);
+        sprintf(buf, "[PLAT-ENGINE] Critical hit damage: %d\n", damage);
         debugsyscall(buf);
 #endif
     }
@@ -1682,7 +1682,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // Step 7: Apply random damage fluctuation.
 #ifdef DEBUG_MODE
     // Debug mode: store all possible damage values as a buffer.
-    s32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
+    u32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
     for (int i = 0; i < 16; i++) {
         damageValues[i] = damage * damageValues[i] / 100;
     }
@@ -1748,6 +1748,14 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 
     // Apply all the modifiers.
 #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Preliminary damage values: [ ");
+    int length = 43;
+    for (int i = 0; i < 16; i++) {
+        length += sprintf(buf + length, "%ld ", damageValues[i]);
+    }
+    sprintf(buf + length, "]\n");
+    debugsyscall(buf);
+
     sprintf(buf, "[PLAT-ENGINE] STAB Modifier: %d\n", stabMod);
     debugsyscall(buf);
     sprintf(buf, "[PLAT-ENGINE] Effectiveness Modifier: %d\n", typeMod);
@@ -1759,7 +1767,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // If we're in debug mode, then we instead have a whole list of damage values that need to be
     // applied to and printed out.
     sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
-    int length = 32;
+    length = 32;
     for (int i = 0; i < 16; i++) {
         damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], stabMod);
         damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], typeMod);
@@ -1779,8 +1787,8 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     damage = Q412_Mul_IntByQ_RoundDown(damage, lastMod);
 #endif
 
-    // And we're done.
-    server->damage = damage * -1;
+    // And we're done. Cut the top bit off, then multiply by -1.
+    server->damage = ((s32) damage & 0x7FFF) * -1;
 }
 
 BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server)
@@ -1835,7 +1843,7 @@ int Calc_TypeEffectivenessPower(u8 moveType, u8 pokeType1, u8 pokeType2)
      * This function does NOT check and should NEVER check for modified typings,
      * since it's only used for entry-hazard checks.
      */
-    u8 matchup = sTypeEffectiveness[moveType][pokeType1];
+    s8 matchup = sTypeEffectiveness[moveType][pokeType1];
     if (pokeType1 != pokeType2 && matchup != _IMMUN) {
         matchup = matchup + sTypeEffectiveness[moveType][pokeType2];
     }
