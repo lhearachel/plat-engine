@@ -1,45 +1,27 @@
+#include "global.h"
 #include "q412.h"
 
-u16 UQ412_Mul_RoundUp(u16 n, u16 by)
+struct Q412Entry {
+    u16 i;
+    u16 q;
+};
+
+extern const struct Q412Entry gQ412Table[] = {
+    {  10, UQ412__0_1  },
+    {  20, UQ412__0_2  },
+    {  25, UQ412__0_25 },
+    {  30, UQ412__0_3  },
+    {  33, UQ412__0_33 },
+    {  50, UQ412__0_5  },
+};
+
+u16 QPercent(u16 i)
 {
-    if (by == UQ412__1_0) {
-        return n;
+    for (unsigned int j = 0; j < NELEMS(gQ412Table); j++) {
+        if (gQ412Table[j].i == i) {
+            return gQ412Table[j].q;
+        }
     }
 
-    u32 temp = (u32) n * (u32) by;
-    temp = temp + UQ412__0_5;           // round up any mid-value on the tail
-    return temp >> UQ412_INT_BITSHIFT;  // undo the implicit bitshift from n*by
-}
-
-u16 UQ412_Mul_RoundDown(u16 n, u16 by)
-{
-    u32 temp = (u32) n * (u32) by;
-    temp = temp + UQ412__0_5 - 1;       // round down any mid-value on the tail
-    return temp >> UQ412_INT_BITSHIFT;  // undo the implicit bitshift from n*by
-}
-
-u16 UQ412_Mul_IntByQ_RoundDown(u16 i, u16 q)
-{
-    if (q == UQ412__1_0) {
-        return i;
-    }
-
-    u32 temp = (u32) i << UQ412_INT_BITSHIFT;   // transform to Q20.12 fixed-point
-    temp = temp * (u32) q;                      // implicit shift here
-    temp = temp >> UQ412_INT_BITSHIFT;          // undo the implicit shift
-    temp = temp + UQ412__0_5 - 1;               // round the result (down at 0.5)
-    return temp >> UQ412_INT_BITSHIFT;          // undo the initial shift
-}
-
-u32 Q412_Mul_IntByQ_RoundDown(u32 i, u16 q)
-{
-    if (q == UQ412__1_0) {
-        return i;
-    }
-
-    u32 temp = (u32) (i << UQ412_INT_BITSHIFT); // transform to Q20.12 fixed-point
-    temp = temp * (u32) q;                      // implicit shift here
-    temp = temp + UQ412__0_5 - 1;               // round the result tail (down at 0.5)
-    temp = temp >> UQ412_INT_BITSHIFT;          // undo the implicit shift
-    return (u32) (temp >> UQ412_INT_BITSHIFT);  // undo the initial shift
+    return UQ412__1_0;
 }
