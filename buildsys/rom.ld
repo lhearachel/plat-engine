@@ -38,6 +38,7 @@ Pokemon_CheckPokerusImmune = 0x020778F8 | 1;
 Pokemon_CheckPokerus = 0x020778D8 | 1;
 Pokemon_RecalcFriendship = 0x02075C74 | 1;
 Pokemon_CanBattle = 0x02054884 | 1;
+Pokemon_Evolutions = 0x0207821C | 1;
 Pokemon_Lock = 0x02073C88 | 1;
 Pokemon_Unlock = 0x02073CD4 | 1;
 PokemonBaseStats_Get = 0x020759F0 | 1;

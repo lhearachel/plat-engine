@@ -16,9 +16,9 @@ inline BOOL Ability_BlocksPoisonDamage(u8 abilityID)
 
 static int Pokemon_OverworldPoisonDamage(struct Party *party, u16 zoneID)
 {
-#ifndef OVERWORLD_POISON_DAMAGE
+    #ifndef OVERWORLD_POISON_DAMAGE
     return 0;
-#else
+    #else
     int poisonCount = 0;
     int deadCount = 0;
     for (int i = 0; i < Party_Count(party); i++) {
@@ -41,12 +41,25 @@ static int Pokemon_OverworldPoisonDamage(struct Party *party, u16 zoneID)
     }
 
     return (deadCount) ? 2 : ((poisonCount) ? 1 : 0);
-#endif  // OVERWORLD_POISON_DAMAGE
+    #endif  // OVERWORLD_POISON_DAMAGE
 }
 
-// This is a stub for now; it needs to be implemented for Eviolite to work.
 BOOL Pokemon_IsNFE(u16 species, u32 form)
 {
+    struct EvoTable *evos = Malloc(0, sizeof(struct EvoTable));
+    Pokemon_Evolutions(Form_GetTrueSpecies(species, form), evos);
+
+    // Check for any possible evolutions
+    for (unsigned int i = 0; i < 7; i++) {
+        struct EvoData *data = &evos->data[i];
+        if (data->condition != 0
+                && data->param != 0
+                && data->target != 0) {
+            return TRUE;
+        }
+    }
+
+    // No evolutions found, so this mon is fully-evolved.
     return FALSE;
 }
 

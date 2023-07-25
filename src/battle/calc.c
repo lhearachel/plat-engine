@@ -1685,7 +1685,6 @@ static u16 Calc_ChainDefenseMods(
          */
         if (defender->condition && movePSS == PSS_PHYSICAL) {
             #ifdef DEBUG_MODE
-            u8 buf[128];
             sprintf(buf, "[PLAT-ENGINE] ---- Marvel Scale: 1.5x\n");
             debugsyscall(buf);
             #endif
@@ -1698,7 +1697,6 @@ static u16 Calc_ChainDefenseMods(
          */
         if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
             #ifdef DEBUG_MODE
-            u8 buf[128];
             sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (self): 1.5x\n");
             debugsyscall(buf);
             #endif
@@ -1720,7 +1718,6 @@ static u16 Calc_ChainDefenseMods(
          */
         if (movePSS == PSS_PHYSICAL) {
             #ifdef DEBUG_MODE
-            u8 buf[128];
             sprintf(buf, "[PLAT-ENGINE] ---- Fur Coat: 2.0x\n");
             debugsyscall(buf);
             #endif
@@ -1733,7 +1730,6 @@ static u16 Calc_ChainDefenseMods(
         // Flower Gift increases ally's SpDefense by 50% during harsh sunlight.
         if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
             #ifdef DEBUG_MODE
-            u8 buf[128];
             sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (ally): 1.5x\n");
             debugsyscall(buf);
             #endif
@@ -1780,6 +1776,11 @@ CheckDefensiveRuins:
 
 CheckDefensiveItems:
     nextMod = UQ412__1_0;
+
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Checking defender's item: %d\n", defender->heldItemEffect);
+    debugsyscall(buf);
+    #endif
     switch (defender->heldItemEffect) {
         case HOLD_EFFECT_METAL_POWDER:
             /*
@@ -1787,7 +1788,6 @@ CheckDefensiveItems:
              */
             if (defender->species == SPECIES_DITTO && movePSS == PSS_PHYSICAL) {
                 #ifdef DEBUG_MODE
-                u8 buf[128];
                 sprintf(buf, "[PLAT-ENGINE] ---- Metal Powder: 2.0x\n");
                 debugsyscall(buf);
                 #endif
@@ -1802,7 +1802,6 @@ CheckDefensiveItems:
              */
             if (defender->species == SPECIES_CLAMPERL && movePSS == PSS_SPECIAL) {
                 #ifdef DEBUG_MODE
-                u8 buf[128];
                 sprintf(buf, "[PLAT-ENGINE] ---- Deep Sea Scale: 2.0x\n");
                 debugsyscall(buf);
                 #endif
@@ -1816,9 +1815,13 @@ CheckDefensiveItems:
              * Increases all defensive stats by 50% if the defender is not
              * fully-evolved.
              */
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] ---- Eviolite found\n");
+            debugsyscall(buf);
+            #endif
+
             if (Pokemon_IsNFE(defender->species, server->activePokemon[server->defender].formNum)) {
                 #ifdef DEBUG_MODE
-                u8 buf[128];
                 sprintf(buf, "[PLAT-ENGINE] ---- Eviolite: 1.5x\n");
                 debugsyscall(buf);
                 #endif
