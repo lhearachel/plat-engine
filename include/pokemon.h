@@ -183,7 +183,6 @@ struct __attribute__((packed)) EvoData {
     u16 condition;
     u16 param;
     u16 target;
-    u16 _padding;
 };
 
 struct EvoTable {
