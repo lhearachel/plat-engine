@@ -14,6 +14,30 @@
 #include "constants/misc.h"
 #include "constants/species.h"
 
+#ifdef DEBUG_MODE
+static u8 *sTypeStrings[] = {
+    [TYPE_NORMAL]   = "Normal",
+    [TYPE_FIGHTING] = "Fighting",
+    [TYPE_FLYING]   = "Flying",
+    [TYPE_POISON]   = "Poison",
+    [TYPE_GROUND]   = "Ground",
+    [TYPE_ROCK]     = "Rock",
+    [TYPE_BUG]      = "Bug",
+    [TYPE_GHOST]    = "Ghost",
+    [TYPE_STEEL]    = "Steel",
+    [TYPE_FAIRY]    = "Fairy",
+    [TYPE_FIRE]     = "Fire",
+    [TYPE_WATER]    = "Water",
+    [TYPE_GRASS]    = "Grass",
+    [TYPE_ELECTRIC] = "Electric",
+    [TYPE_PSYCHIC]  = "Psychic",
+    [TYPE_ICE]      = "Ice",
+    [TYPE_DRAGON]   = "Dragon",
+    [TYPE_DARK]     = "Dark",
+    [TYPE_NONE]     = "None",
+};
+#endif
+
 struct CalcStats {
     u16 attack;
     u16 defense;
@@ -86,7 +110,7 @@ extern const u8 gStatModifierTable[][2];  // 0x0226EBE0
 extern const u8 gCriticalRateTable[];     // 0x0226EBA0
 
 #define __NORM     0
-#define _IMMUN  0xFF
+#define _IMMUN  0x7F
 #define _NVEFF    -1
 #define _SPEFF     1
 
@@ -96,7 +120,7 @@ extern const u8 gCriticalRateTable[];     // 0x0226EBA0
  *   -    0 -> no modifier
  *   -    1 -> attacking type is super effective
  *   -   -1 -> attacking type is not very effective
- *   - 0xFF -> defending type is immune
+ *   - 0x7F -> defending type is immune
  * 
  * These values can be interpreted as the leftward shift to apply to
  * UQ412__1_0 for a particular matchup. e.g., if an attacking type is
@@ -334,10 +358,20 @@ static u16 Calc_ModifiedBasePower(
      * This multiplier is passed as a value which is expected to be in Q4.12 format.
      */
     u16 powerMod = server->powerModifier;
-    
+    #ifdef DEBUG_MODE
+    u8 buf[128];
+    sprintf(buf, "[PLAT-ENGINE] Initial power mod: %d\n", powerMod);
+    debugsyscall(buf);
+    #endif
+
     // 2x if the attacker is under the effect of Charge and the used move is Electric-type.
     if ((server->activePokemon[server->attacker].moveEffectsMask & MOVE_EFFECT_CHARGED) && (moveType == TYPE_ELECTRIC)) {
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__2_0);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Charge active: 2x\n");
+        debugsyscall(buf);
+        #endif
+
+        powerMod = QMul_RoundUp(powerMod, UQ412__2_0);
     }
 
     // 1.5x if the used move was stolen via Me First.
@@ -348,7 +382,12 @@ static u16 Calc_ModifiedBasePower(
         }
 
         if (server->meFirstTotalTurnOrder - server->activePokemon[server->attacker].moveEffects.meFirstTurnCount < 2) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Me First active: 1.5x\n");
+            debugsyscall(buf);
+            #endif
+
+            powerMod = QMul_RoundUp(powerMod, UQ412__1_5);
         }
     }
 
@@ -357,14 +396,24 @@ static u16 Calc_ModifiedBasePower(
     // Technically this breaks for Triple Battles if one ally uses Helping Hand
     // and another uses Instruct, but lol. lmao.
     if (server->stFX[server->attacker].helpingHand) {
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Helping Hand active: 1.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        powerMod = QMul_RoundUp(powerMod, UQ412__1_5);
     }
 
     // 0.33x if Mud or Water Sport are in effect and the used move is Electric or Fire-type (respectively).
     // TODO: These need to be moved to field conditions instead of being move effects
     if ((Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_MUD_SPORT) && (moveType == TYPE_ELECTRIC))
             || (Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_WATER_SPORT) && (moveType == TYPE_FIRE))) {
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_33);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Mud/Water Sport active: 0.33x\n");
+        debugsyscall(buf);
+        #endif
+
+        powerMod = QMul_RoundUp(powerMod, UQ412__0_33);
     }
 
     // TODO
@@ -378,84 +427,182 @@ static u16 Calc_ModifiedBasePower(
 
     // ==================== START OF ABILITY CHAIN ==================== //
 
-    if (attacker->ability == ABILITY_RIVALRY) {
-        // 1.25x if the attacker's ability is Rivalry and the target is of the same gender.
-        // 0.75x if the attacker's ability is Rivalry and the target is of the opposite gender.
-        // No muliplier if either Pokemon is genderless.
-        if ((attacker->gender == 2) || (defender->gender == 2)) {
-            powerMod = powerMod;
-        } else if (attacker->gender == defender->gender) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_25);
-        } else {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_75);
-        }
-    } else if (attacker->ability == ABILITY_SUPREME_OVERLORD) {
-        // TODO
-        // 1 + 0.1n if the attacker's ability is Supreme Overlord, where n is the number of Pokemon
-        // on the attacker's party which have previously fainted.
-    } else if (attacker->ability == ABILITY_RECKLESS) {
-        if (Moves_BoostedByReckless(moveID)) {
-            // 1.2x if the attacker's ability is Reckless and the used move is applicable (deals recoil damage,
-            // or is High Jump Kick or Jump Kick, but is _not_ Struggle).
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
-        }
-    } else if (attacker->ability == ABILITY_IRON_FIST
-            && Moves_IsPunching(moveID)) {
-        // 1.2x if the attacker's ability is Iron Fist and the used move is a punching move.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
-    } else if (attacker->ability == ABILITY_NORMALIZE) {
-        if (Moves_CanNormalize(moveID)) {
-            // 1.2x if the attacker's ability is Normalize and the used move is affected.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
-        }
-    } else if (isAteAbility) {
-        // 1.2x if the attacker's ability is an -ate ability and was the used move was affected.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
-    } else if (attacker->ability == ABILITY_ANALYTIC) {
-        // 1.3x if the attacker's ability is Analytic and it moves last in turn order.
-        // Check all the other living Pokemon; if any of them would have moved after the attacker, break out.
-        int i;
-        for (i = 0; i < 4; i++) {
-            if (server->attacker != i
-                    && server->activePokemon[i].curHP != 0
-                    /* && SpeedCheck*/) {
-                break;
-            }
-        }
+    // Exclusive set 1
+    u16 nextMod = UQ412__1_0;
+    switch (attacker->ability) {
+        case ABILITY_RIVALRY:
+            /*
+             * 1.25x if the attacker's ability is Rivalry and the target is of the same gender.
+             * 0.75x if the attacker's ability is Rivalry and the target is of the opposite gender.
+             * No muliplier if either Pokemon is genderless.
+             */
+            if (attacker->gender == 2 || defender->gender == 2) {
+                // do nothing
+            } else if (attacker->gender == defender->gender) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Rivalry active, same gender: 1.25x\n");
+                debugsyscall(buf);
+                #endif
 
-        if (i == 4) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
-        }
-    } else if (attacker->ability == ABILITY_SAND_FORCE) {
-        // 1.3x if the attacker's ability is Sand Force, the weather is sandstorm, and the used move is
-        // Ground, Rock, or Steel-type.
-        if (WeatherIsActive(battle, server, FIELD_CONDITION_SANDSTORM)
-                && ((moveType == TYPE_GROUND) || (moveType == TYPE_ROCK) || (moveType == TYPE_STEEL))) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
-        }
-    } else if (attacker->ability == ABILITY_SHEER_FORCE) {
-        // 1.3x if the attacker's ability is Sheer Froce and the used move has an additional effect.
-        // TODO
-    } else if (attacker->ability == ABILITY_TOUGH_CLAWS) {
-        if (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT) {
-            // 1.3x if the attacker's ability is Tough Claws and the used move makes contact.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
-        }
+                nextMod = UQ412__1_25;
+            } else {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Rivalry active, diff gender: 0.75x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__0_75;
+            }
+            break;
+    
+        case ABILITY_SUPREME_OVERLORD:
+            /*
+             * 1 + 0.1n if the attacker's ability is Supreme Overlord, where n is the number of Pokemon
+             * on the attacker's party which have previously fainted.
+             * 
+             * TODO: Implement
+             */
+            break;
+
+        case ABILITY_RECKLESS:
+            /*
+             * 1.2x if the attacker's ability is Reckless and the used move is applicable (deals recoil damage,
+             * or is High Jump Kick or Jump Kick, but is _not_ Struggle).
+             */
+            if (Moves_BoostedByReckless(moveID)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Reckless active: 1.2x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_2;
+            }
+            break;
+
+        case ABILITY_IRON_FIST:
+            /*
+             * 1.2x if the attacker's ability is Iron Fist and the used move is a punching move.
+             */
+            if (Moves_IsPunching(moveID)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Iron Fist active: 1.2x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_2;
+            }
+            break;
+
+        case ABILITY_NORMALIZE:
+            /*
+             * 1.2x if the attacker's ability is Normalize and the used move is affected.
+             */
+            if (Moves_CanNormalize(moveID)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Normalize active: 1.2x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_2;
+            }
+            break;
+
+        case ABILITY_AERILATE:
+        case ABILITY_GALVANIZE:
+        case ABILITY_PIXILATE:
+        case ABILITY_REFRIGERATE:
+            /*
+             * 1.2x if the attacker's ability is an -ate ability and the move's type was altered.
+             */
+            if (isAteAbility) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- -ate ability active: 1.2x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_2;
+            }
+            break;
+
+        case ABILITY_ANALYTIC:
+            /*
+             * 1.3x if the attacker's ability is Analytic and it moves last in turn order.
+             *
+             * TODO: Implement
+             */
+            break;
+
+        case ABILITY_SAND_FORCE:
+            /*
+             * 1.3x if the attacker's ability is Sand Force, the weather is sandstorm, and the used
+             * move is Ground-, Rock-, or Steel-type.
+             */
+            if (WeatherIsActive(battle, server, FIELD_CONDITION_SANDSTORM)
+                    && (moveType == TYPE_GROUND || moveType == TYPE_ROCK || moveType == TYPE_STEEL)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Sand Force active: 1.3x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_3;
+            }
+            break;
+
+        case ABILITY_SHEER_FORCE:
+            /*
+             * 1.3x if the attacker's ability is Sheer Force and the used move has an additional effect.
+             *
+             * TODO: Implement
+             */
+            break;
+
+        case ABILITY_TOUGH_CLAWS:
+            /*
+             * 1.3x if the attacker's ability is Tough Claws and the used move makes contact.
+             */
+            if (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Tough Claws active: 1.3x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_3;
+            }
+            break;
+
+        default:
+            break;
     }
+    powerMod = QMul_RoundUp(powerMod, nextMod);
 
     // Battery and Power Spot are not technically exclusive in the scope of Triple Battles,
     // but they are mutually exclusive in doubles.
     if (AllyHasAbility(server, server->attacker, ABILITY_BATTERY) && movePSS == PSS_SPECIAL) {
         // 1.3x if our ally has Battery and the used move is Special-split.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Battery active: 1.3x\n");
+        debugsyscall(buf);
+        #endif
+
+        powerMod = QMul_RoundUp(powerMod, UQ412__1_3);
     } else if (AllyHasAbility(server, server->attacker, ABILITY_POWER_SPOT)) {
         // 1.3x if our ally has Power Spot.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Power Spot active: 1.2x\n");
+        debugsyscall(buf);
+        #endif
+
+        powerMod = QMul_RoundUp(powerMod, UQ412__1_3);
     }
 
     if (attacker->ability == ABILITY_PUNK_ROCK && Moves_IsSound(moveID)) {
         // 1.3x if the attacker's ability is Punk Rock and the used move is sound-based.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Punk Rock active: 1.3x\n");
+        debugsyscall(buf);
+        #endif
+
+        powerMod = QMul_RoundUp(powerMod, UQ412__1_3);
     }
 
     if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_FAIRY_AURA)
@@ -466,10 +613,22 @@ static u16 Calc_ModifiedBasePower(
         // 1.33x if Fairy Aura is in effect, the used move is Fairy-type, and the attacker's ability is not
         // Mold Breaker. If Aura Break is also in effect, instead 0.75x.
         if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AURA_BREAK)) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_75);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Fairy Aura broken: 0.75x\n");
+            debugsyscall(buf);
+            #endif
+
+            nextMod = UQ412__0_75;
         } else {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_33);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Fairy Aura active: 1.33x\n");
+            debugsyscall(buf);
+            #endif
+
+            nextMod = UQ412__1_33;
         }
+
+        powerMod = QMul_RoundUp(powerMod, nextMod);
     }
 
     if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_DARK_AURA)
@@ -480,152 +639,290 @@ static u16 Calc_ModifiedBasePower(
         // 1.33x if Dark Aura is in effect, the used move is Dark-type, and the attacker's ability is not
         // Mold Breaker. If Aura Break is also in effect, instead 0.75x.
         if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AURA_BREAK)) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_75);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Dark Aura broken: 1.33x\n");
+            debugsyscall(buf);
+            #endif
+
+            nextMod = UQ412__0_75;
         } else {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_33);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Dark Aura active: 1.33x\n");
+            debugsyscall(buf);
+            #endif
+
+            nextMod = UQ412__1_33;
         }
+        
+        powerMod = QMul_RoundUp(powerMod, nextMod);
     }
 
-    if (attacker->ability == ABILITY_STRONG_JAW) {
-        if (Moves_IsBiting(moveID)) {
-            // 1.5x if the attacker's ability is Strong Jaw and the used move is a biting move.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_MEGA_LAUNCHER) {
-        if (Moves_IsAuraOrPulse(moveID)) {
-            // 1.5x if the attacker's ability is Mega Launcher and the used move is aura or pulse-based.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_TECHNICIAN) {
-        if ((movePower <= 60) && (moveID != MOVE_STRUGGLE)) {
-            // 1.5x if the attacker's ability is Technician, the used move's power is less than or equal
-            // to 60, and the move is _not_ Struggle.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_TOXIC_BOOST) {
-        if ((movePSS == PSS_PHYSICAL) && (attacker->condition & CONDITION_POISON_ALL)) {
-            // 1.5x if the attacker's ability is Toxic Boost, the used move is Physical-split, and the
-            // attacker is poisoned.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_FLARE_BOOST) {
-        if ((movePSS == PSS_SPECIAL) && (attacker->condition & CONDITION_BURNED)) {
-            // 1.5x if the attacker's ability is Flare Boost, the used move is Special-split, and the
-            // attacker is burned.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_STEELY_SPIRIT) {
-        if (moveType == TYPE_STEEL) {
-            // 1.5x if the attacker's ability is Steely Spirit and the used move is Steel-type.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
-        }
+    // exclusive set 2
+    nextMod = UQ412__1_0;
+    switch (attacker->ability) {
+        case ABILITY_STRONG_JAW:
+            /*
+             * 1.5x if the attacker's ability is Strong Jaw and the used move is a biting move.
+             */
+            if (Moves_IsBiting(moveID)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Strong Jaw active: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+        case ABILITY_MEGA_LAUNCHER:
+            /*
+             * 1.5x if the attacker's ability is Mega Launcher and the used move is Aura or
+             * Pulse-based.
+             */
+            if (Moves_IsAuraOrPulse(moveID)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Mega Launcher active: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_TECHNICIAN:
+            /*
+             * 1.5x if the attacker's ability is Technician, the used move's power is less than or
+             * equal to 60, and the used move is _not_ Struggle.
+             */
+            if (movePower <= 60 && moveID != MOVE_STRUGGLE) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Technician active: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_TOXIC_BOOST:
+            /*
+             * 1.5x if the attacker's ability is Toxic Boost, the used move is Physical, and the
+             * attacker is poisoned.
+             */
+            if (movePSS == PSS_PHYSICAL && (attacker->condition & CONDITION_POISON_ALL)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Toxic Boost active: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_FLARE_BOOST:
+            /*
+             * 1.5x if the attacker's ability is Flare Boost, the used move is Special, and the
+             * attacker is burned.
+             */
+            if (movePSS == PSS_SPECIAL && (attacker->condition & CONDITION_BURNED)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Flare Boost active: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_STEELY_SPIRIT:
+            /*
+             * 1.5x if the attacker's ability is Steely Spirit and the used move is Steel-type.
+             */
+            if (moveType == TYPE_STEEL) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Self Steely Spirit active: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        default:
+            break;
     }
+    powerMod = QMul_RoundUp(powerMod, nextMod);
 
     if (AllyHasAbility(server, server->attacker, ABILITY_STEELY_SPIRIT)
             && moveType == TYPE_STEEL) {
         // 1.5x if the attacker's ally has Steely Spirit and the used move is Steel-type.
         // Note that this modifier stacks with the attacker itself having Steely Spirit.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Ally Steely Spirit active: 1.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        powerMod = QMul_RoundUp(powerMod, UQ412__1_5);
     }
 
     if (moveType == TYPE_FIRE) {
         if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_HEATPROOF)) {
             // 0.5x if the target's ability is Heatproof, the used move is Fire-type, and the
             // target's ability is not ignored.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__0_5);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Opp has Heatproof: 0.5x\n");
+            debugsyscall(buf);
+            #endif
+
+            powerMod = QMul_RoundUp(powerMod, UQ412__0_5);
         } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_DRY_SKIN)) {
             // 1.25x if the target's ability is Dry Skin, the used move is Fire-type, and the
             // target's ability is not ignored.
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_25);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Opp has Dry Skin: 1.25x\n");
+            debugsyscall(buf);
+            #endif
+
+            powerMod = QMul_RoundUp(powerMod, UQ412__1_25);
         }
     }
 
     if (attacker->ability == ABILITY_SHARPNESS && Moves_IsSlashing(moveID)) {
         // 1.5x if the attacker's ability is Sharpness and the used move is slashing-based.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Sharpness active: 1.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        powerMod = QMul_RoundUp(powerMod, UQ412__1_5);
     }
 
     // ==================== END OF ABILITY CHAIN ==================== //
     // ==================== START OF ITEM CHECKS ==================== //
 
-    if (attacker->heldItemEffect == HOLD_EFFECT_MUSCLE_BAND) {
-        // 1.1x if the attacker is holding a Muscle Band and the used move is Physical.
-        if (movePSS == PSS_PHYSICAL) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
-        }
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_WISE_GLASSES) {
-        // 1.1x if the attacker is holding Wise Glasses and the used move is Special.
-        if (movePSS == PSS_SPECIAL) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
-        }
-    } else if (attacker->heldItemEffect == sTypeBoostingItems[moveType]
-            || attacker->heldItemEffect == sTypePlates[moveType]) {
-        // 1.1x if the attacker is holding a type-boosting item, Incense, or Plate which matches
-        // the used move's type.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_ADAMANT_ORB) {
-        // 1.2x if the attacker is holding an Adamant Orb, the attacker is Dialga, and the used
-        // move is Dragon or Steel-type.
-        if (attacker->species == SPECIES_DIALGA
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_STEEL))) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
-        }
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_LUSTROUS_ORB) {
-        // 1.2x if the attacker is holding a Lustrous Orb, the attacker is Palkia, and the used
-        // move is Dragon or Water-type.
-        if (attacker->species == SPECIES_PALKIA
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_WATER))) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
-        }
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_GRISEOUS_ORB) {
-        // 1.2x if the attacker is holding a Griseous Orb, the attacker is Giratina, and the used
-        // move is Dragon or Ghost-type.
-        if (attacker->species == SPECIES_GIRATINA
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_GHOST))) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
-        }
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_GRISEOUS_ORB) {
-        // 1.2x if the attacker is holding a Soul Dew, the attacker is Lati@s, and the used
-        // move is Dragon or Psychic-type.
-        if (((attacker->species == SPECIES_LATIOS) || (attacker->species == SPECIES_LATIAS))
-                && ((moveType == TYPE_DRAGON) || (moveType == TYPE_PSYCHIC))) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_2);
-        }
-    } else if (attacker->heldItemEffect == sGems[moveType]) {
-#ifdef DEBUG_MODE
-        u8 buf[128];
-        sprintf(buf, "[PLAT-ENGINE] Activated Gem %d for move type %d\n", attacker->heldItemEffect, moveType);
-        debugsyscall(buf);
-#endif
-#if defined(GEM_DAMAGE_MULTIPLIER) && GEM_DAMAGE_MULTIPLIER <= GEN5
-        // 1.5x if the attacker is holding a Gem and the used move is of a matching type.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_5);
-#else
-        // 1.3x if the attacker is holding a Gem and the used move is of a matching type.
-        powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_3);
-#endif
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_BOOST_PUNCHING_MOVES) {
-        // 1.1x if the attacker is holding a Punching Glove and the used move is punching-based.
-        if (Moves_IsPunching(moveID)) {
-            powerMod = UQ412_Mul_RoundUp(powerMod, UQ412__1_1);
-        }
+    // these are easily defined in a switch
+    u16 tableLookup = UQ412__1_0;
+    switch (attacker->heldItemEffect) {
+        case HOLD_EFFECT_MUSCLE_BAND:
+            if (movePSS == PSS_PHYSICAL) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Muscle Band active: 1.1x\n");
+                debugsyscall(buf);
+                #endif
+
+                goto LookupItemPower;
+            }
+            goto SkipLookupItemPower;
+
+        case HOLD_EFFECT_WISE_GLASSES:
+            if (movePSS == PSS_SPECIAL) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Wise Glasses active: 1.1x\n");
+                debugsyscall(buf);
+                #endif
+
+                goto LookupItemPower;
+            }
+            goto SkipLookupItemPower;
+
+        case HOLD_EFFECT_ADAMANT_ORB:
+            if (attacker->species == SPECIES_DIALGA
+                    && (moveType == TYPE_DRAGON || moveType == TYPE_STEEL)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Adamant Orb active: 1.2x\n");
+                debugsyscall(buf);
+                #endif
+
+                goto LookupItemPower;
+            }
+            goto SkipLookupItemPower;
+
+        case HOLD_EFFECT_LUSTROUS_ORB:
+            if (attacker->species == SPECIES_PALKIA
+                    && (moveType == TYPE_DRAGON || moveType == TYPE_WATER)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Lustrous Orb active: 1.2x\n");
+                debugsyscall(buf);
+                #endif
+
+                goto LookupItemPower;
+            }
+            goto SkipLookupItemPower;
+
+        case HOLD_EFFECT_GRISEOUS_ORB:
+            if (attacker->species == SPECIES_GIRATINA
+                    && (moveType == TYPE_DRAGON || moveType == TYPE_GHOST)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Griseous Orb active: 1.2x\n");
+                debugsyscall(buf);
+                #endif
+
+                goto LookupItemPower;
+            }
+            goto SkipLookupItemPower;
+
+        case HOLD_EFFECT_SOUL_DEW:
+            if ((attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS)
+                    && (moveType == TYPE_DRAGON || moveType == TYPE_PSYCHIC)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Soul Dew active: 1.2x\n");
+                debugsyscall(buf);
+                #endif
+
+                goto LookupItemPower;
+            }
+            goto SkipLookupItemPower;
+
+        case HOLD_EFFECT_BOOST_PUNCHING_MOVES:
+            if (Moves_IsPunching(moveID)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] -- Punching Glove active: 1.1x\n");
+                debugsyscall(buf);
+                #endif
+
+                goto LookupItemPower;
+            }
+            goto SkipLookupItemPower;
+
+        default:
+            break;
     }
 
-    /*
-     * Now we apply the final modifier to the move's base power.
-     *
-     * Note that this procedure limits the input base power to
-     * 4095, but that does not really matter as no move comes
-     * close to that value (maximum is Explosion at 250).
-     */
-#ifdef DEBUG_MODE
-    u8 buf[128];
-    sprintf(buf, "[PLAT-ENGINE] Final modifier (q412): %ld\n", powerMod);
+    // Check the tables for type-boosting items and Gems
+    if (sTypeBoostingItems[moveType] == attacker->heldItemEffect
+            || sTypePlates[moveType] == attacker->heldItemEffect) {
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Type Item active: 1.2x\n");
+        debugsyscall(buf);
+        #endif
+
+        goto LookupItemPower;
+    } else if (sGems[moveType] == attacker->heldItemEffect) {
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Type Gem active: 1.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        goto LookupItemPower;
+    }
+
+    goto SkipLookupItemPower;
+
+LookupItemPower:
+    tableLookup = UQ412__1_0 + QPercent(attacker->heldItemPower);
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Item lookup modifier: %d\n", tableLookup);
     debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Raw move power: %ld\n", movePower);
+    #endif
+
+SkipLookupItemPower:
+    powerMod = QMul_RoundUp(powerMod, tableLookup);
+
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Final power modifier: %d\n\n", powerMod);
     debugsyscall(buf);
-#endif
-    u32 modifiedPower = UQ412_Mul_IntByQ_RoundDown(movePower, powerMod);
+    #endif
+
+    u32 modifiedPower = QMul_RoundDown(movePower, powerMod);
     return (modifiedPower < 1) ? 1 : modifiedPower;         // power can never be less than 1
 }
 
@@ -660,49 +957,54 @@ static u16 Calc_BaseDamage(
         moveBasePower = server->aiWork.moveTable[moveID].power;
     }
 
-    if (attacker->ability == ABILITY_NORMALIZE) {
-        if (Moves_CanNormalize(moveID)) {
-            moveType = TYPE_NORMAL;
-        }
-    } else if (attacker->ability == ABILITY_AERILATE) {
-        // Aerilate turns Normal-type sound moves into Flying-type.
-        if (moveType == TYPE_NORMAL) {
-            moveType         = TYPE_FLYING;
-            server->moveType = moveType;
-            isAteAbility     = TRUE;
-        }
-    } else if (attacker->ability == ABILITY_GALVANIZE) {
-        // Galvanize turns Normal-type sound moves into Electric-type.
-        if (moveType == TYPE_NORMAL) {
-            moveType         = TYPE_ELECTRIC;
-            server->moveType = moveType;
-            isAteAbility     = TRUE;
-        }
-    } else if (attacker->ability == ABILITY_PIXILATE) {
-        // Pixilate turns Normal-type sound moves into Fairy-type.
-        if (moveType == TYPE_NORMAL) {
-            moveType         = TYPE_FAIRY;
-            server->moveType = moveType;
-            isAteAbility     = TRUE;
-        }
-    } else if (attacker->ability == ABILITY_REFRIGERATE) {
-        // Refrigerate turns Normal-type sound moves into Ice-type.
-        if (moveType == TYPE_NORMAL) {
-            moveType         = TYPE_ICE;
-            server->moveType = moveType;
-            isAteAbility     = TRUE;
-        }
-    } else if (attacker->ability == ABILITY_LIQUID_VOICE) {
-        // Liquid Voice turns Normal-type sound moves into Water-type.
-        if (moveType == TYPE_NORMAL && Moves_IsSound(moveID)) {
-            moveType         = TYPE_WATER;
-            server->moveType = moveType;
-        }
-    } else if (moveType == TYPE_NORMAL) {
-        // If the move was specified Normal type, double-check it.
-        moveType = server->aiWork.moveTable[moveID].type;
-        server->moveType = moveType;
+    switch (attacker->ability) {
+        case ABILITY_NORMALIZE:
+            if (Moves_CanNormalize(moveID)) {
+                moveType = TYPE_NORMAL;
+            }
+            break;
+
+        case ABILITY_AERILATE:
+            if (moveType == TYPE_NORMAL) {
+                moveType = TYPE_FLYING;
+                isAteAbility = TRUE;
+            }
+            break;
+
+        case ABILITY_GALVANIZE:
+            if (moveType == TYPE_NORMAL) {
+                moveType = TYPE_ELECTRIC;
+                isAteAbility = TRUE;
+            }
+            break;
+
+        case ABILITY_PIXILATE:
+            if (moveType == TYPE_NORMAL) {
+                moveType = TYPE_FAIRY;
+                isAteAbility = TRUE;
+            }
+            break;
+
+        case ABILITY_REFRIGERATE:
+            if (moveType == TYPE_NORMAL) {
+                moveType = TYPE_ICE;
+                isAteAbility = TRUE;
+            }
+            break;
+
+        case ABILITY_LIQUID_VOICE:
+            if (moveType == TYPE_NORMAL && Moves_IsSound(moveID)) {
+                moveType = TYPE_WATER;
+            }
+            break;
+
+        default:
+            if (moveType == TYPE_NORMAL) {
+                moveType = server->aiWork.moveTable[moveID].type;
+            }
+            break;
     }
+    server->moveType = moveType;
 
     // Calc the modified base power first.
     u16 modifiedBasePower = Calc_ModifiedBasePower(
@@ -716,11 +1018,11 @@ static u16 Calc_BaseDamage(
         moveType,
         isAteAbility
     );
-#ifdef DEBUG_MODE
+    #ifdef DEBUG_MODE
     u8 buf[128];
-    sprintf(buf, "[PLAT-ENGINE] Modified base power: %ld\n", modifiedBasePower);
+    sprintf(buf, "[PLAT-ENGINE] Modified base power: %d\n", modifiedBasePower);
     debugsyscall(buf);
-#endif
+    #endif
 
     // Treat Shell Side Arm moves differently
     if (moveID == MOVE_SHELL_SIDE_ARM) {
@@ -802,18 +1104,20 @@ static u16 Calc_BaseDamage(
             effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  defenderUnaware, server->critical);
             effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, attackerUnaware, server->critical);
         }
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Effective offensive stat: %ld\n", effectiveOffense);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] A/D Stats:\n");
         debugsyscall(buf);
-        sprintf(buf, "[PLAT-ENGINE] Effective defensive stat: %ld\n", effectiveDefense);
+        sprintf(buf, "[PLAT-ENGINE] -- Attack:  %d\n", effectiveOffense);
         debugsyscall(buf);
-#endif
+        sprintf(buf, "[PLAT-ENGINE] -- Defense: %d\n", effectiveDefense);
+        debugsyscall(buf);
+        #endif
     }
 
     // Unlike all other offensive modifiers, Hustle is applied directly to the 
     // Attack stat.
     if (attacker->ability == ABILITY_HUSTLE && movePSS == PSS_PHYSICAL) {
-        effectiveOffense = UQ412_Mul_IntByQ_RoundDown(effectiveOffense, UQ412__1_5);
+        effectiveOffense = QMul_RoundDown(effectiveOffense, UQ412__1_5);
     }
 
     // Unlike all other defensive modifiers, Sandstorm SpD boost gets applied
@@ -822,52 +1126,61 @@ static u16 Calc_BaseDamage(
     if (WeatherIsActive(battle, server, MOVE_SANDSTORM)
             && ((defender->type1 == TYPE_ROCK) || (defender->type2 == TYPE_ROCK))
             && (movePSS == PSS_SPECIAL)) {
-        effectiveDefense = UQ412_Mul_IntByQ_RoundDown(effectiveDefense, UQ412__1_5);
+        effectiveDefense = QMul_RoundDown(effectiveDefense, UQ412__1_5);
     }
 
     // Other stat modifiers are applied as a chain.
     effectiveOffense = Calc_ChainOffenseMods(battle, server, attacker, defender, effectiveOffense, moveType, movePSS);
     effectiveDefense = Calc_ChainDefenseMods(battle, server, attacker, defender, effectiveDefense, moveType, movePSS);
-#ifdef DEBUG_MODE
-    sprintf(buf, "[PLAT-ENGINE] Offense after modifiers: %ld\n", effectiveOffense);
+
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Attack w/Mods:  %d\n", effectiveOffense);
     debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Defense after modifiers: %ld\n", effectiveDefense);
+    sprintf(buf, "[PLAT-ENGINE] -- Defense w/Mods: %d\n\n", effectiveDefense);
     debugsyscall(buf);
-#endif
+    #endif
 
     // All of these divisions are integer-division.
     s32 baseDamage = 2 * BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_LEVEL, NULL);
-#ifdef DEBUG_MODE
-    sprintf(buf, "[PLAT-ENGINE] 2x Level: %ld\n", baseDamage);
-    debugsyscall(buf);
-#endif
-    baseDamage = baseDamage / 5 + 2;
-#ifdef DEBUG_MODE
-    sprintf(buf, "[PLAT-ENGINE] Div by 5, add 2: %ld\n", baseDamage);
-    debugsyscall(buf);
-#endif
-    baseDamage = baseDamage * modifiedBasePower;
-#ifdef DEBUG_MODE
-    sprintf(buf, "[PLAT-ENGINE] Mul by base power: %ld\n", baseDamage);
-    debugsyscall(buf);
-#endif
-    baseDamage = baseDamage * effectiveOffense;
-#ifdef DEBUG_MODE
-    sprintf(buf, "[PLAT-ENGINE] Mul by offense: %ld\n", baseDamage);
-    debugsyscall(buf);
-#endif
-    baseDamage = baseDamage / effectiveDefense;
-#ifdef DEBUG_MODE
-    sprintf(buf, "[PLAT-ENGINE] Div by offense: %ld\n", baseDamage);
-    debugsyscall(buf);
-#endif
 
-    baseDamage = baseDamage / 50;
-#ifdef DEBUG_MODE
-    sprintf(buf, "[PLAT-ENGINE] Div by 50: %ld\n", baseDamage);
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Base Damage Calcs:\n");
     debugsyscall(buf);
-#endif
-    return baseDamage + 2;
+    sprintf(buf, "[PLAT-ENGINE] -- Level x 2:       %ld\n", baseDamage);
+    debugsyscall(buf);
+    #endif
+
+    baseDamage = baseDamage / 5 + 2;
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Div by 5, + 2:   %ld\n", baseDamage);
+    debugsyscall(buf);
+    #endif
+
+    baseDamage = baseDamage * modifiedBasePower;
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Mul by BP:       %ld\n", baseDamage);
+    debugsyscall(buf);
+    #endif
+
+    baseDamage = baseDamage * effectiveOffense;
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Mul by Attack:   %ld\n", baseDamage);
+    debugsyscall(buf);
+    #endif
+
+    baseDamage = baseDamage / effectiveDefense;
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Div by Defense:  %ld\n", baseDamage);
+    debugsyscall(buf);
+    #endif
+
+    baseDamage = baseDamage / 50 + 2;
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Div by 50, + 2:  %ld\n\n", baseDamage);
+    debugsyscall(buf);
+    #endif
+
+    return baseDamage;
 }
 
 static u16 Calc_ChainOffenseMods(
@@ -881,204 +1194,471 @@ static u16 Calc_ChainOffenseMods(
 )
 {
     u16 statMod = UQ412__1_0;
-    if (attacker->ability == ABILITY_SLOW_START) {
-        // Slow Start halves the Attack stat during the first five turns that a Pokemon
-        // is in battle.
-        if (movePSS == PSS_PHYSICAL && SlowStartActive(battle, server)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
-        }
-    } else if (attacker->ability == ABILITY_DEFEATIST) {
-        // Deafeatist halves all offensive stats when the attacker has HP less than or
-        // equal to half of its maximum HP.
-        if (attacker->currHP <= (attacker->maxHP / 2)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
-        }
-    } else if (attacker->ability == ABILITY_SOLAR_POWER) {
-        // Solar Power increases SpAttack by 50% during harsh sunlight.
-        if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_FLOWER_GIFT) {
-        // Flower Gift increases Attack by 50% during harsh sunlight.
-        // Flower Gift does not stack with itself, so skip past the Ally check below.
-        if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-        goto _SkipAttackAllyFlowerCheck;
-    } else if (attacker->ability == ABILITY_GORILLA_TACTICS) {
-        // Gorilla Tactics increases Attack by 50%.
-        if (movePSS == PSS_PHYSICAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
+    u16 nextMod = UQ412__1_0;
+    #ifdef DEBUG_MODE
+    u8 buf[128];
+    sprintf(buf, "[PLAT-ENGINE] -- Offense Mods Chain:\n");
+    debugsyscall(buf);
+    #endif
+
+    switch (attacker->ability) {
+        case ABILITY_SLOW_START:
+            /*
+             * Halves the Attack stat during the first five turns that a Pokemon
+             * is in battle.
+             */
+            if (movePSS == PSS_PHYSICAL && SlowStartActive(battle, server)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Slow Start: 0.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__0_5;
+            }
+            break;
+
+        case ABILITY_DEFEATIST:
+            /*
+             * Halves all offensive stats when the attacker's HP is less than or
+             * equal to half of its maximum.
+             */
+            if (attacker->currHP <= (attacker->maxHP / 2)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Defeatist: 0.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__0_5;
+            }
+            break;
+
+        case ABILITY_SOLAR_POWER:
+            /*
+             * Increases Special Attack by 50% during harsh sunlight.
+             */
+            if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Solar Power: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_FLOWER_GIFT:
+            /*
+             * Increases Attack by 50% during harsh sunlight.
+             */
+            if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (self): 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            // Flower Gift does not stack with itself if both the attacker and an ally have it.
+            goto SkipAllyFlowerGift;
+
+        case ABILITY_GORILLA_TACTICS:
+            /*
+             * Increases Attack by 50%.
+             */
+            if (movePSS == PSS_PHYSICAL) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Gorilla Tactics: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+        
+        case ABILITY_GUTS:
+            /*
+             * Increases Attack by 50% if the attacker is statused (but not frozen).
+             */
+            if (movePSS == PSS_PHYSICAL && (attacker->condition & ~CONDITION_FROZEN)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Guts: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_BLAZE:
+            /*
+             * Increases all offensive stats by 50% if the attacker's HP is less
+             * than or equal to 1/3 of its maximum and the used move is Fire-type.
+             */
+            if (moveType == TYPE_FIRE && (attacker->currHP < (attacker->maxHP / 3))) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Blaze: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_OVERGROW:
+            /*
+             * Increases all offensive stats by 50% if the attacker's HP is less
+             * than or equal to 1/3 of its maximum and the used move is Grass-type.
+             */
+            if (moveType == TYPE_GRASS && (attacker->currHP < (attacker->maxHP / 3))) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Overgrow: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_SWARM:
+            /*
+             * Increases all offensive stats by 50% if the attacker's HP is less
+             * than or equal to 1/3 of its maximum and the used move is Bug-type.
+             */
+            if (moveType == TYPE_BUG && (attacker->currHP < (attacker->maxHP / 3))) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Swarm: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_TORRENT:
+            /*
+             * Increases all offensive stats by 50% if the attacker's HP is less
+             * than or equal to 1/3 of its maximum and the used move is Water-type.
+             */
+            if (moveType == TYPE_WATER && (attacker->currHP < (attacker->maxHP / 3))) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Torrent: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_FLASH_FIRE:
+            /*
+             * Increases all offensive stats by 50% if the attacker previously
+             * activated Flash Fire and the used move is Fire-type.
+             */
+            if (moveType == TYPE_FIRE
+                    && server->activePokemon[server->attacker].moveEffects.flashFireActive) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Flash Fire: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_STEELWORKER:
+            /*
+             * Increases all offensive stats by 50% if the used move is Steel-type.
+             */
+            if (moveType == TYPE_STEEL) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Steelworker: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_DRAGONS_MAW:
+            /*
+             * Increases all offensive stats by 50% if the used move is Dragon-type.
+             */
+            if (moveType == TYPE_DRAGON) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Dragon's Maw: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_ROCKY_PAYLOAD:
+            /*
+             * Increases all offensive stats by 50% if the used move is Rock-type.
+             */
+            if (moveType == TYPE_ROCK) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Solar Power: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case ABILITY_TRANSISTOR:
+            /*
+             * Increases all offensive stats by 30% if the used move is Electric-type.
+             */
+            if (moveType == TYPE_ELECTRIC) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Transistor: 1.3x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_3;
+            }
+            break;
+
+        case ABILITY_STAKEOUT:
+            /*
+             * Doubles all offensive stats if the target switched in this turn.
+             *
+             * TODO: Implement.
+             */
+            break;
+
+        case ABILITY_WATER_BUBBLE:
+            /*
+             * Doubles all offensive stats if the used move is Water-type.
+             */
+            if (moveType == TYPE_WATER) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Water Bubble (self): 2.0x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__2_0;
+            }
+            break;
+
+        case ABILITY_PURE_POWER:
+            // fallthrough
+        case ABILITY_HUGE_POWER:
+            /*
+             * Doubles Attack.
+             */
+            if (movePSS == PSS_PHYSICAL) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Huge Power: 2.0x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__2_0;
+            }
+            break;
+        
+        case ABILITY_PROTOSYNTHESIS:
+            // fallthrough
+        case ABILITY_QUARK_DRIVE:
+            /*
+             * Increases the highest stat by 30% (if an attacking stat).
+             *
+             * TODO: Implement.
+             */
+            break;
+        
+        case ABILITY_HADRON_ENGINE:
+            /*
+             * Increases Special Attack by 33% on Electric Terrain.
+             *
+             * TODO: Terrain implementation.
+             */
+            break;
+
+        case ABILITY_ORICHALCUM_PULSE:
+            /*
+             * Increases Attack by 33% in harsh sunlight.
+             */
+            if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Orichalcum Pulse: 1.3333x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_3333;
+            }
+            break;
+
+        default:
+            break;
     }
 
-    // Check for ally Flower Gift here separately, but not if the attacker has Flower Gift.
     if (AllyHasAbility(server, server->attacker, ABILITY_FLOWER_GIFT)) {
         if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (ally): 1.5x\n");
+            debugsyscall(buf);
+            #endif
+
+            statMod = QMul_RoundUp(statMod, nextMod);   // Apply the previous modifier before stacking ally Flower Gift
+            nextMod = UQ412__1_5;
         }
     }
 
-_SkipAttackAllyFlowerCheck:
-    if (attacker->ability == ABILITY_GUTS) {
-        // Guts increases Attack by 50% if the attacker is statused.
-        //
-        // This is technically incorrect compared to vanilla, where the boost
-        // does not activate if frozen and using a move which thaws the user out.
-        // But I don't care lol.
-        if (movePSS == PSS_PHYSICAL && attacker->condition) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_BLAZE) {
-        // Blaze increases offensive stats by 50% if the attacker's current HP is less
-        // than or equal to 1/3 of its maximum and the used move is Fire-type.
-        if (moveType == TYPE_FIRE && (attacker->currHP < attacker->maxHP / 3)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_OVERGROW) {
-        // Overgrow increases offensive stats by 50% if the attacker's current HP is less
-        // than or equal to 1/3 of its maximum and the used move is Grass-type.
-        if (moveType == TYPE_GRASS && (attacker->currHP < attacker->maxHP / 3)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_SWARM) {
-        // Swarm increases offensive stats by 50% if the attacker's current HP is less
-        // than or equal to 1/3 of its maximum and the used move is Bug-type.
-        if (moveType == TYPE_BUG && (attacker->currHP < attacker->maxHP / 3)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_TORRENT) {
-        // Torrent increases offensive stats by 50% if the attacker's current HP is less
-        // than or equal to 1/3 of its maximum and the used move is Water-type.
-        if (moveType == TYPE_WATER && (attacker->currHP < attacker->maxHP / 3)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_FLASH_FIRE) {
-        // Flash Fire increases offensive stats by 50% if the attacker was previously
-        // hit by a Fire-type move while possessing Flash Fire and the used move is
-        // Fire-type.
-        if (moveType == TYPE_FIRE
-                && server->activePokemon[server->attacker].moveEffects.flashFireActive) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_STEELWORKER) {
-        // Steelworker increases offensive stats by 50% if the used move is Steel-type.
-        if (moveType == TYPE_STEEL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_DRAGONS_MAW) {
-        // Dragon's Maw increases offensive stats by 50% if the used move is Dragon-type.
-        if (moveType == TYPE_DRAGON) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_ROCKY_PAYLOAD) {
-        // Rocky Payload increases offensive stats by 50% if the used move is Rock-type.
-        if (moveType == TYPE_ROCK) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_TRANSISTOR) {
-        // Transistor increases offensive stats by 50% if the used move is Electric-type.
-        if (moveType == TYPE_ELECTRIC) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->ability == ABILITY_STAKEOUT) {
-        // Stakeout doubles offensive stats if the target switched in this turn.
-        // TODO: need a way to know which clients switched in this turn
-        if (FALSE) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
-        }
-    } else if (attacker->ability == ABILITY_WATER_BUBBLE) {
-        // Water Bubble doubles offensive stats if the used move is Water-type.
-        if (moveType == TYPE_WATER) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
-        }
-    } else if (attacker->ability == ABILITY_HUGE_POWER || attacker->ability == ABILITY_PURE_POWER) {
-        // Huge/Pure Power doubles the Attack stat.
-        if (moveType == PSS_PHYSICAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
-        }
-    }
+SkipAllyFlowerGift:
+    statMod = QMul_RoundUp(statMod, nextMod);
 
+CheckDefenderAbility:
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_THICK_FAT)) {
-        // Thick Fat halves the attacking stats if the used move is Fire or Ice-type.
+        // Halves the attacking stats if the used move is Fire- or Ice-type.
         if (moveType == TYPE_FIRE || moveType == TYPE_ICE) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] ---- Thick Fat: 0.5x\n");
+            debugsyscall(buf);
+            #endif
+
+            nextMod = UQ412__0_5;
         }
     } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_WATER_BUBBLE)) {
-        // Water Bubble halves the attacking stats if the used move is Fire-type.
+        // Halves the attacking stats if the used move is Fire-type.
         if (moveType == TYPE_FIRE) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] ---- Water Bubble (target): 0.5x\n");
+            debugsyscall(buf);
+            #endif
+
+            nextMod = UQ412__0_5;
         }
     } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_PURIFYING_SALT)) {
-        // Purifying Salt halves the attacking stats if the used move is Ghost-type.
+        // Halves the attacking stats if the used move is Ghost-type.
         if (moveType == TYPE_GHOST) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_5);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] ---- Purifying Salt: 0.5x\n");
+            debugsyscall(buf);
+            #endif
+
+            nextMod = UQ412__0_5;
         }
     }
-    
+    statMod = QMul_RoundUp(statMod, nextMod);
+
+CheckRuinEffects: 
     if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_NOT_MINE, server->attacker, ABILITY_TABLETS_OF_RUIN)) {
-        // Tablets of Ruin decreases the Attack stat of all Pokemon on the field other
-        // than its bearer by 25% so long as the attacker does not also have Tablets of
-        // Ruin.
+        /*
+         * Decreases the Attack stat of all Pokemon on the field other than the ability
+         * bearer by 25%. Does not apply if the attacker also has Tablets of Ruin.
+         */
         if (attacker->ability != ABILITY_TABLETS_OF_RUIN && movePSS == PSS_PHYSICAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_75);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] ---- Tablets of Ruin: 0.75x\n");
+            debugsyscall(buf);
+            #endif
+
+            statMod = QMul_RoundUp(statMod, UQ412__0_75);
         }
     }
     if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_NOT_MINE, server->attacker, ABILITY_VESSEL_OF_RUIN)) {
-        // Vessel of Ruin decreases the SpAttack stat of all Pokemon on the field other
-        // than its bearer by 25% so long as the attacker does not also have Vessel of
-        // Ruin.
+        /*
+         * Decreases the SpAttack stat of all Pokemon on the field other than the ability
+         * bearer by 25%. Does not apply if the attacker also has Vessel of Ruin.
+         */
         if (attacker->ability != ABILITY_VESSEL_OF_RUIN && movePSS == PSS_SPECIAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_75);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] ---- Vessel of Ruin: 0.75x\n");
+            debugsyscall(buf);
+            #endif
+
+            statMod = QMul_RoundUp(statMod, UQ412__0_75);
         }
     }
 
-    // TODO: Protosynthesis, Quark Drive go here
-    if (attacker->ability == ABILITY_HADRON_ENGINE) {
-        // Hadron Engine increases SpAttack by 33% on Electric Terrain, even if the
-        // attacker is not grounded.
-        //
-        // TODO: Electric Terrain
-        if (FALSE) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_3333);
-        }
-    } else if (attacker->ability == ABILITY_ORICHALCUM_PULSE) {
-        // Orichalcum Pulse increases Attack by 33% during harsh sunlight, even if
-        // the attacker is holding a Utility Umbrella.
-        if (WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_3333);
-        }
-    }
+CheckItems:
+    nextMod = UQ412__1_0;
+    switch (attacker->heldItemEffect) {
+        case HOLD_EFFECT_THICK_CLUB:
+            /*
+             * Doubles the Attack of Cubone and Marowak.
+             */
+            if (movePSS == PSS_PHYSICAL
+                    && (attacker->species == SPECIES_CUBONE || attacker->species == SPECIES_MAROWAK)) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Thick Club: 2.0x\n");
+                debugsyscall(buf);
+                #endif
 
-    if (attacker->heldItemEffect == HOLD_EFFECT_THICK_CLUB) {
-        // Thick Club doubles the Attack stat of Cubone and Marowak.
-        if (movePSS == PSS_PHYSICAL
-                && (attacker->species == SPECIES_CUBONE || attacker->species == SPECIES_MAROWAK)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
-        }
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_DEEP_SEA_TOOTH) {
-        // Deep Sea Tooth doubles the SpAttack stat of Clamperl.
-        if (movePSS == PSS_SPECIAL && attacker->species == SPECIES_CLAMPERL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
-        }
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_LIGHT_BALL) {
-        // Light Ball doubles the attacking stats of Pikachu.
-        if (attacker->species == SPECIES_PIKACHU) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
-        }
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_CHOICE_BAND) {
-        // Choice Band increases the Attack stat by 50%.
-        if (movePSS == PSS_PHYSICAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    } else if (attacker->heldItemEffect == HOLD_EFFECT_CHOICE_SPECS) {
-        // Choice Specs increases the Attack stat by 50%.
-        if (movePSS == PSS_SPECIAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    }
+                nextMod = UQ412__2_0;
+            }
+            break;
 
-    return UQ412_Mul_IntByQ_RoundDown(stat, statMod);
+        case HOLD_EFFECT_DEEP_SEA_TOOTH:
+            /*
+             * Doubles the Special Attack of Clamperl.
+             */
+            if (movePSS == PSS_SPECIAL && attacker->species == SPECIES_CLAMPERL) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Deep Sea Tooth: 2.0x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__2_0;
+            }
+            break;
+
+        case HOLD_EFFECT_LIGHT_BALL:
+            /*
+             * Doubles the offensive stats of Pikachu.
+             */
+            if (attacker->species == SPECIES_PIKACHU) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Light Ball: 2.0x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__2_0;
+            }
+            break;
+
+        case HOLD_EFFECT_CHOICE_BAND:
+            /*
+             * Increases the Attack stat by 50%.
+             */
+            if (movePSS == PSS_PHYSICAL) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Choice Band: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        case HOLD_EFFECT_CHOICE_SPECS:
+            /*
+             * Increases the Special Attack stat by 50%.
+             */
+            if (movePSS == PSS_SPECIAL) {
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Choice Specs: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        default:
+            break;
+    }
+    statMod = QMul_RoundUp(statMod, nextMod);
+    
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Final Offense Mod: %d\n\n", statMod);
+    debugsyscall(buf);
+    #endif
+
+    return QMul_RoundDown(stat, statMod);
 }
 
 static u16 Calc_ChainDefenseMods(
@@ -1092,77 +1672,172 @@ static u16 Calc_ChainDefenseMods(
 )
 {
     u16 statMod = UQ412__1_0;
+    u16 nextMod = UQ412__1_0;
+    #ifdef DEBUG_MODE
+    u8 buf[128];
+    sprintf(buf, "[PLAT-ENGINE] -- Defense Mods Chain:\n");
+    debugsyscall(buf);
+    #endif
+
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_MARVEL_SCALE)) {
-        // Marvel Scale increases Defense by 50% if the bearer has a status condition.
+        /*
+         * Increases Defense by 50% if the defender is statused.
+         */
         if (defender->condition && movePSS == PSS_PHYSICAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+            #ifdef DEBUG_MODE
+            u8 buf[128];
+            sprintf(buf, "[PLAT-ENGINE] ---- Marvel Scale: 1.5x\n");
+            debugsyscall(buf);
+            #endif
+
+            nextMod = UQ412__1_5;
         }
     } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FLOWER_GIFT)) {
-        // Flower Gift increases SpDefense by 50% during harsh sunlight.
+        /*
+         * Increases Special Defense by 50% during harsh sunlight.
+         */
         if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+            #ifdef DEBUG_MODE
+            u8 buf[128];
+            sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (self): 1.5x\n");
+            debugsyscall(buf);
+            #endif
+            
+            nextMod = UQ412__1_5;
         }
-        goto _SkipDefenseAllyFlowerGift;
+
+        // Flower Gift does not stack with itself, so skip ahead.
+        goto CheckDefensiveRuins;
     } else if (defender->ability == ABILITY_GRASS_PELT) {
-        // Grass Pelt increases Defense by 50% while Grassy Terrain is active. It is
-        // not ignored by Mold Breaker.
-        //
-        // TODO: Grassy Terrain
-        if (movePSS == PSS_PHYSICAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
+        /*
+         * Increases Defense by 50% while Grassy Terrain is active. Not ignorable.
+         *
+         * TODO: Terrain implementation.
+         */
     } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FUR_COAT)) {
-        // Fur Coat doubles the Defense stat.
+        /*
+         * Doubles Defense.
+         */
         if (movePSS == PSS_PHYSICAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
+            #ifdef DEBUG_MODE
+            u8 buf[128];
+            sprintf(buf, "[PLAT-ENGINE] ---- Fur Coat: 2.0x\n");
+            debugsyscall(buf);
+            #endif
+            
+            nextMod = UQ412__2_0;
         }
     }
 
     if (Server_CheckDefenderAbility(server, server->attacker, PARTNER(server->defender), ABILITY_FLOWER_GIFT)) {
         // Flower Gift increases ally's SpDefense by 50% during harsh sunlight.
         if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
+            #ifdef DEBUG_MODE
+            u8 buf[128];
+            sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (ally): 1.5x\n");
+            debugsyscall(buf);
+            #endif
+
+            statMod = QMul_RoundUp(statMod, nextMod);
+            nextMod = UQ412__1_5;
         }
     }
 
-_SkipDefenseAllyFlowerGift:
+CheckDefensiveRuins:
+    statMod = QMul_RoundUp(statMod, nextMod);
     if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_NOT_MINE, server->defender, ABILITY_SWORD_OF_RUIN)) {
-        // Sword of Ruin decreases the Defense stat of all Pokemon on the field other
-        // than its bearer by 25% so long as the defender does not also have Sword of
-        // Ruin.
+        /*
+         * Decreases the Defense stat of all Pokemon on the field other than the
+         * ability's bearer by 25%. Ignored if the Defender also has Sword of Ruin.
+         */
         if (defender->ability != ABILITY_SWORD_OF_RUIN && movePSS == PSS_PHYSICAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_75);
+            #ifdef DEBUG_MODE
+            u8 buf[128];
+            sprintf(buf, "[PLAT-ENGINE] ---- Sword of Ruin: 0.75x\n");
+            debugsyscall(buf);
+            #endif
+
+            statMod = QMul_RoundUp(statMod, UQ412__0_75);
         }
     }
     if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE_NOT_MINE, server->defender, ABILITY_BEADS_OF_RUIN)) {
-        // Beads of Ruin decreases the SpDefense stat of all Pokemon on the field other
-        // than its bearer by 25% so long as the defender does not also have Beads of
-        // Ruin.
+        /*
+         * Decreases the SpDefense stat of all Pokemon on the field other than the
+         * ability's bearer by 25%. Ignored if the Defender also has Beads of Ruin.
+         */
         if (defender->ability != ABILITY_BEADS_OF_RUIN && movePSS == PSS_SPECIAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__0_75);
+            #ifdef DEBUG_MODE
+            u8 buf[128];
+            sprintf(buf, "[PLAT-ENGINE] ---- Beads of Ruin: 0.75x\n");
+            debugsyscall(buf);
+            #endif
+
+            statMod = QMul_RoundUp(statMod, UQ412__0_75);
         }
     }
 
     // TODO: Protosynthesis, Quark Drive
 
-    if (defender->heldItemEffect == HOLD_EFFECT_METAL_POWDER) {
-        // Metal Powder doubles the Defense of Ditto.
-        if (defender->species == SPECIES_DITTO && movePSS == PSS_PHYSICAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
-        }
-    } else if (defender->heldItemEffect == HOLD_EFFECT_DEEP_SEA_SCALE) {
-        // Deep Sea Scale doubles the SpDefense of Clamperl.
-        if (defender->species == SPECIES_CLAMPERL && movePSS == PSS_SPECIAL) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__2_0);
-        }
-    } else if (defender->heldItemEffect == HOLD_EFFECT_EVIOLITE) {
-        // Eviolite increases defensive stats by 50% if the defender is not fully evolved.
-        if (Pokemon_IsNFE(defender->species, server->activePokemon[server->defender].formNum)) {
-            statMod = UQ412_Mul_RoundUp(statMod, UQ412__1_5);
-        }
-    }
+CheckDefensiveItems:
+    nextMod = UQ412__1_0;
+    switch (defender->heldItemEffect) {
+        case HOLD_EFFECT_METAL_POWDER:
+            /*
+             * Doubles the Defense of Ditto.
+             */
+            if (defender->species == SPECIES_DITTO && movePSS == PSS_PHYSICAL) {
+                #ifdef DEBUG_MODE
+                u8 buf[128];
+                sprintf(buf, "[PLAT-ENGINE] ---- Metal Powder: 2.0x\n");
+                debugsyscall(buf);
+                #endif
 
-    return UQ412_Mul_IntByQ_RoundDown(stat, statMod);
+                nextMod = UQ412__2_0;
+            }
+            break;
+
+        case HOLD_EFFECT_DEEP_SEA_SCALE:
+            /*
+             * Doubles the Special Defense of Clamperl.
+             */
+            if (defender->species == SPECIES_CLAMPERL && movePSS == PSS_SPECIAL) {
+                #ifdef DEBUG_MODE
+                u8 buf[128];
+                sprintf(buf, "[PLAT-ENGINE] ---- Deep Sea Scale: 2.0x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__2_0;
+            }
+            break;
+
+        case HOLD_EFFECT_EVIOLITE:
+            /*
+             * Increases all defensive stats by 50% if the defender is not
+             * fully-evolved.
+             */
+            if (Pokemon_IsNFE(defender->species, server->activePokemon[server->defender].formNum)) {
+                #ifdef DEBUG_MODE
+                u8 buf[128];
+                sprintf(buf, "[PLAT-ENGINE] ---- Eviolite: 1.5x\n");
+                debugsyscall(buf);
+                #endif
+
+                nextMod = UQ412__1_5;
+            }
+            break;
+
+        default:
+            break;
+    }
+    statMod = QMul_RoundUp(statMod, nextMod);
+
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Final Defense Mod: %d\n\n", statMod);
+    debugsyscall(buf);
+    #endif
+
+    return QMul_RoundDown(stat, statMod);
 }
 
 /**
@@ -1175,6 +1850,12 @@ _SkipDefenseAllyFlowerGift:
  */
 static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender)
 {
+    #ifdef DEBUG_MODE
+    u8 buf[128];
+    sprintf(buf, "[PLAT-ENGINE] Type Modifier:\n");
+    debugsyscall(buf);
+    #endif 
+
     // Ground can have additional immunities ahead of typing:
     //  - Levitate
     //  - Magnet Rise
@@ -1184,8 +1865,18 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     if (server->moveType == TYPE_GROUND
             && !Calc_ImmunityActive(server, attacker, defender, TYPE_GROUND)) {
         if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_LEVITATE)) {
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Defender has Levitate\n");
+            debugsyscall(buf);
+            #endif
+
             server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_MISSED_BY_ABILITY;
         } else if (server->activePokemon[server->defender].moveEffects.magnetRiseTurns) {
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Defender has Magnet Rise\n");
+            debugsyscall(buf);
+            #endif
+
             server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_MISSED_BY_MAGNET_RISE;
         }
 
@@ -1220,30 +1911,49 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     // Now we can check for effectiveness on the types.
     u16 typeMod = UQ412__1_0;
     const s8 *typeMatchups = sTypeEffectiveness[server->moveType];
-#ifdef DEBUG_MODE
-    u8 buf[128];
-    sprintf(buf, "[PLAT-ENGINE] Move type: %ld\n", server->moveType);
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] -- Attacking type: %s\n", sTypeStrings[server->moveType]);
     debugsyscall(buf);
-#endif
+    #endif
 
     if (type1 != TYPE_NONE) {
         s8 type1Matchup = typeMatchups[type1];
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] vs. Type 1: %ld\n", type1);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- vs. Type 1:  %s\n", sTypeStrings[type1]);
         debugsyscall(buf);
-        sprintf(buf, "[PLAT-ENGINE] Table Entry: %ld\n", type1Matchup);
-        debugsyscall(buf);
-#endif
+        #endif
+
         switch (type1Matchup) {
-            case    0: break;                   // normal damage
+            case    0:                          // normal effectiveness
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Neutral\n");
+                debugsyscall(buf);
+                #endif
+
+                break;
             case    1:                          // super effective
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Weakness: 2x\n");
+                debugsyscall(buf);
+                #endif
+
                 typeMod = typeMod << 1;
                 break;
             case   -1:                          // not very effective
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Resisted: 0.5x\n");
+                debugsyscall(buf);
+                #endif
+
                 typeMod = typeMod >> 1;
                 break;
             default:                            // immune
                 if (Calc_ImmunityActive(server, attacker, defender, server->moveType)) {
+                    #ifdef DEBUG_MODE
+                    sprintf(buf, "[PLAT-ENGINE] ---- Immune: 0x\n");
+                    debugsyscall(buf);
+                    #endif
+
                     typeMod = 0;
                 }
                 break;
@@ -1253,23 +1963,42 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     // mono-type mons are technically double of the one type
     if (type1 != type2 && type2 != TYPE_NONE) {
         s8 type2Matchup = typeMatchups[type2];
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] vs. Type 2: %ld\n", type2);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- vs. Type 2:  %s\n", sTypeStrings[type2]);
         debugsyscall(buf);
-        sprintf(buf, "[PLAT-ENGINE] Table Entry: %ld\n", type2Matchup);
-        debugsyscall(buf);
-#endif
+        #endif
+
         switch (type2Matchup) {
             case    0:                          // normal damage
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Neutral\n");
+                debugsyscall(buf);
+                #endif
+
                 break;
             case    1:                          // super effective
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Weakness: 2x\n");
+                debugsyscall(buf);
+                #endif
+
                 typeMod = typeMod << 1;
                 break;
             case   -1:                          // not very effective
+                #ifdef DEBUG_MODE
+                sprintf(buf, "[PLAT-ENGINE] ---- Resisted: 0.5x\n");
+                debugsyscall(buf);
+                #endif
+
                 typeMod = typeMod >> 1;
                 break;
             default:                            // immune
                 if (Calc_ImmunityActive(server, attacker, defender, server->moveType)) {
+                    #ifdef DEBUG_MODE
+                    sprintf(buf, "[PLAT-ENGINE] ---- Immune: 0x\n");
+                    debugsyscall(buf);
+                    #endif
+
                     typeMod = 0;
                 }
                 break;
@@ -1280,6 +2009,11 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_WONDER_GUARD)
             && Server_CheckTwoTurnMove(server, server->moveIDCurr)
             && typeMod < UQ412__2_0) {
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Defender has Wonder Guard; immune\n\n");
+        debugsyscall(buf);
+        #endif
+
         server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_PROTECTED_BY_WONDER_GUARD;
         return 0;
     }
@@ -1287,8 +2021,6 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     // If the type-effectiveness ignorance flag is in play, default back to 1x (unless already 0x)
     // This has to happen after all checks to account for moves like Night Shade and Dragon Rage
     // dealing fixed damage but still having immunities
-    //
-    // TODO: Make sure this looks okay
     if ((server->serverStatusFlag & SERVER_STATUS_FLAG_IGNORE_EFFECTIVENESS) && (typeMod != 0)) {
         server->moveStatusFlag = server->moveStatusFlag | ~MOVE_STATUS_FLAG_SUPER_EFFECTIVE;
         server->moveStatusFlag = server->moveStatusFlag | ~MOVE_STATUS_FLAG_NOT_VERY_EFFECTIVE;
@@ -1373,30 +2105,53 @@ static u16 Calc_ChainOtherModifiers(
 )
 {
     u16 chainMod = UQ412__1_0;
-#ifdef DEBUG_MODE
+
+    #ifdef DEBUG_MODE
     u8 buf[128];
-#endif
+    sprintf(buf, "[PLAT-ENGINE] Final Mods Chain:\n");
+    debugsyscall(buf);
+    #endif
 
     // TODO: Dynamax stuff goes here if we ever implement it (Behemoth Blade, Behemoth Bash, Dynamax Cannon)
 
     if ((server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_MINIMIZED)
             && Moves_BoostedByMinimize(moveID)) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Defender is Minimized: 2x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__2_0);
     }
     
     if (((moveID == MOVE_EARTHQUAKE) || (moveID == MOVE_MAGNITUDE))
             && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_UNDERGROUND) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Defender is Underground: 2x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__2_0);
     }
     
     if (((moveID == MOVE_SURF) || (moveID == MOVE_WHIRLPOOL))
             && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_UNDERWATER) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Defender is Underwater: 2x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__2_0);
     }
 
     if (((moveID == MOVE_TWISTER) || (moveID == MOVE_GUST))
             && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_AIRBORNE) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Defender is Airborne: 2x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__2_0);
     }
 
     // Reflect / Light Screen / Aurora Veil checks
@@ -1419,9 +2174,19 @@ static u16 Calc_ChainOtherModifiers(
 
 _ScreenReduction:
     if (battleType & BATTLE_TYPE_DOUBLES) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_6666);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Doubles Screen: 0.6666x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__0_6666);
     } else {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Singles Screen: 0.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__0_5);
     }
 
 _NoScreenReduction:
@@ -1431,98 +2196,168 @@ _NoScreenReduction:
     if ((defender->currHP == defender->maxHP)
             && (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_MULTISCALE)
                     || defender->ability == ABILITY_SHADOW_SHIELD)) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Multiscale: 0.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__0_5);
     }
 
     // 0.5x if the target has Fluffy, the move makes contact, and the attacker does not have Long Reach.
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FLUFFY)
             && (attacker->ability != ABILITY_LONG_REACH)
             && (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT)) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Fluffy (contact): 0.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__0_5);
     }
 
     // 0.5x if the target has Punk Rock and the used move is sound-based.
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_PUNK_ROCK)
             && Moves_IsSound(moveID)) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Punk Rock: 0.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__0_5);
     }
 
     // 0.5x if the target has Ice Scales and the used move is Special.
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_ICE_SCALES)
             && (movePSS == PSS_SPECIAL)) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Ice Scales: 0.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__0_5);
     }
 
     if (Server_CheckDefenderAbility(server, server->attacker, PARTNER(server->defender), ABILITY_FRIEND_GUARD)) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_75);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Friend Guard: 0.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__0_75);
     }
 
     if (server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) {
         if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FILTER)
                 || Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_SOLID_ROCK)
                 || defender->ability == ABILITY_PRISM_ARMOR) {
-            chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_75);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Filter: 0.75x\n");
+            debugsyscall(buf);
+            #endif
+
+            chainMod = QMul_RoundUp(chainMod, UQ412__0_75);
         }
 
         if (attacker->ability == ABILITY_NEUROFORCE) {
-            chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_25);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Neuroforce: 1.25x\n");
+            debugsyscall(buf);
+            #endif
+
+            chainMod = QMul_RoundUp(chainMod, UQ412__1_25);
         }
     }
 
     if (server->critical && attacker->ability == ABILITY_SNIPER) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_5);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Sniper: 1.5x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__1_5);
     }
 
     if ((server->moveStatusFlag & MOVE_STATUS_FLAG_NOT_VERY_EFFECTIVE) && attacker->ability == ABILITY_TINTED_LENS) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Tinted Lens: 2.0x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__2_0);
     }
 
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FLUFFY)
             && moveType == TYPE_FIRE) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__2_0);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Fluffy (fire): 2.0x\n");
+        debugsyscall(buf);
+        #endif
+
+        chainMod = QMul_RoundUp(chainMod, UQ412__2_0);
     }
 
     if (((moveType == TYPE_NORMAL) && (defender->heldItemEffect == HOLD_EFFECT_WEAKEN_NORMAL))
             || ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) && CheckResistBerry(defender->heldItemEffect, moveType))) {
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Activating resist berry %d for type %d\n", defender->heldItemEffect, moveType);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Resist Berry for type: %s\n", sTypeStrings[moveType]);
         debugsyscall(buf);
-#endif
+        #endif
+
         if (defender->ability == ABILITY_RIPEN) {
-            chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_25);
-        } else {
-#ifdef DEBUG_MODE
-            sprintf(buf, "[PLAT-ENGINE] Applying base resist berry modifier: 0.5x\n", defender->heldItemEffect, moveType);
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] ---- Ripen: 0.25x\n");
             debugsyscall(buf);
-#endif
-            chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__0_5);
+            #endif
+
+            chainMod = QMul_RoundUp(chainMod, UQ412__0_25);
+        } else {
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] ---- Normal: 0.5x\n");
+            debugsyscall(buf);
+            #endif
+
+            chainMod = QMul_RoundUp(chainMod, UQ412__0_5);
         }
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Modifier after resist berries (q412): %d\n", chainMod);
+    }
+
+    if (attacker->heldItemEffect == HOLD_EFFECT_EXPERT_BELT) {
+        if (server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) {
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Expert Belt: 1.2x\n");
+            debugsyscall(buf);
+            #endif
+
+            chainMod = QMul_RoundUp(chainMod, UQ412__1_2);
+        }
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_LIFE_ORB) {
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Life Orb: 1.3x\n");
         debugsyscall(buf);
-#endif
-    }
-
-    if ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE)
-            && (attacker->heldItemEffect == HOLD_EFFECT_EXPERT_BELT)) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_2);
-    }
-
-    if (attacker->heldItemEffect == HOLD_EFFECT_LIFE_ORB) {
-        chainMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_3);
-    }
-
-    if (attacker->heldItemEffect == HOLD_EFFECT_METRONOME) {
+        #endif
+        
+        chainMod = QMul_RoundUp(chainMod, UQ412__1_3);
+    } else if (attacker->heldItemEffect == HOLD_EFFECT_METRONOME) {
         u8 metronomeCount = server->activePokemon[server->attacker].moveEffects.metronome;
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Metronome Count: %d\n", metronomeCount);
+        debugsyscall(buf);
+        #endif
+
         u16 metronomeMod;
         if (metronomeCount < 6) {
-            metronomeMod = UQ412_Mul_RoundUp(chainMod, UQ412__1_0 + (UQ412__0_2 * (metronomeCount - 1)));
+            metronomeMod = QMul_RoundUp(chainMod, UQ412__1_0 + (UQ412__0_2 * (metronomeCount - 1)));
         } else {
             metronomeMod = UQ412__2_0;
         }
 
-        chainMod = UQ412_Mul_RoundUp(chainMod, metronomeMod);
+        chainMod = QMul_RoundUp(chainMod, metronomeMod);
     }
+
+    #ifdef DEBUG_MODE
+    sprintf(buf, "[PLAT-ENGINE] Final modifier: %d\n\n", chainMod);
+    debugsyscall(buf);
+    #endif
 
     return chainMod;
 }
@@ -1580,26 +2415,23 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     };
 
     // Step 1: Calculate the base damage value.
-    s32 damage = Calc_BaseDamage(battle, server, &attackerParams, &defenderParams);
-#ifdef DEBUG_MODE
+    u32 damage = Calc_BaseDamage(battle, server, &attackerParams, &defenderParams);
+    #ifdef DEBUG_MODE
     u8 buf[128];
-    sprintf(buf, "[PLAT-ENGINE] Base damage: %ld\n", damage);
+    sprintf(buf, "[PLAT-ENGINE] Base damage: %d\n", damage);
     debugsyscall(buf);
-#endif
+    #endif
 
 
     // Step 2: 0.75x if the move has more than one target upon execution.
     u32 battleType = Battle_Type(battle);
     if ((battleType & BATTLE_TYPE_DOUBLES) && (Server_HitCount(battle, server, 0, server->defender) > 1)) {
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Applying double battle factor\n");
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Spread damage: 0.75x\n");
         debugsyscall(buf);
-#endif
-        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_75);
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Damage after double battle factor: %ld\n", damage);
-        debugsyscall(buf);
-#endif
+        #endif
+
+        damage = QMul_RoundDown(damage, UQ412__0_75);
     }
 
     // Step 3: Divide by 4 if the move is the second-strike of Parental Bond.
@@ -1610,50 +2442,38 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // Neither applies if the defender is holding a Utility Umbrella.
     if (WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)
             && defenderParams.heldItemEffect != HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN) {
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Sun is active, defender is affected\n");
-        debugsyscall(buf);
-#endif
         if (server->moveType == TYPE_FIRE) {
-#ifdef DEBUG_MODE
-            sprintf(buf, "[PLAT-ENGINE] Fire-type move\n");
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Fire move in Sun: 1.5x\n");
             debugsyscall(buf);
-#endif
-            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
+            #endif
+
+            damage = QMul_RoundDown(damage, UQ412__1_5);
         } else if (server->moveType == TYPE_WATER) {
-#ifdef DEBUG_MODE
-            sprintf(buf, "[PLAT-ENGINE] Water-type move\n");
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Water move in Sun: 0.5x\n");
             debugsyscall(buf);
-#endif
-            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
+            #endif
+
+            damage = QMul_RoundDown(damage, UQ412__0_5);
         }
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Damage after sun factor: %ld\n", damage);
-        debugsyscall(buf);
-#endif
     } else if (WeatherIsActive(battle, server, FIELD_CONDITION_RAINING)
             && defenderParams.heldItemEffect != HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN) {
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Rain is active, defender is affected\n");
-        debugsyscall(buf);
-#endif
         if (server->moveType == TYPE_WATER) {
-#ifdef DEBUG_MODE
-            sprintf(buf, "[PLAT-ENGINE] Water-type move\n");
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Water move in Rain: 1.5x\n");
             debugsyscall(buf);
-#endif
-            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
+            #endif
+
+            damage = QMul_RoundDown(damage, UQ412__1_5);
         } else if (server->moveType == TYPE_FIRE) {
-#ifdef DEBUG_MODE
-            sprintf(buf, "[PLAT-ENGINE] Fire-type move\n");
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Fire move in Rain: 0.5x\n");
             debugsyscall(buf);
-#endif
-            damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__0_5);
+            #endif
+
+            damage = QMul_RoundDown(damage, UQ412__0_5);
         }
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Damage after rain factor: %ld\n", damage);
-        debugsyscall(buf);
-#endif
     }
 
     // Step 5: 2x if the defender used Glaive Rush last turn (or this turn) and the move does
@@ -1661,41 +2481,50 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // TODO
 
     // Step 6: 1.5x if the attack was a critical hit.
-#if !defined(CRITICAL_DAMAGE_MULTIPLIER) || CRITICAL_DAMAGE_MULTIPLIER >= GEN6
+    #if !defined(CRITICAL_DAMAGE_MULTIPLIER) || CRITICAL_DAMAGE_MULTIPLIER >= GEN6
     if (server->critical) {
-        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__1_5);
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Critical hit damage: %ld\n", damage);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Critical Hit: 1.5x\n");
         debugsyscall(buf);
-#endif
+        #endif
+
+        damage = QMul_RoundDown(damage, UQ412__1_5);
     }
-#else   // Gen5 critical damage
+    #else   // Gen5 critical damage
     if (server->critical) {
-        damage = Q412_Mul_IntByQ_RoundDown(damage, UQ412__2_0);
-#ifdef DEBUG_MODE
-        sprintf(buf, "[PLAT-ENGINE] Critical hit damage: %ld\n", damage);
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Critical Hit: 2.0x\n");
         debugsyscall(buf);
-#endif
+        #endif
+
+        damage = QMul_RoundDown(damage, UQ412__2_0);
     }
-#endif
+    #endif
 
     // Step 7: Apply random damage fluctuation.
-#ifdef DEBUG_MODE
+    #ifdef DEBUG_MODE
     // Debug mode: store all possible damage values as a buffer.
-    s32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
-    for (int i = 0; i < 16; i++) {
-        damageValues[i] = damage * damageValues[i] / 100;
-    }
-#else
+    // u32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
+    // for (int i = 0; i < 16; i++) {
+    //     damageValues[i] = damage * damageValues[i] / 100;
+    // }
+    
+    // Alternate debug mode: only take the maximum value, so do nothing here
+    #else
     // Generate a random number from 85 to 100.
     int rand = 100 - (Battle_Random(battle) % 16);
     damage = damage * rand / 100;
-#endif
+    #endif
 
     // Step 8: 1.5x if the attacker shares a type with the move.
     // TODO: Handle Soak, Forest's Curse, Trick-or-Treat.
     u16 stabMod = UQ412__1_0;
     if ((server->moveType == attackerParams.type1) || (server->moveType == attackerParams.type2)) {
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] STAB: 1.5x\n");
+        debugsyscall(buf);
+        #endif
+
         stabMod = stabMod + UQ412__0_5;
     } else if ((attackerParams.ability == ABILITY_PROTEAN) || (attackerParams.ability == ABILITY_LIBERO)) {
         // This one is only here for the AI.
@@ -1704,6 +2533,11 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 
     if ((attackerParams.ability == ABILITY_ADAPTABILITY)
             && ((attackerParams.type1 == server->moveType) || (attackerParams.type2 == server->moveType))) {
+        #ifdef DEBUG_MODE
+        sprintf(buf, "[PLAT-ENGINE] -- Adaptability: +0.5x\n");
+        debugsyscall(buf);
+        #endif
+
         stabMod = stabMod + UQ412__0_5;
     }
 
@@ -1715,6 +2549,11 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     if (server->aiWork.moveTable[server->moveIDCurr].pss == PSS_PHYSICAL) {
         if ((attackerParams.condition & CONDITION_BURNED)
                 && ((attackerParams.ability != ABILITY_GUTS) && (server->moveIDCurr != MOVE_FACADE))) {
+            #ifdef DEBUG_MODE
+            sprintf(buf, "[PLAT-ENGINE] -- Burned Attacker: 0.5x\n");
+            debugsyscall(buf);
+            #endif
+
             burnMod = UQ412__0_5;
         }
     }
@@ -1747,40 +2586,59 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // TODO: Z-moves
 
     // Apply all the modifiers.
-#ifdef DEBUG_MODE
-    sprintf(buf, "[PLAT-ENGINE] STAB Modifier: %d\n", stabMod);
+    #ifdef DEBUG_MODE
+    // sprintf(buf, "[PLAT-ENGINE] Preliminary damage values: [ ");
+    // int length = 43;
+    // for (int i = 0; i < 16; i++) {
+    //     length += sprintf(buf + length, "%ld ", damageValues[i]);
+    // }
+    // sprintf(buf + length, "]\n");
+    // debugsyscall(buf);
+
+    sprintf(buf, "[PLAT-ENGINE] Max Roll:       %ld\n", damage);
+
+    damage = QMul_RoundDown(damage, stabMod);
+    sprintf(buf, "[PLAT-ENGINE] With STAB:      %ld\n", damage);
     debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Effectiveness Modifier: %d\n", typeMod);
+    
+    damage = QMul_RoundDown(damage, typeMod);
+    sprintf(buf, "[PLAT-ENGINE] With Chart:     %ld\n", damage);
     debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Burn Modifier: %d\n", burnMod);
+
+    damage = QMul_RoundDown(damage, burnMod);
+    sprintf(buf, "[PLAT-ENGINE] With Burn:      %ld\n", damage);
     debugsyscall(buf);
-    sprintf(buf, "[PLAT-ENGINE] Final Modifier: %d\n", lastMod);
+
+    damage = QMul_RoundDown(damage, lastMod);
+    sprintf(buf, "[PLAT-ENGINE] Final Damage:   %ld\n", damage);
     debugsyscall(buf);
+
+
     // If we're in debug mode, then we instead have a whole list of damage values that need to be
     // applied to and printed out.
-    sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
-    int length = 32;
-    for (int i = 0; i < 16; i++) {
-        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], stabMod);
-        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], typeMod);
-        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], burnMod);
-        damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], lastMod);
-        length += sprintf(buf + length, "%ld ", damageValues[i]);
-    }
-    sprintf(buf + length, "]\n");
-    debugsyscall(buf);
+    // sprintf(buf, "[PLAT-ENGINE] Damage results: [ ");
+    // length = 32;
+    // for (int i = 0; i < 16; i++) {
+    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], stabMod);
+    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], typeMod);
+    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], burnMod);
+    //     damageValues[i] = Q412_Mul_IntByQ_RoundDown(damageValues[i], lastMod);
+    //     length += sprintf(buf + length, "%ld ", damageValues[i]);
+    // }
+    // sprintf(buf + length, "]\n");
+    // debugsyscall(buf);
 
     // Always use the max value in debug mode.
-    damage = damageValues[15];
-#else
-    damage = Q412_Mul_IntByQ_RoundDown(damage, stabMod);
-    damage = Q412_Mul_IntByQ_RoundDown(damage, typeMod);
-    damage = Q412_Mul_IntByQ_RoundDown(damage, burnMod);
-    damage = Q412_Mul_IntByQ_RoundDown(damage, lastMod);
-#endif
+    // damage = damageValues[15];
+    #else
+    damage = QMul_RoundDown(damage, stabMod);
+    damage = QMul_RoundDown(damage, typeMod);
+    damage = QMul_RoundDown(damage, burnMod);
+    damage = QMul_RoundDown(damage, lastMod);
+    #endif
 
-    // And we're done.
-    server->damage = damage * -1;
+    // And we're done. Cut the top bit off, then multiply by -1.
+    server->damage = ((s32) damage & 0x7FFF) * -1;
 }
 
 BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server)
@@ -1835,7 +2693,7 @@ int Calc_TypeEffectivenessPower(u8 moveType, u8 pokeType1, u8 pokeType2)
      * This function does NOT check and should NEVER check for modified typings,
      * since it's only used for entry-hazard checks.
      */
-    u8 matchup = sTypeEffectiveness[moveType][pokeType1];
+    s8 matchup = sTypeEffectiveness[moveType][pokeType1];
     if (pokeType1 != pokeType2 && matchup != _IMMUN) {
         matchup = matchup + sTypeEffectiveness[moveType][pokeType2];
     }
