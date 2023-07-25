@@ -198,6 +198,8 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
                 && server->moveIDCurr != MOVE_STRUGGLE
                 // Move actually has a base power
                 && server->aiWork.moveTable[server->moveIDCurr].power
+                // Don't activate until the final hit of a move
+                && server->multiHitCounter <= 1
                 // The move's type does not match either of the user's current types
                 && BattlePokemon_Get(server, server->defender, BATTLE_MON_PARAM_TYPE_1, NULL) != server->moveType
                 && BattlePokemon_Get(server, server->defender, BATTLE_MON_PARAM_TYPE_2, NULL) != server->moveType) {
@@ -205,6 +207,8 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             *seqNum = SUBSCR_COLOR_CHANGE;
             result  = TRUE;
         }
+        break;
+        
     case ABILITY_ROUGH_SKIN:
     case ABILITY_IRON_BARBS:
         // Attacker is still alive after the attack
@@ -978,7 +982,7 @@ static void ProcessFormChanges(struct Battle *battle, struct BattleServer *serve
         switch (server->activePokemon[server->clientWork].species) {
             case SPECIES_CASTFORM:
                 // Castform's transformation is tied to Forecast
-                if (Server_Ability(server, server->clientWork) != ABILITY_FORECAST)
+                if (Server_Ability(server, server->clientWork) != ABILITY_FORECAST) {
                     // Force Castform back to Normal form if it loses Forecast for whatever reason
                     if (server->activePokemon[server->clientWork].type1 != TYPE_NORMAL) {
                         goto CastformNormal;

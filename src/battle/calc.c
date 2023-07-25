@@ -2641,8 +2641,13 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     damage = QMul_RoundDown(damage, lastMod);
     #endif
 
+    #ifdef DEBUG_DAMAGE_CALC_1_DAMAGE
+    // In this debug mode, always return 1 damage.
+    server->damage = -1;
+    #else
     // And we're done. Cut the top bit off, then multiply by -1.
     server->damage = ((s32) damage & 0x7FFF) * -1;
+    #endif
 }
 
 BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server)
