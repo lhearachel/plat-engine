@@ -1,4 +1,5 @@
 #include "config.h"
+#include "debug.h"
 #include "global.h"
 
 #include "battle/common.h"
@@ -14,7 +15,7 @@
 #include "constants/misc.h"
 #include "constants/species.h"
 
-#ifdef DEBUG_MODE
+#ifdef DEBUG_DAMAGE_CALC
 static u8 *sTypeStrings[] = {
     [TYPE_NORMAL]   = "Normal",
     [TYPE_FIGHTING] = "Fighting",
@@ -358,7 +359,7 @@ static u16 Calc_ModifiedBasePower(
      * This multiplier is passed as a value which is expected to be in Q4.12 format.
      */
     u16 powerMod = server->powerModifier;
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     u8 buf[128];
     sprintf(buf, "[PLAT-ENGINE] Initial power mod: %d\n", powerMod);
     debugsyscall(buf);
@@ -366,7 +367,7 @@ static u16 Calc_ModifiedBasePower(
 
     // 2x if the attacker is under the effect of Charge and the used move is Electric-type.
     if ((server->activePokemon[server->attacker].moveEffectsMask & MOVE_EFFECT_CHARGED) && (moveType == TYPE_ELECTRIC)) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Charge active: 2x\n");
         debugsyscall(buf);
         #endif
@@ -382,7 +383,7 @@ static u16 Calc_ModifiedBasePower(
         }
 
         if (server->meFirstTotalTurnOrder - server->activePokemon[server->attacker].moveEffects.meFirstTurnCount < 2) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Me First active: 1.5x\n");
             debugsyscall(buf);
             #endif
@@ -396,7 +397,7 @@ static u16 Calc_ModifiedBasePower(
     // Technically this breaks for Triple Battles if one ally uses Helping Hand
     // and another uses Instruct, but lol. lmao.
     if (server->stFX[server->attacker].helpingHand) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Helping Hand active: 1.5x\n");
         debugsyscall(buf);
         #endif
@@ -408,7 +409,7 @@ static u16 Calc_ModifiedBasePower(
     // TODO: These need to be moved to field conditions instead of being move effects
     if ((Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_MUD_SPORT) && (moveType == TYPE_ELECTRIC))
             || (Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_WATER_SPORT) && (moveType == TYPE_FIRE))) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Mud/Water Sport active: 0.33x\n");
         debugsyscall(buf);
         #endif
@@ -439,14 +440,14 @@ static u16 Calc_ModifiedBasePower(
             if (attacker->gender == 2 || defender->gender == 2) {
                 // do nothing
             } else if (attacker->gender == defender->gender) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Rivalry active, same gender: 1.25x\n");
                 debugsyscall(buf);
                 #endif
 
                 nextMod = UQ412__1_25;
             } else {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Rivalry active, diff gender: 0.75x\n");
                 debugsyscall(buf);
                 #endif
@@ -470,7 +471,7 @@ static u16 Calc_ModifiedBasePower(
              * or is High Jump Kick or Jump Kick, but is _not_ Struggle).
              */
             if (Moves_BoostedByReckless(moveID)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Reckless active: 1.2x\n");
                 debugsyscall(buf);
                 #endif
@@ -484,7 +485,7 @@ static u16 Calc_ModifiedBasePower(
              * 1.2x if the attacker's ability is Iron Fist and the used move is a punching move.
              */
             if (Moves_IsPunching(moveID)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Iron Fist active: 1.2x\n");
                 debugsyscall(buf);
                 #endif
@@ -498,7 +499,7 @@ static u16 Calc_ModifiedBasePower(
              * 1.2x if the attacker's ability is Normalize and the used move is affected.
              */
             if (Moves_CanNormalize(moveID)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Normalize active: 1.2x\n");
                 debugsyscall(buf);
                 #endif
@@ -515,7 +516,7 @@ static u16 Calc_ModifiedBasePower(
              * 1.2x if the attacker's ability is an -ate ability and the move's type was altered.
              */
             if (isAteAbility) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- -ate ability active: 1.2x\n");
                 debugsyscall(buf);
                 #endif
@@ -539,7 +540,7 @@ static u16 Calc_ModifiedBasePower(
              */
             if (WeatherIsActive(battle, server, FIELD_CONDITION_SANDSTORM)
                     && (moveType == TYPE_GROUND || moveType == TYPE_ROCK || moveType == TYPE_STEEL)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Sand Force active: 1.3x\n");
                 debugsyscall(buf);
                 #endif
@@ -561,7 +562,7 @@ static u16 Calc_ModifiedBasePower(
              * 1.3x if the attacker's ability is Tough Claws and the used move makes contact.
              */
             if (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Tough Claws active: 1.3x\n");
                 debugsyscall(buf);
                 #endif
@@ -579,7 +580,7 @@ static u16 Calc_ModifiedBasePower(
     // but they are mutually exclusive in doubles.
     if (AllyHasAbility(server, server->attacker, ABILITY_BATTERY) && movePSS == PSS_SPECIAL) {
         // 1.3x if our ally has Battery and the used move is Special-split.
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Battery active: 1.3x\n");
         debugsyscall(buf);
         #endif
@@ -587,7 +588,7 @@ static u16 Calc_ModifiedBasePower(
         powerMod = QMul_RoundUp(powerMod, UQ412__1_3);
     } else if (AllyHasAbility(server, server->attacker, ABILITY_POWER_SPOT)) {
         // 1.3x if our ally has Power Spot.
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Power Spot active: 1.2x\n");
         debugsyscall(buf);
         #endif
@@ -597,7 +598,7 @@ static u16 Calc_ModifiedBasePower(
 
     if (attacker->ability == ABILITY_PUNK_ROCK && Moves_IsSound(moveID)) {
         // 1.3x if the attacker's ability is Punk Rock and the used move is sound-based.
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Punk Rock active: 1.3x\n");
         debugsyscall(buf);
         #endif
@@ -613,14 +614,14 @@ static u16 Calc_ModifiedBasePower(
         // 1.33x if Fairy Aura is in effect, the used move is Fairy-type, and the attacker's ability is not
         // Mold Breaker. If Aura Break is also in effect, instead 0.75x.
         if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AURA_BREAK)) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Fairy Aura broken: 0.75x\n");
             debugsyscall(buf);
             #endif
 
             nextMod = UQ412__0_75;
         } else {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Fairy Aura active: 1.33x\n");
             debugsyscall(buf);
             #endif
@@ -639,14 +640,14 @@ static u16 Calc_ModifiedBasePower(
         // 1.33x if Dark Aura is in effect, the used move is Dark-type, and the attacker's ability is not
         // Mold Breaker. If Aura Break is also in effect, instead 0.75x.
         if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AURA_BREAK)) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Dark Aura broken: 1.33x\n");
             debugsyscall(buf);
             #endif
 
             nextMod = UQ412__0_75;
         } else {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Dark Aura active: 1.33x\n");
             debugsyscall(buf);
             #endif
@@ -665,7 +666,7 @@ static u16 Calc_ModifiedBasePower(
              * 1.5x if the attacker's ability is Strong Jaw and the used move is a biting move.
              */
             if (Moves_IsBiting(moveID)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Strong Jaw active: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -679,7 +680,7 @@ static u16 Calc_ModifiedBasePower(
              * Pulse-based.
              */
             if (Moves_IsAuraOrPulse(moveID)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Mega Launcher active: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -694,7 +695,7 @@ static u16 Calc_ModifiedBasePower(
              * equal to 60, and the used move is _not_ Struggle.
              */
             if (movePower <= 60 && moveID != MOVE_STRUGGLE) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Technician active: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -709,7 +710,7 @@ static u16 Calc_ModifiedBasePower(
              * attacker is poisoned.
              */
             if (movePSS == PSS_PHYSICAL && (attacker->condition & CONDITION_POISON_ALL)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Toxic Boost active: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -724,7 +725,7 @@ static u16 Calc_ModifiedBasePower(
              * attacker is burned.
              */
             if (movePSS == PSS_SPECIAL && (attacker->condition & CONDITION_BURNED)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Flare Boost active: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -738,7 +739,7 @@ static u16 Calc_ModifiedBasePower(
              * 1.5x if the attacker's ability is Steely Spirit and the used move is Steel-type.
              */
             if (moveType == TYPE_STEEL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Self Steely Spirit active: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -756,7 +757,7 @@ static u16 Calc_ModifiedBasePower(
             && moveType == TYPE_STEEL) {
         // 1.5x if the attacker's ally has Steely Spirit and the used move is Steel-type.
         // Note that this modifier stacks with the attacker itself having Steely Spirit.
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Ally Steely Spirit active: 1.5x\n");
         debugsyscall(buf);
         #endif
@@ -768,7 +769,7 @@ static u16 Calc_ModifiedBasePower(
         if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_HEATPROOF)) {
             // 0.5x if the target's ability is Heatproof, the used move is Fire-type, and the
             // target's ability is not ignored.
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Opp has Heatproof: 0.5x\n");
             debugsyscall(buf);
             #endif
@@ -777,7 +778,7 @@ static u16 Calc_ModifiedBasePower(
         } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_DRY_SKIN)) {
             // 1.25x if the target's ability is Dry Skin, the used move is Fire-type, and the
             // target's ability is not ignored.
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Opp has Dry Skin: 1.25x\n");
             debugsyscall(buf);
             #endif
@@ -788,7 +789,7 @@ static u16 Calc_ModifiedBasePower(
 
     if (attacker->ability == ABILITY_SHARPNESS && Moves_IsSlashing(moveID)) {
         // 1.5x if the attacker's ability is Sharpness and the used move is slashing-based.
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Sharpness active: 1.5x\n");
         debugsyscall(buf);
         #endif
@@ -804,7 +805,7 @@ static u16 Calc_ModifiedBasePower(
     switch (attacker->heldItemEffect) {
         case HOLD_EFFECT_MUSCLE_BAND:
             if (movePSS == PSS_PHYSICAL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Muscle Band active: 1.1x\n");
                 debugsyscall(buf);
                 #endif
@@ -815,7 +816,7 @@ static u16 Calc_ModifiedBasePower(
 
         case HOLD_EFFECT_WISE_GLASSES:
             if (movePSS == PSS_SPECIAL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Wise Glasses active: 1.1x\n");
                 debugsyscall(buf);
                 #endif
@@ -827,7 +828,7 @@ static u16 Calc_ModifiedBasePower(
         case HOLD_EFFECT_ADAMANT_ORB:
             if (attacker->species == SPECIES_DIALGA
                     && (moveType == TYPE_DRAGON || moveType == TYPE_STEEL)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Adamant Orb active: 1.2x\n");
                 debugsyscall(buf);
                 #endif
@@ -839,7 +840,7 @@ static u16 Calc_ModifiedBasePower(
         case HOLD_EFFECT_LUSTROUS_ORB:
             if (attacker->species == SPECIES_PALKIA
                     && (moveType == TYPE_DRAGON || moveType == TYPE_WATER)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Lustrous Orb active: 1.2x\n");
                 debugsyscall(buf);
                 #endif
@@ -851,7 +852,7 @@ static u16 Calc_ModifiedBasePower(
         case HOLD_EFFECT_GRISEOUS_ORB:
             if (attacker->species == SPECIES_GIRATINA
                     && (moveType == TYPE_DRAGON || moveType == TYPE_GHOST)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Griseous Orb active: 1.2x\n");
                 debugsyscall(buf);
                 #endif
@@ -863,7 +864,7 @@ static u16 Calc_ModifiedBasePower(
         case HOLD_EFFECT_SOUL_DEW:
             if ((attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS)
                     && (moveType == TYPE_DRAGON || moveType == TYPE_PSYCHIC)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Soul Dew active: 1.2x\n");
                 debugsyscall(buf);
                 #endif
@@ -874,7 +875,7 @@ static u16 Calc_ModifiedBasePower(
 
         case HOLD_EFFECT_BOOST_PUNCHING_MOVES:
             if (Moves_IsPunching(moveID)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Punching Glove active: 1.1x\n");
                 debugsyscall(buf);
                 #endif
@@ -890,14 +891,14 @@ static u16 Calc_ModifiedBasePower(
     // Check the tables for type-boosting items and Gems
     if (sTypeBoostingItems[moveType] == attacker->heldItemEffect
             || sTypePlates[moveType] == attacker->heldItemEffect) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Type Item active: 1.2x\n");
         debugsyscall(buf);
         #endif
 
         goto LookupItemPower;
     } else if (sGems[moveType] == attacker->heldItemEffect) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Type Gem active: 1.5x\n");
         debugsyscall(buf);
         #endif
@@ -909,7 +910,7 @@ static u16 Calc_ModifiedBasePower(
 
 LookupItemPower:
     tableLookup = UQ412__1_0 + QPercent(attacker->heldItemPower);
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Item lookup modifier: %d\n", tableLookup);
     debugsyscall(buf);
     #endif
@@ -917,7 +918,7 @@ LookupItemPower:
 SkipLookupItemPower:
     powerMod = QMul_RoundUp(powerMod, tableLookup);
 
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] Final power modifier: %d\n\n", powerMod);
     debugsyscall(buf);
     #endif
@@ -1018,7 +1019,7 @@ static u16 Calc_BaseDamage(
         moveType,
         isAteAbility
     );
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     u8 buf[128];
     sprintf(buf, "[PLAT-ENGINE] Modified base power: %d\n", modifiedBasePower);
     debugsyscall(buf);
@@ -1104,7 +1105,7 @@ static u16 Calc_BaseDamage(
             effectiveOffense = Calc_AttackerStat(attacker->stats.spAttack,  attacker->stages.spAttack,  defenderUnaware, server->critical);
             effectiveDefense = Calc_DefenderStat(defender->stats.spDefense, defender->stages.spDefense, attackerUnaware, server->critical);
         }
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] A/D Stats:\n");
         debugsyscall(buf);
         sprintf(buf, "[PLAT-ENGINE] -- Attack:  %d\n", effectiveOffense);
@@ -1133,7 +1134,7 @@ static u16 Calc_BaseDamage(
     effectiveOffense = Calc_ChainOffenseMods(battle, server, attacker, defender, effectiveOffense, moveType, movePSS);
     effectiveDefense = Calc_ChainDefenseMods(battle, server, attacker, defender, effectiveDefense, moveType, movePSS);
 
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Attack w/Mods:  %d\n", effectiveOffense);
     debugsyscall(buf);
     sprintf(buf, "[PLAT-ENGINE] -- Defense w/Mods: %d\n\n", effectiveDefense);
@@ -1143,7 +1144,7 @@ static u16 Calc_BaseDamage(
     // All of these divisions are integer-division.
     s32 baseDamage = 2 * BattlePokemon_Get(server, server->attacker, BATTLE_MON_PARAM_LEVEL, NULL);
 
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] Base Damage Calcs:\n");
     debugsyscall(buf);
     sprintf(buf, "[PLAT-ENGINE] -- Level x 2:       %ld\n", baseDamage);
@@ -1151,31 +1152,31 @@ static u16 Calc_BaseDamage(
     #endif
 
     baseDamage = baseDamage / 5 + 2;
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Div by 5, + 2:   %ld\n", baseDamage);
     debugsyscall(buf);
     #endif
 
     baseDamage = baseDamage * modifiedBasePower;
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Mul by BP:       %ld\n", baseDamage);
     debugsyscall(buf);
     #endif
 
     baseDamage = baseDamage * effectiveOffense;
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Mul by Attack:   %ld\n", baseDamage);
     debugsyscall(buf);
     #endif
 
     baseDamage = baseDamage / effectiveDefense;
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Div by Defense:  %ld\n", baseDamage);
     debugsyscall(buf);
     #endif
 
     baseDamage = baseDamage / 50 + 2;
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Div by 50, + 2:  %ld\n\n", baseDamage);
     debugsyscall(buf);
     #endif
@@ -1195,7 +1196,7 @@ static u16 Calc_ChainOffenseMods(
 {
     u16 statMod = UQ412__1_0;
     u16 nextMod = UQ412__1_0;
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     u8 buf[128];
     sprintf(buf, "[PLAT-ENGINE] -- Offense Mods Chain:\n");
     debugsyscall(buf);
@@ -1208,7 +1209,7 @@ static u16 Calc_ChainOffenseMods(
              * is in battle.
              */
             if (movePSS == PSS_PHYSICAL && SlowStartActive(battle, server)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Slow Start: 0.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1223,7 +1224,7 @@ static u16 Calc_ChainOffenseMods(
              * equal to half of its maximum.
              */
             if (attacker->currHP <= (attacker->maxHP / 2)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Defeatist: 0.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1237,7 +1238,7 @@ static u16 Calc_ChainOffenseMods(
              * Increases Special Attack by 50% during harsh sunlight.
              */
             if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Solar Power: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1251,7 +1252,7 @@ static u16 Calc_ChainOffenseMods(
              * Increases Attack by 50% during harsh sunlight.
              */
             if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (self): 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1266,7 +1267,7 @@ static u16 Calc_ChainOffenseMods(
              * Increases Attack by 50%.
              */
             if (movePSS == PSS_PHYSICAL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Gorilla Tactics: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1280,7 +1281,7 @@ static u16 Calc_ChainOffenseMods(
              * Increases Attack by 50% if the attacker is statused (but not frozen).
              */
             if (movePSS == PSS_PHYSICAL && (attacker->condition & ~CONDITION_FROZEN)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Guts: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1295,7 +1296,7 @@ static u16 Calc_ChainOffenseMods(
              * than or equal to 1/3 of its maximum and the used move is Fire-type.
              */
             if (moveType == TYPE_FIRE && (attacker->currHP < (attacker->maxHP / 3))) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Blaze: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1310,7 +1311,7 @@ static u16 Calc_ChainOffenseMods(
              * than or equal to 1/3 of its maximum and the used move is Grass-type.
              */
             if (moveType == TYPE_GRASS && (attacker->currHP < (attacker->maxHP / 3))) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Overgrow: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1325,7 +1326,7 @@ static u16 Calc_ChainOffenseMods(
              * than or equal to 1/3 of its maximum and the used move is Bug-type.
              */
             if (moveType == TYPE_BUG && (attacker->currHP < (attacker->maxHP / 3))) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Swarm: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1340,7 +1341,7 @@ static u16 Calc_ChainOffenseMods(
              * than or equal to 1/3 of its maximum and the used move is Water-type.
              */
             if (moveType == TYPE_WATER && (attacker->currHP < (attacker->maxHP / 3))) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Torrent: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1356,7 +1357,7 @@ static u16 Calc_ChainOffenseMods(
              */
             if (moveType == TYPE_FIRE
                     && server->activePokemon[server->attacker].moveEffects.flashFireActive) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Flash Fire: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1370,7 +1371,7 @@ static u16 Calc_ChainOffenseMods(
              * Increases all offensive stats by 50% if the used move is Steel-type.
              */
             if (moveType == TYPE_STEEL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Steelworker: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1384,7 +1385,7 @@ static u16 Calc_ChainOffenseMods(
              * Increases all offensive stats by 50% if the used move is Dragon-type.
              */
             if (moveType == TYPE_DRAGON) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Dragon's Maw: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1398,7 +1399,7 @@ static u16 Calc_ChainOffenseMods(
              * Increases all offensive stats by 50% if the used move is Rock-type.
              */
             if (moveType == TYPE_ROCK) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Solar Power: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1412,7 +1413,7 @@ static u16 Calc_ChainOffenseMods(
              * Increases all offensive stats by 30% if the used move is Electric-type.
              */
             if (moveType == TYPE_ELECTRIC) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Transistor: 1.3x\n");
                 debugsyscall(buf);
                 #endif
@@ -1434,7 +1435,7 @@ static u16 Calc_ChainOffenseMods(
              * Doubles all offensive stats if the used move is Water-type.
              */
             if (moveType == TYPE_WATER) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Water Bubble (self): 2.0x\n");
                 debugsyscall(buf);
                 #endif
@@ -1450,7 +1451,7 @@ static u16 Calc_ChainOffenseMods(
              * Doubles Attack.
              */
             if (movePSS == PSS_PHYSICAL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Huge Power: 2.0x\n");
                 debugsyscall(buf);
                 #endif
@@ -1482,7 +1483,7 @@ static u16 Calc_ChainOffenseMods(
              * Increases Attack by 33% in harsh sunlight.
              */
             if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Orichalcum Pulse: 1.3333x\n");
                 debugsyscall(buf);
                 #endif
@@ -1497,7 +1498,7 @@ static u16 Calc_ChainOffenseMods(
 
     if (AllyHasAbility(server, server->attacker, ABILITY_FLOWER_GIFT)) {
         if (movePSS == PSS_PHYSICAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (ally): 1.5x\n");
             debugsyscall(buf);
             #endif
@@ -1514,7 +1515,7 @@ CheckDefenderAbility:
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_THICK_FAT)) {
         // Halves the attacking stats if the used move is Fire- or Ice-type.
         if (moveType == TYPE_FIRE || moveType == TYPE_ICE) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Thick Fat: 0.5x\n");
             debugsyscall(buf);
             #endif
@@ -1524,7 +1525,7 @@ CheckDefenderAbility:
     } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_WATER_BUBBLE)) {
         // Halves the attacking stats if the used move is Fire-type.
         if (moveType == TYPE_FIRE) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Water Bubble (target): 0.5x\n");
             debugsyscall(buf);
             #endif
@@ -1534,7 +1535,7 @@ CheckDefenderAbility:
     } else if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_PURIFYING_SALT)) {
         // Halves the attacking stats if the used move is Ghost-type.
         if (moveType == TYPE_GHOST) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Purifying Salt: 0.5x\n");
             debugsyscall(buf);
             #endif
@@ -1551,7 +1552,7 @@ CheckRuinEffects:
          * bearer by 25%. Does not apply if the attacker also has Tablets of Ruin.
          */
         if (attacker->ability != ABILITY_TABLETS_OF_RUIN && movePSS == PSS_PHYSICAL) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Tablets of Ruin: 0.75x\n");
             debugsyscall(buf);
             #endif
@@ -1565,7 +1566,7 @@ CheckRuinEffects:
          * bearer by 25%. Does not apply if the attacker also has Vessel of Ruin.
          */
         if (attacker->ability != ABILITY_VESSEL_OF_RUIN && movePSS == PSS_SPECIAL) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Vessel of Ruin: 0.75x\n");
             debugsyscall(buf);
             #endif
@@ -1583,7 +1584,7 @@ CheckItems:
              */
             if (movePSS == PSS_PHYSICAL
                     && (attacker->species == SPECIES_CUBONE || attacker->species == SPECIES_MAROWAK)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Thick Club: 2.0x\n");
                 debugsyscall(buf);
                 #endif
@@ -1597,7 +1598,7 @@ CheckItems:
              * Doubles the Special Attack of Clamperl.
              */
             if (movePSS == PSS_SPECIAL && attacker->species == SPECIES_CLAMPERL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Deep Sea Tooth: 2.0x\n");
                 debugsyscall(buf);
                 #endif
@@ -1611,7 +1612,7 @@ CheckItems:
              * Doubles the offensive stats of Pikachu.
              */
             if (attacker->species == SPECIES_PIKACHU) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Light Ball: 2.0x\n");
                 debugsyscall(buf);
                 #endif
@@ -1625,7 +1626,7 @@ CheckItems:
              * Increases the Attack stat by 50%.
              */
             if (movePSS == PSS_PHYSICAL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Choice Band: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1639,7 +1640,7 @@ CheckItems:
              * Increases the Special Attack stat by 50%.
              */
             if (movePSS == PSS_SPECIAL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Choice Specs: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1653,7 +1654,7 @@ CheckItems:
     }
     statMod = QMul_RoundUp(statMod, nextMod);
     
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Final Offense Mod: %d\n\n", statMod);
     debugsyscall(buf);
     #endif
@@ -1673,7 +1674,7 @@ static u16 Calc_ChainDefenseMods(
 {
     u16 statMod = UQ412__1_0;
     u16 nextMod = UQ412__1_0;
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     u8 buf[128];
     sprintf(buf, "[PLAT-ENGINE] -- Defense Mods Chain:\n");
     debugsyscall(buf);
@@ -1684,7 +1685,7 @@ static u16 Calc_ChainDefenseMods(
          * Increases Defense by 50% if the defender is statused.
          */
         if (defender->condition && movePSS == PSS_PHYSICAL) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Marvel Scale: 1.5x\n");
             debugsyscall(buf);
             #endif
@@ -1696,7 +1697,7 @@ static u16 Calc_ChainDefenseMods(
          * Increases Special Defense by 50% during harsh sunlight.
          */
         if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (self): 1.5x\n");
             debugsyscall(buf);
             #endif
@@ -1717,7 +1718,7 @@ static u16 Calc_ChainDefenseMods(
          * Doubles Defense.
          */
         if (movePSS == PSS_PHYSICAL) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Fur Coat: 2.0x\n");
             debugsyscall(buf);
             #endif
@@ -1729,7 +1730,7 @@ static u16 Calc_ChainDefenseMods(
     if (Server_CheckDefenderAbility(server, server->attacker, PARTNER(server->defender), ABILITY_FLOWER_GIFT)) {
         // Flower Gift increases ally's SpDefense by 50% during harsh sunlight.
         if (movePSS == PSS_SPECIAL && WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Flower Gift (ally): 1.5x\n");
             debugsyscall(buf);
             #endif
@@ -1747,7 +1748,7 @@ CheckDefensiveRuins:
          * ability's bearer by 25%. Ignored if the Defender also has Sword of Ruin.
          */
         if (defender->ability != ABILITY_SWORD_OF_RUIN && movePSS == PSS_PHYSICAL) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             u8 buf[128];
             sprintf(buf, "[PLAT-ENGINE] ---- Sword of Ruin: 0.75x\n");
             debugsyscall(buf);
@@ -1762,7 +1763,7 @@ CheckDefensiveRuins:
          * ability's bearer by 25%. Ignored if the Defender also has Beads of Ruin.
          */
         if (defender->ability != ABILITY_BEADS_OF_RUIN && movePSS == PSS_SPECIAL) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             u8 buf[128];
             sprintf(buf, "[PLAT-ENGINE] ---- Beads of Ruin: 0.75x\n");
             debugsyscall(buf);
@@ -1777,7 +1778,7 @@ CheckDefensiveRuins:
 CheckDefensiveItems:
     nextMod = UQ412__1_0;
 
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Checking defender's item: %d\n", defender->heldItemEffect);
     debugsyscall(buf);
     #endif
@@ -1787,7 +1788,7 @@ CheckDefensiveItems:
              * Doubles the Defense of Ditto.
              */
             if (defender->species == SPECIES_DITTO && movePSS == PSS_PHYSICAL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Metal Powder: 2.0x\n");
                 debugsyscall(buf);
                 #endif
@@ -1801,7 +1802,7 @@ CheckDefensiveItems:
              * Doubles the Special Defense of Clamperl.
              */
             if (defender->species == SPECIES_CLAMPERL && movePSS == PSS_SPECIAL) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Deep Sea Scale: 2.0x\n");
                 debugsyscall(buf);
                 #endif
@@ -1815,13 +1816,13 @@ CheckDefensiveItems:
              * Increases all defensive stats by 50% if the defender is not
              * fully-evolved.
              */
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Eviolite found\n");
             debugsyscall(buf);
             #endif
 
             if (Pokemon_IsNFE(defender->species, server->activePokemon[server->defender].formNum)) {
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Eviolite: 1.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1835,7 +1836,7 @@ CheckDefensiveItems:
     }
     statMod = QMul_RoundUp(statMod, nextMod);
 
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Final Defense Mod: %d\n\n", statMod);
     debugsyscall(buf);
     #endif
@@ -1853,7 +1854,7 @@ CheckDefensiveItems:
  */
 static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *attacker, struct CalcParams *defender)
 {
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     u8 buf[128];
     sprintf(buf, "[PLAT-ENGINE] Type Modifier:\n");
     debugsyscall(buf);
@@ -1868,14 +1869,14 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     if (server->moveType == TYPE_GROUND
             && !Calc_ImmunityActive(server, attacker, defender, TYPE_GROUND)) {
         if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_LEVITATE)) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Defender has Levitate\n");
             debugsyscall(buf);
             #endif
 
             server->moveStatusFlag = server->moveStatusFlag | MOVE_STATUS_FLAG_MISSED_BY_ABILITY;
         } else if (server->activePokemon[server->defender].moveEffects.magnetRiseTurns) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Defender has Magnet Rise\n");
             debugsyscall(buf);
             #endif
@@ -1914,28 +1915,28 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     // Now we can check for effectiveness on the types.
     u16 typeMod = UQ412__1_0;
     const s8 *typeMatchups = sTypeEffectiveness[server->moveType];
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] -- Attacking type: %s\n", sTypeStrings[server->moveType]);
     debugsyscall(buf);
     #endif
 
     if (type1 != TYPE_NONE) {
         s8 type1Matchup = typeMatchups[type1];
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- vs. Type 1:  %s\n", sTypeStrings[type1]);
         debugsyscall(buf);
         #endif
 
         switch (type1Matchup) {
             case    0:                          // normal effectiveness
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Neutral\n");
                 debugsyscall(buf);
                 #endif
 
                 break;
             case    1:                          // super effective
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Weakness: 2x\n");
                 debugsyscall(buf);
                 #endif
@@ -1943,7 +1944,7 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
                 typeMod = typeMod << 1;
                 break;
             case   -1:                          // not very effective
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Resisted: 0.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1952,7 +1953,7 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
                 break;
             default:                            // immune
                 if (Calc_ImmunityActive(server, attacker, defender, server->moveType)) {
-                    #ifdef DEBUG_MODE
+                    #ifdef DEBUG_DAMAGE_CALC
                     sprintf(buf, "[PLAT-ENGINE] ---- Immune: 0x\n");
                     debugsyscall(buf);
                     #endif
@@ -1966,21 +1967,21 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     // mono-type mons are technically double of the one type
     if (type1 != type2 && type2 != TYPE_NONE) {
         s8 type2Matchup = typeMatchups[type2];
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- vs. Type 2:  %s\n", sTypeStrings[type2]);
         debugsyscall(buf);
         #endif
 
         switch (type2Matchup) {
             case    0:                          // normal damage
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Neutral\n");
                 debugsyscall(buf);
                 #endif
 
                 break;
             case    1:                          // super effective
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Weakness: 2x\n");
                 debugsyscall(buf);
                 #endif
@@ -1988,7 +1989,7 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
                 typeMod = typeMod << 1;
                 break;
             case   -1:                          // not very effective
-                #ifdef DEBUG_MODE
+                #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] ---- Resisted: 0.5x\n");
                 debugsyscall(buf);
                 #endif
@@ -1997,7 +1998,7 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
                 break;
             default:                            // immune
                 if (Calc_ImmunityActive(server, attacker, defender, server->moveType)) {
-                    #ifdef DEBUG_MODE
+                    #ifdef DEBUG_DAMAGE_CALC
                     sprintf(buf, "[PLAT-ENGINE] ---- Immune: 0x\n");
                     debugsyscall(buf);
                     #endif
@@ -2012,7 +2013,7 @@ static u16 Calc_TypeModifier(struct BattleServer *server, struct CalcParams *att
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_WONDER_GUARD)
             && Server_CheckTwoTurnMove(server, server->moveIDCurr)
             && typeMod < UQ412__2_0) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Defender has Wonder Guard; immune\n\n");
         debugsyscall(buf);
         #endif
@@ -2109,7 +2110,7 @@ static u16 Calc_ChainOtherModifiers(
 {
     u16 chainMod = UQ412__1_0;
 
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     u8 buf[128];
     sprintf(buf, "[PLAT-ENGINE] Final Mods Chain:\n");
     debugsyscall(buf);
@@ -2119,7 +2120,7 @@ static u16 Calc_ChainOtherModifiers(
 
     if ((server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_MINIMIZED)
             && Moves_BoostedByMinimize(moveID)) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Defender is Minimized: 2x\n");
         debugsyscall(buf);
         #endif
@@ -2129,7 +2130,7 @@ static u16 Calc_ChainOtherModifiers(
     
     if (((moveID == MOVE_EARTHQUAKE) || (moveID == MOVE_MAGNITUDE))
             && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_UNDERGROUND) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Defender is Underground: 2x\n");
         debugsyscall(buf);
         #endif
@@ -2139,7 +2140,7 @@ static u16 Calc_ChainOtherModifiers(
     
     if (((moveID == MOVE_SURF) || (moveID == MOVE_WHIRLPOOL))
             && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_UNDERWATER) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Defender is Underwater: 2x\n");
         debugsyscall(buf);
         #endif
@@ -2149,7 +2150,7 @@ static u16 Calc_ChainOtherModifiers(
 
     if (((moveID == MOVE_TWISTER) || (moveID == MOVE_GUST))
             && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_AIRBORNE) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Defender is Airborne: 2x\n");
         debugsyscall(buf);
         #endif
@@ -2177,14 +2178,14 @@ static u16 Calc_ChainOtherModifiers(
 
 _ScreenReduction:
     if (battleType & BATTLE_TYPE_DOUBLES) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Doubles Screen: 0.6666x\n");
         debugsyscall(buf);
         #endif
 
         chainMod = QMul_RoundUp(chainMod, UQ412__0_6666);
     } else {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Singles Screen: 0.5x\n");
         debugsyscall(buf);
         #endif
@@ -2199,7 +2200,7 @@ _NoScreenReduction:
     if ((defender->currHP == defender->maxHP)
             && (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_MULTISCALE)
                     || defender->ability == ABILITY_SHADOW_SHIELD)) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Multiscale: 0.5x\n");
         debugsyscall(buf);
         #endif
@@ -2211,7 +2212,7 @@ _NoScreenReduction:
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FLUFFY)
             && (attacker->ability != ABILITY_LONG_REACH)
             && (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT)) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Fluffy (contact): 0.5x\n");
         debugsyscall(buf);
         #endif
@@ -2222,7 +2223,7 @@ _NoScreenReduction:
     // 0.5x if the target has Punk Rock and the used move is sound-based.
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_PUNK_ROCK)
             && Moves_IsSound(moveID)) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Punk Rock: 0.5x\n");
         debugsyscall(buf);
         #endif
@@ -2233,7 +2234,7 @@ _NoScreenReduction:
     // 0.5x if the target has Ice Scales and the used move is Special.
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_ICE_SCALES)
             && (movePSS == PSS_SPECIAL)) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Ice Scales: 0.5x\n");
         debugsyscall(buf);
         #endif
@@ -2242,7 +2243,7 @@ _NoScreenReduction:
     }
 
     if (Server_CheckDefenderAbility(server, server->attacker, PARTNER(server->defender), ABILITY_FRIEND_GUARD)) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Friend Guard: 0.5x\n");
         debugsyscall(buf);
         #endif
@@ -2254,7 +2255,7 @@ _NoScreenReduction:
         if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FILTER)
                 || Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_SOLID_ROCK)
                 || defender->ability == ABILITY_PRISM_ARMOR) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Filter: 0.75x\n");
             debugsyscall(buf);
             #endif
@@ -2263,7 +2264,7 @@ _NoScreenReduction:
         }
 
         if (attacker->ability == ABILITY_NEUROFORCE) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Neuroforce: 1.25x\n");
             debugsyscall(buf);
             #endif
@@ -2273,7 +2274,7 @@ _NoScreenReduction:
     }
 
     if (server->critical && attacker->ability == ABILITY_SNIPER) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Sniper: 1.5x\n");
         debugsyscall(buf);
         #endif
@@ -2282,7 +2283,7 @@ _NoScreenReduction:
     }
 
     if ((server->moveStatusFlag & MOVE_STATUS_FLAG_NOT_VERY_EFFECTIVE) && attacker->ability == ABILITY_TINTED_LENS) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Tinted Lens: 2.0x\n");
         debugsyscall(buf);
         #endif
@@ -2292,7 +2293,7 @@ _NoScreenReduction:
 
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FLUFFY)
             && moveType == TYPE_FIRE) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Fluffy (fire): 2.0x\n");
         debugsyscall(buf);
         #endif
@@ -2302,20 +2303,20 @@ _NoScreenReduction:
 
     if (((moveType == TYPE_NORMAL) && (defender->heldItemEffect == HOLD_EFFECT_WEAKEN_NORMAL))
             || ((server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) && CheckResistBerry(defender->heldItemEffect, moveType))) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Resist Berry for type: %s\n", sTypeStrings[moveType]);
         debugsyscall(buf);
         #endif
 
         if (defender->ability == ABILITY_RIPEN) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Ripen: 0.25x\n");
             debugsyscall(buf);
             #endif
 
             chainMod = QMul_RoundUp(chainMod, UQ412__0_25);
         } else {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] ---- Normal: 0.5x\n");
             debugsyscall(buf);
             #endif
@@ -2326,7 +2327,7 @@ _NoScreenReduction:
 
     if (attacker->heldItemEffect == HOLD_EFFECT_EXPERT_BELT) {
         if (server->moveStatusFlag & MOVE_STATUS_FLAG_SUPER_EFFECTIVE) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Expert Belt: 1.2x\n");
             debugsyscall(buf);
             #endif
@@ -2334,7 +2335,7 @@ _NoScreenReduction:
             chainMod = QMul_RoundUp(chainMod, UQ412__1_2);
         }
     } else if (attacker->heldItemEffect == HOLD_EFFECT_LIFE_ORB) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Life Orb: 1.3x\n");
         debugsyscall(buf);
         #endif
@@ -2342,7 +2343,7 @@ _NoScreenReduction:
         chainMod = QMul_RoundUp(chainMod, UQ412__1_3);
     } else if (attacker->heldItemEffect == HOLD_EFFECT_METRONOME) {
         u8 metronomeCount = server->activePokemon[server->attacker].moveEffects.metronome;
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Metronome Count: %d\n", metronomeCount);
         debugsyscall(buf);
         #endif
@@ -2357,7 +2358,7 @@ _NoScreenReduction:
         chainMod = QMul_RoundUp(chainMod, metronomeMod);
     }
 
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     sprintf(buf, "[PLAT-ENGINE] Final modifier: %d\n\n", chainMod);
     debugsyscall(buf);
     #endif
@@ -2419,7 +2420,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 
     // Step 1: Calculate the base damage value.
     u32 damage = Calc_BaseDamage(battle, server, &attackerParams, &defenderParams);
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     u8 buf[128];
     sprintf(buf, "[PLAT-ENGINE] Base damage: %d\n", damage);
     debugsyscall(buf);
@@ -2429,7 +2430,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // Step 2: 0.75x if the move has more than one target upon execution.
     u32 battleType = Battle_Type(battle);
     if ((battleType & BATTLE_TYPE_DOUBLES) && (Server_HitCount(battle, server, 0, server->defender) > 1)) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Spread damage: 0.75x\n");
         debugsyscall(buf);
         #endif
@@ -2446,14 +2447,14 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     if (WeatherIsActive(battle, server, FIELD_CONDITION_SUNNY)
             && defenderParams.heldItemEffect != HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN) {
         if (server->moveType == TYPE_FIRE) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Fire move in Sun: 1.5x\n");
             debugsyscall(buf);
             #endif
 
             damage = QMul_RoundDown(damage, UQ412__1_5);
         } else if (server->moveType == TYPE_WATER) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Water move in Sun: 0.5x\n");
             debugsyscall(buf);
             #endif
@@ -2463,14 +2464,14 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     } else if (WeatherIsActive(battle, server, FIELD_CONDITION_RAINING)
             && defenderParams.heldItemEffect != HOLD_EFFECT_UNAFFECTED_BY_RAIN_OR_SUN) {
         if (server->moveType == TYPE_WATER) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Water move in Rain: 1.5x\n");
             debugsyscall(buf);
             #endif
 
             damage = QMul_RoundDown(damage, UQ412__1_5);
         } else if (server->moveType == TYPE_FIRE) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Fire move in Rain: 0.5x\n");
             debugsyscall(buf);
             #endif
@@ -2486,7 +2487,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // Step 6: 1.5x if the attack was a critical hit.
     #if !defined(CRITICAL_DAMAGE_MULTIPLIER) || CRITICAL_DAMAGE_MULTIPLIER >= GEN6
     if (server->critical) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Critical Hit: 1.5x\n");
         debugsyscall(buf);
         #endif
@@ -2495,7 +2496,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     }
     #else   // Gen5 critical damage
     if (server->critical) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Critical Hit: 2.0x\n");
         debugsyscall(buf);
         #endif
@@ -2505,7 +2506,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     #endif
 
     // Step 7: Apply random damage fluctuation.
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     // Debug mode: store all possible damage values as a buffer.
     // u32 damageValues[] = { 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 };
     // for (int i = 0; i < 16; i++) {
@@ -2523,7 +2524,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // TODO: Handle Soak, Forest's Curse, Trick-or-Treat.
     u16 stabMod = UQ412__1_0;
     if ((server->moveType == attackerParams.type1) || (server->moveType == attackerParams.type2)) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] STAB: 1.5x\n");
         debugsyscall(buf);
         #endif
@@ -2536,7 +2537,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
 
     if ((attackerParams.ability == ABILITY_ADAPTABILITY)
             && ((attackerParams.type1 == server->moveType) || (attackerParams.type2 == server->moveType))) {
-        #ifdef DEBUG_MODE
+        #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Adaptability: +0.5x\n");
         debugsyscall(buf);
         #endif
@@ -2552,7 +2553,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     if (server->aiWork.moveTable[server->moveIDCurr].pss == PSS_PHYSICAL) {
         if ((attackerParams.condition & CONDITION_BURNED)
                 && ((attackerParams.ability != ABILITY_GUTS) && (server->moveIDCurr != MOVE_FACADE))) {
-            #ifdef DEBUG_MODE
+            #ifdef DEBUG_DAMAGE_CALC
             sprintf(buf, "[PLAT-ENGINE] -- Burned Attacker: 0.5x\n");
             debugsyscall(buf);
             #endif
@@ -2589,7 +2590,7 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     // TODO: Z-moves
 
     // Apply all the modifiers.
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_DAMAGE_CALC
     // sprintf(buf, "[PLAT-ENGINE] Preliminary damage values: [ ");
     // int length = 43;
     // for (int i = 0; i < 16; i++) {
