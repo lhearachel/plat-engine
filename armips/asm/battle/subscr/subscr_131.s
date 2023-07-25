@@ -16,7 +16,7 @@
 
 // SUBSCR_CHARGE
 subscr_131:
-    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_CHARGED
+    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_CHARGED
     // Set the counter to 2 (this turn and next turn)
     SetMonData                          OP_SET, BATTLER_ATTACKER, BATTLE_MON_CHARGED_TURNS, 2
     // "{0} began charging power!"

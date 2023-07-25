@@ -179,6 +179,16 @@ struct Party {
     s32 count;
 };
 
+struct __attribute__((packed)) EvoData {
+    u16 condition;
+    u16 param;
+    u16 target;
+};
+
+struct EvoTable {
+    struct EvoData data[7];
+};
+
 enum PokemonField {
     // BoxPokemon header fields
 	MON_PARAM_PID = 0,
@@ -697,6 +707,26 @@ void __attribute__((long_call)) Pokemon_RecalcFriendship(struct Pokemon *pokemon
  * @return              TRUE if the Pokemon can battle, FALSE otherwise
  */
 BOOL __attribute__((long_call)) Pokemon_CanBattle(struct Pokemon *pokemon);
+
+/**
+ * @brief Gets the evolutions for a given Pokemon, as defined by its ID
+ * in the base stats archive.
+ * 
+ * Original function: 0x0207821C (arm9)
+ * 
+ * @param[in]  personalID
+ * @param[out] dst
+ */
+void __attribute__((long_call)) Pokemon_Evolutions(int personalID, struct EvoTable *dst);
+
+/**
+ * @brief Check how a Pokemon responds to a given taste.
+ * 
+ * Original function: 0x02077648 (arm9)
+ * 
+ * @return  -1 if dislike, 0 if neutral, 1 if like
+ */
+s8   __attribute__((long_call)) Pokemon_CheckTaste(u32 pid, int taste);
 
 /**
  * @brief Attempts to lock the Pokemon structure, designating to any other

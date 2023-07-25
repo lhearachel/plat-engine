@@ -22,12 +22,12 @@ subscr_068:
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_TYPE_2, TYPE_GRASS, subscr_068_TypeBlocked
     AttackMessage                       
     Wait                                
-    IfMonData                           FLAG_EQ, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_LEECH_SEEDED, subscr_068_Failed
+    IfMonData                           FLAG_EQ, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_LEECH_SEEDED, subscr_068_Failed
     If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_MISSED_BUT_IT_FAILED, subscr_068_Failed
     PlayAnimation                       BATTLER_ATTACKER
     Wait                                
     SetMonDataFromVar                   OP_SET_FLAG, 2, BATTLE_MON_MOVE_EFFECTS, VAR_ATTACKER
-    SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_LEECH_SEEDED
+    SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_LEECH_SEEDED
     // "{0} was seeded!"
     Message                             290, TAG_NICK, BATTLER_DEFENDER, NaN, NaN, NaN, NaN, NaN
     Branch                              subscr_068_End

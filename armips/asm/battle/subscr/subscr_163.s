@@ -17,12 +17,12 @@
 // SUBSCR_GASTRO_ACID
 subscr_163:
     CheckSubstitute                     BATTLER_DEFENDER, subscr_163_Failure
-    IfMonData                           FLAG_EQ, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_ABILITY_SUPPRESSED, subscr_163_Failure
+    IfMonData                           FLAG_EQ, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_ABILITY_SUPPRESSED, subscr_163_Failure
     If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_MISSED_BUT_IT_FAILED, subscr_163_Failure
     // Cannot suppress Multitype
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, ABILITY_MULTITYPE, subscr_163_Failure
     CallSubscript                       SUBSCR_ATTACK_MESSAGE_AND_ANIMATION
-    SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_ABILITY_SUPPRESSED
+    SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_ABILITY_SUPPRESSED
     // "{0}'s ability was suppressed!"
     Message                             1012, TAG_NICK, BATTLER_DEFENDER, NaN, NaN, NaN, NaN, NaN
     Wait                                

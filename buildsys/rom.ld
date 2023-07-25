@@ -38,6 +38,8 @@ Pokemon_CheckPokerusImmune = 0x020778F8 | 1;
 Pokemon_CheckPokerus = 0x020778D8 | 1;
 Pokemon_RecalcFriendship = 0x02075C74 | 1;
 Pokemon_CanBattle = 0x02054884 | 1;
+Pokemon_Evolutions = 0x0207821C | 1;
+Pokemon_CheckTaste = 0x02077648 | 1;
 Pokemon_Lock = 0x02073C88 | 1;
 Pokemon_Unlock = 0x02073CD4 | 1;
 PokemonBaseStats_Get = 0x020759F0 | 1;
@@ -59,6 +61,10 @@ gClientFunctionTable_Old = 0x0226F068;
 Battle_Type = 0x0223DF0C | 1;
 Battle_MessageManager = 0x0223E05C | 1;
 Battle_Random = 0x0223F4BC | 1;
+Battle_Opponent = 0x0223E2A4 | 1;
+Battle_FieldWeather = 0x0223F21C | 1;
+Battle_StatusFlag = 0x0223EBEC | 1;
+Battle_NumBattlers = 0x0223DF1C | 1;
 
 /* battle/scio.h */
 SCIO_Message = 0x02264A04 | 1;
@@ -82,12 +88,16 @@ Server_CheckTwoTurnMove = 0x0225B6C8 | 1;
 Server_CheckSubstitute = 0x02259AC0 | 1;
 Server_DivideBy = 0x022563F8 | 1;
 Server_LoadSequence = 0x02251E1C | 1;
+Server_CopyBattleMonData = 0x02253EC0 | 1;
 BattlePokemon_Get = 0x02252060 | 1;
+BattlePokemon_Add = 0x02252A2C | 1;
+
+/* battle/server.c */
+CheckLegalForAnticipation = 0x0225B8E4 | 1;
 
 /* Damage Calc */
 gStatModifierTable = 0x0226EBE0;
 gCriticalRateTable = 0x0226EBA0;
-
 
 /* battle/ui.c */
 BattleMessage_ExpandTags = 0x0223FDE4 | 1;

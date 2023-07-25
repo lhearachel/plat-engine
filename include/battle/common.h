@@ -553,34 +553,34 @@
 //                         MOVE EFFECT CONSTANTS                             //
 // ========================================================================= //
 
-#define MOVE_EFFECT_LEECH_SEEDED_BY             (0x00000003)    // 2 flags in 1, determines which client gets the recovery
-#define MOVE_EFFECT_LEECH_SEEDED                (0x00000004)
-#define	MOVE_EFFECT_LOCKED_ON_BY                (0x00000018)    // 2 flags in 1, determines which of your clients circumvent the acc check
-#define	MOVE_EFFECT_PERISH_SONG                 (0x00000020)    // just a check for if Perish Song is applied; nothing here to do with the count
-#define	MOVE_EFFECT_AIRBORNE                    (0x00000040)    // applied by Fly and Bounce
-#define	MOVE_EFFECT_UNDERGROUND                 (0x00000080)    // applied by Dig
-#define	MOVE_EFFECT_MINIMIZED                   (0x00000100)
-#define	MOVE_EFFECT_CHARGED                     (0x00000200)    // literally Charge
-#define	MOVE_EFFECT_INGRAINED                   (0x00000400)
-#define	MOVE_EFFECT_DROWSY                      (0x00001800)    // 2 flags in 1; marks both the drowsy turn and the fall-asleep turn
-#define	MOVE_EFFECT_IMPRISON                    (0x00002000)    // applied to whatever mon used Imprison
-#define	MOVE_EFFECT_GRUDGE                      (0x00004000)    // applied to whatever mon used Grudge
-#define	MOVE_EFFECT_NO_CRITICAL                 (0x00008000)
-#define	MOVE_EFFECT_MUD_SPORT                   (0x00010000)
-#define	MOVE_EFFECT_WATER_SPORT                 (0x00020000)
-#define	MOVE_EFFECT_UNDERWATER                  (0x00040000)    // applied by Dive
-#define	MOVE_EFFECT_INTIMIDATE                  (0x00080000)    // doesn't appear to be set anywhere?
-#define	MOVE_EFFECT_TRACE                       (0x00100000)    // doesn't appear to be set anywhere?
-#define	MOVE_EFFECT_ABILITY_SUPPRESSED          (0x00200000)    // applied by Gastro Acid
-#define	MOVE_EFFECT_MIRACLE_EYE                 (0x00400000)    // separate from Foresight
-#define	MOVE_EFFECT_POWER_TRICK                 (0x00800000)
-#define	MOVE_EFFECT_AQUA_RING                   (0x01000000)
-#define	MOVE_EFFECT_HEAL_BLOCK                  (0x02000000)
-#define	MOVE_EFFECT_EMBARGO                     (0x04000000)
-#define	MOVE_EFFECT_MAGNET_RISE                 (0x08000000)
-#define	MOVE_EFFECT_CAMOUFLAGE                  (0x10000000)    // used by the AI system
-#define	MOVE_EFFECT_SHADOW_FORCE                (0x20000000)
-#define	MOVE_EFFECT_IMPRISONED                  (0x40000000)    // applied to mons which are Imprisoned; used by the AI system
+#define MOVE_EFFECT_FLAG_LEECH_SEEDED_BY             (0x00000003)    // 2 flags in 1, determines which client gets the recovery
+#define MOVE_EFFECT_FLAG_LEECH_SEEDED                (0x00000004)
+#define	MOVE_EFFECT_FLAG_LOCKED_ON_BY                (0x00000018)    // 2 flags in 1, determines which of your clients circumvent the acc check
+#define	MOVE_EFFECT_FLAG_PERISH_SONG                 (0x00000020)    // just a check for if Perish Song is applied; nothing here to do with the count
+#define	MOVE_EFFECT_FLAG_AIRBORNE                    (0x00000040)    // applied by Fly and Bounce
+#define	MOVE_EFFECT_FLAG_UNDERGROUND                 (0x00000080)    // applied by Dig
+#define	MOVE_EFFECT_FLAG_MINIMIZED                   (0x00000100)
+#define	MOVE_EFFECT_FLAG_CHARGED                     (0x00000200)    // literally Charge
+#define	MOVE_EFFECT_FLAG_INGRAINED                   (0x00000400)
+#define	MOVE_EFFECT_FLAG_DROWSY                      (0x00001800)    // 2 flags in 1; marks both the drowsy turn and the fall-asleep turn
+#define	MOVE_EFFECT_FLAG_IMPRISON                    (0x00002000)    // applied to whatever mon used Imprison
+#define	MOVE_EFFECT_FLAG_GRUDGE                      (0x00004000)    // applied to whatever mon used Grudge
+#define	MOVE_EFFECT_FLAG_NO_CRITICAL                 (0x00008000)
+#define	MOVE_EFFECT_FLAG_MUD_SPORT                   (0x00010000)
+#define	MOVE_EFFECT_FLAG_WATER_SPORT                 (0x00020000)
+#define	MOVE_EFFECT_FLAG_UNDERWATER                  (0x00040000)    // applied by Dive
+#define	MOVE_EFFECT_FLAG_INTIMIDATE                  (0x00080000)    // doesn't appear to be set anywhere?
+#define	MOVE_EFFECT_FLAG_TRACE                       (0x00100000)    // doesn't appear to be set anywhere?
+#define	MOVE_EFFECT_FLAG_ABILITY_SUPPRESSED          (0x00200000)    // applied by Gastro Acid
+#define	MOVE_EFFECT_FLAG_MIRACLE_EYE                 (0x00400000)    // separate from Foresight
+#define	MOVE_EFFECT_FLAG_POWER_TRICK                 (0x00800000)
+#define	MOVE_EFFECT_FLAG_AQUA_RING                   (0x01000000)
+#define	MOVE_EFFECT_FLAG_HEAL_BLOCK                  (0x02000000)
+#define	MOVE_EFFECT_FLAG_EMBARGO                     (0x04000000)
+#define	MOVE_EFFECT_FLAG_MAGNET_RISE                 (0x08000000)
+#define	MOVE_EFFECT_FLAG_CAMOUFLAGE                  (0x10000000)    // used by the AI system
+#define	MOVE_EFFECT_FLAG_SHADOW_FORCE                (0x20000000)
+#define	MOVE_EFFECT_FLAG_IMPRISONED                  (0x40000000)    // applied to mons which are Imprisoned; used by the AI system
 
 
 // ========================================================================= //
@@ -605,6 +605,7 @@
 #define	FIELD_CONDITION_DEEP_FOG        (0x00008000)
 #define	FIELD_CONDITION_TRICK_ROOM      (0x00070000)    // 3 bits; also tracks the remaining turns
 
+#define FIELD_CONDITION_FORECAST        (FIELD_CONDITION_RAINING | FIELD_CONDITION_SUNNY | FIELD_CONDITION_HAILING)
 #define FIELD_CONDITION_WEATHER         (0x000080FF)    // Any weather in effect (includes Deep Fog)
 #define FIELD_CONDITION_ANTI_SOLAR      (FIELD_CONDITION_RAINING | FIELD_CONDITION_SANDSTORM | FIELD_CONDITION_HAILING | FIELD_CONDITION_DEEP_FOG)
 
@@ -756,5 +757,40 @@ void* __attribute__((long_call)) Battle_MessageManager(void *battle);
  * Original function: 0x0223F4BC (ov16)
  */
 int __attribute__((long_call)) Battle_Random(void *battle);
+
+/**
+ * @brief Get an opponent for the input battler.
+ * 
+ * If side == 0, returns the opponent on our right.
+ * If side == 2, returns the opponent on our left.
+ * 
+ * Original function: 0x0223E2A4 (ov16)
+ * 
+ * @param battle
+ * @param battler
+ * @param side
+ */
+int __attribute__((long_call)) Battle_Opponent(void *battle, int battler, int side);
+
+/**
+ * @brief Get any field weather associated with the battle zone.
+ * 
+ * Original function: 0x0223F21C (ov16)
+ */
+int __attribute__((long_call)) Battle_FieldWeather(void *battle);
+
+/**
+ * @brief Returns the status flags for a battle.
+ * 
+ * Original function: 0x0223EBEC (ov16)
+ */
+u32 __attribute__((long_call)) Battle_StatusFlag(void *battle);
+
+/**
+ * @brief Returns the number of battlers.
+ * 
+ * Original function: 0x0223DF1C (ov16)
+ */
+int __attribute__((long_call)) Battle_NumBattlers(void *battle);
 
 #endif // __BATTLE_COMMON_H

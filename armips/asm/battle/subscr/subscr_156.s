@@ -30,10 +30,10 @@ subscr_156_Loop:
     // Handle Magnet Rise
     IfMonData                           NOT_EQUAL, BATTLER_WORKING, BATTLE_MON_MAGNET_RISE_TURNS, 0, subscr_156_MagnetRise
     // Handle Fly/Bounce state
-    IfMonData                           FLAG_EQ, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_AIRBORNE, subscr_156_Fly
+    IfMonData                           FLAG_EQ, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_AIRBORNE, subscr_156_Fly
     // Handle Levitate/Flying-types
-    IfMonData                           FLAG_EQ, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_ABILITY_SUPPRESSED, subscr_156_Resume
-    IfMonData                           FLAG_EQ, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_INGRAINED, subscr_156_Resume
+    IfMonData                           FLAG_EQ, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_ABILITY_SUPPRESSED, subscr_156_Resume
+    IfMonData                           FLAG_EQ, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_INGRAINED, subscr_156_Resume
     IfMonData                           EQUAL, BATTLER_WORKING, BATTLE_MON_ABILITY, ABILITY_LEVITATE, subscr_156_FallDown
     IfMonData                           EQUAL, BATTLER_WORKING, BATTLE_MON_TYPE_1, TYPE_FLYING, subscr_156_FallDown
     IfMonData                           EQUAL, BATTLER_WORKING, BATTLE_MON_TYPE_2, TYPE_FLYING, subscr_156_FallDown

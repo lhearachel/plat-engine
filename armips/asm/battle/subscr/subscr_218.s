@@ -28,7 +28,7 @@ subscr_218:
     IfMonData                           NOT_EQUAL, BATTLER_DEFENDER, BATTLE_MON_QUICK_CLAW_ACTIVE, 0, subscr_218_Failure
     IfMonData                           NOT_EQUAL, BATTLER_DEFENDER, BATTLE_MON_TEMP_SPE_MAX, 0, subscr_218_Failure
     CallSubscript                       SUBSCR_ATTACK_MESSAGE_AND_ANIMATION
-    SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_EMBARGO
+    SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_EMBARGO
     SetMonData                          OP_SET, BATTLER_DEFENDER, BATTLE_MON_EMBARGO_TURNS, 5
     // "{0} can't use items anymore!"
     Message                             1135, TAG_NICK, BATTLER_DEFENDER, NaN, NaN, NaN, NaN, NaN

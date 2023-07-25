@@ -23,5 +23,5 @@ u16 QPercent(u16 i)
         }
     }
 
-    return UQ412__1_0;
+    return 0;
 }

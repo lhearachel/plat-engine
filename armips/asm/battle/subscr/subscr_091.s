@@ -18,7 +18,7 @@
 subscr_091:
     If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_MISSED_DURING_FLY, subscr_091_Failure
     MoldBreakerAbilityCheck             MODE_HAVE, BATTLER_DEFENDER, ABILITY_SUCTION_CUPS, subscr_091_SuctionCups
-    IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_INGRAINED, subscr_091_Ingrained
+    IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_INGRAINED, subscr_091_Ingrained
     // Whirlwind effects do not work in wild double battles
     If                                  EQUAL, VAR_BATTLE_TYPE, BATTLE_TYPE_AI | BATTLE_TYPE_2vs2 | BATTLE_TYPE_DOUBLES, subscr_091_Failure
     TryWhirlwind                        subscr_091_Failure

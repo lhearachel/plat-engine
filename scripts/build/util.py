@@ -185,6 +185,40 @@ class ItemHoldEffect(Enum):
     EVOLVE_MAGMAR              = 144
     EVOLVE_PORYGON2            = 145
     EVOLVE_DUSKNOIR            = 146
+    BOOST_FAIRY_PLATE          = 147
+    BOOST_SPA_ON_WATER_HIT     = 148
+    UNGROUND_DESTROYED_ON_HIT  = 149
+    INCREASE_TRAPPING_DAMAGE   = 150
+    BOOST_ATK_ON_ELECTRIC_HIT  = 151
+    SWITCH_OUT_WHEN_HIT        = 152
+    EVIOLITE                   = 153
+    HALVE_WEIGHT               = 154
+    EVOLVE_FEEBAS              = 155
+    FORCE_SWITCH_ON_DAMAGE     = 156
+    REMOVE_IMMUNITIES          = 157
+    DAMAGE_ON_CONTACT          = 158
+    BURN_DRIVE                 = 159
+    CHILL_DRIVE                = 160
+    DOUSE_DRIVE                = 161
+    SHOCK_DRIVE                = 162
+    GEM_BUG                    = 163
+    GEM_DARK                   = 164
+    GEM_DRAGON                 = 165
+    GEM_ELECTRIC               = 166
+    GEM_FAIRY                  = 167
+    GEM_FIGHTING               = 168
+    GEM_FIRE                   = 169
+    GEM_FLYING                 = 170
+    GEM_GHOST                  = 171
+    GEM_GRASS                  = 172
+    GEM_GROUND                 = 173
+    GEM_ICE                    = 174
+    GEM_NORMAL                 = 175
+    GEM_POISON                 = 176
+    GEM_PSYCHIC                = 177
+    GEM_ROCK                   = 178
+    GEM_STEEL                  = 179
+    GEM_WATER                  = 180
 
 
 class ItemMoveEffect(Enum):

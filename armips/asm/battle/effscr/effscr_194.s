@@ -16,8 +16,8 @@
 
 // Grudge
 effscr_194:
-    IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_GRUDGE, effscr_194_AlreadyHoldingGrudge
-    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_GRUDGE
+    IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_GRUDGE, effscr_194_AlreadyHoldingGrudge
+    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_GRUDGE
     PrepareMessage                      565, TAG_NICK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN, NaN
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_FLAG_UPDATE | ADDL_EFFECT_PREPARE_MESSAGE
     End                                 

@@ -16,7 +16,7 @@
 
 // SUBSCR_MINIMIZE
 subscr_095:
-    SetMonData                          OP_SET_FLAG, BATTLER_EFFECT_TARGET, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_MINIMIZED
+    SetMonData                          OP_SET_FLAG, BATTLER_EFFECT_TARGET, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_MINIMIZED
     SetVar                              OP_SET, VAR_EFFECT_PARAMS, ADDL_EFFECT_EVA_UP_1
     JumpTo                              SUBSCR_BOOST_STATS
 

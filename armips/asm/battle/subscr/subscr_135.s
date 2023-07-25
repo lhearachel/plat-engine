@@ -19,6 +19,10 @@ subscr_135:
     If                                  FLAG_EQ, VAR_MOVE_STATUS_FLAG, MOVE_STATUS_FLAG_MISSED_BUT_IT_FAILED, subscr_135_Failure
     // Cannot copy Wonder Guard
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, ABILITY_WONDER_GUARD, subscr_135_Failure
+    // Cannot copy Flower Gift
+    IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, ABILITY_FLOWER_GIFT, subscr_135_Failure
+    // Cannot copy Forecast
+    IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, ABILITY_FORECAST, subscr_135_Failure
     // Cannot copy nor overwrite Multitype
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, ABILITY_MULTITYPE, subscr_135_Failure
     IfMonData                           EQUAL, BATTLER_ATTACKER, BATTLE_MON_ABILITY, ABILITY_MULTITYPE, subscr_135_Failure

@@ -26,7 +26,7 @@ subscr_099:
     IfMonData                           EQUAL, BATTLER_SWITCHING, BATTLE_MON_TYPE_1, TYPE_FLYING, subscr_099_CheckStealthRock
     IfMonData                           EQUAL, BATTLER_SWITCHING, BATTLE_MON_TYPE_2, TYPE_FLYING, subscr_099_CheckStealthRock
     // Magnet Rise grants immunity to Spikes/Toxic Spikes
-    IfMonData                           FLAG_EQ, BATTLER_SWITCHING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_MAGNET_RISE, subscr_099_CheckStealthRock
+    IfMonData                           FLAG_EQ, BATTLER_SWITCHING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_MAGNET_RISE, subscr_099_CheckStealthRock
 subscr_099_CheckToxicSpikes:
     // Check for Toxic Spikes; this command also handles setting the spikes to 0 if the incoming Pokemon is Poison-type
     CheckToxicSpikes                    BATTLER_SWITCHING, subscr_099_CheckSpikes

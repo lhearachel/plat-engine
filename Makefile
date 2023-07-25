@@ -232,3 +232,9 @@ clean_tools:
 	rm -f tools/nitrogfx
 	rm -rf tools/source/ndstool
 	rm -rf tools/source/armips
+
+
+clean_code:
+	rm $(BUILD)/*.o
+	rm $(BUILD)/*.bin
+	rm $(BUILD)/*.d

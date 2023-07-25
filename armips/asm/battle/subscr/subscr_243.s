@@ -21,7 +21,7 @@ subscr_243:
     Message                             1060, TAG_NICK_MOVE, BATTLER_WORKING, BATTLER_WORKING, NaN, NaN, NaN, NaN
     Wait                                
     WaitTime                            30
-    SetMonData                          OP_CLEAR_FLAG, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_HEAL_BLOCK
+    SetMonData                          OP_CLEAR_FLAG, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_HEAL_BLOCK
     End                                 
 
 .close

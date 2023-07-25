@@ -18,8 +18,8 @@
 effscr_252:
     IfMonData                           NOT_EQUAL, BATTLER_ATTACKER, BATTLE_MON_MAGNET_RISE_TURNS, 0, effscr_252_Failure
     CheckAbility                        MODE_HAVE, BATTLER_ATTACKER, ABILITY_LEVITATE, effscr_252_Failure
-    IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_INGRAINED, effscr_252_Failure
-    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_MAGNET_RISE
+    IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_INGRAINED, effscr_252_Failure
+    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_MAGNET_RISE
     SetMonData                          OP_SET, BATTLER_ATTACKER, BATTLE_MON_MAGNET_RISE_TURNS, 5
     PrepareMessage                      1033, TAG_NICK, BATTLER_ATTACKER, NaN, NaN, NaN, NaN, NaN
     SetVar                              OP_SET, VAR_ADD_STATUS_DIRECT, ADDL_EFFECT_FLAG_UPDATE | ADDL_EFFECT_PREPARE_MESSAGE
