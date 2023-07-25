@@ -323,11 +323,12 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
 
 BOOL Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server)
 {
+
     if (server->defender == 0xFF) {
         return FALSE;
     }
 
-    if (server->activePokemon[server->defender].curHP) {
+    if (server->activePokemon[server->defender].curHP == 0) {   
         return FALSE;
     }
 
@@ -340,8 +341,9 @@ BOOL Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server)
     int heldItemPower  = Server_HeldItemPower(server, server->attacker, 0);
     if (heldItemEffect == HOLD_EFFECT_KINGS_ROCK
             && DamageWasDealt(server)
-            //&& (Battle_Random(battle) % 100) < heldItemPower
+            && (Battle_Random(battle) % 100) < heldItemPower
             && (server->aiWork.moveTable[server->moveIDCurr].flag & MOVE_FLAG_TRIGGERS_KINGS_ROCK)) {
+    
         server->addlEffectClient = server->defender;
         server->addlEffectType   = ADDL_EFFECT_INDIRECT;
         
@@ -349,7 +351,7 @@ BOOL Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server)
 
         server->serverSeqNext = server->serverSeqNum;
         server->serverSeqNum = 21; // todo: enum
-        result = FALSE;
+        result = TRUE;
     }
 
     int ability = Server_Ability(server, server->attacker);
@@ -365,7 +367,7 @@ BOOL Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server)
 
         server->serverSeqNext = server->serverSeqNum;
         server->serverSeqNum = 21; // todo: enum
-        result = FALSE;
+        result = TRUE;
     }
 
 
