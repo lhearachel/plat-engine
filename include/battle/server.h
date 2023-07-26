@@ -417,8 +417,8 @@ struct __attribute__((packed)) BattleServer {
     u32     addlDirectStatus;
     u32     addlIndirectStatus;
     u32     addlAbilityStatus;
-    u8      continuationCounter;
-    u8      continuationCounterTemp;
+    u8      multiHitCounter;
+    u8      multiHitCounterTemp;
     u8      multiHitLoopCounter;    // for spread moves
     u8      beatUpCount;
 
