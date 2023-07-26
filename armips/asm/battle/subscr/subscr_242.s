@@ -20,7 +20,7 @@ subscr_242:
     Message                             1039, TAG_NICK, BATTLER_WORKING, NaN, NaN, NaN, NaN, NaN
     Wait                                
     WaitTime                            30
-    SetMonData                          OP_CLEAR_FLAG, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_MAGNET_RISE
+    SetMonData                          OP_CLEAR_FLAG, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_MAGNET_RISE
     End                                 
 
 .close

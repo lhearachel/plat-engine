@@ -16,8 +16,8 @@
 
 // Water Sport
 effscr_210:
-    IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_WATER_SPORT, effscr_210_WaterSportAlreadyActive
-    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_WATER_SPORT
+    IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_WATER_SPORT, effscr_210_WaterSportAlreadyActive
+    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_WATER_SPORT
     PrepareMessage                      588, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_FLAG_UPDATE | ADDL_EFFECT_PREPARE_MESSAGE
     End                                 

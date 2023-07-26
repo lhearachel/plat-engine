@@ -21,7 +21,7 @@ subscr_102:
     Wait                                
     WaitTime                            30
     // Faint the mon if the count is 0
-    IfMonData                           FLAG_EQ, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_PERISH_SONG, subscr_102_Exit
+    IfMonData                           FLAG_EQ, BATTLER_WORKING, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_PERISH_SONG, subscr_102_Exit
     CallSubscript                       SUBSCR_HP_CHANGE
 subscr_102_Exit:
     End                                 

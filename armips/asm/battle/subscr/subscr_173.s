@@ -19,7 +19,7 @@ subscr_173:
     CheckSubstitute                     BATTLER_DEFENDER, subscr_173_Failure
     IfMonData                           NOT_EQUAL, BATTLER_DEFENDER, BATTLE_MON_HEAL_BLOCK_TURNS, 0, subscr_173_Failure
     CallSubscript                       SUBSCR_ATTACK_MESSAGE_AND_ANIMATION
-    SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_HEAL_BLOCK
+    SetMonData                          OP_SET_FLAG, BATTLER_DEFENDER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_HEAL_BLOCK
     SetMonData                          OP_SET, BATTLER_DEFENDER, BATTLE_MON_HEAL_BLOCK_TURNS, 5
     // "{0} was prevented from healing!"
     Message                             1051, TAG_NICK, BATTLER_DEFENDER, NaN, NaN, NaN, NaN, NaN

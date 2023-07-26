@@ -366,7 +366,7 @@ static u16 Calc_ModifiedBasePower(
     #endif
 
     // 2x if the attacker is under the effect of Charge and the used move is Electric-type.
-    if ((server->activePokemon[server->attacker].moveEffectsMask & MOVE_EFFECT_CHARGED) && (moveType == TYPE_ELECTRIC)) {
+    if ((server->activePokemon[server->attacker].moveEffectsMask & MOVE_EFFECT_FLAG_CHARGED) && (moveType == TYPE_ELECTRIC)) {
         #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Charge active: 2x\n");
         debugsyscall(buf);
@@ -407,8 +407,8 @@ static u16 Calc_ModifiedBasePower(
 
     // 0.33x if Mud or Water Sport are in effect and the used move is Electric or Fire-type (respectively).
     // TODO: These need to be moved to field conditions instead of being move effects
-    if ((Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_MUD_SPORT) && (moveType == TYPE_ELECTRIC))
-            || (Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_WATER_SPORT) && (moveType == TYPE_FIRE))) {
+    if ((Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_FLAG_MUD_SPORT) && (moveType == TYPE_ELECTRIC))
+            || (Server_CheckActiveMoveEffect(battle, server, MOVE_EFFECT_FLAG_WATER_SPORT) && (moveType == TYPE_FIRE))) {
         #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Mud/Water Sport active: 0.33x\n");
         debugsyscall(buf);
@@ -2076,7 +2076,7 @@ static BOOL Calc_ImmunityActive(struct BattleServer *server, struct CalcParams *
             //   - Gravity
             //   - TODO: Smack Down, Thousand Arrows
             if ((defender->heldItemEffect == HOLD_EFFECT_IRON_BALL)
-                    || (server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_INGRAINED)
+                    || (server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_FLAG_INGRAINED)
                     || (server->stFX[server->defender].roosting)
                     || (server->fieldConditions.raw & FIELD_CONDITION_GRAVITY)) {
                 return FALSE;
@@ -2084,7 +2084,7 @@ static BOOL Calc_ImmunityActive(struct BattleServer *server, struct CalcParams *
             break;
         case TYPE_PSYCHIC:
             // Check for Miracle Eye
-            if (server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_MIRACLE_EYE) {
+            if (server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_FLAG_MIRACLE_EYE) {
                 return FALSE;
             }
             break;
@@ -2118,7 +2118,7 @@ static u16 Calc_ChainOtherModifiers(
 
     // TODO: Dynamax stuff goes here if we ever implement it (Behemoth Blade, Behemoth Bash, Dynamax Cannon)
 
-    if ((server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_MINIMIZED)
+    if ((server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_FLAG_MINIMIZED)
             && Moves_BoostedByMinimize(moveID)) {
         #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Defender is Minimized: 2x\n");
@@ -2129,7 +2129,7 @@ static u16 Calc_ChainOtherModifiers(
     }
     
     if (((moveID == MOVE_EARTHQUAKE) || (moveID == MOVE_MAGNITUDE))
-            && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_UNDERGROUND) {
+            && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_FLAG_UNDERGROUND) {
         #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Defender is Underground: 2x\n");
         debugsyscall(buf);
@@ -2139,7 +2139,7 @@ static u16 Calc_ChainOtherModifiers(
     }
     
     if (((moveID == MOVE_SURF) || (moveID == MOVE_WHIRLPOOL))
-            && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_UNDERWATER) {
+            && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_FLAG_UNDERWATER) {
         #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Defender is Underwater: 2x\n");
         debugsyscall(buf);
@@ -2149,7 +2149,7 @@ static u16 Calc_ChainOtherModifiers(
     }
 
     if (((moveID == MOVE_TWISTER) || (moveID == MOVE_GUST))
-            && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_AIRBORNE) {
+            && server->activePokemon[server->defender].moveEffectsMask & MOVE_EFFECT_FLAG_AIRBORNE) {
         #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Defender is Airborne: 2x\n");
         debugsyscall(buf);
@@ -2679,7 +2679,7 @@ BOOL Calc_Critical(struct Battle *battle, struct BattleServer *server)
         if ((Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_BATTLE_ARMOR) == FALSE)
                 && (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_SHELL_ARMOR) == FALSE)
                 && ((Server_Get(battle, server, SERVER_PARAM_SIDE_CONDITIONS, server->defender) & SIDE_CONDITION_LUCKY_CHANT) == FALSE)
-                && ((moveEffects & MOVE_EFFECT_NO_CRITICAL) == FALSE)) {
+                && ((moveEffects & MOVE_EFFECT_FLAG_NO_CRITICAL) == FALSE)) {
             ret = TRUE;
         }
     }

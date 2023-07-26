@@ -16,8 +16,8 @@
 
 // Mud Sport
 effscr_201:
-    IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_MUD_SPORT, effscr_201_MudSportAlreadyActive
-    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_MUD_SPORT
+    IfMonData                           FLAG_EQ, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_MUD_SPORT, effscr_201_MudSportAlreadyActive
+    SetMonData                          OP_SET_FLAG, BATTLER_ATTACKER, BATTLE_MON_MOVE_EFFECTS, MOVE_EFFECT_FLAG_MUD_SPORT
     PrepareMessage                      587, TAG_NONE, NaN, NaN, NaN, NaN, NaN, NaN
     SetVar                              OP_SET, VAR_ADD_STATUS_INDIRECT, ADDL_EFFECT_FLAG_UPDATE | ADDL_EFFECT_PREPARE_MESSAGE
     End                                 
