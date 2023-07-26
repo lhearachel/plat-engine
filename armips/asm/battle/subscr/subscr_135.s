@@ -21,6 +21,8 @@ subscr_135:
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, ABILITY_WONDER_GUARD, subscr_135_Failure
     // Cannot copy Flower Gift
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, ABILITY_FLOWER_GIFT, subscr_135_Failure
+    // Cannot copy Forecast
+    IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, ABILITY_FORECAST, subscr_135_Failure
     // Cannot copy nor overwrite Multitype
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ABILITY, ABILITY_MULTITYPE, subscr_135_Failure
     IfMonData                           EQUAL, BATTLER_ATTACKER, BATTLE_MON_ABILITY, ABILITY_MULTITYPE, subscr_135_Failure

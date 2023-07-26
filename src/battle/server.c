@@ -961,6 +961,15 @@ static void ProcessFormChanges(struct Battle *battle, struct BattleServer *serve
         
         switch (server->activePokemon[server->clientWork].species) {
             case SPECIES_CASTFORM:
+                // Castform's transformation is tied to Forecast
+                if (Server_Ability(server, server->clientWork) != ABILITY_FORECAST)
+                    // Force Castform back to Normal form if it loses Forecast for whatever reason
+                    if (server->activePokemon[server->clientWork].type1 != TYPE_NORMAL) {
+                        goto CastformNormal;
+                    }
+                    break;
+                }
+
                 // No weather suppression in effect
                 if (Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_CLOUD_NINE)
                         || Server_CheckAbility(battle, server, CHECK_ABILITY_ACTIVE, 0, ABILITY_AIR_LOCK)) {
