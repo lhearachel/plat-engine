@@ -309,6 +309,9 @@
 #define SUBSCR_OVERWORLD_TRICK_ROOM             (295)
 #define SUBSCR_GIRATINA_FORM_CHECK              (296)
 #define SUBSCR_GROWTH                           (297)
+#define SUBSCR_CHECK_TRIGGER_GEM                (298)
+#define SUBSCR_CHECK_REMOVE_GEM                 (299)
+#define SUBSCR_LIGHTNING_ROD_STORM_DRAIN        (300)
 
 // new stuff below here
 BOOL __attribute__((long_call)) Moves_BoostedByMinimize(u16 moveID);

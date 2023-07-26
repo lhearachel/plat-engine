@@ -11,5 +11,6 @@
 // #define DEBUG_DAMAGE_CALC_1_DAMAGE
 
 // #define DEBUG_SWITCHIN_EFFECTS
+// #define DEBUG_ABILTIIES
 
 #endif

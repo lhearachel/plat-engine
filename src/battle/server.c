@@ -16,7 +16,7 @@
 #include "battle/moves.h"
 #include "battle/server.h"
 
-#ifdef DEBUG_SWITCHIN_EFFECTS
+#ifdef DEBUG_ABILTIIES
 static const u8 *sDebugAbilityNames[] = {
     "None",
     "Stench",
@@ -208,7 +208,7 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             result  = TRUE;
         }
         break;
-        
+
     case ABILITY_ROUGH_SKIN:
     case ABILITY_IRON_BARBS:
         // Attacker is still alive after the attack
@@ -367,6 +367,12 @@ int Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker,
         moveType = server->aiWork.moveTable[server->moveIDCurr].type;
     }
 
+    #ifdef DEBUG_ABILTIIES
+    u8 buf[128];
+    sprintf(buf, "PLAT-ENGINE | Defender Ability: %s\n", sDebugAbilityNames[Server_Ability(server, defender)]);
+    debugsyscall(buf);
+    #endif
+
     if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_VOLT_ABSORB)) {
         if (moveType == TYPE_ELECTRIC
                 && (server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) == FALSE
@@ -398,6 +404,18 @@ int Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker,
                 && (server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) == FALSE
                 && attacker != defender) {
             nextScript = SUBSCR_MOTOR_DRIVE;
+        }
+    } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_LIGHTNING_ROD)) {
+        if (moveType == TYPE_ELECTRIC
+                && (server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) == FALSE
+                && attacker != defender) {
+            nextScript = SUBSCR_LIGHTNING_ROD_STORM_DRAIN;
+        }
+    } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_STORM_DRAIN)) {
+        if (moveType == TYPE_WATER
+                && (server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) == FALSE
+                && attacker != defender) {
+            nextScript = SUBSCR_LIGHTNING_ROD_STORM_DRAIN;
         }
     }
 
@@ -684,6 +702,8 @@ static inline BOOL IsPossibleOHKO(struct BattleServer *server, u16 moveID, int a
             && server->activePokemon[attacker].level >= server->activePokemon[defender].level;
 }
 
+BOOL __attribute__((long_call)) CheckLegalForAnticipation(struct BattleServer *server, u16 moveID);
+
 static void ProcessAnticipation(struct Battle *battle, struct BattleServer *server, int numBattlers, int battler, int *nextScript, BOOL *processing)
 {
     #ifdef DEBUG_SWITCHIN_EFFECTS
@@ -704,12 +724,24 @@ static void ProcessAnticipation(struct Battle *battle, struct BattleServer *serv
                 continue;
             }
 
+            #ifdef DEBUG_SWITCHIN_EFFECTS
+            sprintf(buf, "PLAT-ENGINE | ---- Considering move ID: %d\n", moveID);
+            debugsyscall(buf);
+            #endif
+
             u8 moveType = server->aiWork.moveTable[moveID].type;    // TODO: Use dynamic type for Hidden Power
             u8 effectiveness = Calc_TypeEffectivenessPower(         // TODO: consider Levitate
                 moveType,
                 server->activePokemon[i].type1,
                 server->activePokemon[i].type2
             );
+
+            #ifdef DEBUG_SWITCHIN_EFFECTS
+            sprintf(buf, "PLAT-ENGINE | ------ Move Type: %d\n", moveType);
+            debugsyscall(buf);
+            sprintf(buf, "PLAT-ENGINE | ------ Matchup:   %d\n", effectiveness);
+            debugsyscall(buf);
+            #endif
 
             if (CheckLegalForAnticipation(server, moveID) == FALSE
                     && (effectiveness > 40 || IsPossibleOHKO(server, moveID, i, battler))) {
