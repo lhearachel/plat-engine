@@ -605,6 +605,7 @@
 #define	FIELD_CONDITION_DEEP_FOG        (0x00008000)
 #define	FIELD_CONDITION_TRICK_ROOM      (0x00070000)    // 3 bits; also tracks the remaining turns
 
+#define FIELD_CONDITION_FORECAST        (FIELD_CONDITION_RAINING | FIELD_CONDITION_SUNNY | FIELD_CONDITION_HAILING)
 #define FIELD_CONDITION_WEATHER         (0x000080FF)    // Any weather in effect (includes Deep Fog)
 #define FIELD_CONDITION_ANTI_SOLAR      (FIELD_CONDITION_RAINING | FIELD_CONDITION_SANDSTORM | FIELD_CONDITION_HAILING | FIELD_CONDITION_DEEP_FOG)
 
@@ -756,5 +757,40 @@ void* __attribute__((long_call)) Battle_MessageManager(void *battle);
  * Original function: 0x0223F4BC (ov16)
  */
 int __attribute__((long_call)) Battle_Random(void *battle);
+
+/**
+ * @brief Get an opponent for the input battler.
+ * 
+ * If side == 0, returns the opponent on our right.
+ * If side == 2, returns the opponent on our left.
+ * 
+ * Original function: 0x0223E2A4 (ov16)
+ * 
+ * @param battle
+ * @param battler
+ * @param side
+ */
+int __attribute__((long_call)) Battle_Opponent(void *battle, int battler, int side);
+
+/**
+ * @brief Get any field weather associated with the battle zone.
+ * 
+ * Original function: 0x0223F21C (ov16)
+ */
+int __attribute__((long_call)) Battle_FieldWeather(void *battle);
+
+/**
+ * @brief Returns the status flags for a battle.
+ * 
+ * Original function: 0x0223EBEC (ov16)
+ */
+u32 __attribute__((long_call)) Battle_StatusFlag(void *battle);
+
+/**
+ * @brief Returns the number of battlers.
+ * 
+ * Original function: 0x0223DF1C (ov16)
+ */
+int __attribute__((long_call)) Battle_NumBattlers(void *battle);
 
 #endif // __BATTLE_COMMON_H

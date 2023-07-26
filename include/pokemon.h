@@ -720,6 +720,15 @@ BOOL __attribute__((long_call)) Pokemon_CanBattle(struct Pokemon *pokemon);
 void __attribute__((long_call)) Pokemon_Evolutions(int personalID, struct EvoTable *dst);
 
 /**
+ * @brief Check how a Pokemon responds to a given taste.
+ * 
+ * Original function: 0x02077648 (arm9)
+ * 
+ * @return  -1 if dislike, 0 if neutral, 1 if like
+ */
+s8   __attribute__((long_call)) Pokemon_CheckTaste(u32 pid, int taste);
+
+/**
  * @brief Attempts to lock the Pokemon structure, designating to any other
  * competing threads that it is undergoing a read/write.
  * 

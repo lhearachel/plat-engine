@@ -83,4 +83,27 @@
 #define FLAVOR_SOUR     4
 #define FLAVOR_NONE     5
 
+// ===== Field Weather =====
+
+#define WEATHER_CLEAR           0
+#define WEATHER_CLOUDY          1
+#define WEATHER_RAINING         2
+#define WEATHER_HEAVY_RAIN      3
+#define WEATHER_THUNDERSTORM    4
+#define WEATHER_SNOWING         5
+#define WEATHER_HEAVY_SNOW      6
+#define WEATHER_BLIZZARD        7
+#define WEATHER_CLEAR_8         8
+#define WEATHER_SLOW_ASHFALL    9
+#define WEATHER_SANDSTORM       10
+#define WEATHER_HAILING         11
+#define WEATHER_SPIRITS         12
+#define WEATHER_CLEAR_13        13
+#define WEATHER_FOG             14
+#define WEATHER_DEEP_FOG        15
+#define WEATHER_DARK_FLASH      16
+
+#define WEATHER_HARSH_SUN       1001
+#define WEATHER_TRICK_ROOM      1002
+
 #endif // __CONSTANTS_MISC_H

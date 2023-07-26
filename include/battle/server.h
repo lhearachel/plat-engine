@@ -105,7 +105,7 @@ struct __attribute__((packed)) MoveEffects {
         magnetRiseTurns         :3,
         healBlockTurns          :3,
         embargoTurns            :3,
-        unburdenActive          :1,     // TODO: make sure this interacts correctly with Neutralizing Gas
+        canUnburden             :1,     // TODO: make sure this interacts correctly with Neutralizing Gas
         metronome               :4,     // this is for the item, not the move; stores the number of consecutive turns the same move has been used; TODO: we can reduce the bit allocation to 3 here
         oneTimeAccuracyMax      :1,     // micle berry
         oneTimeSpeedMax         :1,     // custap berry
@@ -160,17 +160,17 @@ struct __attribute__((packed)) BattlePokemon {
         _padding_A  :2;
     u8  ability;
 
-    u32 forecastDone        :1,
-        intimidateDone      :1,
+    u32 abilityAnnounced    :1, // new master flag
+        intimidateDone      :1, // newly freed
         traceDone           :1,
-        downloadDone        :1,
-        anticipationDone    :1,
-        forewarnDone        :1,
-        slowStartStarted    :1,
+        downloadDone        :1, // newly freed
+        anticipationDone    :1, // newly freed
+        forewarnDone        :1, // newly freed
+        slowStartStarted    :1, // newly freed
         slowStartFinished   :1,
-        friskDone           :1,
-        moldBreakerShown    :1,
-        pressureShown       :1,
+        friskDone           :1, // newly freed
+        moldBreakerShown    :1, // newly freed
+        pressureShown       :1, // newly freed
         _padding_B          :21;
     
     u8  curPP[4];
@@ -331,7 +331,7 @@ struct __attribute__((packed)) BattleServer {
 /* 0x004C */  int     moveFailCheckSeq;
 /* 0x0050 */  int     serverStatusCheckSeq;
 /* 0x0054 */  int     serverAbilityCheckSeq;
-/* 0x0058 */  int     serverPokemonFormCheckSeq;
+/* 0x0058 */  int     serverSwitchInEffectsSeq;
 /* 0x005C */  int     serverVanishCheckTemp;
 
 /* 0x0060 */  int     moveSeqAddress;
@@ -482,7 +482,7 @@ struct __attribute__((packed)) BattleServer {
 
     u8      magnitude;
 
-    u8      weatherActive;
+    u8      fieldWeatherChecked;
     
     s16     hpTemp;
 
@@ -739,11 +739,25 @@ BOOL __attribute__((long_call)) Server_CheckTwoTurnMove(struct BattleServer *ser
 void __attribute__((long_call)) Server_LoadSequence(struct BattleServer *server, int archive, int id);
 
 /**
+ * @brief Copy a BattlePokemon data over to the underlying Pokemon struct.
+ * 
+ * Original function: 0x02253EC0 (ov16)
+ */
+void __attribute__((long_call)) Server_CopyBattleMonData(struct Battle *battle, struct BattleServer *server, int battler);
+
+/**
  * @brief Gets a data value for a particular active battler.
  * 
  * Original function: 0x02252060 (ov16)
  */
 int __attribute__((long_call)) BattlePokemon_Get(struct BattleServer *server, int battler, int paramID, void *data);
+
+/**
+ * @brief Adds a value to a given data point on a battler.
+ * 
+ * Original function: 0x02252A2C (ov16)
+ */
+void __attribute__((long_call)) BattlePokemon_Add(struct BattlePokemon *pokemon, int paramID, int toAdd);
 
 
 /**
@@ -817,5 +831,14 @@ int  __attribute__((long_call)) Server_CheckAbilityDamageOverride(struct BattleS
  * @return TRUE if a subscript needs to be invoked, otherwise FALSE.
  */
 BOOL __attribute__((long_call)) Server_CheckEndOfTurnAbility(struct Battle *battle, struct BattleServer *server, int battler);
+
+/**
+ * @brief Check for effects which trigger on switch-in.
+ * 
+ * Hooked into: 0x02256414 (ov16)
+ * 
+ * @return Any script that should be called as an effect handler.
+ */
+int  __attribute__((long_call)) Server_CheckSwitchInEffects(struct Battle *battle, struct BattleServer *server);
 
 #endif // __BATTLE_SERVER_H
