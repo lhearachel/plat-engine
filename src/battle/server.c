@@ -632,7 +632,6 @@ static void ProcessDownload(struct Battle *battle, struct BattleServer *server, 
 
     for (int i = 0; i < numBattlers; i++) {
         if ((i & 1) == (battler & 1)    // If these have the same parity, they're allies
-                || server->activePokemon[i].condition2 & CONDITION_V_SUBSTITUTED
                 || server->activePokemon[i].curHP == 0) {
             continue;
         }
