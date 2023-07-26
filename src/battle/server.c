@@ -191,6 +191,7 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             result  = TRUE;
         }
         break;
+
     case ABILITY_COLOR_CHANGE:
         // Defender is still alive after the attack
         if (server->activePokemon[server->defender].curHP
@@ -223,6 +224,7 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             result  = TRUE;
         }
         break;
+
     case ABILITY_EFFECT_SPORE:
         // Attacker is still alive after the attack
         if (server->activePokemon[server->attacker].curHP
@@ -247,6 +249,7 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             result = TRUE;
         }
         break;
+
     case ABILITY_POISON_POINT:
         // Attacker is still alive after the attack
         if (server->activePokemon[server->attacker].curHP
@@ -263,6 +266,7 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             result  = TRUE;
         }
         break;
+
     case ABILITY_FLAME_BODY:
         // Attacker is still alive after the attack
         if (server->activePokemon[server->attacker].curHP
@@ -279,6 +283,7 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             result  = TRUE;
         }
         break;
+
     case ABILITY_CUTE_CHARM:
         // Attacker is still alive after the attack
         if (server->activePokemon[server->attacker].curHP
@@ -297,6 +302,7 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             result  = TRUE;
         }
         break;
+
     case ABILITY_AFTERMATH:
         // Defender is fainting
         if (server->defender == server->faintingClient
@@ -314,6 +320,7 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
             result  = TRUE;
         }       
         break;
+
     default:
         break;
     }
@@ -730,6 +737,10 @@ static void ProcessAnticipation(struct Battle *battle, struct BattleServer *serv
             #endif
 
             u8 moveType = server->aiWork.moveTable[moveID].type;    // TODO: Use dynamic type for Hidden Power
+            if (server->aiWork.moveTable[moveID].effect == MOVE_EFFECT_HIDDEN_POWER) {  // Hidden Power is treated as its effective type
+                moveType = server->moveType;
+            }
+
             u8 effectiveness = Calc_TypeEffectivenessPower(         // TODO: consider Levitate
                 moveType,
                 server->activePokemon[i].type1,

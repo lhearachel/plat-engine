@@ -64,3 +64,9 @@
 # to 4096 (1.0 in Q4.12 format).
 0016 022541D4 2C 50
 0016 022541E4 12 03
+
+# This curtails the table used by Anticipation, functionally removing
+# the entries for Counter, Mirror Coat, and Metal Burst.
+#
+# The table's original size is 6; this truncates it to an effective 3.
+0016 0225B8FE 03 2A
