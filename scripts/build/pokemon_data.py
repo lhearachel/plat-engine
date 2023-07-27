@@ -475,26 +475,36 @@ def build_pokemon():
     names_file = open(TEXT_DUMP_TARGET.format(archive=POKEDEX_NAMES_BANK), 'w', encoding='utf8')
     articles_file = open(TEXT_DUMP_TARGET.format(archive=POKEMON_ARTICLES), 'w', encoding='utf8')
     pokedex_file = open(TEXT_DUMP_TARGET.format(archive=POKEDEX_NAMES_BANK), 'w', encoding='utf8')
-    for i in range(508):
-        pokemon = {}
-        with open(f'data/pokemon/{i:04}.json', 'r', encoding='utf8') as data:
+    mon_ids_to_names = {}
+    for fname in os.listdir('data/pokemon'):
+        with open(f'data/pokemon/{fname}', 'r', encoding='utf8') as data:
             pokemon = json.load(data)
             name = pokemon['name']
-            if i == 0:
-                articles_file.write('\r\n')
-                pokedex_file.write('----------\r\n')
-            elif i < 494:
-                article = 'a '
-                if name[0] in ['A', 'E', 'I', 'O', 'U']:
-                    article = 'an '
+            i = Species[fname.split('.')[0].upper()].value
+            mon_ids_to_names[i] = name
 
-                articles_file.write(f'{article}{{COLOR 255}}{name}{{COLOR 0}}\r\n')
-                pokedex_file.write(f'{i:03}  {name}\r\n')
-
-            names_file.write(f'{name}\r\n')
             build_personal(pokemon, i)
             build_evotable(pokemon, i)
             build_learnset(pokemon, i)
+    
+    # Sort the keys of the dictionary (numerical species IDs)
+    sorted_mon_ids = list(mon_ids_to_names.keys())
+    sorted_mon_ids.sort()
+
+    for mon_id in sorted_mon_ids:
+        name = mon_ids_to_names[mon_id]
+        if mon_id == 0:
+            articles_file.write('\r\n')
+            pokedex_file.write('----------\r\n')
+        elif mon_id < 494:
+            article = 'a '
+            if name[0] in ['A', 'E', 'I', 'O', 'U']:
+                article = 'an '
+
+            articles_file.write(f'{article}{{COLOR 255}}{name}{{COLOR 0}}\r\n')
+            pokedex_file.write(f'{mon_id:03}  {name}\r\n')
+
+        names_file.write(f'{name}\r\n')
     
     names_file.close()
     articles_file.close()

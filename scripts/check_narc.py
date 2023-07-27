@@ -20,7 +20,7 @@ def compare_narcs(orig_f, made_f, word_mode):
 
     print(f'original file count: {len(orig.files)}')
     print(f'rebuilt  file count: {len(made.files)}')
-    assert len(orig.files) == len(made.files)
+    assert len(orig.files) <= len(made.files)
     for i in range(len(orig.files)):
         og_hex = orig.files[i].hex()
         md_hex = made.files[i].hex()

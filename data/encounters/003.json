@@ -4,91 +4,91 @@
         "slots": [
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             },
             {
                 "level": 0,
-                "species": "NONE"
+                "species": "SPECIES_000"
             }
         ],
         "swarm": [
-            "NONE",
-            "NONE"
+            "SPECIES_000",
+            "SPECIES_000"
         ],
         "day_only": [
-            "NONE",
-            "NONE"
+            "SPECIES_000",
+            "SPECIES_000"
         ],
         "night_only": [
-            "NONE",
-            "NONE"
+            "SPECIES_000",
+            "SPECIES_000"
         ],
         "poke_radar": [
-            "NONE",
-            "NONE",
-            "NONE",
-            "NONE"
+            "SPECIES_000",
+            "SPECIES_000",
+            "SPECIES_000",
+            "SPECIES_000"
         ],
         "dual_pack": {
             "ruby": [
-                "NONE",
-                "NONE"
+                "SPECIES_000",
+                "SPECIES_000"
             ],
             "sapphire": [
-                "NONE",
-                "NONE"
+                "SPECIES_000",
+                "SPECIES_000"
             ],
             "emerald": [
-                "NONE",
-                "NONE"
+                "SPECIES_000",
+                "SPECIES_000"
             ],
             "fire_red": [
-                "NONE",
-                "NONE"
+                "SPECIES_000",
+                "SPECIES_000"
             ],
             "leaf_green": [
-                "NONE",
-                "NONE"
+                "SPECIES_000",
+                "SPECIES_000"
             ]
         }
     },

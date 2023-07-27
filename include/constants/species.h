@@ -521,10 +521,50 @@
 #define SPECIES_ROTOM_FAN       0x01FA
 #define SPECIES_ROTOM_MOW       0x01FB
 
-// ===== DEX EXPANSION: GENERATION 5+ =====
+// Vanilla Platinum and HGSS have a huge section after Rotom-Mow
+// to store icons for the various aesthetic forms (Shellos, Unown,
+// etc.). HGSS also has icons for Castform and Cherrim-Sunshine.
+// In all, these fill out up to 543 in IDs; thus, Gen5 species
+// start at 544.
 
-// For whatever reason, BluRose chose to start his dex expansion at
-// 544 for Victini; I'm mirroring that here for simplicity.
+#define SPECIES_508             0x01FC
+#define SPECIES_509             0x01FD
+#define SPECIES_510             0x01FE
+#define SPECIES_511             0x01FF
+#define SPECIES_512             0x0200
+#define SPECIES_513             0x0201
+#define SPECIES_514             0x0202
+#define SPECIES_515             0x0203
+#define SPECIES_516             0x0204
+#define SPECIES_517             0x0205
+#define SPECIES_518             0x0206
+#define SPECIES_519             0x0207
+#define SPECIES_520             0x0208
+#define SPECIES_521             0x0209
+#define SPECIES_522             0x020A
+#define SPECIES_523             0x020B
+#define SPECIES_524             0x020C
+#define SPECIES_525             0x020D
+#define SPECIES_526             0x020E
+#define SPECIES_527             0x020F
+#define SPECIES_528             0x0210
+#define SPECIES_529             0x0211
+#define SPECIES_530             0x0212
+#define SPECIES_531             0x0213
+#define SPECIES_532             0x0214
+#define SPECIES_533             0x0215
+#define SPECIES_534             0x0216
+#define SPECIES_535             0x0217
+#define SPECIES_536             0x0218
+#define SPECIES_537             0x0219
+#define SPECIES_538             0x021A
+#define SPECIES_539             0x021B
+#define SPECIES_540             0x021C
+#define SPECIES_541             0x021D
+#define SPECIES_542             0x021E
+#define SPECIES_543             0x021F
+
+// ===== DEX EXPANSION: GENERATION 5+ =====
 
 // ===== Unova =====
 #define SPECIES_VICTINI         0x0220
@@ -583,7 +623,7 @@
 #define SPECIES_WHIMSICOTT      0x0255
 #define SPECIES_PETILIL         0x0256
 #define SPECIES_LILLIGANT       0x0257
-#define SPECIES_BASCULIN        0x0258
+#define SPECIES_BASCULIN        0x0258  // White-striped (for Basculegion evolution)
 #define SPECIES_SANDILE         0x0259
 #define SPECIES_KROKOROK        0x025A
 #define SPECIES_KROOKODILE      0x025B

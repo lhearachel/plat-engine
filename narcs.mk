@@ -117,9 +117,9 @@ WOTBL_NARC := $(BUILD_NARC)/poketool/personal/wotbl.narc
 WOTBL_TARGET := $(FILESYS)/poketool/personal/wotbl.narc
 
 POKEMON_DATA_DIR := data/pokemon
-POKEMON_DATA_OBJS := $(wildcard $(POKEMON_DATA_DIR)/*.json)
+POKEMON_DATA_SRCS := $(wildcard $(POKEMON_DATA_DIR)/*.json)
 
-$(PERSONAL_NARC):
+$(PERSONAL_NARC): $(POKEMON_DATA_SRCS)
 	$(PYTHON) scripts/build/pokemon_data.py build
 	$(NARCHIVE) create $(EVO_NARC) $(EVO_DATA_DIR) -nf
 	$(NARCHIVE) create $(WOTBL_NARC) $(WOTBL_DATA_DIR) -nf
