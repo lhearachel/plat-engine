@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 10,
+        "slots": [
+            {
+                "level": 53,
+                "species": "MAGCARGO"
+            },
+            {
+                "level": 55,
+                "species": "MAGCARGO"
+            },
+            {
+                "level": 53,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 52,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 55,
+                "species": "RHYDON"
+            },
+            {
+                "level": 54,
+                "species": "WEEZING"
+            },
+            {
+                "level": 52,
+                "species": "WEEZING"
+            },
+            {
+                "level": 54,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 53,
+                "species": "SLUGMA"
+            },
+            {
+                "level": 53,
+                "species": "KOFFING"
+            },
+            {
+                "level": 53,
+                "species": "SLUGMA"
+            },
+            {
+                "level": 53,
+                "species": "KOFFING"
+            }
+        ],
+        "swarm": [
+            "MAGCARGO",
+            "MAGCARGO"
+        ],
+        "day_only": [
+            "GOLBAT",
+            "GRAVELER"
+        ],
+        "night_only": [
+            "GOLBAT",
+            "GRAVELER"
+        ],
+        "poke_radar": [
+            "RHYDON",
+            "WEEZING",
+            "SLUGMA",
+            "KOFFING"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "SLUGMA",
+                "KOFFING"
+            ],
+            "sapphire": [
+                "SLUGMA",
+                "KOFFING"
+            ],
+            "emerald": [
+                "SLUGMA",
+                "KOFFING"
+            ],
+            "fire_red": [
+                "SLUGMA",
+                "KOFFING"
+            ],
+            "leaf_green": [
+                "SLUGMA",
+                "KOFFING"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 0,
+        "slots": [
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "good": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "super": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "EAST",
+        "gastrodon": "EAST",
+        "unown_table": 0
+    }
+}

@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 30,
+        "slots": [
+            {
+                "level": 33,
+                "species": "SNOVER"
+            },
+            {
+                "level": 32,
+                "species": "SWINUB"
+            },
+            {
+                "level": 33,
+                "species": "SNEASEL"
+            },
+            {
+                "level": 32,
+                "species": "SNOVER"
+            },
+            {
+                "level": 35,
+                "species": "SNEASEL"
+            },
+            {
+                "level": 34,
+                "species": "SWINUB"
+            },
+            {
+                "level": 34,
+                "species": "SNOVER"
+            },
+            {
+                "level": 32,
+                "species": "SWINUB"
+            },
+            {
+                "level": 35,
+                "species": "SNEASEL"
+            },
+            {
+                "level": 35,
+                "species": "SNOVER"
+            },
+            {
+                "level": 35,
+                "species": "SNEASEL"
+            },
+            {
+                "level": 35,
+                "species": "SNOVER"
+            }
+        ],
+        "swarm": [
+            "SNOVER",
+            "SWINUB"
+        ],
+        "day_only": [
+            "SNEASEL",
+            "SNOVER"
+        ],
+        "night_only": [
+            "SNORUNT",
+            "SNORUNT"
+        ],
+        "poke_radar": [
+            "SNEASEL",
+            "SWINUB",
+            "SNEASEL",
+            "SNOVER"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "SNEASEL",
+                "SNOVER"
+            ],
+            "sapphire": [
+                "SNEASEL",
+                "SNOVER"
+            ],
+            "emerald": [
+                "URSARING",
+                "URSARING"
+            ],
+            "fire_red": [
+                "SNEASEL",
+                "SNOVER"
+            ],
+            "leaf_green": [
+                "SNEASEL",
+                "SNOVER"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 0,
+        "slots": [
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "good": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "super": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "WEST",
+        "gastrodon": "WEST",
+        "unown_table": 0
+    }
+}

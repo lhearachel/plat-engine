@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 30,
+        "slots": [
+            {
+                "level": 13,
+                "species": "MEDITITE"
+            },
+            {
+                "level": 14,
+                "species": "BIDOOF"
+            },
+            {
+                "level": 14,
+                "species": "MEDITITE"
+            },
+            {
+                "level": 15,
+                "species": "MEDITITE"
+            },
+            {
+                "level": 14,
+                "species": "CHINGLING"
+            },
+            {
+                "level": 14,
+                "species": "MACHOP"
+            },
+            {
+                "level": 16,
+                "species": "CHINGLING"
+            },
+            {
+                "level": 14,
+                "species": "BRONZOR"
+            },
+            {
+                "level": 15,
+                "species": "MACHOP"
+            },
+            {
+                "level": 16,
+                "species": "BRONZOR"
+            },
+            {
+                "level": 15,
+                "species": "MACHOP"
+            },
+            {
+                "level": 16,
+                "species": "BRONZOR"
+            }
+        ],
+        "swarm": [
+            "MEDITITE",
+            "BIDOOF"
+        ],
+        "day_only": [
+            "MEDITITE",
+            "MEDITITE"
+        ],
+        "night_only": [
+            "ZUBAT",
+            "HOOTHOOT"
+        ],
+        "poke_radar": [
+            "TYROGUE",
+            "TYROGUE",
+            "TYROGUE",
+            "TYROGUE"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "MACHOP",
+                "BRONZOR"
+            ],
+            "sapphire": [
+                "MACHOP",
+                "BRONZOR"
+            ],
+            "emerald": [
+                "TEDDIURSA",
+                "TEDDIURSA"
+            ],
+            "fire_red": [
+                "MACHOP",
+                "BRONZOR"
+            ],
+            "leaf_green": [
+                "MACHOP",
+                "BRONZOR"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 0,
+        "slots": [
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "good": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "super": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "WEST",
+        "gastrodon": "WEST",
+        "unown_table": 0
+    }
+}

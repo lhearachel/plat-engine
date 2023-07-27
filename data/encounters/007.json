@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 30,
+        "slots": [
+            {
+                "level": 9,
+                "species": "SHELLOS"
+            },
+            {
+                "level": 10,
+                "species": "SHINX"
+            },
+            {
+                "level": 9,
+                "species": "BUIZEL"
+            },
+            {
+                "level": 10,
+                "species": "SHELLOS"
+            },
+            {
+                "level": 10,
+                "species": "BUIZEL"
+            },
+            {
+                "level": 11,
+                "species": "SHELLOS"
+            },
+            {
+                "level": 9,
+                "species": "PACHIRISU"
+            },
+            {
+                "level": 11,
+                "species": "PACHIRISU"
+            },
+            {
+                "level": 11,
+                "species": "BUIZEL"
+            },
+            {
+                "level": 12,
+                "species": "SHELLOS"
+            },
+            {
+                "level": 11,
+                "species": "BUIZEL"
+            },
+            {
+                "level": 12,
+                "species": "SHELLOS"
+            }
+        ],
+        "swarm": [
+            "ELECTRIKE",
+            "ELECTRIKE"
+        ],
+        "day_only": [
+            "BUIZEL",
+            "SHELLOS"
+        ],
+        "night_only": [
+            "BUIZEL",
+            "SHELLOS"
+        ],
+        "poke_radar": [
+            "MAREEP",
+            "MAREEP",
+            "MAREEP",
+            "MAREEP"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "BUIZEL",
+                "SHELLOS"
+            ],
+            "sapphire": [
+                "BUIZEL",
+                "SHELLOS"
+            ],
+            "emerald": [
+                "BUIZEL",
+                "SHELLOS"
+            ],
+            "fire_red": [
+                "BUIZEL",
+                "SHELLOS"
+            ],
+            "leaf_green": [
+                "BUIZEL",
+                "SHELLOS"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 10,
+        "slots": [
+            {
+                "min_level": 20,
+                "max_level": 30,
+                "species": "SHELLOS"
+            },
+            {
+                "min_level": 20,
+                "max_level": 30,
+                "species": "TENTACOOL"
+            },
+            {
+                "min_level": 20,
+                "max_level": 40,
+                "species": "GASTRODON"
+            },
+            {
+                "min_level": 20,
+                "max_level": 40,
+                "species": "GASTRODON"
+            },
+            {
+                "min_level": 20,
+                "max_level": 40,
+                "species": "TENTACRUEL"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 25,
+            "slots": [
+                {
+                    "min_level": 4,
+                    "max_level": 6,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 3,
+                    "max_level": 7,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 15,
+                    "species": "MAGIKARP"
+                }
+            ]
+        },
+        "good": {
+            "rate": 50,
+            "slots": [
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "FINNEON"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "FINNEON"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "FINNEON"
+                }
+            ]
+        },
+        "super": {
+            "rate": 75,
+            "slots": [
+                {
+                    "min_level": 30,
+                    "max_level": 55,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 30,
+                    "max_level": 40,
+                    "species": "LUMINEON"
+                },
+                {
+                    "min_level": 20,
+                    "max_level": 50,
+                    "species": "SHELLDER"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "LUMINEON"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "LUMINEON"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "WEST",
+        "gastrodon": "WEST",
+        "unown_table": 0
+    }
+}

@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 30,
+        "slots": [
+            {
+                "level": 23,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 21,
+                "species": "GEODUDE"
+            },
+            {
+                "level": 22,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 22,
+                "species": "RHYHORN"
+            },
+            {
+                "level": 23,
+                "species": "HOUNDOUR"
+            },
+            {
+                "level": 23,
+                "species": "RHYHORN"
+            },
+            {
+                "level": 24,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 21,
+                "species": "RHYHORN"
+            },
+            {
+                "level": 24,
+                "species": "HOUNDOUR"
+            },
+            {
+                "level": 24,
+                "species": "RHYHORN"
+            },
+            {
+                "level": 24,
+                "species": "HOUNDOUR"
+            },
+            {
+                "level": 24,
+                "species": "RHYHORN"
+            }
+        ],
+        "swarm": [
+            "SPOINK",
+            "SPOINK"
+        ],
+        "day_only": [
+            "GRAVELER",
+            "RHYHORN"
+        ],
+        "night_only": [
+            "HOUNDOUR",
+            "ZUBAT"
+        ],
+        "poke_radar": [
+            "POOCHYENA",
+            "POOCHYENA",
+            "POOCHYENA",
+            "POOCHYENA"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "HOUNDOUR",
+                "RHYHORN"
+            ],
+            "sapphire": [
+                "HOUNDOUR",
+                "RHYHORN"
+            ],
+            "emerald": [
+                "HOUNDOUR",
+                "RHYHORN"
+            ],
+            "fire_red": [
+                "HOUNDOUR",
+                "RHYHORN"
+            ],
+            "leaf_green": [
+                "VULPIX",
+                "VULPIX"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 10,
+        "slots": [
+            {
+                "min_level": 20,
+                "max_level": 30,
+                "species": "PSYDUCK"
+            },
+            {
+                "min_level": 20,
+                "max_level": 30,
+                "species": "PSYDUCK"
+            },
+            {
+                "min_level": 20,
+                "max_level": 40,
+                "species": "GOLDUCK"
+            },
+            {
+                "min_level": 20,
+                "max_level": 40,
+                "species": "GOLDUCK"
+            },
+            {
+                "min_level": 20,
+                "max_level": 40,
+                "species": "GOLDUCK"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 25,
+            "slots": [
+                {
+                    "min_level": 4,
+                    "max_level": 6,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 3,
+                    "max_level": 7,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 15,
+                    "species": "MAGIKARP"
+                }
+            ]
+        },
+        "good": {
+            "rate": 50,
+            "slots": [
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "GOLDEEN"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "GOLDEEN"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "GOLDEEN"
+                }
+            ]
+        },
+        "super": {
+            "rate": 75,
+            "slots": [
+                {
+                    "min_level": 30,
+                    "max_level": 40,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 30,
+                    "max_level": 40,
+                    "species": "SEAKING"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "SEAKING"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "SEAKING"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "EAST",
+        "gastrodon": "EAST",
+        "unown_table": 0
+    }
+}

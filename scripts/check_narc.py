@@ -11,6 +11,7 @@ INPUT_DICT = {
     'personal': ('narcs', 'base/data/poketool/personal/pl_personal.narc', 'build/narc/poketool/personal/pl_personal.narc', False),
     'evo': ('narcs', 'base/data/poketool/personal/evo.narc', 'build/narc/poketool/personal/evo.narc', False),
     'wotbl': ('narcs', 'base/data/poketool/personal/wotbl.narc', 'build/narc/poketool/personal/wotbl.narc', False),
+    'encdata': ('narcs', 'base/data/fielddata/encountdata/pl_enc_data.narc', 'build/narc/pl_enc_data.narc', False),
 }
 
 def compare_narcs(orig_f, made_f, word_mode):

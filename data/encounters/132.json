@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 10,
+        "slots": [
+            {
+                "level": 14,
+                "species": "GASTLY"
+            },
+            {
+                "level": 15,
+                "species": "GASTLY"
+            },
+            {
+                "level": 14,
+                "species": "GASTLY"
+            },
+            {
+                "level": 15,
+                "species": "GASTLY"
+            },
+            {
+                "level": 16,
+                "species": "GASTLY"
+            },
+            {
+                "level": 17,
+                "species": "GASTLY"
+            },
+            {
+                "level": 16,
+                "species": "GASTLY"
+            },
+            {
+                "level": 17,
+                "species": "GASTLY"
+            },
+            {
+                "level": 17,
+                "species": "GASTLY"
+            },
+            {
+                "level": 17,
+                "species": "GASTLY"
+            },
+            {
+                "level": 17,
+                "species": "GASTLY"
+            },
+            {
+                "level": 17,
+                "species": "GASTLY"
+            }
+        ],
+        "swarm": [
+            "GASTLY",
+            "GASTLY"
+        ],
+        "day_only": [
+            "GASTLY",
+            "GASTLY"
+        ],
+        "night_only": [
+            "GASTLY",
+            "GASTLY"
+        ],
+        "poke_radar": [
+            "GASTLY",
+            "GASTLY",
+            "GASTLY",
+            "GASTLY"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "GENGAR",
+                "GASTLY"
+            ],
+            "sapphire": [
+                "GENGAR",
+                "GASTLY"
+            ],
+            "emerald": [
+                "GENGAR",
+                "GASTLY"
+            ],
+            "fire_red": [
+                "GENGAR",
+                "GASTLY"
+            ],
+            "leaf_green": [
+                "GENGAR",
+                "GASTLY"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 0,
+        "slots": [
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "good": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "super": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "WEST",
+        "gastrodon": "WEST",
+        "unown_table": 0
+    }
+}

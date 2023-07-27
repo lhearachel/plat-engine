@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 15,
+        "slots": [
+            {
+                "level": 48,
+                "species": "FLOATZEL"
+            },
+            {
+                "level": 47,
+                "species": "AZUMARILL"
+            },
+            {
+                "level": 47,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 49,
+                "species": "AZUMARILL"
+            },
+            {
+                "level": 48,
+                "species": "DEWGONG"
+            },
+            {
+                "level": 50,
+                "species": "FLOATZEL"
+            },
+            {
+                "level": 50,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 49,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 50,
+                "species": "DEWGONG"
+            },
+            {
+                "level": 49,
+                "species": "GABITE"
+            },
+            {
+                "level": 50,
+                "species": "DEWGONG"
+            },
+            {
+                "level": 49,
+                "species": "GABITE"
+            }
+        ],
+        "swarm": [
+            "FLOATZEL",
+            "AZUMARILL"
+        ],
+        "day_only": [
+            "GRAVELER",
+            "AZUMARILL"
+        ],
+        "night_only": [
+            "GOLBAT",
+            "AZUMARILL"
+        ],
+        "poke_radar": [
+            "DEWGONG",
+            "FLOATZEL",
+            "DEWGONG",
+            "GABITE"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "DEWGONG",
+                "GABITE"
+            ],
+            "sapphire": [
+                "DEWGONG",
+                "GABITE"
+            ],
+            "emerald": [
+                "DEWGONG",
+                "GABITE"
+            ],
+            "fire_red": [
+                "DEWGONG",
+                "GABITE"
+            ],
+            "leaf_green": [
+                "DEWGONG",
+                "GABITE"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 15,
+        "slots": [
+            {
+                "min_level": 35,
+                "max_level": 55,
+                "species": "FLOATZEL"
+            },
+            {
+                "min_level": 35,
+                "max_level": 55,
+                "species": "DEWGONG"
+            },
+            {
+                "min_level": 35,
+                "max_level": 55,
+                "species": "LAPRAS"
+            },
+            {
+                "min_level": 35,
+                "max_level": 55,
+                "species": "LAPRAS"
+            },
+            {
+                "min_level": 35,
+                "max_level": 55,
+                "species": "LAPRAS"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 25,
+            "slots": [
+                {
+                    "min_level": 4,
+                    "max_level": 6,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 3,
+                    "max_level": 7,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 15,
+                    "species": "MAGIKARP"
+                }
+            ]
+        },
+        "good": {
+            "rate": 55,
+            "slots": [
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "MAGIKARP"
+                }
+            ]
+        },
+        "super": {
+            "rate": 75,
+            "slots": [
+                {
+                    "min_level": 30,
+                    "max_level": 40,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 30,
+                    "max_level": 40,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "GYARADOS"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "EAST",
+        "gastrodon": "EAST",
+        "unown_table": 0
+    }
+}

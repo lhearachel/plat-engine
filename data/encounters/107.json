@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 5,
+        "slots": [
+            {
+                "level": 47,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 48,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 49,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 50,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 48,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 49,
+                "species": "SNEASEL"
+            },
+            {
+                "level": 47,
+                "species": "JYNX"
+            },
+            {
+                "level": 49,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 49,
+                "species": "JYNX"
+            },
+            {
+                "level": 47,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 49,
+                "species": "JYNX"
+            },
+            {
+                "level": 47,
+                "species": "GOLBAT"
+            }
+        ],
+        "swarm": [
+            "GOLBAT",
+            "GOLBAT"
+        ],
+        "day_only": [
+            "GOLBAT",
+            "GOLBAT"
+        ],
+        "night_only": [
+            "GOLBAT",
+            "GOLBAT"
+        ],
+        "poke_radar": [
+            "GOLBAT",
+            "SNEASEL",
+            "JYNX",
+            "GOLBAT"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "JYNX",
+                "GOLBAT"
+            ],
+            "sapphire": [
+                "JYNX",
+                "GOLBAT"
+            ],
+            "emerald": [
+                "JYNX",
+                "GOLBAT"
+            ],
+            "fire_red": [
+                "JYNX",
+                "GOLBAT"
+            ],
+            "leaf_green": [
+                "JYNX",
+                "GOLBAT"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 0,
+        "slots": [
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "good": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "super": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "WEST",
+        "gastrodon": "WEST",
+        "unown_table": 0
+    }
+}

@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 30,
+        "slots": [
+            {
+                "level": 38,
+                "species": "STARAVIA"
+            },
+            {
+                "level": 39,
+                "species": "BIBAREL"
+            },
+            {
+                "level": 40,
+                "species": "STARAVIA"
+            },
+            {
+                "level": 41,
+                "species": "BIBAREL"
+            },
+            {
+                "level": 40,
+                "species": "GOLDUCK"
+            },
+            {
+                "level": 38,
+                "species": "PSYDUCK"
+            },
+            {
+                "level": 41,
+                "species": "GOLDUCK"
+            },
+            {
+                "level": 39,
+                "species": "PSYDUCK"
+            },
+            {
+                "level": 40,
+                "species": "STARAVIA"
+            },
+            {
+                "level": 41,
+                "species": "BIBAREL"
+            },
+            {
+                "level": 40,
+                "species": "STARAVIA"
+            },
+            {
+                "level": 41,
+                "species": "BIBAREL"
+            }
+        ],
+        "swarm": [
+            "STARAVIA",
+            "BIBAREL"
+        ],
+        "day_only": [
+            "STARAVIA",
+            "BIBAREL"
+        ],
+        "night_only": [
+            "STARAVIA",
+            "BIBAREL"
+        ],
+        "poke_radar": [
+            "WOBBUFFET",
+            "WOBBUFFET",
+            "WOBBUFFET",
+            "WOBBUFFET"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "SOLROCK",
+                "SOLROCK"
+            ],
+            "sapphire": [
+                "LUNATONE",
+                "LUNATONE"
+            ],
+            "emerald": [
+                "STARAVIA",
+                "BIBAREL"
+            ],
+            "fire_red": [
+                "STARAVIA",
+                "BIBAREL"
+            ],
+            "leaf_green": [
+                "STARAVIA",
+                "BIBAREL"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 10,
+        "slots": [
+            {
+                "min_level": 20,
+                "max_level": 30,
+                "species": "PSYDUCK"
+            },
+            {
+                "min_level": 20,
+                "max_level": 30,
+                "species": "PSYDUCK"
+            },
+            {
+                "min_level": 20,
+                "max_level": 40,
+                "species": "GOLDUCK"
+            },
+            {
+                "min_level": 20,
+                "max_level": 40,
+                "species": "GOLDUCK"
+            },
+            {
+                "min_level": 20,
+                "max_level": 40,
+                "species": "GOLDUCK"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 25,
+            "slots": [
+                {
+                    "min_level": 4,
+                    "max_level": 6,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 3,
+                    "max_level": 7,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 15,
+                    "species": "MAGIKARP"
+                }
+            ]
+        },
+        "good": {
+            "rate": 50,
+            "slots": [
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "GOLDEEN"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 25,
+                    "max_level": 35,
+                    "species": "SEAKING"
+                },
+                {
+                    "min_level": 25,
+                    "max_level": 35,
+                    "species": "SEAKING"
+                }
+            ]
+        },
+        "super": {
+            "rate": 75,
+            "slots": [
+                {
+                    "min_level": 30,
+                    "max_level": 40,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 30,
+                    "max_level": 40,
+                    "species": "SEAKING"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "SEAKING"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "SEAKING"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "EAST",
+        "gastrodon": "EAST",
+        "unown_table": 0
+    }
+}

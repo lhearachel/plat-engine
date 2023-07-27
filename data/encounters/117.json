@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 10,
+        "slots": [
+            {
+                "level": 21,
+                "species": "PICHU"
+            },
+            {
+                "level": 22,
+                "species": "ROSELIA"
+            },
+            {
+                "level": 22,
+                "species": "STARAVIA"
+            },
+            {
+                "level": 23,
+                "species": "KRICKETUNE"
+            },
+            {
+                "level": 23,
+                "species": "ROSELIA"
+            },
+            {
+                "level": 24,
+                "species": "STARAVIA"
+            },
+            {
+                "level": 22,
+                "species": "PIKACHU"
+            },
+            {
+                "level": 22,
+                "species": "PICHU"
+            },
+            {
+                "level": 24,
+                "species": "PIKACHU"
+            },
+            {
+                "level": 22,
+                "species": "PICHU"
+            },
+            {
+                "level": 24,
+                "species": "PIKACHU"
+            },
+            {
+                "level": 22,
+                "species": "PICHU"
+            }
+        ],
+        "swarm": [
+            "PICHU",
+            "ROSELIA"
+        ],
+        "day_only": [
+            "STARAVIA",
+            "STARAVIA"
+        ],
+        "night_only": [
+            "KRICKETUNE",
+            "KRICKETUNE"
+        ],
+        "poke_radar": [
+            "ROSELIA",
+            "STARAVIA",
+            "PIKACHU",
+            "PICHU"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "PIKACHU",
+                "PICHU"
+            ],
+            "sapphire": [
+                "PIKACHU",
+                "PICHU"
+            ],
+            "emerald": [
+                "PIKACHU",
+                "PICHU"
+            ],
+            "fire_red": [
+                "PIKACHU",
+                "PICHU"
+            ],
+            "leaf_green": [
+                "PIKACHU",
+                "PICHU"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 0,
+        "slots": [
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "good": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "super": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "EAST",
+        "gastrodon": "EAST",
+        "unown_table": 0
+    }
+}

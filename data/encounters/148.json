@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 30,
+        "slots": [
+            {
+                "level": 7,
+                "species": "MACHOP"
+            },
+            {
+                "level": 5,
+                "species": "GEODUDE"
+            },
+            {
+                "level": 6,
+                "species": "PONYTA"
+            },
+            {
+                "level": 5,
+                "species": "KRICKETOT"
+            },
+            {
+                "level": 5,
+                "species": "PONYTA"
+            },
+            {
+                "level": 6,
+                "species": "MACHOP"
+            },
+            {
+                "level": 8,
+                "species": "MACHOP"
+            },
+            {
+                "level": 6,
+                "species": "GEODUDE"
+            },
+            {
+                "level": 7,
+                "species": "PONYTA"
+            },
+            {
+                "level": 7,
+                "species": "GEODUDE"
+            },
+            {
+                "level": 7,
+                "species": "PONYTA"
+            },
+            {
+                "level": 7,
+                "species": "GEODUDE"
+            }
+        ],
+        "swarm": [
+            "PHANPY",
+            "PHANPY"
+        ],
+        "day_only": [
+            "PONYTA",
+            "MACHOP"
+        ],
+        "night_only": [
+            "KRICKETOT",
+            "ZUBAT"
+        ],
+        "poke_radar": [
+            "STANTLER",
+            "STANTLER",
+            "STANTLER",
+            "STANTLER"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "PONYTA",
+                "GEODUDE"
+            ],
+            "sapphire": [
+                "PONYTA",
+                "GEODUDE"
+            ],
+            "emerald": [
+                "PONYTA",
+                "GEODUDE"
+            ],
+            "fire_red": [
+                "PONYTA",
+                "GEODUDE"
+            ],
+            "leaf_green": [
+                "PONYTA",
+                "GEODUDE"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 0,
+        "slots": [
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "good": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "super": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "WEST",
+        "gastrodon": "WEST",
+        "unown_table": 0
+    }
+}

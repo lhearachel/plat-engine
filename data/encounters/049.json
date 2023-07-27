@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 15,
+        "slots": [
+            {
+                "level": 42,
+                "species": "FLOATZEL"
+            },
+            {
+                "level": 41,
+                "species": "AZUMARILL"
+            },
+            {
+                "level": 41,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 43,
+                "species": "AZUMARILL"
+            },
+            {
+                "level": 42,
+                "species": "ONIX"
+            },
+            {
+                "level": 44,
+                "species": "FLOATZEL"
+            },
+            {
+                "level": 44,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 43,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 44,
+                "species": "STEELIX"
+            },
+            {
+                "level": 43,
+                "species": "GABITE"
+            },
+            {
+                "level": 44,
+                "species": "STEELIX"
+            },
+            {
+                "level": 43,
+                "species": "GABITE"
+            }
+        ],
+        "swarm": [
+            "FLOATZEL",
+            "AZUMARILL"
+        ],
+        "day_only": [
+            "GRAVELER",
+            "AZUMARILL"
+        ],
+        "night_only": [
+            "GOLBAT",
+            "AZUMARILL"
+        ],
+        "poke_radar": [
+            "ONIX",
+            "FLOATZEL",
+            "STEELIX",
+            "GABITE"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "STEELIX",
+                "GABITE"
+            ],
+            "sapphire": [
+                "STEELIX",
+                "GABITE"
+            ],
+            "emerald": [
+                "STEELIX",
+                "GABITE"
+            ],
+            "fire_red": [
+                "STEELIX",
+                "GABITE"
+            ],
+            "leaf_green": [
+                "STEELIX",
+                "GABITE"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 15,
+        "slots": [
+            {
+                "min_level": 30,
+                "max_level": 50,
+                "species": "FLOATZEL"
+            },
+            {
+                "min_level": 30,
+                "max_level": 50,
+                "species": "FLOATZEL"
+            },
+            {
+                "min_level": 30,
+                "max_level": 50,
+                "species": "GOLBAT"
+            },
+            {
+                "min_level": 30,
+                "max_level": 50,
+                "species": "GOLBAT"
+            },
+            {
+                "min_level": 30,
+                "max_level": 50,
+                "species": "GOLBAT"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 25,
+            "slots": [
+                {
+                    "min_level": 4,
+                    "max_level": 6,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 3,
+                    "max_level": 7,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 10,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 5,
+                    "max_level": 15,
+                    "species": "MAGIKARP"
+                }
+            ]
+        },
+        "good": {
+            "rate": 55,
+            "slots": [
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 15,
+                    "max_level": 20,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "MAGIKARP"
+                },
+                {
+                    "min_level": 10,
+                    "max_level": 25,
+                    "species": "MAGIKARP"
+                }
+            ]
+        },
+        "super": {
+            "rate": 75,
+            "slots": [
+                {
+                    "min_level": 30,
+                    "max_level": 40,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 30,
+                    "max_level": 40,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "GYARADOS"
+                },
+                {
+                    "min_level": 40,
+                    "max_level": 55,
+                    "species": "GYARADOS"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "EAST",
+        "gastrodon": "EAST",
+        "unown_table": 0
+    }
+}

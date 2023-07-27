@@ -1,0 +1,222 @@
+{
+    "grass": {
+        "rate": 10,
+        "slots": [
+            {
+                "level": 32,
+                "species": "ONIX"
+            },
+            {
+                "level": 33,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 31,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 33,
+                "species": "GOLBAT"
+            },
+            {
+                "level": 33,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 34,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 33,
+                "species": "STEELIX"
+            },
+            {
+                "level": 35,
+                "species": "STEELIX"
+            },
+            {
+                "level": 31,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 32,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 31,
+                "species": "GRAVELER"
+            },
+            {
+                "level": 32,
+                "species": "GRAVELER"
+            }
+        ],
+        "swarm": [
+            "ONIX",
+            "GRAVELER"
+        ],
+        "day_only": [
+            "GOLBAT",
+            "GOLBAT"
+        ],
+        "night_only": [
+            "GOLBAT",
+            "GOLBAT"
+        ],
+        "poke_radar": [
+            "GRAVELER",
+            "GRAVELER",
+            "GRAVELER",
+            "GRAVELER"
+        ],
+        "dual_pack": {
+            "ruby": [
+                "MAWILE",
+                "MAWILE"
+            ],
+            "sapphire": [
+                "SABLEYE",
+                "SABLEYE"
+            ],
+            "emerald": [
+                "GRAVELER",
+                "GRAVELER"
+            ],
+            "fire_red": [
+                "GRAVELER",
+                "GRAVELER"
+            ],
+            "leaf_green": [
+                "GRAVELER",
+                "GRAVELER"
+            ]
+        }
+    },
+    "surfing": {
+        "rate": 0,
+        "slots": [
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            },
+            {
+                "min_level": 0,
+                "max_level": 0,
+                "species": "NONE"
+            }
+        ]
+    },
+    "fishing": {
+        "old": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "good": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        },
+        "super": {
+            "rate": 0,
+            "slots": [
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                },
+                {
+                    "min_level": 0,
+                    "max_level": 0,
+                    "species": "NONE"
+                }
+            ]
+        }
+    },
+    "forms": {
+        "shellos": "WEST",
+        "gastrodon": "WEST",
+        "unown_table": 0
+    }
+}
