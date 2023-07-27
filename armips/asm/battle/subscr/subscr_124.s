@@ -36,13 +36,13 @@ subscr_124_BoostDef:
     // Boost Defense by 1
     SetVar                              OP_SET, VAR_EFFECT_PARAMS, ADDL_EFFECT_DEF_UP_1
     CallSubscript                       SUBSCR_BOOST_STATS
-    If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_NO_MESSAGE_BETWEEN, subscr_124_BoostSpDef
+    If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_STAT_CHANGE_FAILED, subscr_124_BoostSpDef
     SetMonData                          OP_ADD, BATTLER_ATTACKER, BATTLE_MON_STOCKPILE_DEF_BOOSTS, 1
 subscr_124_BoostSpDef:
     // Boost SpDefense by 1
     SetVar                              OP_SET, VAR_EFFECT_PARAMS, ADDL_EFFECT_SPD_UP_1
     CallSubscript                       SUBSCR_BOOST_STATS
-    If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_NO_MESSAGE_BETWEEN, subscr_124_Cleanup
+    If                                  FLAG_EQ, VAR_SERVER_STATUS_FLAG, SERVER_STATUS_FLAG_STAT_CHANGE_FAILED, subscr_124_Cleanup
     SetMonData                          OP_ADD, BATTLER_ATTACKER, BATTLE_MON_STOCKPILE_SPD_BOOSTS, 1
 subscr_124_Cleanup:
     SetVar                              OP_CLEAR_FLAG, VAR_SERVER_STATUS_FLAG2, SERVER_STATUS_FLAG2_UPDATE_STAT_STAGES

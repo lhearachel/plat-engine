@@ -89,6 +89,7 @@ Server_CheckSubstitute = 0x02259AC0 | 1;
 Server_DivideBy = 0x022563F8 | 1;
 Server_LoadSequence = 0x02251E1C | 1;
 Server_CopyBattleMonData = 0x02253EC0 | 1;
+Server_NicknameParam = 0x02255560 | 1;
 BattlePokemon_Get = 0x02252060 | 1;
 BattlePokemon_Add = 0x02252A2C | 1;
 

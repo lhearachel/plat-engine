@@ -746,6 +746,13 @@ void __attribute__((long_call)) Server_LoadSequence(struct BattleServer *server,
 void __attribute__((long_call)) Server_CopyBattleMonData(struct Battle *battle, struct BattleServer *server, int battler);
 
 /**
+ * @brief Makes a parameter structure for a given battler's nickname.
+ * 
+ * Original function: 0x02255560 (ov16)
+ */
+int __attribute__((long_call)) Server_NicknameParam(struct BattleServer *server, int battler);
+
+/**
  * @brief Gets a data value for a particular active battler.
  * 
  * Original function: 0x02252060 (ov16)

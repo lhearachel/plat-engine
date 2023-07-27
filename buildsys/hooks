@@ -40,3 +40,4 @@ arm9 Summary_Entry_Hook 08090A3A 1
 0016 Server_CheckAbilityDamageOverride 02256148 3
 0016 Server_CheckEndOfTurnAbility 022562E8 3
 0016 Server_CheckSwitchInEffects 02256414 2
+0016 BattleScrCmd_StatBoostChange 02242400 2

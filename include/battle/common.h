@@ -117,7 +117,7 @@
 #define SERVER_STATUS_FLAG_MOVE_ANIMATIONS_OFF  (0x00004000)
 #define SERVER_STATUS_FLAG_IGNORE_IMMUNITIES    (0x00008000)    // this is specifically for immunities
 #define SERVER_STATUS_FLAG_MULTI_HIT_NO_MESSAGE (0x00010000)
-#define SERVER_STATUS_FLAG_NO_MESSAGE_BETWEEN   (0x00020000)
+#define SERVER_STATUS_FLAG_STAT_CHANGE_FAILED   (0x00020000)
 #define SERVER_STATUS_FLAG_MESSAGE_AFTER_MISS   (0x00040000)
 #define SERVER_STATUS_FLAG_HIT_SHADOW_FORCE     (0x00080000)
 #define SERVER_STATUS_FLAG_NO_MOVE_SET          (0x00100000)
@@ -147,7 +147,7 @@
                                                 | SERVER_STATUS_FLAG_MOVE_ANIMATIONS_OFF \
                                                 | SERVER_STATUS_FLAG_IGNORE_IMMUNITIES \
                                                 | SERVER_STATUS_FLAG_MULTI_HIT_NO_MESSAGE \
-                                                | SERVER_STATUS_FLAG_NO_MESSAGE_BETWEEN \
+                                                | SERVER_STATUS_FLAG_STAT_CHANGE_FAILED \
                                                 | SERVER_STATUS_FLAG_MESSAGE_AFTER_MISS \
                                                 | SERVER_STATUS_FLAG_HIT_SHADOW_FORCE \
                                                 | SERVER_STATUS_FLAG_NO_MOVE_SET \
@@ -678,6 +678,74 @@
 #define RECOVER_HALF_HP     254
 #define RECOVER_QUARTER_HP  253
 
+
+// ========================================================================= //
+//                              MESSAGE TAGS                                 //
+// ========================================================================= //
+
+enum {
+    TAG_NONE = 0,
+    TAG_NONE_DIRECTION,
+    TAG_NICK,
+    TAG_MOVE,
+    TAG_STAT,
+    TAG_ITEM,
+    TAG_NUM,
+    TAG_NUMS,
+    TAG_TRNAME,
+    TAG_NICK_NICK,
+    TAG_NICK_MOVE,
+    TAG_NICK_ABIL,
+    TAG_NICK_STAT,
+    TAG_NICK_TYPE,
+    TAG_NICK_POKE,
+    TAG_NICK_ITEM,
+    TAG_NICK_POFF,
+    TAG_NICK_NUM,
+    TAG_NICK_TRNAME,
+    TAG_NICK_BOX,
+    TAG_MOVE_DIR,
+    TAG_MOVE_NICK,
+    TAG_MOVE_MOVE,
+    TAG_ABIL_NICK,
+    TAG_ITEM_MOVE,
+    TAG_NUM_NUM,
+    TAG_TRNAME_TRNAME,
+    TAG_TRNAME_NICK,
+    TAG_TRNAME_ITEM,
+    TAG_TRNAME_NUM,
+    TAG_TRTYPE_TRNAME,
+    TAG_NICK_NICK_MOVE,
+    TAG_NICK_NICK_ABIL,
+    TAG_NICK_NICK_ITEM,
+    TAG_NICK_MOVE_MOVE,
+    TAG_NICK_MOVE_NUM,
+    TAG_NICK_ABIL_NICK,
+    TAG_NICK_ABIL_MOVE,
+    TAG_NICK_ABIL_ITEM,
+    TAG_NICK_ABIL_STAT,
+    TAG_NICK_ABIL_TYPE,
+    TAG_NICK_ABIL_COND,
+    TAG_NICK_ABIL_NUM,
+    TAG_NICK_ITEM_NICK,
+    TAG_NICK_ITEM_MOVE,
+    TAG_NICK_ITEM_STAT,
+    TAG_NICK_ITEM_COND,
+    TAG_NICK_BOX_BOX,
+    TAG_ITEM_NICK_TASTE,
+    TAG_TRNAME_NICK_NICK,
+    TAG_TRTYPE_TRNAME_NICK,
+    TAG_TRTYPE_TRNAME_ITEM,
+    TAG_NICK_ABIL_NICK_MOVE,
+    TAG_NICK_ABIL_NICK_ABIL,
+    TAG_NICK_ABIL_NICK_STAT,
+    TAG_NICK_ITEM_NICK_ITEM,
+    TAG_TRNAME_NICK_TRNAME_NICK,
+    TAG_TRTYPE_TRNAME_NICK_NICK,
+    TAG_TRTYPE_TRNAME_NICK_TRNAME,
+    TAG_TRTYPE_TRNAME_TRTYPE_TRNAME,
+    TAG_TRTYPE_TRNAME_NICKx2,
+};
 
 // ========================================================================= //
 //                      COMMAND SELECTION CONSTANTS                          //
