@@ -126,7 +126,7 @@ HEIGHTS_TARGET := $(FILESYS)/poketool/pokegra/height.narc
 HEIGHTS_DEPS := armips/data/sprite_heights.s
 
 $(HEIGHTS_NARC): $(HEIGHTS_DEPS)
-	mkdir -p $(HEIGHTS_DIR)
+	mkdir -p $(HEIGHTS_DIR)cd 
 	$(ARMIPS) $^
 	$(NARCHIVE) create $@ $(HEIGHTS_DIR) -nf
 
@@ -161,7 +161,9 @@ ENCDATA_DATA_DIR = $(BUILD)/encdata
 ENCDATA_NARC := $(BUILD_NARC)/pl_enc_data.narc
 ENCDATA_TARGET := $(FILESYS)/fielddata/encountdata/pl_enc_data.narc
 
-$(ENCDATA_NARC):
+ENCDATA_SRCS := $(wildcard data/encounters/*.json)
+
+$(ENCDATA_NARC): $(ENCDATA_SRCS)
 	$(PYTHON) scripts/build/enc_data.py build
 	$(NARCHIVE) create $(ENCDATA_NARC) $(ENCDATA_DATA_DIR) -nf
 

@@ -492,3 +492,209 @@ a {COLOR 255}Manaphy{COLOR 0}
 a {COLOR 255}Darkrai{COLOR 0}
 a {COLOR 255}Shaymin{COLOR 0}
 an {COLOR 255}Arceus{COLOR 0}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a {COLOR 255}Victini{COLOR 0}
+a {COLOR 255}Snivy{COLOR 0}
+a {COLOR 255}Servine{COLOR 0}
+a {COLOR 255}Serperior{COLOR 0}
+a {COLOR 255}Tepig{COLOR 0}
+a {COLOR 255}Pignite{COLOR 0}
+an {COLOR 255}Emboar{COLOR 0}
+an {COLOR 255}Oshawott{COLOR 0}
+a {COLOR 255}Dewott{COLOR 0}
+a {COLOR 255}Samurott{COLOR 0}
+a {COLOR 255}Patrat{COLOR 0}
+a {COLOR 255}Watchog{COLOR 0}
+a {COLOR 255}Lillipup{COLOR 0}
+a {COLOR 255}Herdier{COLOR 0}
+a {COLOR 255}Stoutland{COLOR 0}
+a {COLOR 255}Purrloin{COLOR 0}
+a {COLOR 255}Liepard{COLOR 0}
+a {COLOR 255}Pansage{COLOR 0}
+a {COLOR 255}Simisage{COLOR 0}
+a {COLOR 255}Pansear{COLOR 0}
+a {COLOR 255}Simisear{COLOR 0}
+a {COLOR 255}Panpour{COLOR 0}
+a {COLOR 255}Simipour{COLOR 0}
+a {COLOR 255}Munna{COLOR 0}
+a {COLOR 255}Musharna{COLOR 0}
+a {COLOR 255}Pidove{COLOR 0}
+a {COLOR 255}Tranquill{COLOR 0}
+an {COLOR 255}Unfezant{COLOR 0}
+a {COLOR 255}Blitzle{COLOR 0}
+a {COLOR 255}Zebstrika{COLOR 0}
+a {COLOR 255}Roggenrola{COLOR 0}
+a {COLOR 255}Boldore{COLOR 0}
+a {COLOR 255}Gigalith{COLOR 0}
+a {COLOR 255}Woobat{COLOR 0}
+a {COLOR 255}Swoobat{COLOR 0}
+a {COLOR 255}Drilbur{COLOR 0}
+an {COLOR 255}Excadrill{COLOR 0}
+an {COLOR 255}Audino{COLOR 0}
+a {COLOR 255}Timburr{COLOR 0}
+a {COLOR 255}Gurdurr{COLOR 0}
+a {COLOR 255}Conkeldurr{COLOR 0}
+a {COLOR 255}Tympole{COLOR 0}
+a {COLOR 255}Palpitoad{COLOR 0}
+a {COLOR 255}Seismitoad{COLOR 0}
+a {COLOR 255}Throh{COLOR 0}
+a {COLOR 255}Sawk{COLOR 0}
+a {COLOR 255}Sewaddle{COLOR 0}
+a {COLOR 255}Swadloon{COLOR 0}
+a {COLOR 255}Leavanny{COLOR 0}
+a {COLOR 255}Venipede{COLOR 0}
+a {COLOR 255}Whirlipede{COLOR 0}
+a {COLOR 255}Scolipede{COLOR 0}
+a {COLOR 255}Cottonee{COLOR 0}
+a {COLOR 255}Whimsicott{COLOR 0}
+a {COLOR 255}Petilil{COLOR 0}
+a {COLOR 255}Lilligant{COLOR 0}
+a {COLOR 255}Basculin{COLOR 0}
+a {COLOR 255}Sandile{COLOR 0}
+a {COLOR 255}Krokorok{COLOR 0}
+a {COLOR 255}Krookodile{COLOR 0}
+a {COLOR 255}Darumaka{COLOR 0}
+a {COLOR 255}Darmanitan{COLOR 0}
+a {COLOR 255}Maractus{COLOR 0}
+a {COLOR 255}Dwebble{COLOR 0}
+a {COLOR 255}Crustle{COLOR 0}
+a {COLOR 255}Scraggy{COLOR 0}
+a {COLOR 255}Scrafty{COLOR 0}
+a {COLOR 255}Sigilyph{COLOR 0}
+a {COLOR 255}Yamask{COLOR 0}
+a {COLOR 255}Cofagrigus{COLOR 0}
+a {COLOR 255}Tirtouga{COLOR 0}
+a {COLOR 255}Carracosta{COLOR 0}
+an {COLOR 255}Archen{COLOR 0}
+an {COLOR 255}Archeops{COLOR 0}
+a {COLOR 255}Trubbish{COLOR 0}
+a {COLOR 255}Garbodor{COLOR 0}
+a {COLOR 255}Zorua{COLOR 0}
+a {COLOR 255}Zoroark{COLOR 0}
+a {COLOR 255}Minccino{COLOR 0}
+a {COLOR 255}Cinccino{COLOR 0}
+a {COLOR 255}Gothita{COLOR 0}
+a {COLOR 255}Gothorita{COLOR 0}
+a {COLOR 255}Gothitelle{COLOR 0}
+a {COLOR 255}Solosis{COLOR 0}
+a {COLOR 255}Duosion{COLOR 0}
+a {COLOR 255}Reuniclus{COLOR 0}
+a {COLOR 255}Ducklett{COLOR 0}
+a {COLOR 255}Swanna{COLOR 0}
+a {COLOR 255}Vanillite{COLOR 0}
+a {COLOR 255}Vanillish{COLOR 0}
+a {COLOR 255}Vanilluxe{COLOR 0}
+a {COLOR 255}Deerling{COLOR 0}
+a {COLOR 255}Sawsbuck{COLOR 0}
+an {COLOR 255}Emolga{COLOR 0}
+a {COLOR 255}Karrablast{COLOR 0}
+an {COLOR 255}Escavalier{COLOR 0}
+a {COLOR 255}Foongus{COLOR 0}
+an {COLOR 255}Amoonguss{COLOR 0}
+a {COLOR 255}Frillish{COLOR 0}
+a {COLOR 255}Jellicent{COLOR 0}
+an {COLOR 255}Alomomola{COLOR 0}
+a {COLOR 255}Joltik{COLOR 0}
+a {COLOR 255}Galvantula{COLOR 0}
+a {COLOR 255}Ferroseed{COLOR 0}
+a {COLOR 255}Ferrothorn{COLOR 0}
+a {COLOR 255}Klink{COLOR 0}
+a {COLOR 255}Klang{COLOR 0}
+a {COLOR 255}Klinklang{COLOR 0}
+a {COLOR 255}Tynamo{COLOR 0}
+an {COLOR 255}Eelektrik{COLOR 0}
+an {COLOR 255}Eelektross{COLOR 0}
+an {COLOR 255}Elgyem{COLOR 0}
+a {COLOR 255}Beheeyem{COLOR 0}
+a {COLOR 255}Litwick{COLOR 0}
+a {COLOR 255}Lampent{COLOR 0}
+a {COLOR 255}Chandelure{COLOR 0}
+an {COLOR 255}Axew{COLOR 0}
+a {COLOR 255}Fraxure{COLOR 0}
+a {COLOR 255}Haxorus{COLOR 0}
+a {COLOR 255}Cubchoo{COLOR 0}
+a {COLOR 255}Beartic{COLOR 0}
+a {COLOR 255}Cryogonal{COLOR 0}
+a {COLOR 255}Shelmet{COLOR 0}
+an {COLOR 255}Accelgor{COLOR 0}
+a {COLOR 255}Stunfisk{COLOR 0}
+a {COLOR 255}Mienfoo{COLOR 0}
+a {COLOR 255}Mienshao{COLOR 0}
+a {COLOR 255}Druddigon{COLOR 0}
+a {COLOR 255}Golett{COLOR 0}
+a {COLOR 255}Golurk{COLOR 0}
+a {COLOR 255}Pawniard{COLOR 0}
+a {COLOR 255}Bisharp{COLOR 0}
+a {COLOR 255}Bouffalant{COLOR 0}
+a {COLOR 255}Rufflet{COLOR 0}
+a {COLOR 255}Braviary{COLOR 0}
+a {COLOR 255}Vullaby{COLOR 0}
+a {COLOR 255}Mandibuzz{COLOR 0}
+a {COLOR 255}Heatmor{COLOR 0}
+a {COLOR 255}Durant{COLOR 0}
+a {COLOR 255}Deino{COLOR 0}
+a {COLOR 255}Zweilous{COLOR 0}
+a {COLOR 255}Hydreigon{COLOR 0}
+a {COLOR 255}Larvesta{COLOR 0}
+a {COLOR 255}Volcarona{COLOR 0}
+a {COLOR 255}Cobalion{COLOR 0}
+a {COLOR 255}Terrakion{COLOR 0}
+a {COLOR 255}Virizion{COLOR 0}
+a {COLOR 255}Tornadus{COLOR 0}
+a {COLOR 255}Thundurus{COLOR 0}
+a {COLOR 255}Reshiram{COLOR 0}
+a {COLOR 255}Zekrom{COLOR 0}
+a {COLOR 255}Landorus{COLOR 0}
+a {COLOR 255}Kyurem{COLOR 0}
+a {COLOR 255}Keldeo{COLOR 0}
+a {COLOR 255}Meloetta{COLOR 0}
+a {COLOR 255}Genesect{COLOR 0}

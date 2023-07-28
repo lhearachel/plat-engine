@@ -211,8 +211,6 @@ def dump_pokemon():
     learnset = NARC.fromFile(BASE_LEARNSET_NARC)
     name_txt = open(TEXT_DUMP_TARGET.format(archive=POKEMON_NAMES_BANK), 'r')
     extra_names = [
-        'Egg',
-        'Bad Egg',
         'Deoxys-Attack',
         'Deoxys-Defense',
         'Deoxys-Speed',
@@ -227,7 +225,7 @@ def dump_pokemon():
         'Rotom-Mow'
     ]
     for i in range(508):
-        if i < 494:
+        if i < 496:
             name = name_txt.readline().strip()
         else:
             name = extra_names[i - 494]
@@ -475,7 +473,7 @@ def build_pokemon():
     if not os.path.exists(BUILD_PERSONAL_DIR + '/wotbl'):
         os.makedirs(BUILD_PERSONAL_DIR + '/wotbl')
 
-    names_file = open(TEXT_DUMP_TARGET.format(archive=POKEDEX_NAMES_BANK), 'w', encoding='utf8')
+    names_file = open(TEXT_DUMP_TARGET.format(archive=POKEMON_NAMES_BANK), 'w', encoding='utf8')
     articles_file = open(TEXT_DUMP_TARGET.format(archive=POKEMON_ARTICLES), 'w', encoding='utf8')
     pokedex_file = open(TEXT_DUMP_TARGET.format(archive=POKEDEX_NAMES_BANK), 'w', encoding='utf8')
     mon_ids_to_names = {}
@@ -495,18 +493,21 @@ def build_pokemon():
     sorted_mon_ids = list(mon_ids_to_names.keys())
     sorted_mon_ids.sort()
 
+    dex_counter = 0
     for mon_id in sorted_mon_ids:
         name = mon_ids_to_names[mon_id]
-        if mon_id == 0:
+        if name == '-----' or (mon_id > 493 and mon_id < 544):
             articles_file.write('\r\n')
             pokedex_file.write('----------\r\n')
-        elif mon_id < 494:
+            name = '-----'
+        else:
+            dex_counter += 1
             article = 'a '
             if name[0] in ['A', 'E', 'I', 'O', 'U']:
                 article = 'an '
 
             articles_file.write(f'{article}{{COLOR 255}}{name}{{COLOR 0}}\r\n')
-            pokedex_file.write(f'{mon_id:03}  {name}\r\n')
+            pokedex_file.write(f'{dex_counter:03}  {name}\r\n')
 
         names_file.write(f'{name}\r\n')
     
