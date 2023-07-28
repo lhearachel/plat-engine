@@ -1,0 +1,59 @@
+{
+    "name": "Archen",
+    "base_stats": {
+        "hp": 55,
+        "attack": 112,
+        "defense": 45,
+        "sp_attack": 74,
+        "sp_defense": 45,
+        "speed": 70
+    },
+    "types": [
+        "ROCK",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "DEFEATIST"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 71,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 30,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FLYING",
+        "WATER_3"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "GUST"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            37,
+            "ARCHEOPS"
+        ]
+    ]
+}

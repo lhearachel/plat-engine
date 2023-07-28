@@ -1,0 +1,52 @@
+{
+    "name": "Terrakion",
+    "base_stats": {
+        "hp": 91,
+        "attack": 129,
+        "defense": 90,
+        "sp_attack": 72,
+        "sp_defense": 90,
+        "speed": 108
+    },
+    "types": [
+        "ROCK",
+        "FIGHTING"
+    ],
+    "abilities": {
+        "0": "JUSTIFIED"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 3,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 80,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "KARATE_CHOP"
+            ]
+        }
+    }
+}

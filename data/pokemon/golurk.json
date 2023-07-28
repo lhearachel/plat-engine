@@ -1,0 +1,54 @@
+{
+    "name": "Golurk",
+    "base_stats": {
+        "hp": 89,
+        "attack": 124,
+        "defense": 80,
+        "sp_attack": 55,
+        "sp_defense": 80,
+        "speed": 55
+    },
+    "types": [
+        "GROUND",
+        "GHOST"
+    ],
+    "abilities": {
+        "0": "IRON_FIST",
+        "1": "KLUTZ",
+        "H": "NO_GUARD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 169,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 25,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "MUD_SHOT",
+                "LICK"
+            ]
+        }
+    }
+}

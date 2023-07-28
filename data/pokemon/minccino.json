@@ -1,0 +1,58 @@
+{
+    "name": "Minccino",
+    "base_stats": {
+        "hp": 55,
+        "attack": 50,
+        "defense": 40,
+        "sp_attack": 40,
+        "sp_defense": 40,
+        "speed": 75
+    },
+    "types": [
+        "NORMAL",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "CUTE_CHARM",
+        "1": "TECHNICIAN",
+        "H": "SKILL_LINK"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 60,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_75",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "TACKLE"
+        }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM",
+            "SHINY_STONE",
+            "CINCCINO"
+        ]
+    ]
+}

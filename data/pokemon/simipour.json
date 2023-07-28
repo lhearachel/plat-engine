@@ -1,0 +1,50 @@
+{
+    "name": "Simipour",
+    "base_stats": {
+        "hp": 75,
+        "attack": 98,
+        "defense": 63,
+        "sp_attack": 98,
+        "sp_defense": 63,
+        "speed": 101
+    },
+    "types": [
+        "WATER",
+        "WATER"
+    ],
+    "abilities": {
+        "0": "GLUTTONY",
+        "H": "TORRENT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 174,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "WATER_GUN"
+        }
+    }
+}

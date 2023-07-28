@@ -1,0 +1,60 @@
+{
+    "name": "Larvesta",
+    "base_stats": {
+        "hp": 55,
+        "attack": 85,
+        "defense": 55,
+        "sp_attack": 50,
+        "sp_defense": 55,
+        "speed": 60
+    },
+    "types": [
+        "BUG",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "FLAME_BODY",
+        "H": "SWARM"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 72,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 40,
+    "base_happiness": 50,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "WHITE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "LEECH_LIFE",
+                "EMBER"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            59,
+            "VOLCARONA"
+        ]
+    ]
+}

@@ -1,0 +1,61 @@
+{
+    "name": "Tirtouga",
+    "base_stats": {
+        "hp": 54,
+        "attack": 78,
+        "defense": 103,
+        "sp_attack": 53,
+        "sp_defense": 45,
+        "speed": 22
+    },
+    "types": [
+        "WATER",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "SOLID_ROCK",
+        "1": "STURDY",
+        "H": "SWIFT_SWIM"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 71,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 30,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "WATER_1",
+        "WATER_3"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "WATER_GUN",
+                "ROCK_THROW"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            37,
+            "CARRACOSTA"
+        ]
+    ]
+}

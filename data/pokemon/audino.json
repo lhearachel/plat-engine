@@ -1,0 +1,51 @@
+{
+    "name": "Audino",
+    "base_stats": {
+        "hp": 103,
+        "attack": 60,
+        "defense": 86,
+        "sp_attack": 60,
+        "sp_defense": 86,
+        "speed": 50
+    },
+    "types": [
+        "NORMAL",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "HEALER",
+        "1": "REGENERATOR",
+        "H": "KLUTZ"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 2,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "FAIRY",
+        "FAIRY"
+    ],
+    "flee_chance": 0,
+    "body_color": "PINK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "TACKLE"
+        }
+    }
+}

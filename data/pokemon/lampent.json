@@ -1,0 +1,61 @@
+{
+    "name": "Lampent",
+    "base_stats": {
+        "hp": 60,
+        "attack": 40,
+        "defense": 60,
+        "sp_attack": 95,
+        "sp_defense": 60,
+        "speed": 55
+    },
+    "types": [
+        "GHOST",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "FLASH_FIRE",
+        "1": "FLAME_BODY",
+        "H": "INFILTRATOR"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 130,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 2,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "AMORPHOUS",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "LICK",
+                "EMBER"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM",
+            "DUSK_STONE",
+            "CHANDELURE"
+        ]
+    ]
+}

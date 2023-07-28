@@ -1,0 +1,58 @@
+{
+    "name": "Axew",
+    "base_stats": {
+        "hp": 46,
+        "attack": 87,
+        "defense": 60,
+        "sp_attack": 30,
+        "sp_defense": 40,
+        "speed": 57
+    },
+    "types": [
+        "DRAGON",
+        "DRAGON"
+    ],
+    "abilities": {
+        "0": "RIVALRY",
+        "1": "MOLD_BREAKER",
+        "H": "UNNERVE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 64,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 40,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "MONSTER",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "DRAGON_RAGE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            38,
+            "FRAXURE"
+        ]
+    ]
+}

@@ -1,0 +1,54 @@
+{
+    "name": "Excadrill",
+    "base_stats": {
+        "hp": 110,
+        "attack": 135,
+        "defense": 60,
+        "sp_attack": 50,
+        "sp_defense": 65,
+        "speed": 88
+    },
+    "types": [
+        "GROUND",
+        "STEEL"
+    ],
+    "abilities": {
+        "0": "SAND_RUSH",
+        "1": "SAND_FORCE",
+        "H": "MOLD_BREAKER"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 178,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "MUD_SHOT",
+                "METAL_CLAW"
+            ]
+        }
+    }
+}

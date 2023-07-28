@@ -1,0 +1,60 @@
+{
+    "name": "Pignite",
+    "base_stats": {
+        "hp": 90,
+        "attack": 93,
+        "defense": 55,
+        "sp_attack": 70,
+        "sp_defense": 55,
+        "speed": 55
+    },
+    "types": [
+        "FIRE",
+        "FIGHTING"
+    ],
+    "abilities": {
+        "0": "BLAZE",
+        "H": "THICK_FAT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 146,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "EMBER",
+                "KARATE_CHOP"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            36,
+            "EMBOAR"
+        ]
+    ]
+}

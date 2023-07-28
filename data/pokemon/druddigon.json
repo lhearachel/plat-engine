@@ -1,0 +1,51 @@
+{
+    "name": "Druddigon",
+    "base_stats": {
+        "hp": 77,
+        "attack": 120,
+        "defense": 90,
+        "sp_attack": 60,
+        "sp_defense": 90,
+        "speed": 48
+    },
+    "types": [
+        "DRAGON",
+        "DRAGON"
+    ],
+    "abilities": {
+        "0": "ROUGH_SKIN",
+        "1": "SHEER_FORCE",
+        "H": "MOLD_BREAKER"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 170,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 30,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "DRAGON",
+        "MONSTER"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "DRAGON_RAGE"
+        }
+    }
+}

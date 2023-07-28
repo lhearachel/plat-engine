@@ -1,0 +1,49 @@
+{
+    "name": "Eelektross",
+    "base_stats": {
+        "hp": 85,
+        "attack": 115,
+        "defense": 80,
+        "sp_attack": 105,
+        "sp_defense": 80,
+        "speed": 50
+    },
+    "types": [
+        "ELECTRIC",
+        "ELECTRIC"
+    ],
+    "abilities": {
+        "0": "LEVITATE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 30,
+    "base_exp_reward": 232,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 3,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "AMORPHOUS",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "THUNDER_SHOCK"
+        }
+    }
+}

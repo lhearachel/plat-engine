@@ -1,0 +1,49 @@
+{
+    "name": "Cofagrigus",
+    "base_stats": {
+        "hp": 58,
+        "attack": 50,
+        "defense": 145,
+        "sp_attack": 95,
+        "sp_defense": 105,
+        "speed": 30
+    },
+    "types": [
+        "GHOST",
+        "GHOST"
+    ],
+    "abilities": {
+        "0": "MUMMY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 169,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MINERAL",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "LICK"
+        }
+    }
+}

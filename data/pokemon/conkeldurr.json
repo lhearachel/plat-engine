@@ -1,0 +1,51 @@
+{
+    "name": "Conkeldurr",
+    "base_stats": {
+        "hp": 105,
+        "attack": 140,
+        "defense": 95,
+        "sp_attack": 55,
+        "sp_defense": 65,
+        "speed": 45
+    },
+    "types": [
+        "FIGHTING",
+        "FIGHTING"
+    ],
+    "abilities": {
+        "0": "GUTS",
+        "1": "SHEER_FORCE",
+        "H": "IRON_FIST"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 253,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 3,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_25",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "HUMAN_LIKE",
+        "HUMAN_LIKE"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "KARATE_CHOP"
+        }
+    }
+}

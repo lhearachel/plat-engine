@@ -1,0 +1,61 @@
+{
+    "name": "Sewaddle",
+    "base_stats": {
+        "hp": 45,
+        "attack": 53,
+        "defense": 70,
+        "sp_attack": 40,
+        "sp_defense": 60,
+        "speed": 42
+    },
+    "types": [
+        "BUG",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "SWARM",
+        "1": "CHLOROPHYLL",
+        "H": "OVERCOAT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 62,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "LEECH_LIFE",
+                "VINE_WHIP"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            20,
+            "SWADLOON"
+        ]
+    ]
+}

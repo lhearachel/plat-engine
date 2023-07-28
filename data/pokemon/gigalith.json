@@ -1,0 +1,51 @@
+{
+    "name": "Gigalith",
+    "base_stats": {
+        "hp": 85,
+        "attack": 135,
+        "defense": 130,
+        "sp_attack": 60,
+        "sp_defense": 80,
+        "speed": 25
+    },
+    "types": [
+        "ROCK",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "SAND_STREAM",
+        "H": "SAND_FORCE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 3,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "ROCK_THROW"
+        }
+    }
+}

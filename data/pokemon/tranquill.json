@@ -1,0 +1,61 @@
+{
+    "name": "Tranquill",
+    "base_stats": {
+        "hp": 62,
+        "attack": 77,
+        "defense": 62,
+        "sp_attack": 50,
+        "sp_defense": 42,
+        "speed": 65
+    },
+    "types": [
+        "NORMAL",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "BIG_PECKS",
+        "1": "SUPER_LUCK",
+        "H": "RIVALRY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 125,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FLYING",
+        "FLYING"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "GUST"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            32,
+            "UNFEZANT"
+        ]
+    ]
+}

@@ -332,7 +332,10 @@ def build_personal(pokemon: dict, i: int):
 
     # abilities
     binary = binary + Ability[pokemon['abilities']['0']].value.to_bytes(1, 'little')
-    binary = binary + Ability[pokemon['abilities']['1']].value.to_bytes(1, 'little')
+    if '1' in pokemon['abilities']:
+        binary = binary + Ability[pokemon['abilities']['1']].value.to_bytes(1, 'little')
+    else :
+        binary = binary + (0).to_bytes(1, 'little')
 
     # flee chance
     binary = binary + pokemon['flee_chance'].to_bytes(1, 'little')
@@ -477,6 +480,7 @@ def build_pokemon():
     pokedex_file = open(TEXT_DUMP_TARGET.format(archive=POKEDEX_NAMES_BANK), 'w', encoding='utf8')
     mon_ids_to_names = {}
     for fname in os.listdir('data/pokemon'):
+        print(f'-- Building {fname}')
         with open(f'data/pokemon/{fname}', 'r', encoding='utf8') as data:
             pokemon = json.load(data)
             name = pokemon['name']

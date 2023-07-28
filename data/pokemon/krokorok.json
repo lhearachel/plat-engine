@@ -1,0 +1,61 @@
+{
+    "name": "Krokorok",
+    "base_stats": {
+        "hp": 60,
+        "attack": 82,
+        "defense": 45,
+        "sp_attack": 45,
+        "sp_defense": 45,
+        "speed": 74
+    },
+    "types": [
+        "GROUND",
+        "DARK"
+    ],
+    "abilities": {
+        "0": "INTIMIDATE",
+        "1": "MOXIE",
+        "H": "ANGER_POINT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 123,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "MUD_SHOT",
+                "FAINT_ATTACK"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            40,
+            "KROOKODILE"
+        ]
+    ]
+}

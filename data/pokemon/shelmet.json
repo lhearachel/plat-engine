@@ -1,0 +1,57 @@
+{
+    "name": "Shelmet",
+    "base_stats": {
+        "hp": 50,
+        "attack": 40,
+        "defense": 85,
+        "sp_attack": 40,
+        "sp_defense": 65,
+        "speed": 25
+    },
+    "types": [
+        "BUG",
+        "BUG"
+    ],
+    "abilities": {
+        "0": "HYDRATION",
+        "1": "SHELL_ARMOR",
+        "H": "OVERCOAT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 200,
+    "base_exp_reward": 61,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "LEECH_LIFE"
+        }
+    },
+    "evolutions": [
+        [
+            "TRADE",
+            "ACCELGOR"
+        ]
+    ]
+}

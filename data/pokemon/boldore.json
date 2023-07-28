@@ -1,0 +1,57 @@
+{
+    "name": "Boldore",
+    "base_stats": {
+        "hp": 70,
+        "attack": 105,
+        "defense": 105,
+        "sp_attack": 50,
+        "sp_defense": 40,
+        "speed": 20
+    },
+    "types": [
+        "ROCK",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "WEAK_ARMOR",
+        "H": "SAND_FORCE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 137,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "ROCK_THROW"
+        }
+    },
+    "evolutions": [
+        [
+            "TRADE",
+            "GIGALITH"
+        ]
+    ]
+}

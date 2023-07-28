@@ -1,0 +1,59 @@
+{
+    "name": "Ferroseed",
+    "base_stats": {
+        "hp": 44,
+        "attack": 50,
+        "defense": 91,
+        "sp_attack": 24,
+        "sp_defense": 86,
+        "speed": 10
+    },
+    "types": [
+        "GRASS",
+        "STEEL"
+    ],
+    "abilities": {
+        "0": "IRON_BARBS"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 61,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "GRASS",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "VINE_WHIP",
+                "METAL_CLAW"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            40,
+            "FERROTHORN"
+        ]
+    ]
+}

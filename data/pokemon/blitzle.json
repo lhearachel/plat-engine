@@ -1,0 +1,58 @@
+{
+    "name": "Blitzle",
+    "base_stats": {
+        "hp": 45,
+        "attack": 60,
+        "defense": 32,
+        "sp_attack": 50,
+        "sp_defense": 32,
+        "speed": 76
+    },
+    "types": [
+        "ELECTRIC",
+        "ELECTRIC"
+    ],
+    "abilities": {
+        "0": "LIGHTNING_ROD",
+        "1": "MOTOR_DRIVE",
+        "H": "SAP_SIPPER"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 59,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "THUNDER_SHOCK"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            27,
+            "ZEBSTRIKA"
+        ]
+    ]
+}

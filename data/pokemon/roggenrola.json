@@ -1,0 +1,58 @@
+{
+    "name": "Roggenrola",
+    "base_stats": {
+        "hp": 55,
+        "attack": 75,
+        "defense": 85,
+        "sp_attack": 25,
+        "sp_defense": 25,
+        "speed": 15
+    },
+    "types": [
+        "ROCK",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "STURDY",
+        "1": "WEAK_ARMOR",
+        "H": "SAND_FORCE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 56,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "ROCK_THROW"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            25,
+            "BOLDORE"
+        ]
+    ]
+}

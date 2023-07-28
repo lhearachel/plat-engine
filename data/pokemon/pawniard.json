@@ -1,0 +1,61 @@
+{
+    "name": "Pawniard",
+    "base_stats": {
+        "hp": 45,
+        "attack": 85,
+        "defense": 70,
+        "sp_attack": 40,
+        "sp_defense": 40,
+        "speed": 60
+    },
+    "types": [
+        "DARK",
+        "STEEL"
+    ],
+    "abilities": {
+        "0": "DEFIANT",
+        "1": "INNER_FOCUS",
+        "H": "PRESSURE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 68,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 35,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "HUMAN_LIKE",
+        "HUMAN_LIKE"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "FAINT_ATTACK",
+                "METAL_CLAW"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            52,
+            "BISHARP"
+        ]
+    ]
+}

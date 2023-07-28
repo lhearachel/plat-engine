@@ -1,0 +1,57 @@
+{
+    "name": "Panpour",
+    "base_stats": {
+        "hp": 50,
+        "attack": 53,
+        "defense": 48,
+        "sp_attack": 53,
+        "sp_defense": 48,
+        "speed": 64
+    },
+    "types": [
+        "WATER",
+        "WATER"
+    ],
+    "abilities": {
+        "0": "GLUTTONY",
+        "H": "TORRENT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 63,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "WATER_GUN"
+        }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM",
+            "WATER_STONE",
+            "SIMIPOUR"
+        ]
+    ]
+}

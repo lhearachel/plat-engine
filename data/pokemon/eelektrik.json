@@ -1,0 +1,56 @@
+{
+    "name": "Eelektrik",
+    "base_stats": {
+        "hp": 65,
+        "attack": 85,
+        "defense": 70,
+        "sp_attack": 75,
+        "sp_defense": 70,
+        "speed": 40
+    },
+    "types": [
+        "ELECTRIC",
+        "ELECTRIC"
+    ],
+    "abilities": {
+        "0": "LEVITATE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 142,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "AMORPHOUS",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "THUNDER_SHOCK"
+        }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM",
+            "THUNDERSTONE",
+            "EELEKTROSS"
+        ]
+    ]
+}
