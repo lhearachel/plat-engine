@@ -104,6 +104,34 @@ $(ITEM_DATA_NARC):
 
 NARC_FILES += $(ITEM_DATA_NARC)
 
+# Sprite Offsets
+
+SPRITE_OFFSETS_DIR := $(BUILD)/poketool/poke_edit
+SPRITE_OFFSETS_NARC := $(BUILD_NARC)/pl_poke_data.narc
+SPRITE_OFFSETS_TARGET := $(FILESYS)/poketool/poke_edit/pl_poke_data.narc
+SPRITE_OFFSETS_DEPS := armips/data/sprite_offsets.s
+
+$(SPRITE_OFFSETS_NARC): $(SPRITE_OFFSETS_DEPS)
+	$(NARCHIVE) extract $(SPRITE_OFFSETS_TARGET) -o $(SPRITE_OFFSETS_DIR) -nf
+	$(ARMIPS) $^
+	$(NARCHIVE) create $@ $(SPRITE_OFFSETS_DIR) -nf
+
+NARC_FILES += $(SPRITE_OFFSETS_NARC)
+
+# Sprite Heights
+
+HEIGHTS_DIR := $(BUILD)/poketool/pokegra/height
+HEIGHTS_NARC := $(BUILD_NARC)/height.narc
+HEIGHTS_TARGET := $(FILESYS)/poketool/pokegra/height.narc
+HEIGHTS_DEPS := armips/data/sprite_heights.s
+
+$(HEIGHTS_NARC): $(HEIGHTS_DEPS)
+	mkdir -p $(HEIGHTS_DIR)
+	$(ARMIPS) $^
+	$(NARCHIVE) create $@ $(HEIGHTS_DIR) -nf
+
+NARC_FILES += $(HEIGHTS_NARC)
+
 # Pokemon Data
 
 PERSONAL_DATA_DIR := $(BUILD)/poketool/personal/pl_personal

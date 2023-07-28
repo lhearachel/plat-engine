@@ -101,6 +101,7 @@ FIELD_ASM_OBJS := $(patsubst $(ASM_SUBDIR)/%.s,$(BUILD)/%.d,$(FIELD_ASM_SRCS))
 FIELD_OBJS   := $(FIELD_C_OBJS) $(FIELD_ASM_OBJS) build/thumb_help.d
 
 ###################### Includes #######################
+#include data/graphics/pokegra.mk
 include narcs.mk
 
 ####################### Build #########################
@@ -153,6 +154,7 @@ output_dirs:
 	mkdir -p $(BUILD)/zukan
 	mkdir -p $(BUILD)/pokeicon
 	mkdir -p $(BUILD)/poketool/personal/pl_personal $(BUILD)/poketool/personal/evo $(BUILD)/poketool/personal/wotbl
+	mkdir -p $(BUILD)/poketool/poke_edit
 	mkdir -p $(BUILD)/narc/battle/skill
 	mkdir -p $(BUILD)/narc/msgdata
 	mkdir -p $(BUILD)/narc/itemtool
@@ -202,6 +204,8 @@ copy_narcs: narcs
 	cp $(ZUKAN_NARC) $(ZUKAN_TARGET)
 	cp $(TEXT_ARCHIVE_NARC) $(TEXT_ARCHIVE_TARGET)
 	cp $(POKEMON_ICONS_NARC) $(POKEMON_ICONS_TARGET)
+	cp $(SPRITE_OFFSETS_NARC) $(SPRITE_OFFSETS_TARGET)
+	cp $(HEIGHTS_NARC) $(HEIGHTS_TARGET)
 	@echo "✅ $(OUTPUT_FMT)Copied new NARCs into /$(BASE)$(FMT_OFF)"
 	@echo ""
 

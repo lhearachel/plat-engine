@@ -2,6 +2,8 @@ from ndspy.narc import NARC
 
 import sys
 
+from scripts.build.util import Species
+
 INPUT_DICT = {
     'move_data': ('narcs', 'base/data/poketool/waza/pl_waza_tbl.narc', 'build/narc/poketool/waza/pl_waza_tbl.narc', False),
     'be_seq': ('narcs', 'base/data/battle/skill/be_seq.narc', 'build/narc/battle/skill/be_seq.narc', True),
@@ -12,6 +14,8 @@ INPUT_DICT = {
     'evo': ('narcs', 'base/data/poketool/personal/evo.narc', 'build/narc/poketool/personal/evo.narc', False),
     'wotbl': ('narcs', 'base/data/poketool/personal/wotbl.narc', 'build/narc/poketool/personal/wotbl.narc', False),
     'encdata': ('narcs', 'base/data/fielddata/encountdata/pl_enc_data.narc', 'build/narc/pl_enc_data.narc', False),
+    'heights': ('narcs', 'base/data/poketool/pokegra/height.narc', 'build/narc/height.narc', False),
+    'sprite_ofs': ('narcs', 'base/data/poketool/poke_edit/pl_poke_data.narc', 'build/narc/pl_poke_data.narc', False),
 }
 
 def compare_narcs(orig_f, made_f, word_mode):
