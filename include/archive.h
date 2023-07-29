@@ -1,7 +1,8 @@
 #ifndef __ARCHIVE_H
 #define __ARCHIVE_H
 
-#define ARCHIVE_SUBSCR 1
+#define ARCHIVE_SUBSCR      1
+#define ARCHIVE_POKESPRITE  4
 
 /**
  * @brief Load data from an archive into an allocated buffer.

@@ -1,6 +1,58 @@
+#include "archive.h"
 #include "pokemon.h"
+#include "sprite.h"
 
+#include "constants/abilities.h"
 #include "constants/species.h"
+
+#include "battle/common.h"
+
+extern u32 gFormWord;
+extern u32 gPokeData;
+
+struct EncounterInfo {
+    u32  trainerID;
+    BOOL checkRepel;
+    BOOL cannotAvoid;
+    u8   level;
+    u8   isEgg;
+    u8   playerLeadAbility; // Synchronize, Pressure, etc.
+    u8   formChance[2];
+    u8   unownTableType;
+};
+
+// Called from Pokemon_LoadSprite
+u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, u8 shiny, u8 formNum)
+{
+    gFormWord = formNum;
+
+    if (!formNum) {
+        return FALSE;
+    }
+
+    for (unsigned int i = 0; i < NELEMS(gPokemonFormTable); i++) {
+        if (species == gPokemonFormTable[i].species && formNum == gPokemonFormTable[i].formNum) {
+            pokeSprite->archiveNum = ARCHIVE_POKESPRITE;
+            pokeSprite->indexPic   = (gPokemonFormTable[i].target) * 6 + direction;
+            pokeSprite->indexPal   = (gPokemonFormTable[i].target) * 6 + 4 + shiny;
+
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+// 
+BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo, struct Pokemon *encounter, struct BattleParams *battleParams)
+{
+    int itemRange = 0;
+    if (encounterInfo->isEgg == FALSE && encounterInfo->playerLeadAbility == ABILITY_COMPOUND_EYES) {
+        itemRange = 1;
+    }
+
+    
+}
 
 extern const struct PokemonForm gPokemonFormTable[258] = {
     {
@@ -615,7 +667,7 @@ extern const struct PokemonForm gPokemonFormTable[258] = {
         .reverts = FALSE,
         .target  = SPECIES_PIKACHU_WORLD_CAP,
     },
-    {
+    {   // The next 4 are only present because they do not have icon support in vanilla Platinum
         .species = SPECIES_CASTFORM,
         .formNum = 1,
         .reverts = TRUE,
@@ -638,18 +690,6 @@ extern const struct PokemonForm gPokemonFormTable[258] = {
         .formNum = 1,
         .reverts = TRUE,
         .target  = SPECIES_CHERRIM_SUNSHINE,
-    },
-    {
-        .species = SPECIES_SHELLOS,
-        .formNum = 1,
-        .reverts = FALSE,
-        .target  = SPECIES_SHELLOS_EAST_SEA,
-    },
-    {
-        .species = SPECIES_GASTRODON,
-        .formNum = 1,
-        .reverts = FALSE,
-        .target  = SPECIES_GASTRODON_EAST_SEA,
     },
     {
         .species = SPECIES_DIALGA,

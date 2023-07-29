@@ -98,7 +98,7 @@ ITEM_DATA_TARGET := $(FILESYS)/itemtool/itemdata/pl_item_data.narc
 ITEM_DATA_SRCS := $(wildcard $(ITEM_DATA_DEP_DIR)/*.json)
 ITEM_DATA_OBJS := $(patsubst $(ITEM_DATA_DEP_DIR)/%.json,$(ITEM_DATA_DIR)/%.bin,$(ITEM_DATA_SRCS))
 
-$(ITEM_DATA_NARC):
+$(ITEM_DATA_NARC): $(ITEM_DATA_SRCS)
 	$(PYTHON) scripts/build/item_data.py build
 	$(NARCHIVE) create $@ $(ITEM_DATA_DIR) -nf
 

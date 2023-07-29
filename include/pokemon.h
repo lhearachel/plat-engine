@@ -828,7 +828,6 @@ struct Pokemon* __attribute__((long_call)) Party_Member(const struct Party *part
 
 BOOL __attribute__((long_call)) Pokemon_IsNFE(u16 species, u32 form);
 
-extern const struct PokemonForm gPokemonFormTable[258];
-extern u32 gFormWord;
+extern const struct PokemonForm gPokemonFormTable[258]; // maybe move this to an ARMIPS def
 
 #endif // __POKEMON_H

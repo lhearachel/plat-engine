@@ -3,6 +3,8 @@
 
 #include "typedefs.h"
 
+#include "pokemon.h"
+
 #include "lib/string.h"
 #include "ui/window.h"
 
@@ -789,6 +791,15 @@ enum {
 // ========================================================================= //
 //                       STRUCT AND FUNCTION DECLS                           //
 // ========================================================================= //
+
+struct BattleParams {   // input params for the start of a battle
+    u32           battleType;
+    struct Party *parties[4];
+    int           winLoseFlag;
+    int           trainerIDs[4];
+    u8            _fill[0x1A4]; // trainer data and other stuff
+    void         *saveData;
+};
 
 struct Battle {
     void          *g3DManager;

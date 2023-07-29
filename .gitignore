@@ -1,3 +1,12 @@
+# Constructed text archives (don't store them in the repo)
+## Pokedex entries
+/data/text/706.txt
+/data/text/707.txt
+/data/text/708.txt
+/data/text/709.txt
+/data/text/710.txt
+/data/text/711.txt
+
 # Prerequisites
 *.d
 
