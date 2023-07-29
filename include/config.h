@@ -74,7 +74,7 @@
 
 // If set, then the mega-evolution system will be compiled. This includes
 // stone-based mega-evolution (e.g., Venusaur, Charizard-X), Primal Reversion
-// (Kyogre, Groudon), and special megas (Rayquaza, Necrozma).
-#define MEGA_EVOLUTIONS
+// (Kyogre, Groudon), and special megas (Rayquaza).
+#define MEGA_EVOLUTION
 
 #endif // __CONFIG_H

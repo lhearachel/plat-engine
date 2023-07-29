@@ -1,4 +1,5 @@
 #include "constants/abilities.h"
+#include "constants/species.h"
 
 #include "archive.h"
 #include "config.h"

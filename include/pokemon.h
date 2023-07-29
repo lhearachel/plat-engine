@@ -189,6 +189,13 @@ struct EvoTable {
     struct EvoData data[7];
 };
 
+struct PokemonForm {
+    u16 species;
+    u16 formNum     :15,
+        reverts     :1;
+    u16 target;
+};
+
 enum PokemonField {
     // BoxPokemon header fields
 	MON_PARAM_PID = 0,
@@ -820,5 +827,8 @@ struct Pokemon* __attribute__((long_call)) Party_Member(const struct Party *part
 // void __attribute__((long_call)) BoxPokemon_ToggleHiddenAbility(void *boxMon);
 
 BOOL __attribute__((long_call)) Pokemon_IsNFE(u16 species, u32 form);
+
+extern const struct PokemonForm gPokemonFormTable[258];
+extern u32 gFormWord;
 
 #endif // __POKEMON_H
