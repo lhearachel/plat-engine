@@ -97,6 +97,11 @@
             "LEVEL_UP",
             36,
             "TYPHLOSION"
+        ],
+        [
+            "USE_ITEM",
+            "MOON_STONE",
+            "TYPHLOSION_HISUI"
         ]
     ]
 }

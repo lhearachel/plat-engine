@@ -99,6 +99,11 @@
             "USE_ITEM",
             "THUNDERSTONE",
             "RAICHU"
+        ],
+        [
+            "USE_ITEM",
+            "SHINY_STONE",
+            "RAICHU_ALOLA"
         ]
     ]
 }

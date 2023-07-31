@@ -103,6 +103,11 @@
             "USE_ITEM",
             "LEAF_STONE",
             "EXEGGUTOR"
+        ],
+        [
+            "USE_ITEM",
+            "SHINY_STONE",
+            "EXEGGUTOR_ALOLA"
         ]
     ]
 }

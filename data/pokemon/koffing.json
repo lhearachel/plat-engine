@@ -101,6 +101,11 @@
             "LEVEL_UP",
             35,
             "WEEZING"
+        ],
+        [
+            "USE_ITEM",
+            "DAWN_STONE",
+            "WEEZING_GALAR"
         ]
     ]
 }

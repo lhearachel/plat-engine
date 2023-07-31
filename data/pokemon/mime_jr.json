@@ -119,6 +119,11 @@
             "KNOW_MOVE",
             "MIMIC",
             "MR_MIME"
+        ],
+        [
+            "USE_ITEM",
+            "ICE_STONE",
+            "MR_MIME_GALAR"
         ]
     ]
 }

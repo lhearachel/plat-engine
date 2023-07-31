@@ -104,6 +104,11 @@
             "LEVEL_UP",
             28,
             "MAROWAK"
+        ],
+        [
+            "USE_ITEM_NIGHT",
+            "FIRE_STONE",
+            "MAROWAK_ALOLA"
         ]
     ]
 }
