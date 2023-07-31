@@ -16,8 +16,8 @@
 
 // SUBSCR_CLOUD_NINE
 subscr_301:
-    // "The effects of weather disappeared."
-    Message                             1270, TAG_NONE_DIR, BATTLER_WORKING, NaN, NaN, NaN, NaN, NaN
+    // "{0}’s {1} suppressed the effects of weather!"
+    Message                             1270, TAG_NICK_ABILITY, BATTLER_WORKING, BATTLER_CLIENT_WORK, NaN, NaN, NaN, NaN
     Wait                                
     WaitTime                            30
     End 
