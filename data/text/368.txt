@@ -1268,3 +1268,4 @@ Playback canceled.
 The dimensions became distorted!
 The Distortion World’s {STRVAR_1 1, 0, 0}\nappeared!\r
 The {STRVAR_1 8, 1, 0} strengthened\n{STRVAR_1 1, 0, 0}’s power!
+The effects of weather disappeared.
