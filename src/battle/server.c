@@ -931,6 +931,13 @@ static void ProcessSnowWarning(struct Battle *battle, struct BattleServer *serve
     *processing = FALSE;
 }
 
+static void ProcessCloudNine(struct Battle *battle, struct BattleServer *server, int numBattlers, int battler, int *nextScript, BOOL *processing)
+{
+    server->clientWork = battler;
+    *nextScript = SUBSCR_CLOUD_NINE;
+    *processing = FALSE;
+}
+
 static void ProcessAbilities(struct Battle *battle, struct BattleServer *server, int numBattlers, int *nextScript, BOOL *processing)
 {
     #ifdef DEBUG_SWITCHIN_EFFECTS
@@ -988,6 +995,7 @@ static void ProcessAbilities(struct Battle *battle, struct BattleServer *server,
             case ABILITY_DROUGHT:       handler = &ProcessDrought; break;
             case ABILITY_SAND_STREAM:   handler = &ProcessSandStream; break;
             case ABILITY_SNOW_WARNING:  handler = &ProcessSnowWarning; break;
+            case ABILITY_CLOUD_NINE:    handler = &ProcessCloudNine; break;
 
             default:                    continue;
         }
