@@ -1,6 +1,14 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
+// Master debug flag. Don't leave this turned on for your final release.
+#define DEBUG_MODE
+
+#ifdef DEBUG_MODE
+// #define DEBUG_ALL_CRITS
+// #define DEBUG_NO_CRITS
+#endif
+
 // Generational constant definitions
 #define GEN4    4
 #define GEN5    5

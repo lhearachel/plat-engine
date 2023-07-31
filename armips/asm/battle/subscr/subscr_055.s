@@ -25,6 +25,8 @@ subscr_055:
     // Soundproof skips the Uproar check
     CheckAbility                        MODE_HAVE, BATTLER_ATTACKER, ABILITY_SOUNDPROOF, subscr_055_IgnoreUproar
     If                                  FLAG_EQ, VAR_FIELD_CONDITIONS, FIELD_CONDITION_UPROAR, subscr_055_UproarActive
+    If                                  FLAG_NEQ, VAR_FIELD_CONDITIONS, FIELD_CONDITION_SUNNY, subscr_055_IgnoreUproar
+    CheckAbility                        MODE_HAVE, BATTLER_EFFECT_TARGET, ABILITY_LEAF_GUARD, subscr_055_AbilityBlock
 subscr_055_IgnoreUproar:
     // Check if there is healing to do at all
     SetMonDataFromVar                   OP_GET, BATTLER_ATTACKER, BATTLE_MON_MAX_HP, VAR_HP_TEMP

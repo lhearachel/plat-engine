@@ -330,11 +330,12 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
 
 BOOL Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server)
 {
+
     if (server->defender == 0xFF) {
         return FALSE;
     }
 
-    if (server->activePokemon[server->defender].curHP) {
+    if (server->activePokemon[server->defender].curHP == 0) {   
         return FALSE;
     }
 
@@ -349,15 +350,33 @@ BOOL Server_CheckExtraFlinch(struct Battle *battle, struct BattleServer *server)
             && DamageWasDealt(server)
             && (Battle_Random(battle) % 100) < heldItemPower
             && (server->aiWork.moveTable[server->moveIDCurr].flag & MOVE_FLAG_TRIGGERS_KINGS_ROCK)) {
+    
         server->addlEffectClient = server->defender;
         server->addlEffectType   = ADDL_EFFECT_INDIRECT;
         
         Server_LoadSequence(server, ARCHIVE_SUBSCR, SUBSCR_TRY_FLINCH);
 
         server->serverSeqNext = server->serverSeqNum;
-        server->serverSeqNext = 21; // todo: enum
-        result = FALSE;
+        server->serverSeqNum = 21; // todo: enum
+        result = TRUE;
     }
+
+    int ability = Server_Ability(server, server->attacker);
+    if (ability == ABILITY_STENCH
+            && heldItemEffect != HOLD_EFFECT_KINGS_ROCK
+            && DamageWasDealt(server)
+            && (Battle_Random(battle) % 100) < 10
+            && (server->aiWork.moveTable[server->moveIDCurr].flag & MOVE_FLAG_TRIGGERS_KINGS_ROCK)) {
+        server->addlEffectClient = server->defender;
+        server->addlEffectType   = ADDL_EFFECT_INDIRECT;
+        
+        Server_LoadSequence(server, ARCHIVE_SUBSCR, SUBSCR_TRY_FLINCH);
+
+        server->serverSeqNext = server->serverSeqNum;
+        server->serverSeqNum = 21; // todo: enum
+        result = TRUE;
+    }
+
 
     return result;
 }
@@ -397,7 +416,6 @@ int Server_CheckAbilityDamageOverride(struct BattleServer *server, int attacker,
         }
     } else if (Server_CheckDefenderAbility(server, attacker, defender, ABILITY_FLASH_FIRE)) {
         if (moveType == TYPE_FIRE
-                && server->activePokemon[defender].condition & CONDITION_FROZEN == FALSE
                 && (server->serverStatusCheckSeq & SERVER_STATUS_FLAG_TURN_ONE_OF_TWO) == FALSE
                 && attacker != defender) {
             nextScript = SUBSCR_FLASH_FIRE;
@@ -452,7 +470,7 @@ BOOL Server_CheckEndOfTurnAbility(struct Battle *battle, struct BattleServer *se
         }
     } else if (ability == ABILITY_SHED_SKIN) {
         if (server->activePokemon[battler].condition & CONDITION_STATUSED
-                && Battle_Random(battle) % 10 < 3) {
+                && Battle_Random(battle) % 3 == 0) {
             if (server->activePokemon[battler].condition & CONDITION_ASLEEP) {
                 server->messageWork = MSG_COND_ASLEEP;
             } else if (server->activePokemon[battler].condition & CONDITION_POISON_ALL) {
