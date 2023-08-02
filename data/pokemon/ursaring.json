@@ -105,5 +105,12 @@
             "58": "THRASH",
             "67": "HAMMER_ARM"
         }
-    }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM",
+            "MOON_STONE",
+            "URSALUNA"
+        ]
+    ]
 }

@@ -112,8 +112,8 @@ EVO_OVERRIDES = {
 
     'dartrix': [['LEVEL_UP', 34, 'DECIDUEYE'], ['USE_ITEM', 'SUN_STONE', 'DECIDUEYE_HISUI']],
 
-    'lycanroc': [['LEVEL_DAY', 25, 'LYCANROC'], ['LEVEL_NIGHT', 25, 'LYCANROC_MIDNIGHT']],
-    'lycanroc_own_tempo': [['LEVEL_UP', 25, 'LYCANROC_DUSK']],
+    'rockruff': [['LEVEL_DAY', 25, 'LYCANROC'], ['LEVEL_NIGHT', 25, 'LYCANROC_MIDNIGHT']],
+    'rockruff_own_tempo': [['LEVEL_UP', 25, 'LYCANROC_DUSK']],
 
     'crabrawler': [['USE_ITEM', 'ICE_STONE', 'CRABOMINABLE']],
 
@@ -427,6 +427,9 @@ def copy_species(species: int,
         base['name'] = '-----'
         if gender_override:
             base['gender_ratio'] = gender_override.name
+        
+        if name_override in EVO_OVERRIDES:
+            base['evolutions'] = EVO_OVERRIDES[name_override]
 
         json.dump(base, dst, indent=4, ensure_ascii=False)
 
@@ -651,7 +654,7 @@ def build_gen7():
     build_species(743)      # Ribombee
     build_species(744)      # Rockruff
     build_species(744, form_override=10151, name_override='rockruff_own_tempo', sub_form=True)
-    build_species(745,                      name_override='lycanroc_midday')
+    build_species(745,                      name_override='lycanroc')
     build_species(745, form_override=10126, name_override='lycanroc_midnight', sub_form=True)
     build_species(745, form_override=10152, name_override='lycanroc_dusk', sub_form=True)
     build_species(746,                      name_override='wishiwashi')

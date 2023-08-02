@@ -50,19 +50,14 @@
     },
     "evolutions": [
         [
-            "LEVEL_UP",
+            "LEVEL_DAY",
             25,
             "LYCANROC"
         ],
         [
-            "LEVEL_UP",
+            "LEVEL_NIGHT",
             25,
-            "LYCANROC"
-        ],
-        [
-            "LEVEL_UP",
-            25,
-            "LYCANROC"
+            "LYCANROC_MIDNIGHT"
         ]
     ]
 }

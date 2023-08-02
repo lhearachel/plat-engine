@@ -100,5 +100,12 @@
             "49": "CAPTIVATE",
             "53": "ME_FIRST"
         }
-    }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            44,
+            "WYRDEER"
+        ]
+    ]
 }

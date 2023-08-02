@@ -53,9 +53,9 @@
     },
     "evolutions": [
         [
-            "LEVEL_MALE",
+            "LEVEL_FEMALE",
             40,
-            "JELLICENT"
+            "JELLICENT_FEMALE"
         ]
     ]
 }

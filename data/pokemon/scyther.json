@@ -105,6 +105,11 @@
             "TRADE_WITH_ITEM",
             "METAL_COAT",
             "SCIZOR"
+        ],
+        [
+            "TRADE_WITH_ITEM",
+            "KINGS_ROCK",
+            "KLEAVOR"
         ]
     ]
 }

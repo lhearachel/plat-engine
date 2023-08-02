@@ -52,17 +52,7 @@
         [
             "LEVEL_UP",
             25,
-            "LYCANROC"
-        ],
-        [
-            "LEVEL_UP",
-            25,
-            "LYCANROC"
-        ],
-        [
-            "LEVEL_UP",
-            25,
-            "LYCANROC"
+            "LYCANROC_DUSK"
         ]
     ]
 }
