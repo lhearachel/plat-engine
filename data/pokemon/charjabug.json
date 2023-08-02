@@ -53,10 +53,6 @@
     },
     "evolutions": [
         [
-            "LEVEL_UP",
-            "VIKAVOLT"
-        ],
-        [
             "USE_ITEM",
             "THUNDER_STONE",
             "VIKAVOLT"

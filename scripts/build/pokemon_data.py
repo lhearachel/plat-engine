@@ -317,10 +317,10 @@ def build_personal(pokemon: dict, i: int):
     binary = binary + GenderRatio[pokemon['gender_ratio']].value.to_bytes(1, 'little')
 
     # hatch multiplier
-    binary = binary + pokemon['hatch_multiplier'].to_bytes(1, 'little')
+    binary = binary + (0 if not pokemon['hatch_multiplier'] else pokemon['hatch_multiplier']).to_bytes(1, 'little')
 
     # base happiness
-    binary = binary + pokemon['base_happiness'].to_bytes(1, 'little')
+    binary = binary + (0 if not pokemon['base_happiness'] else pokemon['base_happiness']).to_bytes(1, 'little')
 
     # growth rate
     binary = binary + GrowthRate[pokemon['growth_rate']].value.to_bytes(1, 'little')
@@ -330,10 +330,12 @@ def build_personal(pokemon: dict, i: int):
     binary = binary + EggGroup[pokemon['egg_groups'][1]].value.to_bytes(1, 'little')
 
     # abilities
-    binary = binary + Ability[pokemon['abilities']['0']].value.to_bytes(1, 'little')
+    # TODO: Figure out how to expand the ability structure to support more than 8 bits
+    # in the personal file
+    binary = binary + (Ability[pokemon['abilities']['0']].value & 0xFF).to_bytes(1, 'little')
     if '1' in pokemon['abilities']:
-        binary = binary + Ability[pokemon['abilities']['1']].value.to_bytes(1, 'little')
-    else :
+        binary = binary + (Ability[pokemon['abilities']['1']].value & 0xFF).to_bytes(1, 'little')
+    else:
         binary = binary + (0).to_bytes(1, 'little')
 
     # flee chance
@@ -418,11 +420,11 @@ def build_evotable(pokemon: dict, i: int):
 
         raw_target = Species[evo[-1]]
         if raw_target.value > Species.ENAMORUS.value: # Must be a form, check the form table
-            if raw_target not in FORM_TABLE.keys():
-                print(f'❌ Unrecognized evo target {raw_target}; did you update the form table?')
+            if raw_target.name not in FORM_TABLE.keys():
+                print(f'❌ Unrecognized evo target {raw_target.name}; did you update the form table?')
                 raise RuntimeError
 
-            target, form = FORM_TABLE[raw_target]
+            target, form = FORM_TABLE[raw_target.name]
             target = target.value | (form << 11)
         else:
             target = raw_target.value
@@ -494,7 +496,9 @@ def build_pokemon():
             pokemon = json.load(data)
             name = pokemon['name']
             i = Species[fname.split('.')[0].upper()].value
-            mon_ids_to_names[i] = name
+
+            if i <= Species.ENAMORUS.value: # everything after enamorus is a form
+                mon_ids_to_names[i] = name
 
             build_personal(pokemon, i)
             build_evotable(pokemon, i)

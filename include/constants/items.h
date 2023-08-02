@@ -113,7 +113,7 @@
 #define ITEM_SUN_STONE       80
 #define ITEM_MOON_STONE      81
 #define ITEM_FIRE_STONE      82
-#define ITEM_THUNDERSTONE    83
+#define ITEM_THUNDER_STONE   83
 #define ITEM_WATER_STONE     84
 #define ITEM_LEAF_STONE      85
 #define ITEM_TINY_MUSHROOM   86

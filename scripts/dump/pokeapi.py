@@ -72,6 +72,9 @@ GROWTH_RATES = {
 # key is evolving species
 # value is the overriden evo methods
 EVO_OVERRIDES = {
+    'bisharp': [],  # TODO: Kingambit
+    'charjabug': [['USE_ITEM', 'THUNDER_STONE', 'VIKAVOLT']],
+
     'tranquill': [['LEVEL_MALE', 32, 'UNFEZANT'], ['LEVEL_FEMALE', 32, 'UNFEZANT_FEMALE']],
     
     'basculin': [['USE_ITEM_MALE', 'DUSK_STONE', 'BASCULEGION'], ['USE_ITEM_FEMALE', 'DUSK_STONE', 'BASCULEGION_FEMALE']],
@@ -106,7 +109,7 @@ EVO_OVERRIDES = {
 
     'bergmite': [['LEVEL_UP', 37, 'AVALUGG'], ['KNOW_MOVE', 'ANCIENT_POWER', 'AVALUGG_HISUI']],
 
-    'goomy': [['LEVEL_UP', 40, 'SLIGGOO'], ['USE_ITEM', 'METAL_COAT', 'SLIGOO_HISUI']],
+    'goomy': [['LEVEL_UP', 40, 'SLIGGOO'], ['USE_ITEM', 'METAL_COAT', 'SLIGGOO_HISUI']],
     'sliggoo': [['LEVEL_RAIN', 50, 'GOODRA']],
     'sliggoo_hisui': [['LEVEL_RAIN', 50, 'GOODRA_HISUI']],
 
@@ -148,6 +151,10 @@ EVO_OVERRIDES = {
     'pikachu_world_cap': [],
 
     'toxel': [['NATURE_AMPED', 30, 'TOXTRICITY'], ['NATURE_LOW_KEY', 30, 'TOXTRICITY_LOW_KEY']],
+
+    'milcery': [['LEVEL_UP', 20, 'ALCREMIE']],  # placeholder
+
+    'kubfu': [['USE_ITEM', 'MOON_STONE', 'URSHIFU'], ['USE_ITEM', 'WATER_STONE', 'URSHIFU_RAPID_STRIKE']],
 
     'meowth_galar': [['LEVEL_UP', 28, 'PERRSERKER']],
 
@@ -532,21 +539,21 @@ def build_gen6():
     build_species(668, name_override='pyroar', gender_override=GenderRatio.MALE_ONLY)
     copy_species( 668, name_override='pyroar_female', gender_override=GenderRatio.FEMALE_ONLY)
     build_species(669)      # Flabebe (Red)
-    copy_species(669, name_override='flabebe_yellow')
-    copy_species(669, name_override='flabebe_orange')
-    copy_species(669, name_override='flabebe_blue')
-    copy_species(669, name_override='flabebe_white')
+    copy_species(669, name_override='flabebe_yellow_flower')
+    copy_species(669, name_override='flabebe_orange_flower')
+    copy_species(669, name_override='flabebe_blue_flower')
+    copy_species(669, name_override='flabebe_white_flower')
     build_species(670)      # Floette (Red)
-    copy_species(670, name_override='floette_yellow')
-    copy_species(670, name_override='floette_orange')
-    copy_species(670, name_override='floette_blue')
-    copy_species(670, name_override='floette_white')
-    build_species(670, form_override=10061, name_override='floette_eternal', sub_form=True)
+    copy_species(670, name_override='floette_yellow_flower')
+    copy_species(670, name_override='floette_orange_flower')
+    copy_species(670, name_override='floette_blue_flower')
+    copy_species(670, name_override='floette_white_flower')
+    build_species(670, form_override=10061, name_override='floette_eternal_flower', sub_form=True)
     build_species(671)      # Florges (Red)
-    copy_species(671, name_override='florges_yellow')
-    copy_species(671, name_override='florges_orange')
-    copy_species(671, name_override='florges_blue')
-    copy_species(671, name_override='florges_white')
+    copy_species(671, name_override='florges_yellow_flower')
+    copy_species(671, name_override='florges_orange_flower')
+    copy_species(671, name_override='florges_blue_flower')
+    copy_species(671, name_override='florges_white_flower')
 
     build_range(672, 675)   # Skiddo - Pangoro
     build_species(676)      # Furfrou (Natural)
@@ -558,7 +565,7 @@ def build_gen6():
     copy_species(676, name_override='furfrou_dandy')
     copy_species(676, name_override='furfrou_la_reine')
     copy_species(676, name_override='furfrou_kabuki')
-    copy_species(676, name_override='furfrou_pharoah')
+    copy_species(676, name_override='furfrou_pharaoh')
     build_species(677)      # Espurr
     build_species(678,                      name_override='meowstic', gender_override=GenderRatio.MALE_ONLY)
     build_species(678, form_override=10025, name_override='meowstic_female', gender_override=GenderRatio.FEMALE_ONLY, sub_form=True)
@@ -661,7 +668,7 @@ def build_gen7():
     build_species(746, form_override=10127, name_override='wishiwashi_school', sub_form=True)
 
     build_range(747, 773)   # Mareanie - Silvally
-    build_species(774,                      name_override='minior_red_meteor')
+    build_species(774,                      name_override='minior')
     build_species(774, form_override=10130, name_override='minior_orange_meteor', sub_form=True)
     build_species(774, form_override=10131, name_override='minior_yellow_meteor', sub_form=True)
     build_species(774, form_override=10132, name_override='minior_green_meteor', sub_form=True)

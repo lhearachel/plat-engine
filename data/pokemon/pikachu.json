@@ -97,7 +97,7 @@
     "evolutions": [
         [
             "USE_ITEM",
-            "THUNDERSTONE",
+            "THUNDER_STONE",
             "RAICHU"
         ],
         [

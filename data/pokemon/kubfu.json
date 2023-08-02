@@ -50,10 +50,14 @@
     },
     "evolutions": [
         [
+            "USE_ITEM",
+            "MOON_STONE",
             "URSHIFU"
         ],
         [
-            "URSHIFU"
+            "USE_ITEM",
+            "WATER_STONE",
+            "URSHIFU_RAPID_STRIKE"
         ]
     ]
 }

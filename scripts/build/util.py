@@ -751,7 +751,7 @@ class Item(Enum):
     SUN_STONE           = 80
     MOON_STONE          = 81
     FIRE_STONE          = 82
-    THUNDERSTONE        = 83
+    THUNDER_STONE        = 83
     WATER_STONE         = 84
     LEAF_STONE          = 85
     TINY_MUSHROOM       = 86
@@ -1951,7 +1951,7 @@ class EvoMethod(Enum):
     DARK_TYPE_IN_PARTY  = 32
     TRADE_SPECIFIC_MON  = 33
     NATURE_AMPED        = 34
-    NATURE_LOWKEY       = 35
+    NATURE_LOW_KEY      = 35
     NUM_CRITICAL_HITS   = 36
     HURT_IN_BATTLE      = 37
 
@@ -2749,6 +2749,7 @@ class Species(Enum):
     CRABRAWLER                  = 0x0315
     CRABOMINABLE                = 0x0316
     ORICORIO                    = 0x0317
+    ORICORIO_BAILE              = 0x0317
     CUTIEFLY                    = 0x0318
     RIBOMBEE                    = 0x0319
     ROCKRUFF                    = 0x031A
@@ -3124,8 +3125,8 @@ class Species(Enum):
     MIMIKYU_BUSTED              = auto()
     NECROZMA_DUSK               = auto()
     NECROZMA_DAWN               = auto()
-    NECROZMA_ULTRA_DUSK_MANE    = auto()
-    NECROZMA_ULTRA_DAWN_WINGS   = auto()
+    NECROZMA_ULTRA_DUSK         = auto()
+    NECROZMA_ULTRA_DAWN         = auto()
     NECROZMA_ULTRA              = auto()
     MAGEARNA_ORIGINAL           = auto()
     CRAMORANT_GULPING           = auto()
@@ -3141,7 +3142,7 @@ class Species(Enum):
     ALCREMIE_RIBBON_SWEET       = auto()
     ALCREMIE_FILLER_1           = auto()
     ALCREMIE_FILLER_2           = auto()
-    EISCUE_NOICE                = auto()
+    EISCUE_NO_ICE               = auto()
     MORPEKO_HANGRY              = auto()
     ZACIAN_CROWNED              = auto()
     ZAMAZENTA_CROWNED           = auto()
