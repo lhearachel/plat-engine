@@ -710,7 +710,7 @@ a {COLOR 255}Greninja{COLOR 0}
 a {COLOR 255}Bunnelby{COLOR 0}
 a {COLOR 255}Diggersby{COLOR 0}
 a {COLOR 255}Fletchling{COLOR 0}
-a {COLOR 255}Fletchinder{COLOR 0}
+a {COLOR 255}Fletchindr{COLOR 0}
 a {COLOR 255}Talonflame{COLOR 0}
 a {COLOR 255}Scatterbug{COLOR 0}
 a {COLOR 255}Spewpa{COLOR 0}
@@ -788,7 +788,7 @@ a {COLOR 255}Grubbin{COLOR 0}
 a {COLOR 255}Charjabug{COLOR 0}
 a {COLOR 255}Vikavolt{COLOR 0}
 a {COLOR 255}Crabrawler{COLOR 0}
-a {COLOR 255}Crabominable{COLOR 0}
+a {COLOR 255}Crabminble{COLOR 0}
 an {COLOR 255}Oricorio{COLOR 0}
 a {COLOR 255}Cutiefly{COLOR 0}
 a {COLOR 255}Ribombee{COLOR 0}
@@ -854,7 +854,7 @@ a {COLOR 255}Marshadow{COLOR 0}
 a {COLOR 255}Poipole{COLOR 0}
 a {COLOR 255}Naganadel{COLOR 0}
 a {COLOR 255}Stakataka{COLOR 0}
-a {COLOR 255}Blacephalon{COLOR 0}
+a {COLOR 255}Blacphalon{COLOR 0}
 a {COLOR 255}Zeraora{COLOR 0}
 a {COLOR 255}Meltan{COLOR 0}
 a {COLOR 255}Melmetal{COLOR 0}
@@ -870,8 +870,8 @@ an {COLOR 255}Inteleon{COLOR 0}
 a {COLOR 255}Skwovet{COLOR 0}
 a {COLOR 255}Greedent{COLOR 0}
 a {COLOR 255}Rookidee{COLOR 0}
-a {COLOR 255}Corvisquire{COLOR 0}
-a {COLOR 255}Corviknight{COLOR 0}
+a {COLOR 255}Corvsquire{COLOR 0}
+a {COLOR 255}Corvknight{COLOR 0}
 a {COLOR 255}Blipbug{COLOR 0}
 a {COLOR 255}Dottler{COLOR 0}
 an {COLOR 255}Orbeetle{COLOR 0}
@@ -895,15 +895,15 @@ a {COLOR 255}Silicobra{COLOR 0}
 a {COLOR 255}Sandaconda{COLOR 0}
 a {COLOR 255}Cramorant{COLOR 0}
 an {COLOR 255}Arrokuda{COLOR 0}
-a {COLOR 255}Barraskewda{COLOR 0}
+a {COLOR 255}Baraskewda{COLOR 0}
 a {COLOR 255}Toxel{COLOR 0}
 a {COLOR 255}Toxtricity{COLOR 0}
 a {COLOR 255}Sizzlipede{COLOR 0}
-a {COLOR 255}Centiskorch{COLOR 0}
+a {COLOR 255}Centskorch{COLOR 0}
 a {COLOR 255}Clobbopus{COLOR 0}
 a {COLOR 255}Grapploct{COLOR 0}
 a {COLOR 255}Sinistea{COLOR 0}
-a {COLOR 255}Polteageist{COLOR 0}
+a {COLOR 255}Poltegeist{COLOR 0}
 a {COLOR 255}Hatenna{COLOR 0}
 a {COLOR 255}Hattrem{COLOR 0}
 a {COLOR 255}Hatterene{COLOR 0}
@@ -922,7 +922,7 @@ a {COLOR 255}Falinks{COLOR 0}
 a {COLOR 255}Pincurchin{COLOR 0}
 a {COLOR 255}Snom{COLOR 0}
 a {COLOR 255}Frosmoth{COLOR 0}
-a {COLOR 255}Stonjourner{COLOR 0}
+a {COLOR 255}Stonjorner{COLOR 0}
 an {COLOR 255}Eiscue{COLOR 0}
 an {COLOR 255}Indeedee{COLOR 0}
 a {COLOR 255}Morpeko{COLOR 0}
@@ -950,7 +950,7 @@ a {COLOR 255}Calyrex{COLOR 0}
 a {COLOR 255}Wyrdeer{COLOR 0}
 a {COLOR 255}Kleavor{COLOR 0}
 an {COLOR 255}Ursaluna{COLOR 0}
-a {COLOR 255}Basculegion{COLOR 0}
+a {COLOR 255}Basculegin{COLOR 0}
 a {COLOR 255}Sneasler{COLOR 0}
 an {COLOR 255}Overqwil{COLOR 0}
 an {COLOR 255}Enamorus{COLOR 0}

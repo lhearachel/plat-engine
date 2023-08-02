@@ -710,7 +710,7 @@
 659  Bunnelby
 660  Diggersby
 661  Fletchling
-662  Fletchinder
+662  Fletchindr
 663  Talonflame
 664  Scatterbug
 665  Spewpa
@@ -788,7 +788,7 @@
 737  Charjabug
 738  Vikavolt
 739  Crabrawler
-740  Crabominable
+740  Crabminble
 741  Oricorio
 742  Cutiefly
 743  Ribombee
@@ -854,7 +854,7 @@
 803  Poipole
 804  Naganadel
 805  Stakataka
-806  Blacephalon
+806  Blacphalon
 807  Zeraora
 808  Meltan
 809  Melmetal
@@ -870,8 +870,8 @@
 819  Skwovet
 820  Greedent
 821  Rookidee
-822  Corvisquire
-823  Corviknight
+822  Corvsquire
+823  Corvknight
 824  Blipbug
 825  Dottler
 826  Orbeetle
@@ -895,15 +895,15 @@
 844  Sandaconda
 845  Cramorant
 846  Arrokuda
-847  Barraskewda
+847  Baraskewda
 848  Toxel
 849  Toxtricity
 850  Sizzlipede
-851  Centiskorch
+851  Centskorch
 852  Clobbopus
 853  Grapploct
 854  Sinistea
-855  Polteageist
+855  Poltegeist
 856  Hatenna
 857  Hattrem
 858  Hatterene
@@ -922,7 +922,7 @@
 871  Pincurchin
 872  Snom
 873  Frosmoth
-874  Stonjourner
+874  Stonjorner
 875  Eiscue
 876  Indeedee
 877  Morpeko
@@ -950,7 +950,7 @@
 899  Wyrdeer
 900  Kleavor
 901  Ursaluna
-902  Basculegion
+902  Basculegin
 903  Sneasler
 904  Overqwil
 905  Enamorus

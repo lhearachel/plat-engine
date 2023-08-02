@@ -73,7 +73,6 @@ GROWTH_RATES = {
 # value is the overriden evo methods
 EVO_OVERRIDES = {
     'bisharp': [],  # TODO: Kingambit
-    'charjabug': [['USE_ITEM', 'THUNDER_STONE', 'VIKAVOLT']],
 
     'tranquill': [['LEVEL_MALE', 32, 'UNFEZANT'], ['LEVEL_FEMALE', 32, 'UNFEZANT_FEMALE']],
     
@@ -118,7 +117,8 @@ EVO_OVERRIDES = {
     'rockruff': [['LEVEL_DAY', 25, 'LYCANROC'], ['LEVEL_NIGHT', 25, 'LYCANROC_MIDNIGHT']],
     'rockruff_own_tempo': [['LEVEL_UP', 25, 'LYCANROC_DUSK']],
 
-    'crabrawler': [['USE_ITEM', 'ICE_STONE', 'CRABOMINABLE']],
+    'charjabug': [['USE_ITEM', 'THUNDER_STONE', 'VIKAVOLT']],   # get rid of location-based evo
+    'crabrawler': [['USE_ITEM', 'ICE_STONE', 'CRABOMINABLE']],  # get rid of location-based evo
 
     'rattata_alola': [['LEVEL_NIGHT', 20, 'RATICATE_ALOLA']],
 

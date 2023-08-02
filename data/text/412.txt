@@ -710,7 +710,7 @@ Greninja
 Bunnelby
 Diggersby
 Fletchling
-Fletchinder
+Fletchindr
 Talonflame
 Scatterbug
 Spewpa
@@ -788,7 +788,7 @@ Grubbin
 Charjabug
 Vikavolt
 Crabrawler
-Crabominable
+Crabminble
 Oricorio
 Cutiefly
 Ribombee
@@ -854,7 +854,7 @@ Marshadow
 Poipole
 Naganadel
 Stakataka
-Blacephalon
+Blacphalon
 Zeraora
 Meltan
 Melmetal
@@ -870,8 +870,8 @@ Inteleon
 Skwovet
 Greedent
 Rookidee
-Corvisquire
-Corviknight
+Corvsquire
+Corvknight
 Blipbug
 Dottler
 Orbeetle
@@ -895,15 +895,15 @@ Silicobra
 Sandaconda
 Cramorant
 Arrokuda
-Barraskewda
+Baraskewda
 Toxel
 Toxtricity
 Sizzlipede
-Centiskorch
+Centskorch
 Clobbopus
 Grapploct
 Sinistea
-Polteageist
+Poltegeist
 Hatenna
 Hattrem
 Hatterene
@@ -922,7 +922,7 @@ Falinks
 Pincurchin
 Snom
 Frosmoth
-Stonjourner
+Stonjorner
 Eiscue
 Indeedee
 Morpeko
@@ -950,7 +950,7 @@ Calyrex
 Wyrdeer
 Kleavor
 Ursaluna
-Basculegion
+Basculegin
 Sneasler
 Overqwil
 Enamorus
