@@ -1,0 +1,66 @@
+{
+    "name": "Dartrix",
+    "base_stats": {
+        "hp": 78,
+        "attack": 75,
+        "defense": 75,
+        "sp_attack": 70,
+        "sp_defense": 70,
+        "speed": 52
+    },
+    "types": [
+        "GRASS",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "OVERGROW",
+        "1": "NONE",
+        "H": "LONG_REACH"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 147,
+    "ev_yields": {
+        "hp": 2,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FLYING",
+        "FLYING"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "VINE_WHIP",
+                "GUST"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            34,
+            "DECIDUEYE"
+        ],
+        [
+            "USE_ITEM",
+            "SUN_STONE",
+            "DECIDUEYE_HISUI"
+        ]
+    ]
+}

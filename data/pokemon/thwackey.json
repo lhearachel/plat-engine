@@ -1,0 +1,58 @@
+{
+    "name": "Thwackey",
+    "base_stats": {
+        "hp": 70,
+        "attack": 85,
+        "defense": 70,
+        "sp_attack": 55,
+        "sp_defense": 60,
+        "speed": 80
+    },
+    "types": [
+        "GRASS",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "OVERGROW",
+        "1": "NONE",
+        "H": "GRASSY_SURGE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 147,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FIELD",
+        "GRASS"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "VINE_WHIP"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            35,
+            "RILLABOOM"
+        ]
+    ]
+}

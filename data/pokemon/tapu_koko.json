@@ -1,0 +1,54 @@
+{
+    "name": "Tapu Koko",
+    "base_stats": {
+        "hp": 70,
+        "attack": 115,
+        "defense": 85,
+        "sp_attack": 95,
+        "sp_defense": 75,
+        "speed": 130
+    },
+    "types": [
+        "ELECTRIC",
+        "FAIRY"
+    ],
+    "abilities": {
+        "0": "ELECTRIC_SURGE",
+        "1": "NONE",
+        "H": "TELEPATHY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 3
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "THUNDER_SHOCK",
+                "TACKLE"
+            ]
+        }
+    }
+}

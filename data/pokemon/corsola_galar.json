@@ -1,0 +1,58 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 60,
+        "attack": 55,
+        "defense": 100,
+        "sp_attack": 65,
+        "sp_defense": 100,
+        "speed": 30
+    },
+    "types": [
+        "GHOST",
+        "GHOST"
+    ],
+    "abilities": {
+        "0": "WEAK_ARMOR",
+        "1": "NONE",
+        "H": "CURSED_BODY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 144,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_75",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "WATER_1",
+        "WATER_3"
+    ],
+    "flee_chance": 0,
+    "body_color": "PINK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "LICK"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            38,
+            "CURSOLA"
+        ]
+    ]
+}

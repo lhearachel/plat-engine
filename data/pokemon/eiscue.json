@@ -1,0 +1,51 @@
+{
+    "name": "Eiscue",
+    "base_stats": {
+        "hp": 75,
+        "attack": 80,
+        "defense": 110,
+        "sp_attack": 65,
+        "sp_defense": 90,
+        "speed": 50
+    },
+    "types": [
+        "ICE",
+        "ICE"
+    ],
+    "abilities": {
+        "0": "ICE_FACE",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 165,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 50,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "WATER_1",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "POWDER_SNOW"
+        }
+    }
+}

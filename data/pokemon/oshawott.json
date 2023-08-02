@@ -14,6 +14,7 @@
     ],
     "abilities": {
         "0": "TORRENT",
+        "1": "NONE",
         "H": "SHELL_ARMOR"
     },
     "held_items": {

@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 60,
+        "attack": 50,
+        "defense": 70,
+        "sp_attack": 80,
+        "sp_defense": 80,
+        "speed": 150
+    },
+    "types": [
+        "ELECTRIC",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "SOUNDPROOF",
+        "1": "STATIC",
+        "H": "AFTERMATH"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 0,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "THUNDER_SHOCK",
+                "VINE_WHIP"
+            ]
+        }
+    }
+}

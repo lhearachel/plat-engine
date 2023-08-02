@@ -1,0 +1,51 @@
+{
+    "name": "Pyukumuku",
+    "base_stats": {
+        "hp": 55,
+        "attack": 60,
+        "defense": 130,
+        "sp_attack": 30,
+        "sp_defense": 130,
+        "speed": 5
+    },
+    "types": [
+        "WATER",
+        "WATER"
+    ],
+    "abilities": {
+        "0": "INNARDS_OUT",
+        "1": "NONE",
+        "H": "UNAWARE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 144,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 2,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "WATER_1",
+        "WATER_1"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "WATER_GUN"
+        }
+    }
+}

@@ -1,12 +1,12 @@
 {
-    "name": "Sawsbuck",
+    "name": "Deerling",
     "base_stats": {
-        "hp": 80,
-        "attack": 100,
-        "defense": 70,
-        "sp_attack": 60,
-        "sp_defense": 70,
-        "speed": 95
+        "hp": 60,
+        "attack": 60,
+        "defense": 50,
+        "sp_attack": 40,
+        "sp_defense": 50,
+        "speed": 75
     },
     "types": [
         "NORMAL",
@@ -21,15 +21,15 @@
         "50%": "NONE",
         "5%": "NONE"
     },
-    "catch_rate": 75,
-    "base_exp_reward": 166,
+    "catch_rate": 190,
+    "base_exp_reward": 67,
     "ev_yields": {
         "hp": 0,
-        "attack": 2,
+        "attack": 0,
         "defense": 0,
         "sp_attack": 0,
         "sp_defense": 0,
-        "speed": 0
+        "speed": 1
     },
     "gender_ratio": "FEMALE_50",
     "hatch_multiplier": 20,
@@ -40,7 +40,7 @@
         "FIELD"
     ],
     "flee_chance": 0,
-    "body_color": "BROWN",
+    "body_color": "PINK",
     "flip_sprite": false,
     "learnset": {
         "tms": [],
@@ -50,5 +50,12 @@
                 "VINE_WHIP"
             ]
         }
-    }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            34,
+            "SAWSBUCK"
+        ]
+    ]
 }

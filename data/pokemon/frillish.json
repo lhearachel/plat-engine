@@ -31,7 +31,7 @@
         "sp_defense": 1,
         "speed": 0
     },
-    "gender_ratio": "FEMALE_50",
+    "gender_ratio": "MALE_ONLY",
     "hatch_multiplier": 20,
     "base_happiness": 50,
     "growth_rate": "MEDIUM_FAST",
@@ -53,7 +53,7 @@
     },
     "evolutions": [
         [
-            "LEVEL_UP",
+            "LEVEL_MALE",
             40,
             "JELLICENT"
         ]

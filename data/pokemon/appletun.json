@@ -1,0 +1,54 @@
+{
+    "name": "Appletun",
+    "base_stats": {
+        "hp": 110,
+        "attack": 85,
+        "defense": 80,
+        "sp_attack": 100,
+        "sp_defense": 80,
+        "speed": 30
+    },
+    "types": [
+        "GRASS",
+        "DRAGON"
+    ],
+    "abilities": {
+        "0": "RIPEN",
+        "1": "GLUTTONY",
+        "H": "THICK_FAT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 170,
+    "ev_yields": {
+        "hp": 2,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "ERRATIC",
+    "egg_groups": [
+        "GRASS",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "VINE_WHIP",
+                "DRAGON_RAGE"
+            ]
+        }
+    }
+}

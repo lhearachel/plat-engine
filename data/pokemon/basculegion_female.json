@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 120,
+        "attack": 92,
+        "defense": 65,
+        "sp_attack": 100,
+        "sp_defense": 75,
+        "speed": 78
+    },
+    "types": [
+        "WATER",
+        "GHOST"
+    ],
+    "abilities": {
+        "0": "SWIFT_SWIM",
+        "1": "ADAPTABILITY",
+        "H": "MOLD_BREAKER"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 135,
+    "base_exp_reward": 0,
+    "ev_yields": {
+        "hp": 2,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_ONLY",
+    "hatch_multiplier": null,
+    "base_happiness": null,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "WATER_2",
+        "WATER_2"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "WATER_GUN",
+                "LICK"
+            ]
+        }
+    }
+}

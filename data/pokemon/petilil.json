@@ -53,6 +53,11 @@
             "USE_ITEM",
             "SUN_STONE",
             "LILLIGANT"
+        ],
+        [
+            "USE_ITEM",
+            "LEAF_STONE",
+            "LILLIGANT_HISUI"
         ]
     ]
 }

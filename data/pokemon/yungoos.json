@@ -1,0 +1,58 @@
+{
+    "name": "Yungoos",
+    "base_stats": {
+        "hp": 48,
+        "attack": 70,
+        "defense": 30,
+        "sp_attack": 30,
+        "sp_defense": 30,
+        "speed": 45
+    },
+    "types": [
+        "NORMAL",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "STAKEOUT",
+        "1": "STRONG_JAW",
+        "H": "ADAPTABILITY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 51,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "TACKLE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            20,
+            "GUMSHOOS"
+        ]
+    ]
+}

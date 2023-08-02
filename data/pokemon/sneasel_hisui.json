@@ -1,0 +1,61 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 55,
+        "attack": 95,
+        "defense": 55,
+        "sp_attack": 35,
+        "sp_defense": 75,
+        "speed": 115
+    },
+    "types": [
+        "FIGHTING",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "INNER_FOCUS",
+        "1": "KEEN_EYE",
+        "H": "PICKPOCKET"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 0,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 35,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "KARATE_CHOP",
+                "SMOG"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM",
+            "RAZOR_CLAW",
+            "SNEASLER"
+        ]
+    ]
+}

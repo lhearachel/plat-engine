@@ -1,0 +1,54 @@
+{
+    "name": "Enamorus",
+    "base_stats": {
+        "hp": 74,
+        "attack": 115,
+        "defense": 70,
+        "sp_attack": 135,
+        "sp_defense": 80,
+        "speed": 106
+    },
+    "types": [
+        "FAIRY",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "CUTE_CHARM",
+        "1": "NONE",
+        "H": "CONTRARY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 0,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 3,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_ONLY",
+    "hatch_multiplier": null,
+    "base_happiness": null,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "PINK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "GUST"
+            ]
+        }
+    }
+}

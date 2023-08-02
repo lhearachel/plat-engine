@@ -1,0 +1,54 @@
+{
+    "name": "Dragalge",
+    "base_stats": {
+        "hp": 65,
+        "attack": 75,
+        "defense": 90,
+        "sp_attack": 97,
+        "sp_defense": 123,
+        "speed": 44
+    },
+    "types": [
+        "POISON",
+        "DRAGON"
+    ],
+    "abilities": {
+        "0": "POISON_POINT",
+        "1": "POISON_TOUCH",
+        "H": "ADAPTABILITY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 55,
+    "base_exp_reward": 173,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 2,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "WATER_1",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "SMOG",
+                "DRAGON_RAGE"
+            ]
+        }
+    }
+}

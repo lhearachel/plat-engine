@@ -1,0 +1,51 @@
+{
+    "name": "Pincurchin",
+    "base_stats": {
+        "hp": 48,
+        "attack": 101,
+        "defense": 95,
+        "sp_attack": 91,
+        "sp_defense": 85,
+        "speed": 15
+    },
+    "types": [
+        "ELECTRIC",
+        "ELECTRIC"
+    ],
+    "abilities": {
+        "0": "LIGHTNING_ROD",
+        "1": "NONE",
+        "H": "ELECTRIC_SURGE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 152,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "WATER_1",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "THUNDER_SHOCK"
+        }
+    }
+}

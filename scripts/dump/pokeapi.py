@@ -1,6 +1,8 @@
 import json
+import os
 import re
 import requests
+import shutil
 
 from scripts.build.util import GenderRatio, GrowthRate, EggGroup, BodyColor, Move, EvoMethod, Species
 
@@ -308,6 +310,11 @@ def build_json(species_json: dict,
 
         poke['abilities'][key] = snake_case(poke_json['abilities'][i]['ability']['name']).upper()
     
+    # if pokeapi only gave us slot 0, fill out slots 1 and H with NONE
+    if len(poke_json['abilities']) == 1:
+        poke['abilities'][1] = 'NONE'
+        poke['abilities']['H'] = 'NONE'
+    
     # held_items (empty for now, both none)
     poke['held_items'] = {
         '50%': 'NONE',
@@ -383,7 +390,8 @@ def build_species(species: int,
                   form_override: int | None = None,
                   name_override: str | None = None,
                   gender_override: GenderRatio | None = None,
-                  sub_form: bool = False) -> (str, dict):
+                  sub_form: bool = False,
+                  write: bool = True) -> (str, dict):
     species_json = get_pokeapi_species(species)
     if form_override:
         poke_json = get_pokeapi_pokemon(form_override)
@@ -392,13 +400,45 @@ def build_species(species: int,
 
     if name_override is None:
         name_override = snake_case(poke_json['name'])
+    
+    print(f'Dumping {name_override}')
+    j = build_json(species_json, poke_json, name_override, gender_override, sub_form)
+    if write:
+        f = open(f'data/pokemon/{name_override}.json', 'w', encoding='utf8')
+        json.dump(j, f, indent=4, ensure_ascii=False)
+        f.close()
+    
+    return (name_override, j)
 
-    return (name_override, build_json(species_json, poke_json, name_override, gender_override, sub_form))
+
+def copy_species(species: int,
+                 name_override: str,
+                 gender_override: GenderRatio | None = None):
+    base_name = name_override.split('_')[0]
+
+    print(f'Copying {name_override} from {base_name}')
+    src_file = f'data/pokemon/{base_name}.json'
+    dst_file = f'data/pokemon/{name_override}.json'
+    if os.path.exists(src_file):
+        src = open(src_file, 'r', encoding='utf8')
+        dst = open(dst_file, 'w', encoding='utf8')
+
+        base = json.load(src)
+        base['name'] = '-----'
+        if gender_override:
+            base['gender_ratio'] = gender_override.name
+
+        json.dump(base, dst, indent=4, ensure_ascii=False)
+
+        src.close()
+        dst.close()
+    else:
+        print(f'❌ {base_name}.json not defined')
+        raise RuntimeError
 
 
 def build_range(start: int, end: int):
     for i in range(start, end + 1):
-        print(f'Dumping {i}')
         name, j = build_species(i)
         f = open(f'data/pokemon/{name}.json', 'w', encoding='utf8')
         json.dump(j, f, indent=4, ensure_ascii=False)
@@ -408,7 +448,7 @@ def build_range(start: int, end: int):
 def build_gen5():
     build_range(494, 520)   # Victini - Tranquill
     build_species(521, name_override='unfezant',        gender_override=GenderRatio.MALE_ONLY)
-    build_species(521, name_override='unfezant_female', gender_override=GenderRatio.FEMALE_ONLY, sub_form=True)
+    copy_species( 521, name_override='unfezant_female', gender_override=GenderRatio.FEMALE_ONLY)
 
     build_range(522, 549)   # Blitzle - Lilligant
     build_species(550,                      name_override='basculin_red_striped', sub_form=True)
@@ -420,18 +460,20 @@ def build_gen5():
     build_species(555, form_override=10017, name_override='darmanitan_zen', sub_form=True)
 
     build_range(556, 584)  # Maractus - Vanilluxe
-    build_species(585, name_override='deerling_summer', sub_form=True)
-    build_species(585, name_override='deerling_autumn', sub_form=True)
-    build_species(585, name_override='deerling_winter', sub_form=True)
-    build_species(586, name_override='sawsbuck_summer', sub_form=True)
-    build_species(586, name_override='sawsbuck_autumn', sub_form=True)
-    build_species(586, name_override='sawsbuck_winter', sub_form=True)
+    build_species(585, name_override='deerling')
+    copy_species(585, name_override='deerling_summer')
+    copy_species(585, name_override='deerling_autumn')
+    copy_species(585, name_override='deerling_winter')
+    build_species(585, name_override='sawsbuck')
+    copy_species(586, name_override='sawsbuck_summer')
+    copy_species(586, name_override='sawsbuck_autumn')
+    copy_species(586, name_override='sawsbuck_winter')
 
-    build_range(587 - 591)  # Emolga - Amoonguss
+    build_range(587, 591)  # Emolga - Amoonguss
     build_species(592, name_override='frillish',        gender_override=GenderRatio.MALE_ONLY)
-    build_species(592, name_override='frillish_female', gender_override=GenderRatio.FEMALE_ONLY, sub_form=True)
+    copy_species( 592, name_override='frillish_female', gender_override=GenderRatio.FEMALE_ONLY)
     build_species(593, name_override='jellicent',        gender_override=GenderRatio.MALE_ONLY)
-    build_species(593, name_override='jellicent_female', gender_override=GenderRatio.FEMALE_ONLY, sub_form=True)
+    copy_species( 593, name_override='jellicent_female', gender_override=GenderRatio.FEMALE_ONLY)
 
     build_range(594, 640)   # Alomomola - Virizion
     build_species(641,                      name_override='tornadus')
@@ -449,73 +491,74 @@ def build_gen5():
     build_species(647, form_override=10024, name_override='keldeo_resolute', sub_form=True)
     build_species(648,                      name_override='meloetta')
     build_species(648, form_override=10018, name_override='meloetta_pirouette', sub_form=True)
-    build_species(649,                      name_override='genesect')
-    build_species(649,                      name_override='genesect_douse_drive', sub_form=True)   # functional copies
-    build_species(649,                      name_override='genesect_shock_drive', sub_form=True)
-    build_species(649,                      name_override='genesect_burn_drive', sub_form=True)
-    build_species(649,                      name_override='genesect_chill_drive', sub_form=True)
+    build_species(649, name_override='genesect')
+    copy_species(649, name_override='genesect_douse_drive')   # functional copies
+    copy_species(649, name_override='genesect_shock_drive')
+    copy_species(649, name_override='genesect_burn_drive')
+    copy_species(649, name_override='genesect_chill_drive')
 
 
 def build_gen6():
     build_range(650, 657)   # Chespin - Frogadier
+    build_species(658,                      name_override='greninja')
     build_species(658, form_override=10116, name_override='greninja_battle_bond', sub_form=True)
     build_species(658, form_override=10117, name_override='greninja_ash', sub_form=True)
 
     build_range(659, 665)   # Bunnelby - Spewpa
     build_species(666, name_override='vivillon')      # Vivillon (Icy Snow)
-    build_species(666, name_override='vivillon_polar', sub_form=True)
-    build_species(666, name_override='vivillon_tundra', sub_form=True)
-    build_species(666, name_override='vivillon_continental', sub_form=True)
-    build_species(666, name_override='vivillon_garden', sub_form=True)
-    build_species(666, name_override='vivillon_elegant', sub_form=True)
-    build_species(666, name_override='vivillon_meadow', sub_form=True)
-    build_species(666, name_override='vivillon_modern', sub_form=True)
-    build_species(666, name_override='vivillon_marine', sub_form=True)
-    build_species(666, name_override='vivillon_archipelago', sub_form=True)
-    build_species(666, name_override='vivillon_high_plains', sub_form=True)
-    build_species(666, name_override='vivillon_sandstorm', sub_form=True)
-    build_species(666, name_override='vivillon_river', sub_form=True)
-    build_species(666, name_override='vivillon_monsoon', sub_form=True)
-    build_species(666, name_override='vivillon_savanna', sub_form=True)
-    build_species(666, name_override='vivillon_sun', sub_form=True)
-    build_species(666, name_override='vivillon_ocean', sub_form=True)
-    build_species(666, name_override='vivillon_jungle', sub_form=True)
-    build_species(666, name_override='vivillon_fancy', sub_form=True)
-    build_species(666, name_override='vivillon_poke_ball', sub_form=True)
+    copy_species(666, name_override='vivillon_polar')
+    copy_species(666, name_override='vivillon_tundra')
+    copy_species(666, name_override='vivillon_continental')
+    copy_species(666, name_override='vivillon_garden')
+    copy_species(666, name_override='vivillon_elegant')
+    copy_species(666, name_override='vivillon_meadow')
+    copy_species(666, name_override='vivillon_modern')
+    copy_species(666, name_override='vivillon_marine')
+    copy_species(666, name_override='vivillon_archipelago')
+    copy_species(666, name_override='vivillon_high_plains')
+    copy_species(666, name_override='vivillon_sandstorm')
+    copy_species(666, name_override='vivillon_river')
+    copy_species(666, name_override='vivillon_monsoon')
+    copy_species(666, name_override='vivillon_savanna')
+    copy_species(666, name_override='vivillon_sun')
+    copy_species(666, name_override='vivillon_ocean')
+    copy_species(666, name_override='vivillon_jungle')
+    copy_species(666, name_override='vivillon_fancy')
+    copy_species(666, name_override='vivillon_poke_ball')
     build_species(667)      # Litleo
-    build_species(668, name_override='pyroar')
-    build_species(668, name_override='pyroar_female', sub_form=True)
+    build_species(668, name_override='pyroar', gender_override=GenderRatio.MALE_ONLY)
+    copy_species( 668, name_override='pyroar_female', gender_override=GenderRatio.FEMALE_ONLY)
     build_species(669)      # Flabebe (Red)
-    build_species(669, name_override='flabebe_yellow', sub_form=True)
-    build_species(669, name_override='flabebe_orange', sub_form=True)
-    build_species(669, name_override='flabebe_blue', sub_form=True)
-    build_species(669, name_override='flabebe_white', sub_form=True)
+    copy_species(669, name_override='flabebe_yellow')
+    copy_species(669, name_override='flabebe_orange')
+    copy_species(669, name_override='flabebe_blue')
+    copy_species(669, name_override='flabebe_white')
     build_species(670)      # Floette (Red)
-    build_species(670, name_override='floette_yellow', sub_form=True)
-    build_species(670, name_override='floette_orange', sub_form=True)
-    build_species(670, name_override='floette_blue', sub_form=True)
-    build_species(670, name_override='floette_white', sub_form=True)
+    copy_species(670, name_override='floette_yellow')
+    copy_species(670, name_override='floette_orange')
+    copy_species(670, name_override='floette_blue')
+    copy_species(670, name_override='floette_white')
     build_species(670, form_override=10061, name_override='floette_eternal', sub_form=True)
     build_species(671)      # Florges (Red)
-    build_species(671, name_override='florges_yellow', sub_form=True)
-    build_species(671, name_override='florges_orange', sub_form=True)
-    build_species(671, name_override='florges_blue', sub_form=True)
-    build_species(671, name_override='florges_white', sub_form=True)
+    copy_species(671, name_override='florges_yellow')
+    copy_species(671, name_override='florges_orange')
+    copy_species(671, name_override='florges_blue')
+    copy_species(671, name_override='florges_white')
 
     build_range(672, 675)   # Skiddo - Pangoro
     build_species(676)      # Furfrou (Natural)
-    build_species(676, name_override='furfrou_heart', sub_form=True)
-    build_species(676, name_override='furfrou_star', sub_form=True)
-    build_species(676, name_override='furfrou_diamond', sub_form=True)
-    build_species(676, name_override='furfrou_debutante', sub_form=True)
-    build_species(676, name_override='furfrou_matron', sub_form=True)
-    build_species(676, name_override='furfrou_dandy', sub_form=True)
-    build_species(676, name_override='furfrou_la_reine', sub_form=True)
-    build_species(676, name_override='furfrou_kabuki', sub_form=True)
-    build_species(676, name_override='furfrou_pharoah', sub_form=True)
+    copy_species(676, name_override='furfrou_heart')
+    copy_species(676, name_override='furfrou_star')
+    copy_species(676, name_override='furfrou_diamond')
+    copy_species(676, name_override='furfrou_debutante')
+    copy_species(676, name_override='furfrou_matron')
+    copy_species(676, name_override='furfrou_dandy')
+    copy_species(676, name_override='furfrou_la_reine')
+    copy_species(676, name_override='furfrou_kabuki')
+    copy_species(676, name_override='furfrou_pharoah')
     build_species(677)      # Espurr
-    build_species(678,                      name_override='meowstic')
-    build_species(678, form_override=10025, name_override='meowstic_female', sub_form=True)
+    build_species(678,                      name_override='meowstic', gender_override=GenderRatio.MALE_ONLY)
+    build_species(678, form_override=10025, name_override='meowstic_female', gender_override=GenderRatio.FEMALE_ONLY, sub_form=True)
     build_species(679)      # Honedge
     build_species(680)      # Doublade
     build_species(681,                      name_override='aegislash')
@@ -533,8 +576,8 @@ def build_gen6():
 
     build_range(712, 715)   # Bergmite - Noivern
     build_species(716)
-    build_species(716, name_override='xerneas_active', sub_form=True)
-    build_species(717)      # Xerneas
+    copy_species(716, name_override='xerneas_active')
+    build_species(717)      # Yveltal
     build_species(718,                      name_override='zygarde')
     build_species(718, form_override=10118, name_override='zygarde_10_power_construct', sub_form=True)
     build_species(718, form_override=10119, name_override='zygarde_50_power_construct', sub_form=True)
@@ -554,7 +597,7 @@ def build_gen6():
     build_species( 15, form_override=10090, name_override='beedrill_mega', sub_form=True)
     build_species( 18, form_override=10073, name_override='pidgeot_mega', sub_form=True)
     build_species( 65, form_override=10037, name_override='alakazam_mega', sub_form=True)
-    build_species( 86, form_override=10071, name_override='slowbro_mega', sub_form=True)
+    build_species( 80, form_override=10071, name_override='slowbro_mega', sub_form=True)
     build_species( 94, form_override=10038, name_override='gengar_mega', sub_form=True)
     build_species(115, form_override=10039, name_override='kangaskhan_mega', sub_form=True)
     build_species(127, form_override=10040, name_override='pinsir_mega', sub_form=True)
@@ -720,7 +763,7 @@ def build_gen8():
     build_species(869, name_override='alcremie_filler_1', sub_form=True)
     build_species(869, name_override='alcremie_filler_2', sub_form=True)
 
-    build_range(870 - 874)  # Falinks - Stonjourner
+    build_range(870, 874)  # Falinks - Stonjourner
     build_species(875,                      name_override='eiscue')
     build_species(875, form_override=10185, name_override='eiscue_no_ice', sub_form=True)
     build_species(876,                      name_override='indeedee')
@@ -749,8 +792,8 @@ def build_gen8():
     build_species(899)      # Wyrdeer
     build_species(900)      # Kleavor
     build_species(901)      # Ursaluna
-    build_species(902,                      name_override='basculegion')
-    build_species(902, form_override=10248, name_override='basculegion_female', sub_form=True)
+    build_species(902,                      name_override='basculegion', gender_override=GenderRatio.MALE_ONLY)
+    build_species(902, form_override=10248, name_override='basculegion_female', gender_override=GenderRatio.FEMALE_ONLY, sub_form=True)
     build_species(903)      # Sneasler
     build_species(904)      # Overqwil
     build_species(905,                      name_override='enamorus')

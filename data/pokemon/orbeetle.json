@@ -1,0 +1,54 @@
+{
+    "name": "Orbeetle",
+    "base_stats": {
+        "hp": 60,
+        "attack": 45,
+        "defense": 110,
+        "sp_attack": 80,
+        "sp_defense": 120,
+        "speed": 90
+    },
+    "types": [
+        "BUG",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "SWARM",
+        "1": "FRISK",
+        "H": "TELEPATHY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 253,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 3,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "LEECH_LIFE",
+                "CONFUSION"
+            ]
+        }
+    }
+}

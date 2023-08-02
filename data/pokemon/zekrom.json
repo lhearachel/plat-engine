@@ -13,7 +13,9 @@
         "ELECTRIC"
     ],
     "abilities": {
-        "0": "TERAVOLT"
+        "0": "TERAVOLT",
+        "1": "NONE",
+        "H": "NONE"
     },
     "held_items": {
         "50%": "NONE",

@@ -1,0 +1,51 @@
+{
+    "name": "Eldegoss",
+    "base_stats": {
+        "hp": 60,
+        "attack": 50,
+        "defense": 90,
+        "sp_attack": 80,
+        "sp_defense": 120,
+        "speed": 60
+    },
+    "types": [
+        "GRASS",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "COTTON_DOWN",
+        "1": "REGENERATOR",
+        "H": "EFFECT_SPORE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 161,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 2,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "GRASS",
+        "GRASS"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "VINE_WHIP"
+        }
+    }
+}

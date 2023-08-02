@@ -13,7 +13,9 @@
         "FIRE"
     ],
     "abilities": {
-        "0": "TURBOBLAZE"
+        "0": "TURBOBLAZE",
+        "1": "NONE",
+        "H": "NONE"
     },
     "held_items": {
         "50%": "NONE",

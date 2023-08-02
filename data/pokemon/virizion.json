@@ -13,7 +13,9 @@
         "FIGHTING"
     ],
     "abilities": {
-        "0": "JUSTIFIED"
+        "0": "JUSTIFIED",
+        "1": "NONE",
+        "H": "NONE"
     },
     "held_items": {
         "50%": "NONE",

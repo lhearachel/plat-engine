@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 89,
+        "attack": 145,
+        "defense": 90,
+        "sp_attack": 105,
+        "sp_defense": 80,
+        "speed": 91
+    },
+    "types": [
+        "GROUND",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "INTIMIDATE",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 3,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "MALE_ONLY",
+    "hatch_multiplier": 120,
+    "base_happiness": 90,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "MUD_SHOT",
+                "GUST"
+            ]
+        }
+    }
+}

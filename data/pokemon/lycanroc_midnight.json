@@ -1,0 +1,51 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 85,
+        "attack": 115,
+        "defense": 75,
+        "sp_attack": 55,
+        "sp_defense": 75,
+        "speed": 82
+    },
+    "types": [
+        "ROCK",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "KEEN_EYE",
+        "1": "VITAL_SPIRIT",
+        "H": "NO_GUARD"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 170,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "ROCK_THROW"
+        }
+    }
+}

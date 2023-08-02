@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 100,
+        "attack": 164,
+        "defense": 150,
+        "sp_attack": 95,
+        "sp_defense": 120,
+        "speed": 71
+    },
+    "types": [
+        "ROCK",
+        "DARK"
+    ],
+    "abilities": {
+        "0": "SAND_STREAM",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 3,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 40,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "MONSTER",
+        "MONSTER"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "FAINT_ATTACK"
+            ]
+        }
+    }
+}

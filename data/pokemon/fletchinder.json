@@ -1,0 +1,61 @@
+{
+    "name": "Fletchinder",
+    "base_stats": {
+        "hp": 62,
+        "attack": 73,
+        "defense": 55,
+        "sp_attack": 56,
+        "sp_defense": 52,
+        "speed": 84
+    },
+    "types": [
+        "FIRE",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "FLAME_BODY",
+        "1": "NONE",
+        "H": "GALE_WINGS"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 134,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FLYING",
+        "FLYING"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "EMBER",
+                "GUST"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            35,
+            "TALONFLAME"
+        ]
+    ]
+}

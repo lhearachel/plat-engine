@@ -13,7 +13,9 @@
         "FIRE"
     ],
     "abilities": {
-        "0": "VICTORY_STAR"
+        "0": "VICTORY_STAR",
+        "1": "NONE",
+        "H": "NONE"
     },
     "held_items": {
         "50%": "NONE",

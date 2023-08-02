@@ -13,7 +13,9 @@
         "PSYCHIC"
     ],
     "abilities": {
-        "0": "SERENE_GRACE"
+        "0": "SERENE_GRACE",
+        "1": "NONE",
+        "H": "NONE"
     },
     "held_items": {
         "50%": "NONE",

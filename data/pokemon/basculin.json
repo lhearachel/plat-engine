@@ -13,7 +13,7 @@
         "WATER"
     ],
     "abilities": {
-        "0": "RECKLESS",
+        "0": "RATTLED",
         "1": "ADAPTABILITY",
         "H": "MOLD_BREAKER"
     },
@@ -22,7 +22,7 @@
         "5%": "NONE"
     },
     "catch_rate": 25,
-    "base_exp_reward": 161,
+    "base_exp_reward": 0,
     "ev_yields": {
         "hp": 0,
         "attack": 0,
@@ -47,5 +47,17 @@
         "level_up": {
             "1": "WATER_GUN"
         }
-    }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM_MALE",
+            "DUSK_STONE",
+            "BASCULEGION"
+        ],
+        [
+            "USE_ITEM_FEMALE",
+            "DUSK_STONE",
+            "BASCULEGION_FEMALE"
+        ]
+    ]
 }

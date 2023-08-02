@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 60,
+        "attack": 100,
+        "defense": 85,
+        "sp_attack": 80,
+        "sp_defense": 85,
+        "speed": 100
+    },
+    "types": [
+        "FIGHTING",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "PURE_POWER",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 179,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "HUMAN_LIKE",
+        "HUMAN_LIKE"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "KARATE_CHOP",
+                "CONFUSION"
+            ]
+        }
+    }
+}

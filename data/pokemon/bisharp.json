@@ -50,5 +50,10 @@
                 "METAL_CLAW"
             ]
         }
-    }
+    },
+    "evolutions": [
+        [
+            "KINGAMBIT"
+        ]
+    ]
 }

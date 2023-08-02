@@ -1,0 +1,54 @@
+{
+    "name": "Kleavor",
+    "base_stats": {
+        "hp": 70,
+        "attack": 135,
+        "defense": 95,
+        "sp_attack": 45,
+        "sp_defense": 70,
+        "speed": 85
+    },
+    "types": [
+        "BUG",
+        "ROCK"
+    ],
+    "abilities": {
+        "0": "SWARM",
+        "1": "SHEER_FORCE",
+        "H": "SHARPNESS"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 115,
+    "base_exp_reward": 0,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": null,
+    "base_happiness": null,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "LEECH_LIFE",
+                "ROCK_THROW"
+            ]
+        }
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "name": "Flapple",
+    "base_stats": {
+        "hp": 70,
+        "attack": 110,
+        "defense": 80,
+        "sp_attack": 95,
+        "sp_defense": 60,
+        "speed": 70
+    },
+    "types": [
+        "GRASS",
+        "DRAGON"
+    ],
+    "abilities": {
+        "0": "RIPEN",
+        "1": "GLUTTONY",
+        "H": "HUSTLE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 170,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "ERRATIC",
+    "egg_groups": [
+        "GRASS",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "VINE_WHIP",
+                "DRAGON_RAGE"
+            ]
+        }
+    }
+}

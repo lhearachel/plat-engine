@@ -1,0 +1,61 @@
+{
+    "name": "Cutiefly",
+    "base_stats": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 40,
+        "sp_attack": 55,
+        "sp_defense": 40,
+        "speed": 84
+    },
+    "types": [
+        "BUG",
+        "FAIRY"
+    ],
+    "abilities": {
+        "0": "HONEY_GATHER",
+        "1": "SHIELD_DUST",
+        "H": "SWEET_VEIL"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 61,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 1
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "FAIRY"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "LEECH_LIFE",
+                "TACKLE"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            25,
+            "RIBOMBEE"
+        ]
+    ]
+}

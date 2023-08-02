@@ -1,0 +1,54 @@
+{
+    "name": "Duraludon",
+    "base_stats": {
+        "hp": 70,
+        "attack": 95,
+        "defense": 115,
+        "sp_attack": 120,
+        "sp_defense": 50,
+        "speed": 85
+    },
+    "types": [
+        "STEEL",
+        "DRAGON"
+    ],
+    "abilities": {
+        "0": "LIGHT_METAL",
+        "1": "HEAVY_METAL",
+        "H": "STALWART"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 187,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 2,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 30,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MINERAL",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "WHITE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "METAL_CLAW",
+                "DRAGON_RAGE"
+            ]
+        }
+    }
+}

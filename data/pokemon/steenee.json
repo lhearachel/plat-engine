@@ -1,0 +1,58 @@
+{
+    "name": "Steenee",
+    "base_stats": {
+        "hp": 52,
+        "attack": 40,
+        "defense": 48,
+        "sp_attack": 40,
+        "sp_defense": 48,
+        "speed": 62
+    },
+    "types": [
+        "GRASS",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "LEAF_GUARD",
+        "1": "OBLIVIOUS",
+        "H": "SWEET_VEIL"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 102,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "FEMALE_ONLY",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "GRASS",
+        "GRASS"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "VINE_WHIP"
+        }
+    },
+    "evolutions": [
+        [
+            "KNOW_MOVE",
+            "STOMP",
+            "TSAREENA"
+        ]
+    ]
+}

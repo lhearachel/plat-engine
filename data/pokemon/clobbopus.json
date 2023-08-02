@@ -1,0 +1,58 @@
+{
+    "name": "Clobbopus",
+    "base_stats": {
+        "hp": 50,
+        "attack": 68,
+        "defense": 60,
+        "sp_attack": 50,
+        "sp_defense": 50,
+        "speed": 32
+    },
+    "types": [
+        "FIGHTING",
+        "FIGHTING"
+    ],
+    "abilities": {
+        "0": "LIMBER",
+        "1": "NONE",
+        "H": "TECHNICIAN"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 180,
+    "base_exp_reward": 62,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "WATER_1",
+        "HUMAN_LIKE"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "KARATE_CHOP"
+        }
+    },
+    "evolutions": [
+        [
+            "KNOW_MOVE",
+            "TAUNT",
+            "GRAPPLOCT"
+        ]
+    ]
+}

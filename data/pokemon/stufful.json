@@ -1,0 +1,61 @@
+{
+    "name": "Stufful",
+    "base_stats": {
+        "hp": 70,
+        "attack": 75,
+        "defense": 50,
+        "sp_attack": 45,
+        "sp_defense": 50,
+        "speed": 50
+    },
+    "types": [
+        "NORMAL",
+        "FIGHTING"
+    ],
+    "abilities": {
+        "0": "FLUFFY",
+        "1": "KLUTZ",
+        "H": "CUTE_CHARM"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 140,
+    "base_exp_reward": 68,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "PINK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "KARATE_CHOP"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            27,
+            "BEWEAR"
+        ]
+    ]
+}

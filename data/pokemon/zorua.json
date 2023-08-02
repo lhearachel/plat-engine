@@ -13,7 +13,9 @@
         "DARK"
     ],
     "abilities": {
-        "0": "ILLUSION"
+        "0": "ILLUSION",
+        "1": "NONE",
+        "H": "NONE"
     },
     "held_items": {
         "50%": "NONE",

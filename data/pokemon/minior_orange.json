@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 60,
+        "attack": 100,
+        "defense": 60,
+        "sp_attack": 100,
+        "sp_defense": 60,
+        "speed": 120
+    },
+    "types": [
+        "ROCK",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "SHIELDS_DOWN",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 30,
+    "base_exp_reward": 175,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 1,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 25,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "GUST"
+            ]
+        }
+    }
+}

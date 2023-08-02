@@ -1,0 +1,54 @@
+{
+    "name": "Volcanion",
+    "base_stats": {
+        "hp": 80,
+        "attack": 110,
+        "defense": 120,
+        "sp_attack": 130,
+        "sp_defense": 90,
+        "speed": 70
+    },
+    "types": [
+        "FIRE",
+        "WATER"
+    ],
+    "abilities": {
+        "0": "WATER_ABSORB",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 3,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 120,
+    "base_happiness": 100,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "EMBER",
+                "WATER_GUN"
+            ]
+        }
+    }
+}

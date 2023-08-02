@@ -53,9 +53,14 @@
     },
     "evolutions": [
         [
-            "LEVEL_UP",
+            "LEVEL_MALE",
             32,
             "UNFEZANT"
+        ],
+        [
+            "LEVEL_FEMALE",
+            32,
+            "UNFEZANT_FEMALE"
         ]
     ]
 }

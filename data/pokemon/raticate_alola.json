@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 75,
+        "attack": 71,
+        "defense": 70,
+        "sp_attack": 40,
+        "sp_defense": 80,
+        "speed": 77
+    },
+    "types": [
+        "DARK",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "GLUTTONY",
+        "1": "HUSTLE",
+        "H": "THICK_FAT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 127,
+    "base_exp_reward": 145,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "FAINT_ATTACK",
+                "TACKLE"
+            ]
+        }
+    }
+}

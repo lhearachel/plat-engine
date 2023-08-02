@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 80,
+        "attack": 95,
+        "defense": 115,
+        "sp_attack": 130,
+        "sp_defense": 115,
+        "speed": 65
+    },
+    "types": [
+        "STEEL",
+        "FAIRY"
+    ],
+    "abilities": {
+        "0": "SOUL_HEART",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 3,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 120,
+    "base_happiness": 0,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "METAL_CLAW",
+                "TACKLE"
+            ]
+        }
+    }
+}

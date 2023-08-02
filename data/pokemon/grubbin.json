@@ -1,0 +1,58 @@
+{
+    "name": "Grubbin",
+    "base_stats": {
+        "hp": 47,
+        "attack": 62,
+        "defense": 45,
+        "sp_attack": 55,
+        "sp_defense": 45,
+        "speed": 46
+    },
+    "types": [
+        "BUG",
+        "BUG"
+    ],
+    "abilities": {
+        "0": "SWARM",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 60,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "BUG",
+        "BUG"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "LEECH_LIFE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            20,
+            "CHARJABUG"
+        ]
+    ]
+}

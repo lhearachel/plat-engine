@@ -1,0 +1,61 @@
+{
+    "name": "Carkol",
+    "base_stats": {
+        "hp": 80,
+        "attack": 60,
+        "defense": 90,
+        "sp_attack": 60,
+        "sp_defense": 70,
+        "speed": 50
+    },
+    "types": [
+        "ROCK",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "STEAM_ENGINE",
+        "1": "FLAME_BODY",
+        "H": "FLASH_FIRE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 144,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "EMBER"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            34,
+            "COALOSSAL"
+        ]
+    ]
+}

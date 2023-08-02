@@ -14,6 +14,7 @@
     ],
     "abilities": {
         "0": "HUSTLE",
+        "1": "NONE",
         "H": "INNER_FOCUS"
     },
     "held_items": {

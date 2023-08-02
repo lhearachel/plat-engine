@@ -1,0 +1,51 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 64,
+        "attack": 165,
+        "defense": 75,
+        "sp_attack": 93,
+        "sp_defense": 83,
+        "speed": 75
+    },
+    "types": [
+        "GHOST",
+        "GHOST"
+    ],
+    "abilities": {
+        "0": "PRANKSTER",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 194,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 35,
+    "growth_rate": "FAST",
+    "egg_groups": [
+        "AMORPHOUS",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "LICK"
+        }
+    }
+}

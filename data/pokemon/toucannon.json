@@ -1,0 +1,54 @@
+{
+    "name": "Toucannon",
+    "base_stats": {
+        "hp": 80,
+        "attack": 120,
+        "defense": 75,
+        "sp_attack": 75,
+        "sp_defense": 75,
+        "speed": 60
+    },
+    "types": [
+        "NORMAL",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "KEEN_EYE",
+        "1": "SKILL_LINK",
+        "H": "SHEER_FORCE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 218,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 3,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FLYING",
+        "FLYING"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "GUST"
+            ]
+        }
+    }
+}

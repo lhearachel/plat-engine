@@ -1,0 +1,61 @@
+{
+    "name": "Amaura",
+    "base_stats": {
+        "hp": 77,
+        "attack": 59,
+        "defense": 50,
+        "sp_attack": 67,
+        "sp_defense": 63,
+        "speed": 46
+    },
+    "types": [
+        "ROCK",
+        "ICE"
+    ],
+    "abilities": {
+        "0": "REFRIGERATE",
+        "1": "NONE",
+        "H": "SNOW_WARNING"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 72,
+    "ev_yields": {
+        "hp": 1,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 30,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MONSTER",
+        "MONSTER"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "POWDER_SNOW"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            39,
+            "AURORUS"
+        ]
+    ]
+}

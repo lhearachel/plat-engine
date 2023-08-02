@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 90,
+        "attack": 95,
+        "defense": 105,
+        "sp_attack": 165,
+        "sp_defense": 110,
+        "speed": 45
+    },
+    "types": [
+        "ELECTRIC",
+        "DRAGON"
+    ],
+    "abilities": {
+        "0": "MOLD_BREAKER",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 3,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MONSTER",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "THUNDER_SHOCK",
+                "DRAGON_RAGE"
+            ]
+        }
+    }
+}

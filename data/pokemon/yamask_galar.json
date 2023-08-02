@@ -1,0 +1,61 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 38,
+        "attack": 55,
+        "defense": 85,
+        "sp_attack": 30,
+        "sp_defense": 65,
+        "speed": 30
+    },
+    "types": [
+        "GROUND",
+        "GHOST"
+    ],
+    "abilities": {
+        "0": "WANDERING_SPIRIT",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 61,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MINERAL",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "MUD_SHOT",
+                "LICK"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            34,
+            "RUNERIGUS"
+        ]
+    ]
+}

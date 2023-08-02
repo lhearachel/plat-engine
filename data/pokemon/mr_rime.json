@@ -1,0 +1,54 @@
+{
+    "name": "Mr. Rime",
+    "base_stats": {
+        "hp": 80,
+        "attack": 85,
+        "defense": 75,
+        "sp_attack": 110,
+        "sp_defense": 100,
+        "speed": 70
+    },
+    "types": [
+        "ICE",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "TANGLED_FEET",
+        "1": "SCREEN_CLEANER",
+        "H": "ICE_BODY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 182,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 3,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "HUMAN_LIKE",
+        "HUMAN_LIKE"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "POWDER_SNOW",
+                "CONFUSION"
+            ]
+        }
+    }
+}

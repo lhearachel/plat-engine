@@ -1,0 +1,58 @@
+{
+    "name": "Torracat",
+    "base_stats": {
+        "hp": 65,
+        "attack": 85,
+        "defense": 50,
+        "sp_attack": 80,
+        "sp_defense": 50,
+        "speed": 90
+    },
+    "types": [
+        "FIRE",
+        "FIRE"
+    ],
+    "abilities": {
+        "0": "BLAZE",
+        "1": "NONE",
+        "H": "INTIMIDATE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 147,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "EMBER"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            34,
+            "INCINEROAR"
+        ]
+    ]
+}

@@ -1,0 +1,58 @@
+{
+    "name": "Flabébé",
+    "base_stats": {
+        "hp": 44,
+        "attack": 38,
+        "defense": 39,
+        "sp_attack": 61,
+        "sp_defense": 79,
+        "speed": 42
+    },
+    "types": [
+        "FAIRY",
+        "FAIRY"
+    ],
+    "abilities": {
+        "0": "FLOWER_VEIL",
+        "1": "NONE",
+        "H": "SYMBIOSIS"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 225,
+    "base_exp_reward": 61,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_ONLY",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FAIRY",
+        "FAIRY"
+    ],
+    "flee_chance": 0,
+    "body_color": "WHITE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "TACKLE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            19,
+            "FLOETTE"
+        ]
+    ]
+}

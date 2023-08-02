@@ -1,0 +1,51 @@
+{
+    "name": "Gogoat",
+    "base_stats": {
+        "hp": 123,
+        "attack": 100,
+        "defense": 62,
+        "sp_attack": 97,
+        "sp_defense": 81,
+        "speed": 68
+    },
+    "types": [
+        "GRASS",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "SAP_SIPPER",
+        "1": "NONE",
+        "H": "GRASS_PELT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 186,
+    "ev_yields": {
+        "hp": 2,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "VINE_WHIP"
+        }
+    }
+}

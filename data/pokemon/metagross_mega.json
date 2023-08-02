@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 80,
+        "attack": 145,
+        "defense": 150,
+        "sp_attack": 105,
+        "sp_defense": 110,
+        "speed": 110
+    },
+    "types": [
+        "STEEL",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "TOUGH_CLAWS",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 3,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 40,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "METAL_CLAW",
+                "CONFUSION"
+            ]
+        }
+    }
+}

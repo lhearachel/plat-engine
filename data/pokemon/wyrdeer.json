@@ -1,0 +1,54 @@
+{
+    "name": "Wyrdeer",
+    "base_stats": {
+        "hp": 103,
+        "attack": 105,
+        "defense": 72,
+        "sp_attack": 105,
+        "sp_defense": 75,
+        "speed": 65
+    },
+    "types": [
+        "NORMAL",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "INTIMIDATE",
+        "1": "FRISK",
+        "H": "SAP_SIPPER"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 135,
+    "base_exp_reward": 0,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": null,
+    "base_happiness": null,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "CONFUSION"
+            ]
+        }
+    }
+}

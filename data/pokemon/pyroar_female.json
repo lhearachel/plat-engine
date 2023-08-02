@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 86,
+        "attack": 68,
+        "defense": 72,
+        "sp_attack": 109,
+        "sp_defense": 66,
+        "speed": 106
+    },
+    "types": [
+        "FIRE",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "RIVALRY",
+        "1": "UNNERVE",
+        "H": "MOXIE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 65,
+    "base_exp_reward": 177,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 2,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_ONLY",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "EMBER",
+                "TACKLE"
+            ]
+        }
+    }
+}

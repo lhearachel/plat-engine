@@ -1,0 +1,66 @@
+{
+    "name": "Toxel",
+    "base_stats": {
+        "hp": 40,
+        "attack": 38,
+        "defense": 35,
+        "sp_attack": 54,
+        "sp_defense": 35,
+        "speed": 40
+    },
+    "types": [
+        "ELECTRIC",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "RATTLED",
+        "1": "STATIC",
+        "H": "KLUTZ"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 48,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 1,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 25,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "THUNDER_SHOCK",
+                "SMOG"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "NATURE_AMPED",
+            30,
+            "TOXTRICITY"
+        ],
+        [
+            "NATURE_LOW_KEY",
+            30,
+            "TOXTRICITY_LOW_KEY"
+        ]
+    ]
+}

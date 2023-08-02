@@ -1,0 +1,58 @@
+{
+    "name": "Sliggoo",
+    "base_stats": {
+        "hp": 68,
+        "attack": 75,
+        "defense": 53,
+        "sp_attack": 83,
+        "sp_defense": 113,
+        "speed": 60
+    },
+    "types": [
+        "DRAGON",
+        "DRAGON"
+    ],
+    "abilities": {
+        "0": "SAP_SIPPER",
+        "1": "HYDRATION",
+        "H": "GOOEY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 158,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 2,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 40,
+    "base_happiness": 35,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "DRAGON",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "DRAGON_RAGE"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_RAIN",
+            50,
+            "GOODRA"
+        ]
+    ]
+}

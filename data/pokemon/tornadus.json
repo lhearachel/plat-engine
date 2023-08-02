@@ -14,6 +14,7 @@
     ],
     "abilities": {
         "0": "PRANKSTER",
+        "1": "NONE",
         "H": "DEFIANT"
     },
     "held_items": {

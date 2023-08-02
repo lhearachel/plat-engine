@@ -1,0 +1,61 @@
+{
+    "name": "Binacle",
+    "base_stats": {
+        "hp": 42,
+        "attack": 52,
+        "defense": 67,
+        "sp_attack": 39,
+        "sp_defense": 56,
+        "speed": 50
+    },
+    "types": [
+        "ROCK",
+        "WATER"
+    ],
+    "abilities": {
+        "0": "TOUGH_CLAWS",
+        "1": "SNIPER",
+        "H": "PICKPOCKET"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 61,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "WATER_3",
+        "WATER_3"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "WATER_GUN"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            39,
+            "BARBARACLE"
+        ]
+    ]
+}

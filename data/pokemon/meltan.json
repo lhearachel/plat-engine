@@ -1,0 +1,51 @@
+{
+    "name": "Meltan",
+    "base_stats": {
+        "hp": 46,
+        "attack": 65,
+        "defense": 65,
+        "sp_attack": 55,
+        "sp_defense": 35,
+        "speed": 34
+    },
+    "types": [
+        "STEEL",
+        "STEEL"
+    ],
+    "abilities": {
+        "0": "MAGNET_PULL",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 150,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 120,
+    "base_happiness": 0,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "METAL_CLAW"
+        }
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "name": "Noivern",
+    "base_stats": {
+        "hp": 85,
+        "attack": 70,
+        "defense": 80,
+        "sp_attack": 97,
+        "sp_defense": 80,
+        "speed": 123
+    },
+    "types": [
+        "FLYING",
+        "DRAGON"
+    ],
+    "abilities": {
+        "0": "FRISK",
+        "1": "INFILTRATOR",
+        "H": "TELEPATHY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 187,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FLYING",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "GUST",
+                "DRAGON_RAGE"
+            ]
+        }
+    }
+}

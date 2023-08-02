@@ -1,0 +1,54 @@
+{
+    "name": "Diancie",
+    "base_stats": {
+        "hp": 50,
+        "attack": 100,
+        "defense": 150,
+        "sp_attack": 100,
+        "sp_defense": 150,
+        "speed": 50
+    },
+    "types": [
+        "ROCK",
+        "FAIRY"
+    ],
+    "abilities": {
+        "0": "CLEAR_BODY",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 2,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 25,
+    "base_happiness": 50,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "PINK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "TACKLE"
+            ]
+        }
+    }
+}

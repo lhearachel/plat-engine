@@ -13,7 +13,9 @@
         "GHOST"
     ],
     "abilities": {
-        "0": "MUMMY"
+        "0": "MUMMY",
+        "1": "NONE",
+        "H": "NONE"
     },
     "held_items": {
         "50%": "NONE",

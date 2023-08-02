@@ -1,0 +1,54 @@
+{
+    "name": "Aegislash",
+    "base_stats": {
+        "hp": 60,
+        "attack": 50,
+        "defense": 140,
+        "sp_attack": 50,
+        "sp_defense": 140,
+        "speed": 60
+    },
+    "types": [
+        "STEEL",
+        "GHOST"
+    ],
+    "abilities": {
+        "0": "STANCE_CHANGE",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 250,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "METAL_CLAW",
+                "LICK"
+            ]
+        }
+    }
+}

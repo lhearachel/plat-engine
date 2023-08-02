@@ -1,0 +1,54 @@
+{
+    "name": "Bruxish",
+    "base_stats": {
+        "hp": 68,
+        "attack": 105,
+        "defense": 70,
+        "sp_attack": 70,
+        "sp_defense": 70,
+        "speed": 92
+    },
+    "types": [
+        "WATER",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "DAZZLING",
+        "1": "STRONG_JAW",
+        "H": "WONDER_SKIN"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 80,
+    "base_exp_reward": 166,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "WATER_2",
+        "WATER_2"
+    ],
+    "flee_chance": 0,
+    "body_color": "PINK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "WATER_GUN",
+                "CONFUSION"
+            ]
+        }
+    }
+}

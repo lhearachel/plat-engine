@@ -1,0 +1,54 @@
+{
+    "name": "Nihilego",
+    "base_stats": {
+        "hp": 109,
+        "attack": 53,
+        "defense": 47,
+        "sp_attack": 127,
+        "sp_defense": 131,
+        "speed": 103
+    },
+    "types": [
+        "ROCK",
+        "POISON"
+    ],
+    "abilities": {
+        "0": "BEAST_BOOST",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 3,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 120,
+    "base_happiness": 0,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "WHITE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "SMOG"
+            ]
+        }
+    }
+}

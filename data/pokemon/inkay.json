@@ -1,0 +1,61 @@
+{
+    "name": "Inkay",
+    "base_stats": {
+        "hp": 53,
+        "attack": 54,
+        "defense": 53,
+        "sp_attack": 37,
+        "sp_defense": 46,
+        "speed": 45
+    },
+    "types": [
+        "DARK",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "CONTRARY",
+        "1": "SUCTION_CUPS",
+        "H": "INFILTRATOR"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 58,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "WATER_1",
+        "WATER_2"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "FAINT_ATTACK",
+                "CONFUSION"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            30,
+            "MALAMAR"
+        ]
+    ]
+}

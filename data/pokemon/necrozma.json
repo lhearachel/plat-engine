@@ -1,0 +1,51 @@
+{
+    "name": "Necrozma",
+    "base_stats": {
+        "hp": 97,
+        "attack": 107,
+        "defense": 101,
+        "sp_attack": 127,
+        "sp_defense": 89,
+        "speed": 79
+    },
+    "types": [
+        "PSYCHIC",
+        "PSYCHIC"
+    ],
+    "abilities": {
+        "0": "PRISM_ARMOR",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 2,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 120,
+    "base_happiness": 0,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "CONFUSION"
+        }
+    }
+}

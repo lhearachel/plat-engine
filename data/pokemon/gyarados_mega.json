@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 95,
+        "attack": 155,
+        "defense": 109,
+        "sp_attack": 70,
+        "sp_defense": 130,
+        "speed": 81
+    },
+    "types": [
+        "WATER",
+        "DARK"
+    ],
+    "abilities": {
+        "0": "MOLD_BREAKER",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 224,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 5,
+    "base_happiness": 50,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "WATER_2",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLUE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "WATER_GUN",
+                "FAINT_ATTACK"
+            ]
+        }
+    }
+}

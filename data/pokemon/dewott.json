@@ -14,6 +14,7 @@
     ],
     "abilities": {
         "0": "TORRENT",
+        "1": "NONE",
         "H": "SHELL_ARMOR"
     },
     "held_items": {
@@ -52,11 +53,6 @@
             "LEVEL_UP",
             36,
             "SAMUROTT"
-        ],
-        [
-            "USE_ITEM",
-            "DUSK_STONE",
-            "SAMUROTT_HISUI"
         ]
     ]
 }

@@ -13,7 +13,9 @@
         "DRAGON"
     ],
     "abilities": {
-        "0": "HUSTLE"
+        "0": "HUSTLE",
+        "1": "NONE",
+        "H": "NONE"
     },
     "held_items": {
         "50%": "NONE",

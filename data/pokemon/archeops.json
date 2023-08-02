@@ -13,7 +13,9 @@
         "FLYING"
     ],
     "abilities": {
-        "0": "DEFEATIST"
+        "0": "DEFEATIST",
+        "1": "NONE",
+        "H": "NONE"
     },
     "held_items": {
         "50%": "NONE",

@@ -1,0 +1,61 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 80,
+        "attack": 80,
+        "defense": 50,
+        "sp_attack": 40,
+        "sp_defense": 50,
+        "speed": 25
+    },
+    "types": [
+        "POISON",
+        "DARK"
+    ],
+    "abilities": {
+        "0": "POISON_TOUCH",
+        "1": "GLUTTONY",
+        "H": "POWER_OF_ALCHEMY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 65,
+    "ev_yields": {
+        "hp": 1,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "AMORPHOUS",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "SMOG",
+                "FAINT_ATTACK"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            38,
+            "MUK_ALOLA"
+        ]
+    ]
+}

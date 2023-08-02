@@ -3,6 +3,7 @@ import os
 import sys
 
 from ndspy.narc import NARC
+from form_table import FORM_TABLE
 from util import (
     Type,
     Ability,
@@ -414,11 +415,21 @@ def build_evotable(pokemon: dict, i: int):
         evo = evos[j]
         method = EvoMethod[evo[0]]
         params = build_evo_params(method, evo)
-        target = Species[evo[-1]]
+
+        raw_target = Species[evo[-1]]
+        if raw_target.value > Species.ENAMORUS.value: # Must be a form, check the form table
+            if raw_target not in FORM_TABLE.keys():
+                print(f'❌ Unrecognized evo target {raw_target}; did you update the form table?')
+                raise RuntimeError
+
+            target, form = FORM_TABLE[raw_target]
+            target = target.value | (form << 11)
+        else:
+            target = raw_target.value
 
         binary = binary + method.value.to_bytes(2, 'little')
         binary = binary + params
-        binary = binary + target.value.to_bytes(2, 'little')
+        binary = binary + target.to_bytes(2, 'little')
 
     if len(binary) < 42:
         binary = binary + (0).to_bytes(42 - len(binary), 'little')

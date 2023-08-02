@@ -14,6 +14,7 @@
     ],
     "abilities": {
         "0": "BLAZE",
+        "1": "NONE",
         "H": "RECKLESS"
     },
     "held_items": {

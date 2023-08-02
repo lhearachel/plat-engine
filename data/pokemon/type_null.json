@@ -1,0 +1,57 @@
+{
+    "name": "Type: Null",
+    "base_stats": {
+        "hp": 95,
+        "attack": 95,
+        "defense": 95,
+        "sp_attack": 95,
+        "sp_defense": 95,
+        "speed": 59
+    },
+    "types": [
+        "NORMAL",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "BATTLE_ARMOR",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 3,
+    "base_exp_reward": 107,
+    "ev_yields": {
+        "hp": 2,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 120,
+    "base_happiness": 0,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "TACKLE"
+        }
+    },
+    "evolutions": [
+        [
+            "HAPPINESS",
+            "SILVALLY"
+        ]
+    ]
+}

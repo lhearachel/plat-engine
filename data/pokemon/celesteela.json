@@ -1,0 +1,54 @@
+{
+    "name": "Celesteela",
+    "base_stats": {
+        "hp": 97,
+        "attack": 101,
+        "defense": 103,
+        "sp_attack": 107,
+        "sp_defense": 101,
+        "speed": 61
+    },
+    "types": [
+        "STEEL",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "BEAST_BOOST",
+        "1": "NONE",
+        "H": "NONE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 1,
+        "sp_attack": 1,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 120,
+    "base_happiness": 0,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "UNDISCOVERED",
+        "UNDISCOVERED"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "METAL_CLAW",
+                "GUST"
+            ]
+        }
+    }
+}

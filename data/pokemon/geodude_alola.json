@@ -1,0 +1,61 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 40,
+        "attack": 80,
+        "defense": 100,
+        "sp_attack": 30,
+        "sp_defense": 30,
+        "speed": 20
+    },
+    "types": [
+        "ROCK",
+        "ELECTRIC"
+    ],
+    "abilities": {
+        "0": "MAGNET_PULL",
+        "1": "STURDY",
+        "H": "GALVANIZE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 60,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 1,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "MINERAL",
+        "MINERAL"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "ROCK_THROW",
+                "THUNDER_SHOCK"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            25,
+            "GRAVELER_ALOLA"
+        ]
+    ]
+}

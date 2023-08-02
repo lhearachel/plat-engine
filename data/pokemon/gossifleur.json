@@ -1,0 +1,58 @@
+{
+    "name": "Gossifleur",
+    "base_stats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 60,
+        "sp_attack": 40,
+        "sp_defense": 60,
+        "speed": 10
+    },
+    "types": [
+        "GRASS",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "COTTON_DOWN",
+        "1": "REGENERATOR",
+        "H": "EFFECT_SPORE"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 190,
+    "base_exp_reward": 50,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 1,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "GRASS",
+        "GRASS"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "VINE_WHIP"
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            20,
+            "ELDEGOSS"
+        ]
+    ]
+}

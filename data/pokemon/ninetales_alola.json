@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 73,
+        "attack": 67,
+        "defense": 75,
+        "sp_attack": 81,
+        "sp_defense": 100,
+        "speed": 109
+    },
+    "types": [
+        "ICE",
+        "FAIRY"
+    ],
+    "abilities": {
+        "0": "SNOW_CLOAK",
+        "1": "NONE",
+        "H": "SNOW_WARNING"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 75,
+    "base_exp_reward": 177,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 2
+    },
+    "gender_ratio": "FEMALE_75",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "YELLOW",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "POWDER_SNOW",
+                "TACKLE"
+            ]
+        }
+    }
+}

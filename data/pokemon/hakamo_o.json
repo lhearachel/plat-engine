@@ -1,0 +1,61 @@
+{
+    "name": "Hakamo-o",
+    "base_stats": {
+        "hp": 55,
+        "attack": 75,
+        "defense": 90,
+        "sp_attack": 65,
+        "sp_defense": 70,
+        "speed": 65
+    },
+    "types": [
+        "DRAGON",
+        "FIGHTING"
+    ],
+    "abilities": {
+        "0": "BULLETPROOF",
+        "1": "SOUNDPROOF",
+        "H": "OVERCOAT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 147,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 2,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 40,
+    "base_happiness": 50,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "DRAGON",
+        "DRAGON"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "DRAGON_RAGE",
+                "KARATE_CHOP"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            45,
+            "KOMMO_O"
+        ]
+    ]
+}

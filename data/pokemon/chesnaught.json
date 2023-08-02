@@ -1,0 +1,54 @@
+{
+    "name": "Chesnaught",
+    "base_stats": {
+        "hp": 88,
+        "attack": 107,
+        "defense": 122,
+        "sp_attack": 74,
+        "sp_defense": 75,
+        "speed": 64
+    },
+    "types": [
+        "GRASS",
+        "FIGHTING"
+    ],
+    "abilities": {
+        "0": "OVERGROW",
+        "1": "NONE",
+        "H": "BULLETPROOF"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 239,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 3,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_12_5",
+    "hatch_multiplier": 20,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_SLOW",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "GREEN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "VINE_WHIP",
+                "KARATE_CHOP"
+            ]
+        }
+    }
+}

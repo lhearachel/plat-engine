@@ -14,6 +14,7 @@
     ],
     "abilities": {
         "0": "GLUTTONY",
+        "1": "NONE",
         "H": "TORRENT"
     },
     "held_items": {

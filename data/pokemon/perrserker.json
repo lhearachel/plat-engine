@@ -1,0 +1,51 @@
+{
+    "name": "Perrserker",
+    "base_stats": {
+        "hp": 70,
+        "attack": 110,
+        "defense": 100,
+        "sp_attack": 50,
+        "sp_defense": 60,
+        "speed": 50
+    },
+    "types": [
+        "STEEL",
+        "STEEL"
+    ],
+    "abilities": {
+        "0": "BATTLE_ARMOR",
+        "1": "TOUGH_CLAWS",
+        "H": "STEELY_SPIRIT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 90,
+    "base_exp_reward": 154,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "METAL_CLAW"
+        }
+    }
+}

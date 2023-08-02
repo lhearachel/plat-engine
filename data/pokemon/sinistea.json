@@ -1,0 +1,58 @@
+{
+    "name": "Sinistea",
+    "base_stats": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 45,
+        "sp_attack": 74,
+        "sp_defense": 54,
+        "speed": 50
+    },
+    "types": [
+        "GHOST",
+        "GHOST"
+    ],
+    "abilities": {
+        "0": "WEAK_ARMOR",
+        "1": "NONE",
+        "H": "CURSED_BODY"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 62,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "sp_attack": 1,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "NO_GENDER",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "MINERAL",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "PURPLE",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": "LICK"
+        }
+    },
+    "evolutions": [
+        [
+            "USE_ITEM",
+            "CRACKED_POT",
+            "POLTEAGEIST"
+        ]
+    ]
+}

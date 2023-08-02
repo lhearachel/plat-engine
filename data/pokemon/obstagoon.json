@@ -1,0 +1,54 @@
+{
+    "name": "Obstagoon",
+    "base_stats": {
+        "hp": 93,
+        "attack": 90,
+        "defense": 101,
+        "sp_attack": 60,
+        "sp_defense": 81,
+        "speed": 95
+    },
+    "types": [
+        "DARK",
+        "NORMAL"
+    ],
+    "abilities": {
+        "0": "RECKLESS",
+        "1": "GUTS",
+        "H": "DEFIANT"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 45,
+    "base_exp_reward": 255,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 3,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FIELD",
+        "FIELD"
+    ],
+    "flee_chance": 0,
+    "body_color": "GRAY",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "FAINT_ATTACK",
+                "TACKLE"
+            ]
+        }
+    }
+}

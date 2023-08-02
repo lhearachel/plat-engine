@@ -1,0 +1,54 @@
+{
+    "name": "-----",
+    "base_stats": {
+        "hp": 110,
+        "attack": 83,
+        "defense": 70,
+        "sp_attack": 112,
+        "sp_defense": 70,
+        "speed": 65
+    },
+    "types": [
+        "PSYCHIC",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "KEEN_EYE",
+        "1": "SHEER_FORCE",
+        "H": "TINTED_LENS"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 60,
+    "base_exp_reward": 0,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 2,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "MALE_ONLY",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "SLOW",
+    "egg_groups": [
+        "FLYING",
+        "FLYING"
+    ],
+    "flee_chance": 0,
+    "body_color": "RED",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "CONFUSION",
+                "GUST"
+            ]
+        }
+    }
+}

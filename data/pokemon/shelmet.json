@@ -50,7 +50,8 @@
     },
     "evolutions": [
         [
-            "TRADE",
+            "MON_IN_PARTY",
+            "KARRABLAST",
             "ACCELGOR"
         ]
     ]

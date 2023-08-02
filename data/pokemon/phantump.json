@@ -1,0 +1,60 @@
+{
+    "name": "Phantump",
+    "base_stats": {
+        "hp": 43,
+        "attack": 70,
+        "defense": 48,
+        "sp_attack": 50,
+        "sp_defense": 60,
+        "speed": 38
+    },
+    "types": [
+        "GHOST",
+        "GRASS"
+    ],
+    "abilities": {
+        "0": "NATURAL_CURE",
+        "1": "FRISK",
+        "H": "HARVEST"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 120,
+    "base_exp_reward": 62,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 20,
+    "base_happiness": 50,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "GRASS",
+        "AMORPHOUS"
+    ],
+    "flee_chance": 0,
+    "body_color": "BROWN",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "LICK",
+                "VINE_WHIP"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "TRADE",
+            "TREVENANT"
+        ]
+    ]
+}

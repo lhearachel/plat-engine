@@ -1,0 +1,61 @@
+{
+    "name": "Pikipek",
+    "base_stats": {
+        "hp": 35,
+        "attack": 75,
+        "defense": 30,
+        "sp_attack": 30,
+        "sp_defense": 30,
+        "speed": 65
+    },
+    "types": [
+        "NORMAL",
+        "FLYING"
+    ],
+    "abilities": {
+        "0": "KEEN_EYE",
+        "1": "SKILL_LINK",
+        "H": "PICKUP"
+    },
+    "held_items": {
+        "50%": "NONE",
+        "5%": "NONE"
+    },
+    "catch_rate": 255,
+    "base_exp_reward": 53,
+    "ev_yields": {
+        "hp": 0,
+        "attack": 1,
+        "defense": 0,
+        "sp_attack": 0,
+        "sp_defense": 0,
+        "speed": 0
+    },
+    "gender_ratio": "FEMALE_50",
+    "hatch_multiplier": 15,
+    "base_happiness": 70,
+    "growth_rate": "MEDIUM_FAST",
+    "egg_groups": [
+        "FLYING",
+        "FLYING"
+    ],
+    "flee_chance": 0,
+    "body_color": "BLACK",
+    "flip_sprite": false,
+    "learnset": {
+        "tms": [],
+        "level_up": {
+            "1": [
+                "TACKLE",
+                "GUST"
+            ]
+        }
+    },
+    "evolutions": [
+        [
+            "LEVEL_UP",
+            14,
+            "TRUMBEAK"
+        ]
+    ]
+}
