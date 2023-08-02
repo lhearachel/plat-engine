@@ -127,7 +127,7 @@ u32 Pokemon_IconGraphicsID(u32 species, BOOL isEgg, u32 form)
         case SPECIES_ROTOM:         return 542 + form - 1;
         case SPECIES_CASTFORM:      return 547 + form - 1;  // new to Platinum
         case SPECIES_CHERRIM:       return 550 + form - 1;  // new to Platinum
-        default:                    return LoadTargetFromFormTable(species, form);
+        default:                    return LoadTargetFromFormTable(species, form) + 7;
     }
 }
 
