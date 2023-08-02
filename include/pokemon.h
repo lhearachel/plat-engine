@@ -6,6 +6,8 @@
 #include "custom_ball.h"
 #include "message_data.h"
 
+#include "battle/common.h"
+
 /**
  * @brief Base Stats data structure for all data unique to a particular species.
  */
@@ -194,6 +196,17 @@ struct PokemonForm {
     u16 formNum     :15,
         reverts     :1;
     u16 target;
+};
+
+struct EncounterInfo {
+    u32  trainerID;
+    BOOL checkRepel;
+    BOOL cannotAvoid;
+    u8   level;
+    u8   isEgg;
+    u8   playerLeadAbility; // Synchronize, Pressure, etc.
+    u8   formChance[2];
+    u8   unownTableType;
 };
 
 enum PokemonField {
@@ -539,6 +552,14 @@ BOOL __attribute__((long_call)) BoxPokemon_Lock(struct BoxPokemon *boxMon);
 BOOL __attribute__((long_call)) BoxPokemon_Unlock(struct BoxPokemon *boxMon, BOOL flag);
 
 /**
+ * @brief Initializes the moveset for a Pokemon by picking the 4 most-
+ * recently learnable moves for its level.
+ * 
+ * Original function: 0x02077020 (arm9)
+ */
+void __attribute__((long_call)) BoxPokemon_InitMoveset(struct BoxPokemon *boxmon);
+
+/**
  * @brief Allocate space for a new Pokemon on the given heap.
  * 
  * Original function: 0x02073C74 (arm9)
@@ -580,6 +601,22 @@ u32  __attribute__((long_call)) Pokemon_Get(struct Pokemon *pokemon, enum Pokemo
  * @param[in]     buf       Data to be set into the structure.
  */
 void __attribute__((long_call)) Pokemon_Set(struct Pokemon *pokemon, enum PokemonField field, void *buf);
+
+/**
+ * @brief Computes all values which are derived from static data.
+ * 
+ * This includes stuff like the stats (from base stats, IVs, EVs), etc.
+ * 
+ * Original function: 0x0207418C (arm9)
+ */
+void __attribute__((long_call)) Pokemon_CalcStats(struct Pokemon *pokemon);
+
+/**
+ * @brief Computes which ability this Pokemon has.
+ * 
+ * Original function: 0x0207803C (arm9)
+ */
+void __attribute__((long_call)) Pokemon_CalcAbility(struct Pokemon *pokemon);
 
 /**
  * @brief Compute the gender of a Pokemon.
@@ -759,6 +796,23 @@ BOOL __attribute__((long_call)) Pokemon_Lock(struct Pokemon *pokemon);
 BOOL __attribute__((long_call)) Pokemon_Unlock(struct Pokemon *pokemon, BOOL flag);
 
 /**
+ * @brief Normalizes the input form number for a given species (i.e. restricts it
+ * to the maximum number of forms for that mon.)
+ * 
+ * This function ONLY works for original Platinum forms.
+ * 
+ * Original function: 0x020761E8 (arm9)
+ */
+u8   __attribute__((long_call)) Pokemon_NormalizedForm(u16 species, u8 form);
+
+/**
+ * @brief Checks if a wild Pokemon should have an item (and sets it, if so).
+ * 
+ * Original function: 0x02077F0C (arm9)
+ */
+void __attribute__((long_call)) Pokemon_SetItem(struct Pokemon *pokemon, u32 battleType, int range);
+
+/**
  * @brief Get a data element from the base stats data for a particular species.
  * 
  * Original Function: [`GetPkmnBaseData1 @ 0x020759F0` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L4605)
@@ -784,7 +838,59 @@ u32 __attribute__((long_call)) PokemonBaseStats_Get(int species, enum BaseStatsF
  */
 u32  __attribute__((long_call)) PokemonBaseStats_GetWithForm(int species, int form, enum BaseStatsField field);
 
+/**
+ * @brief Count the number of members in the party.
+ * 
+ * Original function: 0x02054B04 (arm9)
+ * 
+ * @param[in] party     The party.
+ * @return              The number of members in the party.
+ */
+int  __attribute__((long_call)) Party_Count(const struct Party *party);
+
+/**
+ * @brief Get a pointer to the Pokemon at a given slot in the party.
+ * 
+ * Original function: 0x0207A0FC
+ */
+struct Pokemon* __attribute__((long_call)) Party_Member(const struct Party *party, int pos);
+
+/**
+ * @brief Adds a given Pokemon to the party.
+ * 
+ * Original function: 0x0207A048 (arm9)
+ */
+BOOL __attribute__((long_call)) Party_Add(struct Party *party, struct Pokemon *pokemon);
+
 // ===== BASE GAME CODE FUNCTIONS (MODIFIED) ===== //
+
+/**
+ * @brief Get the form number for an input BoxPokemon.
+ * 
+ * The original function here is technically only used for icons, but
+ * this reimplementation is general-purpose.
+ * 
+ * Original function: 0x02079E44 (arm9)
+ */
+u16  __attribute__((long_call)) BoxPokemon_Form(const struct BoxPokemon *pokemon);
+
+/**
+ * @brief Get the ID for the graphics used by a Pokemon's chibi icon.
+ * 
+ * Accounts for forms when choosing which palette to load.
+ * 
+ * Original function: 0x02079D8C (arm9)
+ */
+u32  __attribute__((long_call)) Pokemon_IconGraphicsID(u32 species, BOOL isEgg, u32 form);
+
+/**
+ * @brief Get the ID for the palette used by a Pokemon's chibi icon.
+ * 
+ * Accounts for forms when choosing which palette to load.
+ * 
+ * Original function: 0x02079EDC (arm9)
+ */
+u32  __attribute__((long_call)) Pokemon_IconPaletteID(u32 species, u32 form, BOOL isEgg);
 
 /**
  * @brief Get the special species-designation for a particular species and form.
@@ -804,23 +910,6 @@ u32  __attribute__((long_call)) PokemonBaseStats_GetWithForm(int species, int fo
  */
 int  __attribute__((long_call)) Form_GetTrueSpecies(int species, int form);
 
-/**
- * @brief Count the number of members in the party.
- * 
- * Original function: 0x02054B04 (arm9)
- * 
- * @param[in] party     The party.
- * @return              The number of members in the party.
- */
-int  __attribute__((long_call)) Party_Count(const struct Party *party);
-
-/**
- * @brief Get a pointer to the Pokemon at a given slot in the party.
- * 
- * Original function: 0x0207A0FC
- */
-struct Pokemon* __attribute__((long_call)) Party_Member(const struct Party *party, int pos);
-
 // ===== NOVEL FUNCTIONS ===== //
 
 // u16  __attribute__((long_call)) Pokemon_GetHiddenAbility(u16 species, u32 form);
@@ -828,6 +917,17 @@ struct Pokemon* __attribute__((long_call)) Party_Member(const struct Party *part
 
 BOOL __attribute__((long_call)) Pokemon_IsNFE(u16 species, u32 form);
 
-extern const struct PokemonForm gPokemonFormTable[258]; // maybe move this to an ARMIPS def
+u16  __attribute__((long_call)) Pokemon_FormTarget(int species, int form);
+
+BOOL __attribute__((long_call)) Encounter_AddToWildParty(
+    int partyIdx,
+    struct EncounterInfo *encounterInfo,
+    struct Pokemon *encounter,
+    struct BattleParams *battleParams
+);
+
+void __attribute__((long_call)) Pokemon_UpdatePassiveForm(struct Pokemon *pokemon);
+
+extern const struct PokemonForm gPokemonFormTable[256]; // maybe move this to an ARMIPS def
 
 #endif // __POKEMON_H

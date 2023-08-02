@@ -7,19 +7,14 @@
 
 #include "battle/common.h"
 
-extern u32 gFormWord;
-extern u32 gPokeData;
-
-struct EncounterInfo {
-    u32  trainerID;
-    BOOL checkRepel;
-    BOOL cannotAvoid;
-    u8   level;
-    u8   isEgg;
-    u8   playerLeadAbility; // Synchronize, Pressure, etc.
-    u8   formChance[2];
-    u8   unownTableType;
+struct UnownTable {
+    int size;
+    const u8 *table;
 };
+
+extern u32 gFormWord;
+extern u32 gFormPointer;
+extern const struct UnownTable gUnownTable[];  // 02248FF0
 
 // Called from Pokemon_LoadSprite
 u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, u8 shiny, u8 formNum)
@@ -43,7 +38,6 @@ u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, 
     return FALSE;
 }
 
-// 
 BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo, struct Pokemon *encounter, struct BattleParams *battleParams)
 {
     int itemRange = 0;
@@ -51,10 +45,80 @@ BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo,
         itemRange = 1;
     }
 
-    
+    Pokemon_SetItem(encounter, battleParams->battleType, itemRange);
+
+    BOOL formChange = FALSE;
+    u16  species    = Pokemon_Get(encounter, MON_PARAM_SPECIES, NULL);
+    u8   formNum;
+    if (gFormPointer) {
+        formChange   = TRUE;
+        formNum      = gFormPointer;
+        gFormPointer = 0;
+    }
+
+    // Forms handled this way by the original Platinum code
+    if (species == SPECIES_SHELLOS) {
+        formChange = TRUE;
+        if (!encounterInfo->formChance[0]) {
+            formNum = 0;
+        } else {
+            formNum = 1;
+        }
+    } else if (species == SPECIES_GASTRODON) {
+        formChange = TRUE;
+        if (!encounterInfo->formChance[1]) {
+            formNum = 0;
+        } else {
+            formNum = 1;
+        }
+    } else if (species == SPECIES_UNOWN) {
+        formChange = TRUE;
+        u8 tableSize = gUnownTable[encounterInfo->unownTableType].size;
+        formNum = gUnownTable[encounterInfo->unownTableType].table[GF_RAND() % tableSize];
+    }
+
+    if (formChange) {
+        Pokemon_Set(encounter, MON_PARAM_FORM_NUMBER, &formNum);
+        Pokemon_CalcStats(encounter);
+        Pokemon_CalcAbility(encounter);
+        BoxPokemon_InitMoveset(&encounter->boxParams);
+    }
+
+    return Party_Add(battleParams->parties[partyIdx], encounter);
 }
 
-extern const struct PokemonForm gPokemonFormTable[258] = {
+// called by Encounter_SetForm
+void Pokemon_UpdatePassiveForm(struct Pokemon *pokemon)
+{
+    u32  species = Pokemon_Get(pokemon, MON_PARAM_SPECIES, NULL);
+    u8   form    = 0;
+    BOOL update  = TRUE;
+
+    switch (species) {
+    case SPECIES_FRILLISH:      // 50% male
+    case SPECIES_JELLICENT:
+    case SPECIES_MEOWSTIC:
+    case SPECIES_INDEEDEE:
+    case SPECIES_BASCULEGION:
+        form = GF_RAND() & 1;
+        break;
+    
+    case SPECIES_PYROAR:        // 12.5% male
+        form = (GF_RAND() % 8 != 0);
+        break;
+    
+    // TODO: Seasonals (deerling, sawsbuck)
+    
+    default:
+        update = FALSE;
+    }
+
+    if (update) {
+        Pokemon_Set(pokemon, MON_PARAM_FORM_NUMBER, &form);
+    }
+}
+
+const struct PokemonForm gPokemonFormTable[256] = {
     {
         .species = SPECIES_VENUSAUR,
         .formNum = 1,
@@ -99,7 +163,7 @@ extern const struct PokemonForm gPokemonFormTable[258] = {
     },
     {
         .species = SPECIES_SLOWBRO,
-        .formNum = 1,
+        .formNum = 2,       // this needs to be form 2 since Slowbro-G needs to be form 1
         .reverts = TRUE,
         .target  = SPECIES_SLOWBRO_MEGA,
     },
@@ -1597,7 +1661,7 @@ extern const struct PokemonForm gPokemonFormTable[258] = {
     },
     {
         .species = SPECIES_BASCULEGION,
-        .formNum = 1,
+        .formNum = 3,       // basculin 1 and 2 are red and blue stripes; basculegion-f then needs to be form 3
         .reverts = FALSE,
         .target  = SPECIES_BASCULEGION_FEMALE,
     },
