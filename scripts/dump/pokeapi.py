@@ -779,7 +779,7 @@ def build_gen8():
     build_species(890,                      name_override='eternatus')
     build_species(890, form_override=10190, name_override='eternatus_eternamax', sub_form=True)
     build_species(891)      # Kubfu
-    build_species(892,                      name_override='urshifu_single_strike')
+    build_species(892,                      name_override='urshifu')
     build_species(892, form_override=10191, name_override='urshifu_rapid_strike', sub_form=True)
     build_species(893,                      name_override='zarude')
     build_species(893, form_override=10192, name_override='zarude_dada', sub_form=True)
