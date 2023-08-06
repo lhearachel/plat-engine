@@ -1,4 +1,5 @@
 #include "archive.h"
+#include "debug.h"
 #include "pokemon.h"
 #include "sprite.h"
 
@@ -19,14 +20,42 @@ extern const struct UnownTable gUnownTable[];  // 02248FF0
 // Called from Pokemon_LoadSprite
 u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, u8 shiny, u8 formNum)
 {
+    #ifdef DEBUG_FORMS
+    u8 buf[128];
+    sprintf(buf, "PLAT-ENGINE | Invoking Form_LoadSprite\n");
+    debugsyscall(buf);
+    sprintf(buf, "PLAT-ENGINE | -- species:   0x%X\n", species);
+    debugsyscall(buf);
+    sprintf(buf, "PLAT-ENGINE | -- direction: %d\n", (direction == 0 ? "BACK": "FRONT"));
+    debugsyscall(buf);
+    sprintf(buf, "PLAT-ENGINE | -- shiny?     %s\n", (shiny ? "YES" : "NO"));
+    debugsyscall(buf);
+    sprintf(buf, "PLAT-ENGINE | -- formNum:   %d\n", formNum);
+    debugsyscall(buf);
+    #endif
+
     gFormWord = formNum;
 
     if (!formNum) {
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Not an alt-form; exiting\n");
+        debugsyscall(buf);
+        #endif
+
         return FALSE;
     }
 
+    #ifdef DEBUG_FORMS
+    sprintf(buf, "PLAT-ENGINE | -- Will check the alt-form table...\n");
+    debugsyscall(buf);
+    #endif
     for (unsigned int i = 0; i < NELEMS(gPokemonFormTable); i++) {
         if (species == gPokemonFormTable[i].species && formNum == gPokemonFormTable[i].formNum) {
+            #ifdef DEBUG_FORMS
+            sprintf(buf, "PLAT-ENGINE | -- Found alt-form; target: %d\n", gPokemonFormTable[i].target);
+            debugsyscall(buf);
+            #endif
+
             pokeSprite->archiveNum = ARCHIVE_POKESPRITE;
             pokeSprite->indexPic   = (gPokemonFormTable[i].target) * 6 + direction;
             pokeSprite->indexPal   = (gPokemonFormTable[i].target) * 6 + 4 + shiny;
@@ -35,11 +64,22 @@ u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, 
         }
     }
 
+    #ifdef DEBUG_FORMS
+    sprintf(buf, "PLAT-ENGINE | -- No matching alt-form found; use base species\n\n");
+    debugsyscall(buf);
+    #endif
+
     return FALSE;
 }
 
 BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo, struct Pokemon *encounter, struct BattleParams *battleParams)
 {
+    #ifdef DEBUG_FORMS
+    u8 buf[128];
+    sprintf(buf, "PLAT-ENGINE | Invoking Encounter_AddToWildParty\n");
+    debugsyscall(buf);
+    #endif
+
     int itemRange = 0;
     if (encounterInfo->isEgg == FALSE && encounterInfo->playerLeadAbility == ABILITY_COMPOUND_EYES) {
         itemRange = 1;
@@ -51,6 +91,11 @@ BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo,
     u16  species    = Pokemon_Get(encounter, MON_PARAM_SPECIES, NULL);
     u8   formNum;
     if (gFormPointer) {
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Form previously loaded; using that value: %d\n", gFormPointer);
+        debugsyscall(buf);
+        #endif
+
         formChange   = TRUE;
         formNum      = gFormPointer;
         gFormPointer = 0;
@@ -60,29 +105,68 @@ BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo,
     if (species == SPECIES_SHELLOS) {
         formChange = TRUE;
         if (!encounterInfo->formChance[0]) {
+            #ifdef DEBUG_FORMS
+            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies West-Sea Shellos\n");
+            debugsyscall(buf);
+            #endif
+
             formNum = 0;
         } else {
+            #ifdef DEBUG_FORMS
+            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies East-Sea Shellos\n");
+            debugsyscall(buf);
+            #endif
+
             formNum = 1;
         }
     } else if (species == SPECIES_GASTRODON) {
         formChange = TRUE;
         if (!encounterInfo->formChance[1]) {
+            #ifdef DEBUG_FORMS
+            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies West-Sea Gastrodon\n");
+            debugsyscall(buf);
+            #endif
+
             formNum = 0;
         } else {
+            #ifdef DEBUG_FORMS
+            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies East-Sea Gastrodon\n");
+            debugsyscall(buf);
+            #endif
+
             formNum = 1;
         }
     } else if (species == SPECIES_UNOWN) {
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Unown; consulting the Unown form table\n");
+        debugsyscall(buf);
+        #endif
+
         formChange = TRUE;
         u8 tableSize = gUnownTable[encounterInfo->unownTableType].size;
         formNum = gUnownTable[encounterInfo->unownTableType].table[GF_RAND() % tableSize];
     }
 
     if (formChange) {
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Recomputing stats, ability, moves...\n");
+        debugsyscall(buf);
+        #endif
+
         Pokemon_Set(encounter, MON_PARAM_FORM_NUMBER, &formNum);
         Pokemon_CalcStats(encounter);
         Pokemon_CalcAbility(encounter);
         BoxPokemon_InitMoveset(&encounter->boxParams);
     }
+
+    #ifdef DEBUG_FORMS
+    sprintf(buf, "PLAT-ENGINE | -- Done; expected species and form:\n");
+    debugsyscall(buf);
+    sprintf(buf, "PLAT-ENGINE | ---- species: 0x%X\n", encounter->boxParams.substructs->blockA.species);
+    debugsyscall(buf);
+    sprintf(buf, "PLAT-ENGINE | ---- form:    %d\n\n", encounter->boxParams.substructs->blockB.formNumber);
+    debugsyscall(buf);
+    #endif
 
     return Party_Add(battleParams->parties[partyIdx], encounter);
 }
@@ -94,20 +178,46 @@ void Pokemon_UpdatePassiveForm(struct Pokemon *pokemon)
     u8   form    = 0;
     BOOL update  = TRUE;
 
+    #ifdef DEBUG_FORMS
+    u8 buf[128];
+    sprintf(buf, "PLAT-ENGINE | Invoking Pokemon_UpdatePassiveForm\n");
+    debugsyscall(buf);
+    sprintf(buf, "PLAT-ENGINE | -- species: 0x%X\n", species);
+    debugsyscall(buf);
+    #endif
+
     switch (species) {
-    case SPECIES_FRILLISH:      // 50% male
+    case SPECIES_BASCULEGION:   // 50% male/female split
+        form = 2;               // Basculegion-F is form 3 for female (important for Basculin evolution)
+    case SPECIES_FRILLISH:      // All of these are form 1 for female
     case SPECIES_JELLICENT:
     case SPECIES_MEOWSTIC:
     case SPECIES_INDEEDEE:
-    case SPECIES_BASCULEGION:
-        form = GF_RAND() & 1;
+        form = form + (GF_RAND() & 1);  // form usually starts at 0 here, but starts at 2 for Basculegion
+
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- 1:1 M:F split; form: %d\n", form);
+        debugsyscall(buf);
+        #endif
         break;
     
     case SPECIES_PYROAR:        // 12.5% male
         form = (GF_RAND() % 8 != 0);
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- 1:7 M:F split; form: %d\n", form);
+        debugsyscall(buf);
+        #endif
         break;
     
-    // TODO: Seasonals (deerling, sawsbuck)
+    case SPECIES_DEERLING:
+    case SPECIES_SAWSBUCK:
+        // TODO: Make this RTC-based
+        form = (GF_RAND() % 4);
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Random seasonals; form: %d\n", form);
+        debugsyscall(buf);
+        #endif
+        break;
     
     default:
         update = FALSE;

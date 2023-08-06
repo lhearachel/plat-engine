@@ -1,9 +1,11 @@
+#include "archive.h"
+#include "config.h"
+#include "debug.h"
+#include "pokemon.h"
+
 #include "constants/abilities.h"
 #include "constants/species.h"
 
-#include "archive.h"
-#include "config.h"
-#include "pokemon.h"
 #include "battle/common.h"
 
 static int Pokemon_OverworldPoisonDamage(struct Party *party, u16 zoneID);
@@ -79,6 +81,13 @@ static inline u32 LoadTargetFromFormTable(u32 species, u32 form)
 u16 BoxPokemon_Form(const struct BoxPokemon *pokemon)
 {
     u32 species = BoxPokemon_Get(pokemon, MON_PARAM_SPECIES, NULL);
+    #ifdef DEBUG_FORMS
+    u8 buf[128];
+    sprintf(buf, "PLAT-ENGINE | Invoking BoxPokemon_Form\n");
+    debugsyscall(buf);
+    sprintf(buf, "PLAT-ENGINE | -- species: 0x%X\n", species);
+    debugsyscall(buf);
+    #endif
 
     switch (species) {
     case SPECIES_UNOWN:
@@ -90,16 +99,32 @@ u16 BoxPokemon_Form(const struct BoxPokemon *pokemon)
     case SPECIES_GIRATINA:
     case SPECIES_SHAYMIN:
     case SPECIES_ROTOM:
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Original Platinum form; using raw form number\n");
+        debugsyscall(buf);
+        #endif
         return BoxPokemon_Get(pokemon, MON_PARAM_FORM_NUMBER, NULL);
     
     default:
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Consulting the form table...\n");
+        debugsyscall(buf);
+        #endif
         for (unsigned int i = 0; i < NELEMS(gPokemonFormTable); i++) {
             if (species == gPokemonFormTable[i].species) {
+                #ifdef DEBUG_FORMS
+                sprintf(buf, "PLAT-ENGINE | -- This species has an alt-form!\n\n");
+                debugsyscall(buf);
+                #endif
                 return BoxPokemon_Get(pokemon, MON_PARAM_FORM_NUMBER, NULL);
             }
         }
     }
 
+    #ifdef DEBUG_FORMS
+    sprintf(buf, "PLAT-ENGINE | -- This species does not have alt-forms!\n\n");
+    debugsyscall(buf);
+    #endif
     return 0;   // no match found, return the base form number (0)
 }
 

@@ -12,5 +12,6 @@
 
 // #define DEBUG_SWITCHIN_EFFECTS
 // #define DEBUG_ABILTIIES
+#define DEBUG_FORMS
 
 #endif
