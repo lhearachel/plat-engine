@@ -8,6 +8,8 @@
 
 #include "battle/common.h"
 
+extern const u8 gIconPaletteTable[];  // 0x023D8000
+
 static int Pokemon_OverworldPoisonDamage(struct Party *party, u16 zoneID);
 
 inline BOOL Ability_BlocksPoisonDamage(u8 abilityID)
@@ -100,7 +102,7 @@ u16 BoxPokemon_Form(const struct BoxPokemon *pokemon)
     case SPECIES_SHAYMIN:
     case SPECIES_ROTOM:
         #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Original Platinum form; using raw form number\n");
+        sprintf(buf, "PLAT-ENGINE | -- Original Platinum form; using raw form number\n\n");
         debugsyscall(buf);
         #endif
         return BoxPokemon_Get(pokemon, MON_PARAM_FORM_NUMBER, NULL);
@@ -128,15 +130,37 @@ u16 BoxPokemon_Form(const struct BoxPokemon *pokemon)
     return 0;   // no match found, return the base form number (0)
 }
 
-u32 Pokemon_IconGraphicsID(u32 species, BOOL isEgg, u32 form)
+u32 Pokemon_IconGraphicsID(u32 species, u32 isEgg, u32 form)
 {
+    #ifdef DEBUG_FORMS
+    u8 buf[128];
+    sprintf(buf, "PLAT-ENGINE | Invoking Pokemon_IconGraphicsID\n");
+    debugsyscall();
+    sprintf(buf, "PLAT-ENGINE | -- species: %ld\n", species);
+    debugsyscall();
+    sprintf(buf, "PLAT-ENGINE | -- isEgg:   %ld\n", isEgg);
+    debugsyscall();
+    sprintf(buf, "PLAT-ENGINE | -- form:    %ld\n", form);
+    debugsyscall();
+    #endif
+
     if (isEgg) {
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Using egg icon\n");
+        debugsyscall();
+        #endif
+
         // Use a different icon for Manaphy eggs.
         return species == SPECIES_MANAPHY ? 502 : 501;
     }
 
     form = Pokemon_NormalizedForm(species, form);
     if (!form) {
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Using base form icon\n\n");
+        debugsyscall();
+        #endif
+
         return species + 7;
     }
 
@@ -156,31 +180,59 @@ u32 Pokemon_IconGraphicsID(u32 species, BOOL isEgg, u32 form)
     }
 }
 
-u32 Pokemon_IconPaletteID(u32 species, u32 form, BOOL isEgg)
+u32 Pokemon_IconPaletteID(u32 species, u32 form, u32 isEgg)
 {
+    #ifdef DEBUG_FORMS
+    u8 buf[128];
+    sprintf(buf, "PLAT-ENGINE | Invoking Pokemon_IconPaletteID\n");
+    debugsyscall();
+    sprintf(buf, "PLAT-ENGINE | -- species: %ld\n", species);
+    debugsyscall();
+    sprintf(buf, "PLAT-ENGINE | -- isEgg:   %ld\n", isEgg);
+    debugsyscall();
+    sprintf(buf, "PLAT-ENGINE | -- form:    %ld\n", form);
+    debugsyscall();
+    #endif
+
+    u16 offset = 0;
     if (isEgg) {
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Using egg icon palette\n");
+        debugsyscall();
+        #endif
+
         // Use Bad Egg's palette for the Manaphy egg.
-        return species == SPECIES_MANAPHY ? SPECIES_BAD_EGG : SPECIES_EGG;
+        offset = (species == SPECIES_MANAPHY ? SPECIES_BAD_EGG : SPECIES_EGG);
+        goto LoadPaletteFromTable;
     }
 
     if (!form) {
-        return species;
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Using base form palette\n\n");
+        debugsyscall();
+        #endif
+
+        offset = species;
+        goto LoadPaletteFromTable;
     }
 
     switch (species) {
-        case SPECIES_DEOXYS:        return 496 + form - 1;
-        case SPECIES_UNOWN:         return 499 + form - 1;
-        case SPECIES_BURMY:         return 527 + form - 1;
-        case SPECIES_WORMADAM:      return 529 + form - 1;
-        case SPECIES_SHELLOS:       return 531 + form - 1;
-        case SPECIES_GASTRODON:     return 532 + form - 1;
-        case SPECIES_GIRATINA:      return 533 + form - 1;
-        case SPECIES_SHAYMIN:       return 534 + form - 1;
-        case SPECIES_ROTOM:         return 535 + form - 1;
-        case SPECIES_CASTFORM:      return 540 + form - 1;  // new to Platinum
-        case SPECIES_CHERRIM:       return 543 + form - 1;  // new to Platinum
-        default:                    return LoadTargetFromFormTable(species, form);
+        case SPECIES_DEOXYS:        offset = 496 + form - 1; break;
+        case SPECIES_UNOWN:         offset = 499 + form - 1; break;
+        case SPECIES_BURMY:         offset = 527 + form - 1; break;
+        case SPECIES_WORMADAM:      offset = 529 + form - 1; break;
+        case SPECIES_SHELLOS:       offset = 531 + form - 1; break;
+        case SPECIES_GASTRODON:     offset = 532 + form - 1; break;
+        case SPECIES_GIRATINA:      offset = 533 + form - 1; break;
+        case SPECIES_SHAYMIN:       offset = 534 + form - 1; break;
+        case SPECIES_ROTOM:         offset = 535 + form - 1; break;
+        case SPECIES_CASTFORM:      offset = 540 + form - 1; break;  // new to Platinum
+        case SPECIES_CHERRIM:       offset = 543 + form - 1; break;  // new to Platinum
+        default:                    offset = LoadTargetFromFormTable(species, form); break;
     }
+
+LoadPaletteFromTable:
+    return gIconPaletteTable[offset];
 }
 
 int Form_GetTrueSpecies(int species, int form)

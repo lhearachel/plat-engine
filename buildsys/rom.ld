@@ -55,6 +55,7 @@ Party_Add = 0x0207A048 | 1;
 
 /* src/forms.c */
 gUnownTable = 0x02248FF0;
+gIconPaletteTable = 0x023D8000;
 
 /* sound.h */
 Sound_CheckAnySEsPlaying = 0x020057E0 | 1;

@@ -881,7 +881,7 @@ u16  __attribute__((long_call)) BoxPokemon_Form(const struct BoxPokemon *pokemon
  * 
  * Original function: 0x02079D8C (arm9)
  */
-u32  __attribute__((long_call)) Pokemon_IconGraphicsID(u32 species, BOOL isEgg, u32 form);
+u32  __attribute__((long_call)) Pokemon_IconGraphicsID(u32 species, u32 isEgg, u32 form);
 
 /**
  * @brief Get the ID for the palette used by a Pokemon's chibi icon.
@@ -890,7 +890,7 @@ u32  __attribute__((long_call)) Pokemon_IconGraphicsID(u32 species, BOOL isEgg, 
  * 
  * Original function: 0x02079EDC (arm9)
  */
-u32  __attribute__((long_call)) Pokemon_IconPaletteID(u32 species, u32 form, BOOL isEgg);
+u32  __attribute__((long_call)) Pokemon_IconPaletteID(u32 species, u32 form, u32 isEgg);
 
 /**
  * @brief Get the special species-designation for a particular species and form.

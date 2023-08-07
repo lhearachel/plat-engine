@@ -26,7 +26,7 @@ u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, 
     debugsyscall(buf);
     sprintf(buf, "PLAT-ENGINE | -- species:   0x%X\n", species);
     debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | -- direction: %d\n", (direction == 0 ? "BACK": "FRONT"));
+    sprintf(buf, "PLAT-ENGINE | -- direction: %s\n", (direction == 0 ? "BACK": "FRONT"));
     debugsyscall(buf);
     sprintf(buf, "PLAT-ENGINE | -- shiny?     %s\n", (shiny ? "YES" : "NO"));
     debugsyscall(buf);
