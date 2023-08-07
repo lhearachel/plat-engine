@@ -9,7 +9,7 @@
 
 .org 0x02079F7C // limiter for the number of mons + pointer to the original table
 
-.word MAX_MON_NUM + 1
+.word (MAX_MON_NUM + 1)
 .word gIconPaletteTable
 
 .close
