@@ -3,6 +3,7 @@
 
 struct LinkedOverlayPair gLinkedOverlayPairs[1] = {
     { 16, 123}, // battle overlay extension
+    {  6, 124}, // field overlay extension
 };
 
 //#define DEBUG_OVERLAYS

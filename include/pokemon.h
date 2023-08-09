@@ -8,6 +8,10 @@
 
 #include "battle/common.h"
 
+#define GENDER_RATIO_ALL_MALE   0
+#define GENDER_RATIO_ALL_FEMALE 254
+#define GENDER_RATIO_NONE       255
+
 /**
  * @brief Base Stats data structure for all data unique to a particular species.
  */
@@ -570,6 +574,37 @@ void __attribute__((long_call)) BoxPokemon_InitMoveset(struct BoxPokemon *boxmon
 struct Pokemon* __attribute__((long_call)) Pokemon_Alloc(u32 heapID);
 
 /**
+ * @brief Initialize checksums for a Pokemon struct.
+ * 
+ * Original function: 0x02073C2C (arm9)
+ */
+void __attribute__((long_call)) Pokemon_Init(struct Pokemon *pokemon);
+
+/**
+ * @brief Makes a Pokemon with the specified IVs, level, species, and
+ * associated random values.
+ * 
+ * Original function: 0x02073D80 (arm9)
+ * 
+ * @param randFlag  If set to 0, the value in rand is ignored; if set to 1, the value in rand
+ *                  is applied to PID generation.
+ * @param idFlag    If set to 0, the value in id is ignored.
+ *                  If set to 1, the value in id is used as the Pokemon's OT ID.
+ *                  If set to 2, the value in id is used, but the Pokemon will be forced to
+ *                  NOT be shiny.
+ */
+void __attribute__((long_call)) Pokemon_Make(
+    struct Pokemon *pokemon,
+    int species,
+    int level,
+    int ivs,
+    int randFlag,
+    u32 rand,
+    int idFlag,
+    u32 id
+);
+
+/**
  * @brief Copies attributes from a BoxPokemon to a party Pokemon.
  * 
  * Original function: 0x020774C8 (arm9)
@@ -813,6 +848,22 @@ u8   __attribute__((long_call)) Pokemon_NormalizedForm(u16 species, u8 form);
 void __attribute__((long_call)) Pokemon_SetItem(struct Pokemon *pokemon, u32 battleType, int range);
 
 /**
+ * @brief Opens the base stats entry for a given species + form combination.
+ * 
+ * Form == 0 specifies the base form.
+ * 
+ * Original function: 0x02075874 (arm9)
+ */
+struct BaseStats* __attribute__((long_call)) PokemonBaseStats_OpenForm(int species, int form, int heapID);
+
+/**
+ * @brief Closes a base stats entry and frees its allocated memory.
+ * 
+ * Original function: 0x020759B8 (arm9)
+ */
+void __attribute__((long_call)) PokemonBaseStats_Close(struct BaseStats *baseStats);
+
+/**
  * @brief Get a data element from the base stats data for a particular species.
  * 
  * Original Function: [`GetPkmnBaseData1 @ 0x020759F0` (ARM9)](https://github.com/JimB16/PokePlat/blob/6d4ad87550eeb40079ede6dcf5dddec5873976e4/source/arm9_pkmndata.s#L4605)
@@ -837,6 +888,13 @@ u32 __attribute__((long_call)) PokemonBaseStats_Get(int species, enum BaseStatsF
  * @return              Retrieved data.
  */
 u32  __attribute__((long_call)) PokemonBaseStats_GetWithForm(int species, int form, enum BaseStatsField field);
+
+/**
+ * @brief Computes the gender for a given PID according to data from the base stats entry.
+ * 
+ * Original function: 0x02075DD0 (arm9)
+ */
+u8   __attribute__((long_call)) PokemonBaseStats_CalcGender(struct BaseStats *baseStats, u16 unused, u32 pid);
 
 /**
  * @brief Count the number of members in the party.
@@ -926,7 +984,30 @@ BOOL __attribute__((long_call)) Encounter_AddToWildParty(
     struct BattleParams *battleParams
 );
 
-void __attribute__((long_call)) Pokemon_UpdatePassiveForm(struct Pokemon *pokemon);
+void __attribute__((long_call)) Pokemon_CalcPassiveForm(struct Pokemon *pokemon);
+
+// TODO: I don't know why this function doesn't work if I invoke the ROM's definition,
+// but this reimplementation functions. Fuck it. It'll need to be reimplemented anyways
+// for hidden abilities.
+void __attribute__((long_call)) BoxPokemon_CalcAbility(struct BoxPokemon *mon);
+
+void __attribute__((long_call)) Pokemon_SetNature(
+    struct Pokemon *pokemon,
+    u16 species,
+    u8 level,
+    u8 ivs,
+    u8 nature
+);
+
+void __attribute__((long_call)) Pokemon_SetGenderAndNature(
+    struct Pokemon *pokemon,
+    u16 species,
+    u8 form,
+    u8 level,
+    u8 ivs,
+    u8 gender,
+    u8 nature
+);
 
 extern const struct PokemonForm gPokemonFormTable[256]; // maybe move this to an ARMIPS def
 

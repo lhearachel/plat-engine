@@ -140,7 +140,9 @@ arm9_extension: $(OUTPUT)
 
 battle_extensions: $(BATTLE_OUTPUT)
 
-c_binaries: arm9_extension battle_extensions
+field_extensions: $(FIELD_OUTPUT)
+
+c_binaries: arm9_extension battle_extensions field_extensions
 	@echo "✅ $(OUTPUT_FMT)Compiled C binaries from /$(C_SUBDIR)$(FMT_OFF)"
 	@echo ""
 

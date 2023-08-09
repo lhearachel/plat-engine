@@ -87,6 +87,17 @@ __aeabi_uidiv:
 
     .force_thumb
     .syntax unified
+    .global __aeabi_uidivmod
+    .thumb_func
+    .type __aeabi_uidivmod,function
+__aeabi_uidivmod:
+    push    {lr}
+    blx     0x020E1F6C
+    pop     {pc}
+	.size __aeabi_uidivmod, . - __aeabi_uidivmod
+
+    .force_thumb
+    .syntax unified
     .global memcpy
     .thumb_func
     .type memcpy,function

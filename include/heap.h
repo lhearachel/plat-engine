@@ -3,7 +3,9 @@
 
 #include "typedefs.h"
 
+#define HEAP_ID_SYSTEM  0
 #define HEAP_ID_BATTLE  5
+#define HEAP_ID_FIELD  11
 
 /**
  * @brief Free a block of memory. The heap to free the block from is determined

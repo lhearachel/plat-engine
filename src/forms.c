@@ -8,15 +8,6 @@
 
 #include "battle/common.h"
 
-struct UnownTable {
-    int size;
-    const u8 *table;
-};
-
-extern u32 gFormWord;
-extern u32 gFormPointer;
-extern const struct UnownTable gUnownTable[];  // 02248FF0
-
 // Called from Pokemon_LoadSprite
 u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, u8 shiny, u8 formNum)
 {
@@ -34,7 +25,7 @@ u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, 
     debugsyscall(buf);
     #endif
 
-    gFormWord = formNum;
+    // gFormWord = formNum;
 
     if (!formNum) {
         #ifdef DEBUG_FORMS
@@ -72,107 +63,7 @@ u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, 
     return FALSE;
 }
 
-BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo, struct Pokemon *encounter, struct BattleParams *battleParams)
-{
-    #ifdef DEBUG_FORMS
-    u8 buf[128];
-    sprintf(buf, "PLAT-ENGINE | Invoking Encounter_AddToWildParty\n");
-    debugsyscall(buf);
-    #endif
-
-    int itemRange = 0;
-    if (encounterInfo->isEgg == FALSE && encounterInfo->playerLeadAbility == ABILITY_COMPOUND_EYES) {
-        itemRange = 1;
-    }
-
-    Pokemon_SetItem(encounter, battleParams->battleType, itemRange);
-
-    BOOL formChange = FALSE;
-    u16  species    = Pokemon_Get(encounter, MON_PARAM_SPECIES, NULL);
-    u8   formNum;
-    if (gFormPointer) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Form previously loaded; using that value: %d\n", gFormPointer);
-        debugsyscall(buf);
-        #endif
-
-        formChange   = TRUE;
-        formNum      = gFormPointer;
-        gFormPointer = 0;
-    }
-
-    // Forms handled this way by the original Platinum code
-    if (species == SPECIES_SHELLOS) {
-        formChange = TRUE;
-        if (!encounterInfo->formChance[0]) {
-            #ifdef DEBUG_FORMS
-            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies West-Sea Shellos\n");
-            debugsyscall(buf);
-            #endif
-
-            formNum = 0;
-        } else {
-            #ifdef DEBUG_FORMS
-            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies East-Sea Shellos\n");
-            debugsyscall(buf);
-            #endif
-
-            formNum = 1;
-        }
-    } else if (species == SPECIES_GASTRODON) {
-        formChange = TRUE;
-        if (!encounterInfo->formChance[1]) {
-            #ifdef DEBUG_FORMS
-            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies West-Sea Gastrodon\n");
-            debugsyscall(buf);
-            #endif
-
-            formNum = 0;
-        } else {
-            #ifdef DEBUG_FORMS
-            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies East-Sea Gastrodon\n");
-            debugsyscall(buf);
-            #endif
-
-            formNum = 1;
-        }
-    } else if (species == SPECIES_UNOWN) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Unown; consulting the Unown form table\n");
-        debugsyscall(buf);
-        #endif
-
-        formChange = TRUE;
-        u8 tableSize = gUnownTable[encounterInfo->unownTableType].size;
-        formNum = gUnownTable[encounterInfo->unownTableType].table[GF_RAND() % tableSize];
-    }
-
-    if (formChange) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Recomputing stats, ability, moves...\n");
-        debugsyscall(buf);
-        #endif
-
-        Pokemon_Set(encounter, MON_PARAM_FORM_NUMBER, &formNum);
-        Pokemon_CalcStats(encounter);
-        Pokemon_CalcAbility(encounter);
-        BoxPokemon_InitMoveset(&encounter->boxParams);
-    }
-
-    #ifdef DEBUG_FORMS
-    sprintf(buf, "PLAT-ENGINE | -- Done; expected species and form:\n");
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | ---- species: 0x%X\n", encounter->boxParams.substructs->blockA.species);
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | ---- form:    %d\n\n", encounter->boxParams.substructs->blockB.formNumber);
-    debugsyscall(buf);
-    #endif
-
-    return Party_Add(battleParams->parties[partyIdx], encounter);
-}
-
-// called by Encounter_SetForm
-void Pokemon_UpdatePassiveForm(struct Pokemon *pokemon)
+void Pokemon_CalcPassiveForm(struct Pokemon *pokemon)
 {
     u32  species = Pokemon_Get(pokemon, MON_PARAM_SPECIES, NULL);
     u8   form    = 0;
@@ -189,10 +80,12 @@ void Pokemon_UpdatePassiveForm(struct Pokemon *pokemon)
     switch (species) {
     case SPECIES_BASCULEGION:   // 50% male/female split
         form = 2;               // Basculegion-F is form 3 for female (important for Basculin evolution)
+        // fallthrough
     case SPECIES_FRILLISH:      // All of these are form 1 for female
     case SPECIES_JELLICENT:
     case SPECIES_MEOWSTIC:
     case SPECIES_INDEEDEE:
+    case SPECIES_UNFEZANT:
         form = form + (GF_RAND() & 1);  // form usually starts at 0 here, but starts at 2 for Basculegion
 
         #ifdef DEBUG_FORMS
@@ -224,8 +117,38 @@ void Pokemon_UpdatePassiveForm(struct Pokemon *pokemon)
     }
 
     if (update) {
+        #ifdef DEBUG_FORMS
+        sprintf(buf, "PLAT-ENGINE | -- Setting form number\n");
+        debugsyscall(buf);
+        #endif
         Pokemon_Set(pokemon, MON_PARAM_FORM_NUMBER, &form);
     }
+
+    // Perform any and all recalcs needed for a form regardless of the update flag
+    // for some reason the game hates these being in ASM; I'd like to pull them out
+    // of here, but functionality > cleanliness I guess
+    // #ifdef DEBUG_FORMS
+    // sprintf(buf, "PLAT-ENGINE | -- Resetting stats\n");
+    // debugsyscall();
+    // #endif
+    // Pokemon_CalcStats(pokemon);
+    
+    // #ifdef DEBUG_FORMS
+    // sprintf(buf, "PLAT-ENGINE | -- Resetting ability\n");
+    // debugsyscall();
+    // #endif
+    // BoxPokemon_CalcAbility(&pokemon->boxParams);
+    
+    // #ifdef DEBUG_FORMS
+    // sprintf(buf, "PLAT-ENGINE | -- Resetting moveset\n");
+    // debugsyscall();
+    // #endif
+    // BoxPokemon_InitMoveset(&pokemon->boxParams);
+
+    // #ifdef DEBUG_FORMS
+    // sprintf(buf, "PLAT-ENGINE | -- Invocation done\n\n");
+    // debugsyscall(buf);
+    // #endif
 }
 
 const struct PokemonForm gPokemonFormTable[256] = {

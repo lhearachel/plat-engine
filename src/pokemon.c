@@ -11,6 +11,7 @@
 extern const u8 gIconPaletteTable[];  // 0x023D8000
 
 static int Pokemon_OverworldPoisonDamage(struct Party *party, u16 zoneID);
+static u8 CalcGenderFromPID(u16 species, u8 form, u32 pid);
 
 inline BOOL Ability_BlocksPoisonDamage(u8 abilityID)
 {
@@ -68,28 +69,9 @@ BOOL Pokemon_IsNFE(u16 species, u32 form)
     return FALSE;
 }
 
-static inline u32 LoadTargetFromFormTable(u32 species, u32 form)
-{
-    for (unsigned int i = 0; i < NELEMS(gPokemonFormTable); i++) {
-        if (species == gPokemonFormTable[i].species && form == gPokemonFormTable[i].formNum) {
-            return gPokemonFormTable[i].target;
-        }
-    }
-
-    // no match found, return the original species input
-    return species;
-}
-
 u16 BoxPokemon_Form(const struct BoxPokemon *pokemon)
 {
     u32 species = BoxPokemon_Get(pokemon, MON_PARAM_SPECIES, NULL);
-    #ifdef DEBUG_FORMS
-    u8 buf[128];
-    sprintf(buf, "PLAT-ENGINE | Invoking BoxPokemon_Form\n");
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | -- species: 0x%X\n", species);
-    debugsyscall(buf);
-    #endif
 
     switch (species) {
     case SPECIES_UNOWN:
@@ -101,66 +83,28 @@ u16 BoxPokemon_Form(const struct BoxPokemon *pokemon)
     case SPECIES_GIRATINA:
     case SPECIES_SHAYMIN:
     case SPECIES_ROTOM:
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Original Platinum form; using raw form number\n\n");
-        debugsyscall(buf);
-        #endif
         return BoxPokemon_Get(pokemon, MON_PARAM_FORM_NUMBER, NULL);
     
     default:
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Consulting the form table...\n");
-        debugsyscall(buf);
-        #endif
         for (unsigned int i = 0; i < NELEMS(gPokemonFormTable); i++) {
             if (species == gPokemonFormTable[i].species) {
-                #ifdef DEBUG_FORMS
-                sprintf(buf, "PLAT-ENGINE | -- This species has an alt-form!\n\n");
-                debugsyscall(buf);
-                #endif
                 return BoxPokemon_Get(pokemon, MON_PARAM_FORM_NUMBER, NULL);
             }
         }
     }
 
-    #ifdef DEBUG_FORMS
-    sprintf(buf, "PLAT-ENGINE | -- This species does not have alt-forms!\n\n");
-    debugsyscall(buf);
-    #endif
     return 0;   // no match found, return the base form number (0)
 }
 
 u32 Pokemon_IconGraphicsID(u32 species, u32 isEgg, u32 form)
 {
-    #ifdef DEBUG_FORMS
-    u8 buf[128];
-    sprintf(buf, "PLAT-ENGINE | Invoking Pokemon_IconGraphicsID\n");
-    debugsyscall();
-    sprintf(buf, "PLAT-ENGINE | -- species: %ld\n", species);
-    debugsyscall();
-    sprintf(buf, "PLAT-ENGINE | -- isEgg:   %ld\n", isEgg);
-    debugsyscall();
-    sprintf(buf, "PLAT-ENGINE | -- form:    %ld\n", form);
-    debugsyscall();
-    #endif
-
     if (isEgg) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Using egg icon\n");
-        debugsyscall();
-        #endif
-
         // Use a different icon for Manaphy eggs.
         return species == SPECIES_MANAPHY ? 502 : 501;
     }
 
     form = Pokemon_NormalizedForm(species, form);
     if (!form) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Using base form icon\n\n");
-        debugsyscall();
-        #endif
-
         return species + 7;
     }
 
@@ -176,42 +120,20 @@ u32 Pokemon_IconGraphicsID(u32 species, u32 isEgg, u32 form)
         case SPECIES_ROTOM:         return 542 + form - 1;
         case SPECIES_CASTFORM:      return 547 + form - 1;  // new to Platinum
         case SPECIES_CHERRIM:       return 550 + form - 1;  // new to Platinum
-        default:                    return LoadTargetFromFormTable(species, form) + 7;
+        default:                    return Pokemon_FormTarget(species, form) + 7;
     }
 }
 
 u32 Pokemon_IconPaletteID(u32 species, u32 form, u32 isEgg)
 {
-    #ifdef DEBUG_FORMS
-    u8 buf[128];
-    sprintf(buf, "PLAT-ENGINE | Invoking Pokemon_IconPaletteID\n");
-    debugsyscall();
-    sprintf(buf, "PLAT-ENGINE | -- species: %ld\n", species);
-    debugsyscall();
-    sprintf(buf, "PLAT-ENGINE | -- isEgg:   %ld\n", isEgg);
-    debugsyscall();
-    sprintf(buf, "PLAT-ENGINE | -- form:    %ld\n", form);
-    debugsyscall();
-    #endif
-
     u16 offset = 0;
     if (isEgg) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Using egg icon palette\n");
-        debugsyscall();
-        #endif
-
         // Use Bad Egg's palette for the Manaphy egg.
         offset = (species == SPECIES_MANAPHY ? SPECIES_BAD_EGG : SPECIES_EGG);
         goto LoadPaletteFromTable;
     }
 
     if (!form) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Using base form palette\n\n");
-        debugsyscall();
-        #endif
-
         offset = species;
         goto LoadPaletteFromTable;
     }
@@ -228,7 +150,7 @@ u32 Pokemon_IconPaletteID(u32 species, u32 form, u32 isEgg)
         case SPECIES_ROTOM:         offset = 535 + form - 1; break;
         case SPECIES_CASTFORM:      offset = 540 + form - 1; break;  // new to Platinum
         case SPECIES_CHERRIM:       offset = 543 + form - 1; break;  // new to Platinum
-        default:                    offset = LoadTargetFromFormTable(species, form); break;
+        default:                    offset = Pokemon_FormTarget(species, form); break;
     }
 
 LoadPaletteFromTable:
@@ -237,10 +159,11 @@ LoadPaletteFromTable:
 
 int Form_GetTrueSpecies(int species, int form)
 {
-    if (!form) {            // form 0 is always a pointer to the base species definition
+    if (form == 0) {            // form 0 is always a pointer to the base species definition
         return species;
     }
 
+    u16 target = 0;
     switch (species) {
     case SPECIES_DEOXYS:
         if (form <= 3) {
@@ -273,21 +196,111 @@ int Form_GetTrueSpecies(int species, int form)
         break;
     
     default:
-        return LoadTargetFromFormTable(species, form);
+        return Pokemon_FormTarget(species, form);
     }
-
-    return species;
 }
 
 u16 Pokemon_FormTarget(int species, int form)
 {
+    #ifdef DEBUG_FORMS
+    u8 buf[128];
+    sprintf(buf, "PLAT-ENGINE | Invoking Pokemon_FormTarget\n");
+    debugsyscall();
+    #endif
+
     for (unsigned int i = 0; i < NELEMS(gPokemonFormTable); i++) {
         if (species == gPokemonFormTable[i].species && form == gPokemonFormTable[i].formNum) {
+            #ifdef DEBUG_FORMS
+            sprintf(buf, "PLAT-ENGINE | -- Found: %d\n\n", gPokemonFormTable[i].target);
+            debugsyscall();
+            #endif
+
             return gPokemonFormTable[i].target;
         }
     }
 
+    #ifdef DEBUG_FORMS
+    sprintf(buf, "PLAT-ENGINE | -- No form match for: (%d, %d)\n\n", species, form);
+    debugsyscall();
+    #endif
     return species;
+}
+
+void BoxPokemon_CalcAbility(struct BoxPokemon *pokemon)
+{
+    BOOL locked = BoxPokemon_Lock(pokemon);
+    int species = BoxPokemon_Get(pokemon, MON_PARAM_SPECIES,     NULL);
+    int formNum = BoxPokemon_Get(pokemon, MON_PARAM_FORM_NUMBER, NULL);
+    u32 pid     = BoxPokemon_Get(pokemon, MON_PARAM_PID,         NULL);
+
+    int slot1 = PokemonBaseStats_GetWithForm(species, formNum, PERSONAL_ABILITY_1);
+    int slot2 = PokemonBaseStats_GetWithForm(species, formNum, PERSONAL_ABILITY_2);
+
+    if (slot2 != ABILITY_NONE) {
+        if (pid & 1) {
+            BoxPokemon_Set(pokemon, MON_PARAM_ABILITY, &slot2);
+        } else {
+            BoxPokemon_Set(pokemon, MON_PARAM_ABILITY, &slot1);
+        }
+    } else {
+        BoxPokemon_Set(pokemon, MON_PARAM_ABILITY, &slot1);
+    }
+
+    BoxPokemon_Unlock(pokemon, locked);
+}
+
+static u8 CalcGenderFromPID(u16 species, u8 form, u32 pid)
+{
+    struct BaseStats *baseStats = PokemonBaseStats_OpenForm(species, form, HEAP_ID_SYSTEM);
+    u8 gender = PokemonBaseStats_CalcGender(baseStats, 0, pid); // second param is unused by the original code
+    PokemonBaseStats_Close(baseStats);
+
+    return gender;
+}
+
+void Pokemon_SetNature(
+    struct Pokemon *pokemon,
+    u16 species,
+    u8 level,
+    u8 ivs,
+    u8 nature
+)
+{
+    u32 rand;
+    do {
+        rand = (GF_RAND() | (GF_RAND() << 16));
+    } while(rand % 25 != nature);
+
+    Pokemon_Make(pokemon, species, level, ivs, 1, rand, 0, 0);
+}
+
+void Pokemon_SetGenderAndNature(
+    struct Pokemon *pokemon,
+    u16 species,
+    u8 form,
+    u8 level,
+    u8 ivs,
+    u8 gender,
+    u8 nature
+)
+{
+    u8 genderRatio = PokemonBaseStats_GetWithForm(species, form, PERSONAL_GENDER_RATIO);
+
+    u32 rand = nature;
+    switch (genderRatio) {
+    case GENDER_RATIO_ALL_MALE:
+    case GENDER_RATIO_ALL_FEMALE:
+    case GENDER_RATIO_NONE:
+        break;
+    
+    default:
+        if (gender == 0) {  // forced male
+            rand = rand + (25 * ((genderRatio / 25) + 1));
+        }
+        break;
+    }
+
+    Pokemon_Make(pokemon, species, level, ivs, 1, rand, 0, 0);
 }
 
 #if 0

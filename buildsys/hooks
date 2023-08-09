@@ -49,3 +49,10 @@ arm9 Form_GetTrueSpecies 02078740 2
 arm9 Pokemon_LoadSprite 02075FBC 1
 arm9 Pokemon_IconGraphicsID 02079D8C 3
 arm9 Pokemon_IconPaletteID 02079EDC 3
+## Encounter Modifications
+0006 Hook_Encounter_Set 02241CC4 5
+#0006 Encounter_SeparateFormAndSpecies 02241CC4 4
+#0006 Encounter_SetForm 02241D9C 3
+#0006 Hook_Encounter_AddToWildParty 02242518 5
+#0016 Hook_Client_SetEncounter 0225CC88 2
+#0016 Hook_Client_ShowEncounter 0225CE82 2
