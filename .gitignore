@@ -61,6 +61,12 @@ __pycache__/*
 *.csv
 *generated
 
+# python venv
+bin/*
+lib/*
+lib64
+pyvenv.cfg
+
 /build/*
 /base/*
 /narc/*
