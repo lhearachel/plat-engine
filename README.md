@@ -112,7 +112,7 @@ From here, continue to [Build Instructions](#Build-Instructions).
       3. `export DEVKITARM=$DEVKITPRO/devkitARM`
       4. `echo "export DEVKITARM=$DEVKITARM" >> ~/.bashrc`
       5. `cd Documents` (or wherever else you want to store your project)
-      6. `git clone https://github.com/lhearachel/Complete-Platinum-Upgrade-Engine.git`
+      6. `git clone https://github.com/lhearachel/plat-engine.git`
 
 From here, continue to [Build Instructions](#Build-Instructions).
 
@@ -132,7 +132,7 @@ From here, continue to [Build Instructions](#Build-Instructions).
    3. `export DEVKITARM=$DEVKITPRO/devkitARM`
    4. `echo "export DEVKITARM=$DEVKITARM" >> ~/.bashrc`
    5. `cd Documents` (or wherever else you want to store your project)
-   6. `git clone https://github.com/lhearachel/Complete-Platinum-Upgrade-Engine.git`
+   6. `git clone https://github.com/lhearachel/plat-engine.git`
 
 From here, continue to [Build Instructions](#Build-Instructions).
 
