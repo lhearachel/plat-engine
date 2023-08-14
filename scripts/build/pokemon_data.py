@@ -477,7 +477,7 @@ def build_pokemon():
     articles_file = open(TEXT_DUMP_TARGET.format(archive=POKEMON_ARTICLES), 'w', encoding='utf8')
     pokedex_file = open(TEXT_DUMP_TARGET.format(archive=POKEDEX_NAMES_BANK), 'w', encoding='utf8')
     mon_ids_to_names = {}
-    for fname in os.listdir('data/pokemon'):
+    for fname in sorted(os.listdir('data/pokemon')):
         print(f'-- Building {fname}')
         with open(f'data/pokemon/{fname}', 'r', encoding='utf8') as data:
             pokemon = json.load(data)

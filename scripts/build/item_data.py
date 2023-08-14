@@ -461,7 +461,7 @@ def build_itemdata():
     names_txt = open(TEXT_DUMP_TARGET.format(archive=ITEM_NAMES_BANK), 'w')
     article_txt = open(TEXT_DUMP_TARGET.format(archive=(ITEM_NAMES_BANK + 1)), 'w')
     plurals_txt = open(TEXT_DUMP_TARGET.format(archive=(ITEM_NAMES_BANK + 2)), 'w')
-    for i, entry in enumerate(os.listdir(items_dir)):
+    for i, entry in enumerate(sorted(os.listdir(items_dir))):
         if i == 113:
             for j in range(113, 135):
                 names_txt.write('???\r\n')
