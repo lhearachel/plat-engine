@@ -209,6 +209,8 @@ copy_narcs: narcs
 	cp $(SPRITE_OFFSETS_NARC) $(SPRITE_OFFSETS_TARGET)
 	cp $(HEIGHTS_NARC) $(HEIGHTS_TARGET)
 	cp $(POKEGRA_NARC) $(POKEGRA_TARGET)
+	cp $(TRDATA_NARC) $(TRDATA_TARGET)
+	cp $(TRPOKE_NARC) $(TRPOKE_TARGET)
 	@echo "✅ $(OUTPUT_FMT)Copied new NARCs into /$(BASE)$(FMT_OFF)"
 	@echo ""
 
