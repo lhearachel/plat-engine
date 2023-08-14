@@ -1,0 +1,76 @@
+{
+    "name": "Dennis",
+    "class": "ACE_TRAINER_MALE",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "GLISCOR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "THUNDER_FANG",
+                "X_SCISSOR",
+                "QUICK_ATTACK",
+                "AERIAL_ACE"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "FLOATZEL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AQUA_JET",
+                "SWIFT",
+                "CRUNCH",
+                "QUICK_ATTACK"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 59,
+            "species": "DRIFBLIM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SWALLOW",
+                "GUST",
+                "STOCKPILE",
+                "SHADOW_BALL"
+            ]
+        }
+    ]
+}

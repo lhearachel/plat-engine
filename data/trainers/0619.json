@@ -1,0 +1,121 @@
+{
+    "name": "Cedric",
+    "class": "RIVAL",
+    "double_battle": false,
+    "party_size": 6,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 40,
+            "species": "MUNCHLAX",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "BODY_SLAM",
+                "STOCKPILE",
+                "SWALLOW",
+                "SCREECH"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 42,
+            "species": "STARAPTOR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "CLOSE_COMBAT",
+                "AERIAL_ACE",
+                "TAKE_DOWN",
+                "QUICK_ATTACK"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 40,
+            "species": "FLOATZEL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AQUA_JET",
+                "PURSUIT",
+                "BRICK_BREAK",
+                "IRON_TAIL"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 42,
+            "species": "HERACROSS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "CLOSE_COMBAT",
+                "BRICK_BREAK",
+                "NIGHT_SLASH",
+                "AERIAL_ACE"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 40,
+            "species": "ROSERADE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GIGA_DRAIN",
+                "TOXIC",
+                "INGRAIN",
+                "GRASS_WHISTLE"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 44,
+            "species": "INFERNAPE",
+            "form": 0,
+            "ball_seal": 10,
+            "held_item": "NONE",
+            "moves": [
+                "CLOSE_COMBAT",
+                "PUNISHMENT",
+                "FLAME_WHEEL",
+                "WILL_O_WISP"
+            ]
+        }
+    ]
+}

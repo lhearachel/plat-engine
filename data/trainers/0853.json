@@ -1,0 +1,106 @@
+{
+    "name": "Candice",
+    "class": "LEADER_7",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 62,
+            "species": "WEAVILE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AVALANCHE",
+                "SLASH",
+                "FAINT_ATTACK",
+                "TAUNT"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "MAMOSWINE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AVALANCHE",
+                "ANCIENT_POWER",
+                "EARTHQUAKE",
+                "HAIL"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "ABOMASNOW",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AVALANCHE",
+                "WOOD_HAMMER",
+                "GRASS_WHISTLE",
+                "INGRAIN"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 63,
+            "species": "FROSLASS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "BLIZZARD",
+                "CONFUSE_RAY",
+                "OMINOUS_WIND",
+                "HAIL"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 65,
+            "species": "GLACEON",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "BLIZZARD",
+                "MIRROR_COAT",
+                "SHADOW_BALL",
+                "WATER_PULSE"
+            ]
+        }
+    ]
+}

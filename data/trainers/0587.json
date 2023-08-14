@@ -1,0 +1,61 @@
+{
+    "name": "Davon",
+    "class": "BLACK_BELT",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": false,
+        "expert": false,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": true,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": false,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 30,
+            "ability_slot": 0,
+            "level": 54,
+            "species": "TYROGUE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": []
+        },
+        {
+            "difficulty_value": 30,
+            "ability_slot": 0,
+            "level": 54,
+            "species": "MAKUHITA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": []
+        },
+        {
+            "difficulty_value": 30,
+            "ability_slot": 0,
+            "level": 57,
+            "species": "MACHAMP",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": []
+        }
+    ]
+}

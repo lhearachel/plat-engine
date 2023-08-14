@@ -1,0 +1,76 @@
+{
+    "name": "Alyssa",
+    "class": "ACE_TRAINER_FEMALE",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "AIPOM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SWIFT",
+                "WATER_PULSE",
+                "SHOCK_WAVE",
+                "AERIAL_ACE"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "GIRAFARIG",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DOUBLE_HIT",
+                "PSYBEAM",
+                "ASSURANCE",
+                "LIGHT_SCREEN"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 33,
+            "species": "GROTLE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "MEGA_DRAIN",
+                "BITE",
+                "CURSE",
+                "NONE"
+            ]
+        }
+    ]
+}

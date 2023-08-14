@@ -1,0 +1,76 @@
+{
+    "name": "Gardenia",
+    "class": "LEADER_2",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "SUPER_POTION",
+        "SUPER_POTION",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 20,
+            "species": "TURTWIG",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GRASS_KNOT",
+                "RAZOR_LEAF",
+                "SUNNY_DAY",
+                "REFLECT"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 20,
+            "species": "CHERRIM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GRASS_KNOT",
+                "LEECH_SEED",
+                "MAGICAL_LEAF",
+                "SAFEGUARD"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 22,
+            "species": "ROSERADE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "GRASS_KNOT",
+                "MAGICAL_LEAF",
+                "POISON_STING",
+                "STUN_SPORE"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "name": "Phillip",
+    "class": "BUG_CATCHER",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": false,
+        "expert": false,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 0,
+            "ability_slot": 0,
+            "level": 11,
+            "species": "WURMPLE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "TACKLE",
+                "STRING_SHOT",
+                "POISON_STING",
+                "NONE"
+            ]
+        },
+        {
+            "difficulty_value": 0,
+            "ability_slot": 0,
+            "level": 13,
+            "species": "CASCOON",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "TACKLE",
+                "STRING_SHOT",
+                "POISON_STING",
+                "HARDEN"
+            ]
+        },
+        {
+            "difficulty_value": 20,
+            "ability_slot": 0,
+            "level": 15,
+            "species": "DUSTOX",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "TACKLE",
+                "POISON_STING",
+                "CONFUSION",
+                "GUST"
+            ]
+        }
+    ]
+}

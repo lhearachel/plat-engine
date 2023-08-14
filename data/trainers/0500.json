@@ -1,0 +1,76 @@
+{
+    "name": "Brenden",
+    "class": "VETERAN",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 54,
+            "species": "FORRETRESS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FLASH_CANNON",
+                "ROCK_SLIDE",
+                "STEALTH_ROCK",
+                "TOXIC_SPIKES"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 54,
+            "species": "GYARADOS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "EARTHQUAKE",
+                "AQUA_TAIL",
+                "ICE_FANG",
+                "DRAGON_PULSE"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 54,
+            "species": "HIPPOWDON",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DIG",
+                "CRUNCH",
+                "PROTECT",
+                "REST"
+            ]
+        }
+    ]
+}

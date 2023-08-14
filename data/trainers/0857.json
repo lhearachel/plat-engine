@@ -1,0 +1,106 @@
+{
+    "name": "Gardenia",
+    "class": "LEADER_2",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "JUMPLUFF",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SILVER_WIND",
+                "TOXIC",
+                "SUNNY_DAY",
+                "BOUNCE"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 62,
+            "species": "CHERRIM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SOLAR_BEAM",
+                "TOXIC",
+                "SUNNY_DAY",
+                "LEECH_SEED"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "BELLOSSOM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DRAIN_PUNCH",
+                "GIGA_DRAIN",
+                "INGRAIN",
+                "SUNNY_DAY"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 63,
+            "species": "TORTERRA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "WOOD_HAMMER",
+                "CRUNCH",
+                "EARTHQUAKE",
+                "STONE_EDGE"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 65,
+            "species": "ROSERADE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "SHADOW_BALL",
+                "LEAF_STORM",
+                "SLUDGE_BOMB",
+                "HYPER_BEAM"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "name": "Buck",
+    "class": "TRAINER_4",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "SHUCKLE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "REST",
+                "TOXIC",
+                "PROTECT",
+                "SANDSTORM"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 62,
+            "species": "UMBREON",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DARK_PULSE",
+                "PSYCHIC",
+                "CONFUSE_RAY",
+                "DOUBLE_TEAM"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "TORKOAL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "EARTHQUAKE",
+                "WILL_O_WISP",
+                "ERUPTION",
+                "PROTECT"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 63,
+            "species": "DUSKNOIR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FIRE_PUNCH",
+                "ICE_PUNCH",
+                "THUNDER_PUNCH",
+                "SHADOW_BALL"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 65,
+            "species": "CLAYDOL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "EARTH_POWER",
+                "PSYCHIC",
+                "ANCIENT_POWER",
+                "CALM_MIND"
+            ]
+        }
+    ]
+}

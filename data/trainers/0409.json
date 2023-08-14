@@ -1,0 +1,76 @@
+{
+    "name": "Saturn",
+    "class": "COMMANDER_3",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 42,
+            "species": "GOLBAT",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AIR_CUTTER",
+                "BITE",
+                "POISON_FANG",
+                "CONFUSE_RAY"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 42,
+            "species": "BRONZOR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GYRO_BALL",
+                "EXTRASENSORY",
+                "SHADOW_BALL",
+                "CONFUSE_RAY"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 44,
+            "species": "TOXICROAK",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "POISON_JAB",
+                "BRICK_BREAK",
+                "X_SCISSOR",
+                "FAINT_ATTACK"
+            ]
+        }
+    ]
+}

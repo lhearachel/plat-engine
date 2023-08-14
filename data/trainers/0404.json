@@ -1,0 +1,106 @@
+{
+    "name": "Cyrus",
+    "class": "GALACTIC_BOSS",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 45,
+            "species": "HOUNDOOM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FLAMETHROWER",
+                "DARK_PULSE",
+                "WILL_O_WISP",
+                "THUNDER_FANG"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 47,
+            "species": "HONCHKROW",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DRILL_PECK",
+                "NIGHT_SLASH",
+                "HEAT_WAVE",
+                "PSYCHIC"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 46,
+            "species": "CROBAT",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "CROSS_POISON",
+                "AIR_SLASH",
+                "TOXIC",
+                "CONFUSE_RAY"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 46,
+            "species": "GYARADOS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GIGA_IMPACT",
+                "WATERFALL",
+                "ICE_FANG",
+                "EARTHQUAKE"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 48,
+            "species": "WEAVILE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "NIGHT_SLASH",
+                "ICE_PUNCH",
+                "FAKE_OUT",
+                "X_SCISSOR"
+            ]
+        }
+    ]
+}

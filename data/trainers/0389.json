@@ -1,0 +1,61 @@
+{
+    "name": "Micah",
+    "class": "ACE_TRAINER_MALE",
+    "double_battle": false,
+    "party_size": 2,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 55,
+            "species": "METANG",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "BULLET_PUNCH",
+                "ZEN_HEADBUTT",
+                "PURSUIT",
+                "METEOR_MASH"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 56,
+            "species": "LUDICOLO",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "WATER_PULSE",
+                "ZEN_HEADBUTT",
+                "ENERGY_BALL",
+                "FAKE_OUT"
+            ]
+        }
+    ]
+}

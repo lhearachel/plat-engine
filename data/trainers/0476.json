@@ -1,0 +1,106 @@
+{
+    "name": "Cedric",
+    "class": "RIVAL",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 36,
+            "species": "STARAPTOR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AERIAL_ACE",
+                "TAKE_DOWN",
+                "QUICK_ATTACK",
+                "DOUBLE_TEAM"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 35,
+            "species": "FLOATZEL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AQUA_JET",
+                "PURSUIT",
+                "QUICK_ATTACK",
+                "SWIFT"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 37,
+            "species": "HERACROSS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "BRICK_BREAK",
+                "AERIAL_ACE",
+                "NIGHT_SLASH",
+                "HORN_ATTACK"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 35,
+            "species": "RAPIDASH",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FIRE_SPIN",
+                "TAKE_DOWN",
+                "STOMP",
+                "TAIL_WHIP"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 38,
+            "species": "TORTERRA",
+            "form": 0,
+            "ball_seal": 10,
+            "held_item": "NONE",
+            "moves": [
+                "RAZOR_LEAF",
+                "BITE",
+                "MEGA_DRAIN",
+                "LEECH_SEED"
+            ]
+        }
+    ]
+}

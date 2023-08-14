@@ -1,0 +1,76 @@
+{
+    "name": "Mars",
+    "class": "COMMANDER_1",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": true,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 58,
+            "species": "BRONZONG",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GYRO_BALL",
+                "EXTRASENSORY",
+                "LIGHT_SCREEN",
+                "CONFUSE_RAY"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 58,
+            "species": "GOLBAT",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AIR_CUTTER",
+                "BITE",
+                "POISON_FANG",
+                "CONFUSE_RAY"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 60,
+            "species": "PURUGLY",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "SLASH",
+                "SHADOW_CLAW",
+                "AERIAL_ACE",
+                "HYPNOSIS"
+            ]
+        }
+    ]
+}

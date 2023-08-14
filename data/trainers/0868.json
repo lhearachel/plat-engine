@@ -1,0 +1,106 @@
+{
+    "name": "Flint",
+    "class": "ELITE_FOUR_3",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 68,
+            "species": "HOUNDOOM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FLAMETHROWER",
+                "SLUDGE_BOMB",
+                "DARK_PULSE",
+                "SUNNY_DAY"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 71,
+            "species": "FLAREON",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "OVERHEAT",
+                "GIGA_IMPACT",
+                "QUICK_ATTACK",
+                "WILL_O_WISP"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 69,
+            "species": "RAPIDASH",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FLARE_BLITZ",
+                "SOLAR_BEAM",
+                "BOUNCE",
+                "SUNNY_DAY"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 71,
+            "species": "INFERNAPE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FLARE_BLITZ",
+                "THUNDER_PUNCH",
+                "MACH_PUNCH",
+                "EARTHQUAKE"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 73,
+            "species": "MAGMORTAR",
+            "form": 0,
+            "ball_seal": 13,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "FLAMETHROWER",
+                "THUNDERBOLT",
+                "SOLAR_BEAM",
+                "HYPER_BEAM"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+{
+    "name": "Destiny",
+    "class": "ACE_TRAINER_FEMALE",
+    "double_battle": false,
+    "party_size": 2,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 60,
+            "ability_slot": 0,
+            "level": 47,
+            "species": "ELECTABUZZ",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "THUNDERBOLT",
+                "SHOCK_WAVE",
+                "QUICK_ATTACK",
+                "IRON_TAIL"
+            ]
+        },
+        {
+            "difficulty_value": 60,
+            "ability_slot": 0,
+            "level": 48,
+            "species": "RAICHU",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "THUNDERBOLT",
+                "DIG",
+                "THUNDER_WAVE",
+                "LIGHT_SCREEN"
+            ]
+        }
+    ]
+}

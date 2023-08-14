@@ -1,0 +1,76 @@
+{
+    "name": "Roark",
+    "class": "LEADER_1",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "POTION",
+        "POTION",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 12,
+            "species": "GEODUDE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "STEALTH_ROCK",
+                "ROCK_THROW",
+                "NONE",
+                "NONE"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 12,
+            "species": "ONIX",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "STEALTH_ROCK",
+                "ROCK_THROW",
+                "SCREECH",
+                "NONE"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 14,
+            "species": "CRANIDOS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "HEADBUTT",
+                "PURSUIT",
+                "LEER",
+                "NONE"
+            ]
+        }
+    ]
+}

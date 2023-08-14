@@ -1,0 +1,61 @@
+{
+    "name": "Jupiter",
+    "class": "COMMANDER_2",
+    "double_battle": false,
+    "party_size": 2,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 21,
+            "species": "ZUBAT",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GIGA_DRAIN",
+                "WING_ATTACK",
+                "BITE",
+                "NONE"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 23,
+            "species": "SKUNTANK",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "NIGHT_SLASH",
+                "POISON_GAS",
+                "SCREECH",
+                "SMOKESCREEN"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "name": "Bertha",
+    "class": "ELITE_FOUR_2",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 66,
+            "species": "WHISCASH",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "EARTH_POWER",
+                "AQUA_TAIL",
+                "ZEN_HEADBUTT",
+                "SANDSTORM"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 69,
+            "species": "GLISCOR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "EARTHQUAKE",
+                "ICE_FANG",
+                "FIRE_FANG",
+                "THUNDER_FANG"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 68,
+            "species": "HIPPOWDON",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "EARTHQUAKE",
+                "STONE_EDGE",
+                "CRUNCH",
+                "YAWN"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 68,
+            "species": "GOLEM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "EARTHQUAKE",
+                "FIRE_PUNCH",
+                "THUNDER_PUNCH",
+                "SANDSTORM"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 71,
+            "species": "RHYPERIOR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "EARTHQUAKE",
+                "ROCK_WRECKER",
+                "MEGAHORN",
+                "AVALANCHE"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "name": "Grunt",
+    "class": "GALACTIC_FEMALE",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": false,
+        "expert": false,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 30,
+            "ability_slot": 0,
+            "level": 33,
+            "species": "GLAMEOW",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FURY_SWIPES",
+                "FAINT_ATTACK",
+                "GROWL",
+                "FAKE_OUT"
+            ]
+        },
+        {
+            "difficulty_value": 30,
+            "ability_slot": 0,
+            "level": 33,
+            "species": "GOLBAT",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AIR_CUTTER",
+                "WING_ATTACK",
+                "BITE",
+                "SUPERSONIC"
+            ]
+        },
+        {
+            "difficulty_value": 30,
+            "ability_slot": 0,
+            "level": 36,
+            "species": "MURKROW",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FAINT_ATTACK",
+                "NIGHT_SHADE",
+                "WING_ATTACK",
+                "NONE"
+            ]
+        }
+    ]
+}

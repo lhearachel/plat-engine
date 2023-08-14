@@ -1,0 +1,76 @@
+{
+    "name": "Armando",
+    "class": "VETERAN",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 53,
+            "species": "MUK",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "ACID_ARMOR",
+                "TOXIC",
+                "SLUDGE_BOMB",
+                "DARK_PULSE"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 53,
+            "species": "MIGHTYENA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SUCKER_PUNCH",
+                "TAUNT",
+                "ASSURANCE",
+                "TAKE_DOWN"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 56,
+            "species": "LICKITUNG",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "POWER_WHIP",
+                "GIGA_IMPACT",
+                "SURF",
+                "FIRE_BLAST"
+            ]
+        }
+    ]
+}

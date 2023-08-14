@@ -1,0 +1,76 @@
+{
+    "name": "Savannah",
+    "class": "ACE_TRAINER_SNOW_FEMALE",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 60,
+            "ability_slot": 0,
+            "level": 39,
+            "species": "SNORUNT",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "ICE_FANG",
+                "CRUNCH",
+                "HAIL",
+                "PROTECT"
+            ]
+        },
+        {
+            "difficulty_value": 60,
+            "ability_slot": 0,
+            "level": 40,
+            "species": "SNORUNT",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "ICE_FANG",
+                "CRUNCH",
+                "HAIL",
+                "PROTECT"
+            ]
+        },
+        {
+            "difficulty_value": 60,
+            "ability_slot": 0,
+            "level": 42,
+            "species": "GLALIE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "ICE_FANG",
+                "CRUNCH",
+                "HAIL",
+                "PROTECT"
+            ]
+        }
+    ]
+}

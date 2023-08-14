@@ -1,0 +1,106 @@
+{
+    "name": "Fantina",
+    "class": "LEADER_5",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "BANETTE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SHADOW_CLAW",
+                "FAINT_ATTACK",
+                "THUNDERBOLT",
+                "WILL_O_WISP"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "DRIFBLIM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "OMINOUS_WIND",
+                "PSYCHIC",
+                "SILVER_WIND",
+                "BATON_PASS"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 62,
+            "species": "DUSKNOIR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "ROCK_SLIDE",
+                "SHADOW_PUNCH",
+                "DOUBLE_TEAM",
+                "PROTECT"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 63,
+            "species": "MISMAGIUS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SHADOW_BALL",
+                "PSYCHIC",
+                "MAGICAL_LEAF",
+                "THUNDERBOLT"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 65,
+            "species": "GENGAR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "SHADOW_BALL",
+                "PSYCHIC",
+                "FOCUS_BLAST",
+                "THUNDER"
+            ]
+        }
+    ]
+}

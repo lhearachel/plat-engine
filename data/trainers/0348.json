@@ -1,0 +1,46 @@
+{
+    "name": "Lindsay",
+    "class": "BEAUTY",
+    "double_battle": false,
+    "party_size": 1,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": false,
+        "expert": false,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 20,
+            "ability_slot": 0,
+            "level": 19,
+            "species": "ROSELIA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "MEGA_DRAIN",
+                "POISON_STING",
+                "STUN_SPORE",
+                "NONE"
+            ]
+        }
+    ]
+}

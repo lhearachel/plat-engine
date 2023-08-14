@@ -1,0 +1,121 @@
+{
+    "name": "Cynthia",
+    "class": "CHAMPION",
+    "double_battle": false,
+    "party_size": 6,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "FULL_RESTORE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 74,
+            "species": "SPIRITOMB",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DARK_PULSE",
+                "PSYCHIC",
+                "SILVER_WIND",
+                "OMINOUS_WIND"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 74,
+            "species": "ROSERADE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "ENERGY_BALL",
+                "SLUDGE_BOMB",
+                "SHADOW_BALL",
+                "EXTRASENSORY"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 76,
+            "species": "TOGEKISS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AIR_SLASH",
+                "AURA_SPHERE",
+                "WATER_PULSE",
+                "PSYCHIC"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 76,
+            "species": "LUCARIO",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AURA_SPHERE",
+                "DRAGON_PULSE",
+                "PSYCHIC",
+                "EARTHQUAKE"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 74,
+            "species": "MILOTIC",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SURF",
+                "ICE_BEAM",
+                "MIRROR_COAT",
+                "AQUA_RING"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 78,
+            "species": "GARCHOMP",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "DRAGON_RUSH",
+                "EARTHQUAKE",
+                "BRICK_BREAK",
+                "GIGA_IMPACT"
+            ]
+        }
+    ]
+}
