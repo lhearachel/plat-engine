@@ -206,6 +206,7 @@ def build_trainers_and_parties():
     if not os.path.exists('build/trainers/trpoke'):
         os.makedirs('build/trainers/trpoke')
 
+    names_file = open(BASE_TRNAME_FILE, 'w', encoding='utf8')
     for i, fname in enumerate(sorted(os.listdir('data/trainers'))):
         json_data = {}
         with open(f'data/trainers/{fname}', 'r', encoding='utf8') as data_file:
@@ -219,6 +220,8 @@ def build_trainers_and_parties():
             trdata_bin.write(trdata)
         with open(f'build/trainers/trpoke/{i:04}.bin', 'wb') as trpoke_bin:
             trpoke_bin.write(trpoke)
+        
+        names_file.write(f'{{TRNAME}}{json_data["name"]}\r\n')
 
 if __name__ == '__main__':
     if sys.argv[1] == 'dump':
