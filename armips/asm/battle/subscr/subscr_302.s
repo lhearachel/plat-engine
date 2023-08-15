@@ -12,12 +12,12 @@
 .include "armips/include/types.s"
 
 
-.create "build/battle/scr/subscr/sub_seq_302.bin", 0
+.create "build/battle/scr/subscr/sub_seq_301.bin", 0
 
-// SUBSCR_TURBOBLAZE
+// SUBSCR_TERAVOLT
 subscr_302:
-    // "{0} is radiating a blazing aura!"
-    Message                             1273, TAG_NICK, BATTLER_WORKING, NaN, NaN, NaN, NaN, NaN
+    // "{0} is radiating a bursting aura!"
+    Message                             1270, TAG_NICK, BATTLER_WORKING, NaN, NaN, NaN, NaN, NaN
     Wait                                
     WaitTime                            30
     End                                 
