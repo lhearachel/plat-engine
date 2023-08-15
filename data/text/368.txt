@@ -1268,3 +1268,9 @@ Playback canceled.
 The dimensions became distorted!
 The Distortion World’s {STRVAR_1 1, 0, 0}\nappeared!\r
 The {STRVAR_1 8, 1, 0} strengthened\n{STRVAR_1 1, 0, 0}’s power!
+{STRVAR_1 1, 0, 0} is radiating a\nbursting aura!
+The wild {STRVAR_1 1, 0, 0} is radiating a\nbursting aura!
+The foe’s {STRVAR_1 1, 0, 0} is radiating a\nbursting aura!
+{STRVAR_1 1, 0, 0} is radiating a\nblazing aura!
+The wild {STRVAR_1 1, 0, 0} is radiating a\nblazing aura!
+The foe’s {STRVAR_1 1, 0, 0} is radiating a\nblazing aura!

@@ -151,6 +151,22 @@ static inline BOOL DamageWasDealt(struct BattleServer *server)
         || server->stSelfFX[server->defender].specialDamage;
 }
 
+BOOL Server_CheckDefenderAbility(struct BattleServer *server, int attacker, int defender, int ability){
+    if (Server_Ability(server, attacker) == ABILITY_MOLD_BREAKER ||
+        Server_Ability(server, attacker) == ABILITY_TURBOBLAZE   ||
+        Server_Ability(server, attacker) == ABILITY_TERAVOLT){
+        if(Server_Ability(server, defender) == ability){
+            server->stSelfFX[attacker].moldBreaker = 1;
+            server->serverStatusFlag |= SERVER_STATUS_FLAG_MOLD_BREAKER;
+        }
+    } else {
+        if(Server_Ability(server, defender) == ability){
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
 BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server, int *seqNum)
 {
     if (server->defender == 0xFF) {
@@ -931,6 +947,20 @@ static void ProcessSnowWarning(struct Battle *battle, struct BattleServer *serve
     *processing = FALSE;
 }
 
+static void ProcessTeravolt(struct Battle *battle, struct BattleServer *server, int numBattlers, int battler, int *nextScript, BOOL *processing)
+{
+    server->clientWork = battler;
+    *nextScript = SUBSCR_TERAVOLT;
+    *processing = FALSE;
+}
+
+static void ProcessTurboblaze(struct Battle *battle, struct BattleServer *server, int numBattlers, int battler, int *nextScript, BOOL *processing)
+{
+    server->clientWork = battler;
+    *nextScript = SUBSCR_TURBOBLAZE;
+    *processing = FALSE;
+}
+
 static void ProcessAbilities(struct Battle *battle, struct BattleServer *server, int numBattlers, int *nextScript, BOOL *processing)
 {
     #ifdef DEBUG_SWITCHIN_EFFECTS
@@ -988,6 +1018,8 @@ static void ProcessAbilities(struct Battle *battle, struct BattleServer *server,
             case ABILITY_DROUGHT:       handler = &ProcessDrought; break;
             case ABILITY_SAND_STREAM:   handler = &ProcessSandStream; break;
             case ABILITY_SNOW_WARNING:  handler = &ProcessSnowWarning; break;
+            case ABILITY_TERAVOLT:      handler = &ProcessTeravolt; break;
+            case ABILITY_TURBOBLAZE:    handler = &ProcessTurboblaze; break;
 
             default:                    continue;
         }
