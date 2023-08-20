@@ -154,7 +154,7 @@ static inline BOOL DamageWasDealt(struct BattleServer *server)
 BOOL Server_CheckDefenderAbility(struct BattleServer *server, int attacker, int defender, int ability){
     if (Server_Ability(server, attacker) == ABILITY_MOLD_BREAKER ||
         Server_Ability(server, attacker) == ABILITY_TURBOBLAZE   ||
-        Server_Ability(server, attacker) == ABILITY_TERAVOLT){
+        Server_Ability(server, attacker) == ABILITY_TERAVOLT) {
         if(Server_Ability(server, defender) == ability){
             server->stSelfFX[attacker].moldBreaker = 1;
             server->serverStatusFlag |= SERVER_STATUS_FLAG_MOLD_BREAKER;
