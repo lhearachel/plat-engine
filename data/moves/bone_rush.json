@@ -3,7 +3,7 @@
     "type": "GROUND",
     "category": "PHYSICAL",
     "power": 25,
-    "accuracy": 80,
+    "accuracy": 90,
     "base_pp": 10,
     "effect": "MULTI_HIT",
     "effect_chance": 0,

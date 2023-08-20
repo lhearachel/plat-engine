@@ -3,7 +3,7 @@
     "type": "PSYCHIC",
     "category": "SPECIAL",
     "power": 1,
-    "accuracy": 80,
+    "accuracy": 100,
     "base_pp": 15,
     "effect": "PSYWAVE",
     "effect_chance": 0,

@@ -2,7 +2,7 @@
     "name": "Thunder",
     "type": "ELECTRIC",
     "category": "SPECIAL",
-    "power": 120,
+    "power": 110,
     "accuracy": 70,
     "base_pp": 10,
     "effect": "THUNDER",

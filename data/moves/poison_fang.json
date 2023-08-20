@@ -6,7 +6,7 @@
     "accuracy": 100,
     "base_pp": 15,
     "effect": "BADLY_POISON_ON_HIT",
-    "effect_chance": 30,
+    "effect_chance": 50,
     "target_type": "ANY_SINGLE",
     "priority": 0,
     "flags": {

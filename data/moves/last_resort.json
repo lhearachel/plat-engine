@@ -2,7 +2,7 @@
     "name": "Last Resort",
     "type": "NORMAL",
     "category": "PHYSICAL",
-    "power": 130,
+    "power": 140,
     "accuracy": 100,
     "base_pp": 5,
     "effect": "LAST_RESORT",

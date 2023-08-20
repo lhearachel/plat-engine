@@ -4,7 +4,7 @@
     "category": "STATUS",
     "power": 0,
     "accuracy": 0,
-    "base_pp": 30,
+    "base_pp": 25,
     "effect": "TAILWIND",
     "effect_chance": 0,
     "target_type": "USER_SIDE",

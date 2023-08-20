@@ -2,7 +2,7 @@
     "name": "Rapid Spin",
     "type": "NORMAL",
     "category": "PHYSICAL",
-    "power": 20,
+    "power": 50,
     "accuracy": 100,
     "base_pp": 40,
     "effect": "RAPID_SPIN",

@@ -2,7 +2,7 @@
     "name": "Feint",
     "type": "NORMAL",
     "category": "PHYSICAL",
-    "power": 50,
+    "power": 30,
     "accuracy": 100,
     "base_pp": 10,
     "effect": "FEINT",
@@ -14,7 +14,7 @@
         "blocked_by_protect": false,
         "bounced_by_magic_coat": false,
         "stolen_by_snatch": false,
-        "can_be_mirror_moved": false,
+        "can_be_mirror_moved": true,
         "triggers_kings_rock": false,
         "animation_hides_hp_bars": false,
         "animation_hides_shadows": false

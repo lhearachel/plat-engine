@@ -199,6 +199,8 @@ $(MOVETABLE_NARC): $(MOVETABLE_SRCS)
 	$(PYTHON) scripts/build/move_data.py build
 	$(NARCHIVE) create $(MOVETABLE_NARC) $(MOVETABLE_DATA_DIR) -nf
 
+NARC_FILES += $(MOVETABLE_NARC)
+
 # Text Archives
 
 CHARMAP = data/charmap.txt

@@ -1,11 +1,11 @@
 {
-    "name": "Hi Jump Kick",
-    "type": "FIGHTING",
+    "name": "Smelling Salts",
+    "type": "NORMAL",
     "category": "PHYSICAL",
-    "power": 100,
-    "accuracy": 90,
-    "base_pp": 20,
-    "effect": "CRASH_DAMAGE",
+    "power": 70,
+    "accuracy": 100,
+    "base_pp": 10,
+    "effect": "SMELLING_SALTS",
     "effect_chance": 0,
     "target_type": "ANY_SINGLE",
     "priority": 0,
@@ -15,10 +15,10 @@
         "bounced_by_magic_coat": false,
         "stolen_by_snatch": false,
         "can_be_mirror_moved": true,
-        "triggers_kings_rock": true,
+        "triggers_kings_rock": false,
         "animation_hides_hp_bars": false,
         "animation_hides_shadows": false
     },
-    "contest_effect": 5,
-    "contest_type": 0
+    "contest_effect": 16,
+    "contest_type": 3
 }

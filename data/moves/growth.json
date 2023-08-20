@@ -4,7 +4,7 @@
     "category": "STATUS",
     "power": 0,
     "accuracy": 0,
-    "base_pp": 40,
+    "base_pp": 20,
     "effect": "RAISE_SPA_STATUS",
     "effect_chance": 0,
     "target_type": "USER",

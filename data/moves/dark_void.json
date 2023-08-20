@@ -3,7 +3,7 @@
     "type": "DARK",
     "category": "STATUS",
     "power": 0,
-    "accuracy": 80,
+    "accuracy": 50,
     "base_pp": 10,
     "effect": "SLEEP_STATUS",
     "effect_chance": 0,

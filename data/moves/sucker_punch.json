@@ -2,7 +2,7 @@
     "name": "Sucker Punch",
     "type": "DARK",
     "category": "PHYSICAL",
-    "power": 80,
+    "power": 70,
     "accuracy": 100,
     "base_pp": 5,
     "effect": "SUCKER_PUNCH",

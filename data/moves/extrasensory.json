@@ -4,7 +4,7 @@
     "category": "SPECIAL",
     "power": 80,
     "accuracy": 100,
-    "base_pp": 30,
+    "base_pp": 20,
     "effect": "FLINCH_ON_HIT",
     "effect_chance": 10,
     "target_type": "ANY_SINGLE",

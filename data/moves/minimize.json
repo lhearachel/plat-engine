@@ -4,7 +4,7 @@
     "category": "STATUS",
     "power": 0,
     "accuracy": 0,
-    "base_pp": 20,
+    "base_pp": 10,
     "effect": "MINIMIZE",
     "effect_chance": 0,
     "target_type": "USER",

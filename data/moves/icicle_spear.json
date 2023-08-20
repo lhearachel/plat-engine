@@ -2,7 +2,7 @@
     "name": "Icicle Spear",
     "type": "ICE",
     "category": "PHYSICAL",
-    "power": 10,
+    "power": 25,
     "accuracy": 100,
     "base_pp": 30,
     "effect": "MULTI_HIT",

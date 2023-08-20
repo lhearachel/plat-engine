@@ -1,11 +1,11 @@
 {
-    "name": "Faint Attack",
-    "type": "DARK",
+    "name": "High Jump Kick",
+    "type": "FIGHTING",
     "category": "PHYSICAL",
-    "power": 60,
-    "accuracy": 0,
-    "base_pp": 20,
-    "effect": "ALWAYS_HIT",
+    "power": 130,
+    "accuracy": 90,
+    "base_pp": 10,
+    "effect": "CRASH_DAMAGE",
     "effect_chance": 0,
     "target_type": "ANY_SINGLE",
     "priority": 0,
@@ -19,6 +19,6 @@
         "animation_hides_hp_bars": false,
         "animation_hides_shadows": false
     },
-    "contest_effect": 18,
-    "contest_type": 3
+    "contest_effect": 5,
+    "contest_type": 0
 }

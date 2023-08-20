@@ -2,7 +2,7 @@
     "name": "Bubble",
     "type": "WATER",
     "category": "SPECIAL",
-    "power": 20,
+    "power": 40,
     "accuracy": 100,
     "base_pp": 30,
     "effect": "LOWER_SPE_ON_HIT",

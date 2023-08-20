@@ -2,7 +2,7 @@
     "name": "Smog",
     "type": "POISON",
     "category": "SPECIAL",
-    "power": 20,
+    "power": 30,
     "accuracy": 70,
     "base_pp": 20,
     "effect": "POISON_ON_HIT",

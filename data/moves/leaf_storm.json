@@ -2,7 +2,7 @@
     "name": "Leaf Storm",
     "type": "GRASS",
     "category": "SPECIAL",
-    "power": 140,
+    "power": 130,
     "accuracy": 90,
     "base_pp": 5,
     "effect": "SHARPLY_LOWER_OWN_SPA",

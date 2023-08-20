@@ -2,7 +2,7 @@
     "name": "Power Gem",
     "type": "ROCK",
     "category": "SPECIAL",
-    "power": 70,
+    "power": 80,
     "accuracy": 100,
     "base_pp": 20,
     "effect": "NONE",

@@ -2,7 +2,7 @@
     "name": "Thunderbolt",
     "type": "ELECTRIC",
     "category": "SPECIAL",
-    "power": 95,
+    "power": 90,
     "accuracy": 100,
     "base_pp": 15,
     "effect": "PARALYZE_ON_HIT",

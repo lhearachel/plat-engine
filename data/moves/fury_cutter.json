@@ -2,7 +2,7 @@
     "name": "Fury Cutter",
     "type": "BUG",
     "category": "PHYSICAL",
-    "power": 10,
+    "power": 40,
     "accuracy": 95,
     "base_pp": 20,
     "effect": "FURY_CUTTER",

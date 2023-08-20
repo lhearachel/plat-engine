@@ -1,24 +1,24 @@
 {
-    "name": "SmokeScreen",
+    "name": "Self-Destruct",
     "type": "NORMAL",
-    "category": "STATUS",
-    "power": 0,
+    "category": "PHYSICAL",
+    "power": 200,
     "accuracy": 100,
-    "base_pp": 20,
-    "effect": "LOWER_ACC_STATUS",
+    "base_pp": 5,
+    "effect": "SELF_DESTRUCT",
     "effect_chance": 0,
-    "target_type": "ANY_SINGLE",
+    "target_type": "ALL_BATTLERS",
     "priority": 0,
     "flags": {
         "make_contact": false,
         "blocked_by_protect": true,
-        "bounced_by_magic_coat": true,
+        "bounced_by_magic_coat": false,
         "stolen_by_snatch": false,
         "can_be_mirror_moved": true,
-        "triggers_kings_rock": false,
+        "triggers_kings_rock": true,
         "animation_hides_hp_bars": false,
         "animation_hides_shadows": false
     },
-    "contest_effect": 10,
-    "contest_type": 3
+    "contest_effect": 9,
+    "contest_type": 1
 }

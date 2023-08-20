@@ -2,7 +2,7 @@
     "name": "Chatter",
     "type": "FLYING",
     "category": "SPECIAL",
-    "power": 60,
+    "power": 65,
     "accuracy": 100,
     "base_pp": 20,
     "effect": "CHATTER",

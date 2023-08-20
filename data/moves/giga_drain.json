@@ -2,7 +2,7 @@
     "name": "Giga Drain",
     "type": "GRASS",
     "category": "SPECIAL",
-    "power": 60,
+    "power": 75,
     "accuracy": 100,
     "base_pp": 10,
     "effect": "DRAIN_HALF_DAMAGE",

@@ -3,7 +3,7 @@
     "type": "NORMAL",
     "category": "STATUS",
     "power": 0,
-    "accuracy": 90,
+    "accuracy": 100,
     "base_pp": 10,
     "effect": "SHARPLY_LOWER_SPE_STATUS",
     "effect_chance": 0,

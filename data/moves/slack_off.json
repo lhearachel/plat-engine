@@ -4,7 +4,7 @@
     "category": "STATUS",
     "power": 0,
     "accuracy": 0,
-    "base_pp": 10,
+    "base_pp": 5,
     "effect": "RESTORE_HALF_HP",
     "effect_chance": 0,
     "target_type": "USER",

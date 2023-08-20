@@ -2,7 +2,7 @@
     "name": "Air Cutter",
     "type": "FLYING",
     "category": "SPECIAL",
-    "power": 55,
+    "power": 60,
     "accuracy": 95,
     "base_pp": 25,
     "effect": "HIGH_CRITICAL",

@@ -2,7 +2,7 @@
     "name": "Heat Wave",
     "type": "FIRE",
     "category": "SPECIAL",
-    "power": 100,
+    "power": 95,
     "accuracy": 90,
     "base_pp": 10,
     "effect": "BURN_ON_HIT",

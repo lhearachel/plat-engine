@@ -1170,7 +1170,7 @@ class Move(Enum):
     ICE_PUNCH                          = 8
     THUNDER_PUNCH                      = 9
     SCRATCH                            = 10
-    VICE_GRIP                          = 11
+    VISE_GRIP                          = 11
     GUILLOTINE                         = 12
     RAZOR_WIND                         = 13
     SWORDS_DANCE                       = 14
@@ -1267,7 +1267,7 @@ class Move(Enum):
     RECOVER                            = 105
     HARDEN                             = 106
     MINIMIZE                           = 107
-    SMOKE_SCREEN                       = 108
+    SMOKESCREEN                        = 108
     CONFUSE_RAY                        = 109
     WITHDRAW                           = 110
     DEFENSE_CURL                       = 111
@@ -1279,7 +1279,7 @@ class Move(Enum):
     BIDE                               = 117
     METRONOME                          = 118
     MIRROR_MOVE                        = 119
-    SELFDESTRUCT                       = 120
+    SELF_DESTRUCT                      = 120
     EGG_BOMB                           = 121
     LICK                               = 122
     SMOG                               = 123
@@ -1294,8 +1294,8 @@ class Move(Enum):
     CONSTRICT                          = 132
     AMNESIA                            = 133
     KINESIS                            = 134
-    SOFTBOILED                         = 135
-    HI_JUMP_KICK                       = 136
+    SOFT_BOILED                        = 135
+    HIGH_JUMP_KICK                     = 136
     GLARE                              = 137
     DREAM_EATER                        = 138
     POISON_GAS                         = 139
@@ -1344,7 +1344,7 @@ class Move(Enum):
     PROTECT                            = 182
     MACH_PUNCH                         = 183
     SCARY_FACE                         = 184
-    FAINT_ATTACK                       = 185
+    FEINT_ATTACK                       = 185
     SWEET_KISS                         = 186
     BELLY_DRUM                         = 187
     SLUDGE_BOMB                        = 188
@@ -1424,7 +1424,7 @@ class Move(Enum):
     MEMENTO                            = 262
     FACADE                             = 263
     FOCUS_PUNCH                        = 264
-    SMELLING_SALT                      = 265
+    SMELLING_SALTS                     = 265
     FOLLOW_ME                          = 266
     NATURE_POWER                       = 267
     CHARGE                             = 268

@@ -2,7 +2,7 @@
     "name": "Blizzard",
     "type": "ICE",
     "category": "SPECIAL",
-    "power": 120,
+    "power": 110,
     "accuracy": 70,
     "base_pp": 5,
     "effect": "BLIZZARD",

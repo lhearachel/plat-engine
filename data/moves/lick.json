@@ -2,7 +2,7 @@
     "name": "Lick",
     "type": "GHOST",
     "category": "PHYSICAL",
-    "power": 20,
+    "power": 30,
     "accuracy": 100,
     "base_pp": 30,
     "effect": "PARALYZE_ON_HIT",

@@ -2,7 +2,7 @@
     "name": "Wake-Up Slap",
     "type": "FIGHTING",
     "category": "PHYSICAL",
-    "power": 60,
+    "power": 70,
     "accuracy": 100,
     "base_pp": 10,
     "effect": "MIRACLE_EYE",

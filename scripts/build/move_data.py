@@ -4,7 +4,7 @@ import json
 import sys
 
 from ndspy.narc import NARC
-from .util import Type, MoveClass, Move, sint_to_byte, signed_int, snake_case
+from util import Type, MoveClass, Move, sint_to_byte, signed_int, snake_case
 
 
 BASE_MOVE_DATA_NARC = 'base/data/poketool/waza/pl_waza_tbl.narc'
@@ -285,8 +285,8 @@ class MoveEffect(Enum):
 
 
 class MoveTarget(Flag):
-    ANY_SINGLE      = 0
-    AUTOMATIC       = 1
+    ANY_SINGLE      = 0         # standard single-targeting
+    AUTOMATIC       = 1         # Mirror Move, Assist, Snatch
     RANDOM          = 2
     BOTH_OPPONENTS  = 4         # Muddy Water
     ALL_BATTLERS    = 8         # Earthquake, Discharge

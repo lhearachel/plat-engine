@@ -3,7 +3,7 @@
     "type": "FIRE",
     "category": "STATUS",
     "power": 0,
-    "accuracy": 75,
+    "accuracy": 85,
     "base_pp": 15,
     "effect": "BURN_STATUS",
     "effect_chance": 0,

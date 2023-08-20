@@ -2,7 +2,7 @@
     "name": "Aura Sphere",
     "type": "FIGHTING",
     "category": "SPECIAL",
-    "power": 90,
+    "power": 80,
     "accuracy": 0,
     "base_pp": 20,
     "effect": "ALWAYS_HIT",

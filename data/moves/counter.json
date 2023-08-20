@@ -11,7 +11,7 @@
     "priority": -5,
     "flags": {
         "make_contact": true,
-        "blocked_by_protect": false,
+        "blocked_by_protect": true,
         "bounced_by_magic_coat": false,
         "stolen_by_snatch": false,
         "can_be_mirror_moved": false,

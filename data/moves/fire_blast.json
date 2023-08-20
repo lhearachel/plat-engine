@@ -2,7 +2,7 @@
     "name": "Fire Blast",
     "type": "FIRE",
     "category": "SPECIAL",
-    "power": 120,
+    "power": 110,
     "accuracy": 85,
     "base_pp": 5,
     "effect": "BURN_ON_HIT",

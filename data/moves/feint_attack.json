@@ -1,11 +1,11 @@
 {
-    "name": "SmellingSalt",
-    "type": "NORMAL",
+    "name": "Feint Attack",
+    "type": "DARK",
     "category": "PHYSICAL",
     "power": 60,
-    "accuracy": 100,
-    "base_pp": 10,
-    "effect": "SMELLING_SALTS",
+    "accuracy": 0,
+    "base_pp": 20,
+    "effect": "ALWAYS_HIT",
     "effect_chance": 0,
     "target_type": "ANY_SINGLE",
     "priority": 0,
@@ -15,10 +15,10 @@
         "bounced_by_magic_coat": false,
         "stolen_by_snatch": false,
         "can_be_mirror_moved": true,
-        "triggers_kings_rock": false,
+        "triggers_kings_rock": true,
         "animation_hides_hp_bars": false,
         "animation_hides_shadows": false
     },
-    "contest_effect": 16,
+    "contest_effect": 18,
     "contest_type": 3
 }

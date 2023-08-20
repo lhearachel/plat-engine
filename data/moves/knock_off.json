@@ -2,7 +2,7 @@
     "name": "Knock Off",
     "type": "DARK",
     "category": "PHYSICAL",
-    "power": 20,
+    "power": 65,
     "accuracy": 100,
     "base_pp": 20,
     "effect": "REMOVE_TARGET_HELD_ITEM",

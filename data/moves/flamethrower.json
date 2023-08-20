@@ -2,7 +2,7 @@
     "name": "Flamethrower",
     "type": "FIRE",
     "category": "SPECIAL",
-    "power": 95,
+    "power": 90,
     "accuracy": 100,
     "base_pp": 15,
     "effect": "BURN_ON_HIT",

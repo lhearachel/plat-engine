@@ -2,7 +2,7 @@
     "name": "Uproar",
     "type": "NORMAL",
     "category": "SPECIAL",
-    "power": 50,
+    "power": 90,
     "accuracy": 100,
     "base_pp": 10,
     "effect": "UPROAR",

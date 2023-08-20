@@ -4,7 +4,7 @@
     "category": "PHYSICAL",
     "power": 120,
     "accuracy": 100,
-    "base_pp": 15,
+    "base_pp": 10,
     "effect": "THRASH",
     "effect_chance": 0,
     "target_type": "RANDOM",

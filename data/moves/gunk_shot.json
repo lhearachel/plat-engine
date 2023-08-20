@@ -3,7 +3,7 @@
     "type": "POISON",
     "category": "PHYSICAL",
     "power": 120,
-    "accuracy": 70,
+    "accuracy": 80,
     "base_pp": 5,
     "effect": "POISON_ON_HIT",
     "effect_chance": 30,

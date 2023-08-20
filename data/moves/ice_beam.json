@@ -2,7 +2,7 @@
     "name": "Ice Beam",
     "type": "ICE",
     "category": "SPECIAL",
-    "power": 95,
+    "power": 90,
     "accuracy": 100,
     "base_pp": 10,
     "effect": "FREEZE_ON_HIT",

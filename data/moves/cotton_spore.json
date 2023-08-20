@@ -3,11 +3,11 @@
     "type": "GRASS",
     "category": "STATUS",
     "power": 0,
-    "accuracy": 85,
+    "accuracy": 100,
     "base_pp": 40,
     "effect": "SHARPLY_LOWER_SPE_STATUS",
     "effect_chance": 0,
-    "target_type": "ANY_SINGLE",
+    "target_type": "BOTH_OPPONENTS",
     "priority": 0,
     "flags": {
         "make_contact": false,

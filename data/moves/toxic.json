@@ -3,7 +3,7 @@
     "type": "POISON",
     "category": "STATUS",
     "power": 0,
-    "accuracy": 85,
+    "accuracy": 90,
     "base_pp": 10,
     "effect": "BADLY_POISONS",
     "effect_chance": 0,

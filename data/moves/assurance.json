@@ -2,7 +2,7 @@
     "name": "Assurance",
     "type": "DARK",
     "category": "PHYSICAL",
-    "power": 50,
+    "power": 60,
     "accuracy": 100,
     "base_pp": 10,
     "effect": "ASSURANCE",

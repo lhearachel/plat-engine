@@ -2,7 +2,7 @@
     "name": "Snore",
     "type": "NORMAL",
     "category": "SPECIAL",
-    "power": 40,
+    "power": 50,
     "accuracy": 100,
     "base_pp": 15,
     "effect": "SNORE",

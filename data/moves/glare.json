@@ -3,7 +3,7 @@
     "type": "NORMAL",
     "category": "STATUS",
     "power": 0,
-    "accuracy": 75,
+    "accuracy": 100,
     "base_pp": 30,
     "effect": "PARALYZE_STATUS",
     "effect_chance": 0,

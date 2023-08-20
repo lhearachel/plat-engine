@@ -4,7 +4,7 @@
     "category": "PHYSICAL",
     "power": 80,
     "accuracy": 80,
-    "base_pp": 25,
+    "base_pp": 20,
     "effect": "RECOIL_1_4",
     "effect_chance": 0,
     "target_type": "ANY_SINGLE",

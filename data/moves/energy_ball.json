@@ -2,7 +2,7 @@
     "name": "Energy Ball",
     "type": "GRASS",
     "category": "SPECIAL",
-    "power": 80,
+    "power": 90,
     "accuracy": 100,
     "base_pp": 10,
     "effect": "LOWER_SPD_ON_HIT",

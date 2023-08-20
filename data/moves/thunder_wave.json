@@ -3,7 +3,7 @@
     "type": "ELECTRIC",
     "category": "STATUS",
     "power": 0,
-    "accuracy": 100,
+    "accuracy": 90,
     "base_pp": 20,
     "effect": "PARALYZE_STATUS",
     "effect_chance": 0,

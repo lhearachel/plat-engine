@@ -3,7 +3,7 @@
     "type": "NORMAL",
     "category": "PHYSICAL",
     "power": 15,
-    "accuracy": 75,
+    "accuracy": 85,
     "base_pp": 20,
     "effect": "BINDING",
     "effect_chance": 0,
