@@ -1,0 +1,24 @@
+{
+    "name": "Screech",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 85,
+    "base_pp": 40,
+    "effect": "SHARPLY_LOWER_DEF_STATUS",
+    "effect_chance": 0,
+    "target_type": "ANY_SINGLE",
+    "priority": 0,
+    "flags": {
+        "make_contact": false,
+        "blocked_by_protect": true,
+        "bounced_by_magic_coat": true,
+        "stolen_by_snatch": false,
+        "can_be_mirror_moved": true,
+        "triggers_kings_rock": false,
+        "animation_hides_hp_bars": true,
+        "animation_hides_shadows": false
+    },
+    "contest_effect": 10,
+    "contest_type": 3
+}

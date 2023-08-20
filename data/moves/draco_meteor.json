@@ -1,0 +1,24 @@
+{
+    "name": "Draco Meteor",
+    "type": "DRAGON",
+    "category": "SPECIAL",
+    "power": 140,
+    "accuracy": 90,
+    "base_pp": 5,
+    "effect": "SHARPLY_LOWER_OWN_SPA",
+    "effect_chance": 100,
+    "target_type": "ANY_SINGLE",
+    "priority": 0,
+    "flags": {
+        "make_contact": false,
+        "blocked_by_protect": true,
+        "bounced_by_magic_coat": false,
+        "stolen_by_snatch": false,
+        "can_be_mirror_moved": true,
+        "triggers_kings_rock": true,
+        "animation_hides_hp_bars": false,
+        "animation_hides_shadows": false
+    },
+    "contest_effect": 22,
+    "contest_type": 3
+}

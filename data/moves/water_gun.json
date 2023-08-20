@@ -1,0 +1,24 @@
+{
+    "name": "Water Gun",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "base_pp": 25,
+    "effect": "NONE",
+    "effect_chance": 0,
+    "target_type": "ANY_SINGLE",
+    "priority": 0,
+    "flags": {
+        "make_contact": false,
+        "blocked_by_protect": true,
+        "bounced_by_magic_coat": false,
+        "stolen_by_snatch": false,
+        "can_be_mirror_moved": true,
+        "triggers_kings_rock": true,
+        "animation_hides_hp_bars": false,
+        "animation_hides_shadows": false
+    },
+    "contest_effect": 5,
+    "contest_type": 2
+}

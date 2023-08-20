@@ -1,0 +1,24 @@
+{
+    "name": "Vital Throw",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 70,
+    "accuracy": 0,
+    "base_pp": 10,
+    "effect": "VITAL_THROW",
+    "effect_chance": 0,
+    "target_type": "ANY_SINGLE",
+    "priority": -1,
+    "flags": {
+        "make_contact": true,
+        "blocked_by_protect": true,
+        "bounced_by_magic_coat": false,
+        "stolen_by_snatch": false,
+        "can_be_mirror_moved": true,
+        "triggers_kings_rock": true,
+        "animation_hides_hp_bars": false,
+        "animation_hides_shadows": false
+    },
+    "contest_effect": 2,
+    "contest_type": 0
+}

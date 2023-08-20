@@ -1,5 +1,7 @@
 from enum import Enum, auto
 
+import re
+
 
 def signed_int(i: int) -> int:
     if i > 127:
@@ -13,6 +15,18 @@ def sint_to_byte(i: int) -> bytes:
         sint = 256 + i
     
     return sint.to_bytes(1, 'little')
+
+
+def snake_case(s: str) -> str:
+    return '_'.join(
+        re.sub('([A-Z][a-z]+)',
+               r' \1',
+               re.sub('([A-Z]+)',
+                      r' \1',
+                      s.replace('-', ' ')
+                )
+        ).split()
+    ).lower()
 
 
 class Type(Enum):
@@ -35,6 +49,12 @@ class Type(Enum):
     DRAGON   = 16
     DARK     = 17
     NONE     = 31
+
+
+class MoveClass(Enum):
+    PHYSICAL = 0
+    SPECIAL  = 1
+    STATUS   = 2
 
 
 class ItemHoldEffect(Enum):

@@ -1,0 +1,24 @@
+{
+    "name": "False Swipe",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "base_pp": 40,
+    "effect": "LEAVE_WITH_1_HP",
+    "effect_chance": 0,
+    "target_type": "ANY_SINGLE",
+    "priority": 0,
+    "flags": {
+        "make_contact": true,
+        "blocked_by_protect": true,
+        "bounced_by_magic_coat": false,
+        "stolen_by_snatch": false,
+        "can_be_mirror_moved": true,
+        "triggers_kings_rock": true,
+        "animation_hides_hp_bars": true,
+        "animation_hides_shadows": false
+    },
+    "contest_effect": 16,
+    "contest_type": 0
+}

@@ -1,0 +1,24 @@
+{
+    "name": "Dark Pulse",
+    "type": "DARK",
+    "category": "SPECIAL",
+    "power": 80,
+    "accuracy": 100,
+    "base_pp": 15,
+    "effect": "FLINCH_ON_HIT",
+    "effect_chance": 20,
+    "target_type": "ANY_SINGLE",
+    "priority": 0,
+    "flags": {
+        "make_contact": false,
+        "blocked_by_protect": true,
+        "bounced_by_magic_coat": false,
+        "stolen_by_snatch": false,
+        "can_be_mirror_moved": true,
+        "triggers_kings_rock": true,
+        "animation_hides_hp_bars": false,
+        "animation_hides_shadows": false
+    },
+    "contest_effect": 17,
+    "contest_type": 0
+}

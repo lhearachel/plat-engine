@@ -1,0 +1,24 @@
+{
+    "name": "Volt Tackle",
+    "type": "ELECTRIC",
+    "category": "PHYSICAL",
+    "power": 120,
+    "accuracy": 100,
+    "base_pp": 15,
+    "effect": "RECOIL_1_3_PARALYZE_ON_HIT",
+    "effect_chance": 10,
+    "target_type": "ANY_SINGLE",
+    "priority": 0,
+    "flags": {
+        "make_contact": true,
+        "blocked_by_protect": true,
+        "bounced_by_magic_coat": false,
+        "stolen_by_snatch": false,
+        "can_be_mirror_moved": true,
+        "triggers_kings_rock": true,
+        "animation_hides_hp_bars": false,
+        "animation_hides_shadows": true
+    },
+    "contest_effect": 22,
+    "contest_type": 0
+}

@@ -1,0 +1,24 @@
+{
+    "name": "Guard Swap",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "base_pp": 10,
+    "effect": "GUARD_SWAP",
+    "effect_chance": 0,
+    "target_type": "ANY_SINGLE",
+    "priority": 0,
+    "flags": {
+        "make_contact": false,
+        "blocked_by_protect": true,
+        "bounced_by_magic_coat": false,
+        "stolen_by_snatch": false,
+        "can_be_mirror_moved": true,
+        "triggers_kings_rock": false,
+        "animation_hides_hp_bars": false,
+        "animation_hides_shadows": false
+    },
+    "contest_effect": 16,
+    "contest_type": 2
+}

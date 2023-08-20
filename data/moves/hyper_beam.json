@@ -1,0 +1,24 @@
+{
+    "name": "Hyper Beam",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 150,
+    "accuracy": 90,
+    "base_pp": 5,
+    "effect": "RECHARGE_TURN",
+    "effect_chance": 0,
+    "target_type": "ANY_SINGLE",
+    "priority": 0,
+    "flags": {
+        "make_contact": false,
+        "blocked_by_protect": true,
+        "bounced_by_magic_coat": false,
+        "stolen_by_snatch": false,
+        "can_be_mirror_moved": true,
+        "triggers_kings_rock": true,
+        "animation_hides_hp_bars": false,
+        "animation_hides_shadows": true
+    },
+    "contest_effect": 22,
+    "contest_type": 0
+}
