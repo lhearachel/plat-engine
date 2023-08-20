@@ -12,7 +12,7 @@
 .include "armips/include/types.s"
 
 
-.create "build/battle/scr/subscr/sub_seq_301.bin", 0
+.create "build/battle/scr/subscr/sub_seq_302.bin", 0
 
 // SUBSCR_TERAVOLT
 subscr_302:
