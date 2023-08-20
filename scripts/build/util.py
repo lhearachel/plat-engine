@@ -1159,7 +1159,7 @@ class Item(Enum):
 
 
 class Move(Enum):
-    NONE                               = 0
+    MOVE_000                           = 0
     POUND                              = 1
     KARATE_CHOP                        = 2
     DOUBLE_SLAP                        = 3
@@ -1267,7 +1267,7 @@ class Move(Enum):
     RECOVER                            = 105
     HARDEN                             = 106
     MINIMIZE                           = 107
-    SMOKESCREEN                        = 108
+    SMOKE_SCREEN                       = 108
     CONFUSE_RAY                        = 109
     WITHDRAW                           = 110
     DEFENSE_CURL                       = 111
@@ -1279,7 +1279,7 @@ class Move(Enum):
     BIDE                               = 117
     METRONOME                          = 118
     MIRROR_MOVE                        = 119
-    SELF_DESTRUCT                      = 120
+    SELFDESTRUCT                       = 120
     EGG_BOMB                           = 121
     LICK                               = 122
     SMOG                               = 123
@@ -1294,8 +1294,8 @@ class Move(Enum):
     CONSTRICT                          = 132
     AMNESIA                            = 133
     KINESIS                            = 134
-    SOFT_BOILED                        = 135
-    HIGH_JUMP_KICK                     = 136
+    SOFTBOILED                         = 135
+    HI_JUMP_KICK                       = 136
     GLARE                              = 137
     DREAM_EATER                        = 138
     POISON_GAS                         = 139

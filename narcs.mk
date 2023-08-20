@@ -187,6 +187,18 @@ $(TRDATA_NARC): $(TRAINER_SRCS)
 
 NARC_FILES += $(TRDATA_NARC)	# Only track trdata since they both get built at the same time
 
+# Move Data
+
+MOVETABLE_DATA_DIR := $(BUILD)/movedata
+MOVETABLE_NARC := $(BUILD_NARC)/movetable.narc
+MOVETABLE_TARGET := $(FILESYS)/poketool/waza/pl_waza_tbl.narc
+
+MOVETABLE_SRCS := $(wildcard data/moves/*.json)
+
+$(MOVETABLE_NARC): $(MOVETABLE_SRCS)
+	$(PYTHON) scripts/build/move_data.py build
+	$(NARCHIVE) create $(MOVETABLE_NARC) $(MOVETABLE_DATA_DIR) -nf
+
 # Text Archives
 
 CHARMAP = data/charmap.txt

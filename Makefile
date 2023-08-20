@@ -157,6 +157,7 @@ output_dirs:
 	mkdir -p $(BUILD)/poketool/poke_edit
 	mkdir -p $(BUILD)/poketool/pokegra/height
 	mkdir -p $(BUILD)/pokesprites
+	mkdir -p $(BUILD)/movedata
 	mkdir -p $(BUILD)/narc/battle/skill
 	mkdir -p $(BUILD)/narc/msgdata
 	mkdir -p $(BUILD)/narc/itemtool
@@ -211,6 +212,7 @@ copy_narcs: narcs
 	cp $(POKEGRA_NARC) $(POKEGRA_TARGET)
 	cp $(TRDATA_NARC) $(TRDATA_TARGET)
 	cp $(TRPOKE_NARC) $(TRPOKE_TARGET)
+	cp $(MOVETABLE_NARC) $(MOVETABLE_TARGET)
 	@echo "✅ $(OUTPUT_FMT)Copied new NARCs into /$(BASE)$(FMT_OFF)"
 	@echo ""
 

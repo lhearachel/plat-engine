@@ -1105,9 +1105,9 @@ The foe’s {STRVAR_1 1, 0, 0} used\nAcupressure!
 {STRVAR_1 1, 0, 0} used\nMetal Burst!
 The wild {STRVAR_1 1, 0, 0} used\nMetal Burst!
 The foe’s {STRVAR_1 1, 0, 0} used\nMetal Burst!
-{STRVAR_1 1, 0, 0} used\nU-Turn!
-The wild {STRVAR_1 1, 0, 0} used\nU-Turn!
-The foe’s {STRVAR_1 1, 0, 0} used\nU-Turn!
+{STRVAR_1 1, 0, 0} used\nU-turn!
+The wild {STRVAR_1 1, 0, 0} used\nU-turn!
+The foe’s {STRVAR_1 1, 0, 0} used\nU-turn!
 {STRVAR_1 1, 0, 0} used\nClose Combat!
 The wild {STRVAR_1 1, 0, 0} used\nClose Combat!
 The foe’s {STRVAR_1 1, 0, 0} used\nClose Combat!
@@ -1402,3 +1402,12 @@ The foe’s {STRVAR_1 1, 0, 0} used\nOminous Wind!
 {STRVAR_1 1, 0, 0} used\nShadow Force!
 The wild {STRVAR_1 1, 0, 0} used\nShadow Force!
 The foe’s {STRVAR_1 1, 0, 0} used\nShadow Force!
+!
+!
+!
+!
+!
+!
+!
+!
+!
