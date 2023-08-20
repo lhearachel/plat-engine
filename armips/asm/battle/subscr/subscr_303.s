@@ -12,7 +12,7 @@
 .include "armips/include/types.s"
 
 
-.create "build/battle/scr/subscr/sub_seq_302.bin", 0
+.create "build/battle/scr/subscr/sub_seq_303.bin", 0
 
 // SUBSCR_TURBOBLAZE
 subscr_303:
