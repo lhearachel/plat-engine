@@ -1,0 +1,106 @@
+{
+    "name": "Aaron",
+    "class": "ELITE_FOUR_1",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 49,
+            "species": "YANMEGA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AIR_SLASH",
+                "BUG_BUZZ",
+                "U_TURN",
+                "DOUBLE_TEAM"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 49,
+            "species": "SCIZOR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "IRON_HEAD",
+                "X_SCISSOR",
+                "NIGHT_SLASH",
+                "QUICK_ATTACK"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 50,
+            "species": "VESPIQUEN",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "ATTACK_ORDER",
+                "DEFEND_ORDER",
+                "HEAL_ORDER",
+                "POWER_GEM"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 51,
+            "species": "HERACROSS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "MEGAHORN",
+                "CLOSE_COMBAT",
+                "NIGHT_SLASH",
+                "STONE_EDGE"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 53,
+            "species": "DRAPION",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "X_SCISSOR",
+                "CROSS_POISON",
+                "ICE_FANG",
+                "AERIAL_ACE"
+            ]
+        }
+    ]
+}

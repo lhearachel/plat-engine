@@ -1,0 +1,61 @@
+{
+    "name": "Dana",
+    "class": "ACE_TRAINER_FEMALE",
+    "double_battle": false,
+    "party_size": 2,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 55,
+            "species": "MIGHTYENA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "CRUNCH",
+                "SUCKER_PUNCH",
+                "IRON_TAIL",
+                "SCARY_FACE"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 56,
+            "species": "KIRLIA",
+            "form": 0,
+            "ball_seal": 21,
+            "held_item": "NONE",
+            "moves": [
+                "PSYCHIC",
+                "MAGICAL_LEAF",
+                "SHOCK_WAVE",
+                "SHADOW_BALL"
+            ]
+        }
+    ]
+}

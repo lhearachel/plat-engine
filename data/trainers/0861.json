@@ -1,0 +1,106 @@
+{
+    "name": "Riley",
+    "class": "TRAINER_2",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "ABSOL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "PSYCHO_CUT",
+                "NIGHT_SLASH",
+                "SWORDS_DANCE",
+                "QUICK_ATTACK"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "URSARING",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AVALANCHE",
+                "SLASH",
+                "AERIAL_ACE",
+                "SHADOW_CLAW"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 62,
+            "species": "METAGROSS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "METEOR_MASH",
+                "ZEN_HEADBUTT",
+                "HAMMER_ARM",
+                "BULLET_PUNCH"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 63,
+            "species": "SALAMENCE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DRAGON_CLAW",
+                "CRUNCH",
+                "FIRE_FANG",
+                "THUNDER_FANG"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 65,
+            "species": "LUCARIO",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "EXTREME_SPEED",
+                "CLOSE_COMBAT",
+                "BONE_RUSH",
+                "BLAZE_KICK"
+            ]
+        }
+    ]
+}

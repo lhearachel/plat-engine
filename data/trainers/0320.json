@@ -1,0 +1,91 @@
+{
+    "name": "Volkner",
+    "class": "LEADER_8",
+    "double_battle": false,
+    "party_size": 4,
+    "items": [
+        "HYPER_POTION",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 46,
+            "species": "JOLTEON",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "THUNDER_WAVE",
+                "CHARGE_BEAM",
+                "IRON_TAIL",
+                "QUICK_ATTACK"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 46,
+            "species": "RAICHU",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "CHARGE_BEAM",
+                "FOCUS_BLAST",
+                "SIGNAL_BEAM",
+                "QUICK_ATTACK"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 48,
+            "species": "LUXRAY",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "ICE_FANG",
+                "THUNDER_FANG",
+                "CRUNCH",
+                "FIRE_FANG"
+            ]
+        },
+        {
+            "difficulty_value": 196,
+            "ability_slot": 9,
+            "level": 50,
+            "species": "ELECTIVIRE",
+            "form": 0,
+            "ball_seal": 14,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "THUNDER_PUNCH",
+                "FIRE_PUNCH",
+                "QUICK_ATTACK",
+                "GIGA_IMPACT"
+            ]
+        }
+    ]
+}

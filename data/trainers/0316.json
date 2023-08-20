@@ -1,0 +1,76 @@
+{
+    "name": "Wake",
+    "class": "LEADER_3",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "HYPER_POTION",
+        "HYPER_POTION",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 150,
+            "ability_slot": 0,
+            "level": 33,
+            "species": "GYARADOS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "WATERFALL",
+                "BRINE",
+                "BITE",
+                "TWISTER"
+            ]
+        },
+        {
+            "difficulty_value": 150,
+            "ability_slot": 0,
+            "level": 34,
+            "species": "QUAGSIRE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "MUD_SHOT",
+                "ROCK_TOMB",
+                "WATER_PULSE",
+                "YAWN"
+            ]
+        },
+        {
+            "difficulty_value": 150,
+            "ability_slot": 0,
+            "level": 37,
+            "species": "FLOATZEL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "BRINE",
+                "ICE_FANG",
+                "CRUNCH",
+                "AQUA_JET"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,121 @@
+{
+    "name": "Cedric",
+    "class": "RIVAL",
+    "double_battle": false,
+    "party_size": 6,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "FULL_RESTORE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 81,
+            "species": "STARAPTOR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "CLOSE_COMBAT",
+                "BRAVE_BIRD",
+                "QUICK_ATTACK",
+                "U_TURN"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 79,
+            "species": "ROSERADE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SLUDGE_BOMB",
+                "GIGA_DRAIN",
+                "SHADOW_BALL",
+                "GRASS_WHISTLE"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 81,
+            "species": "HERACROSS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "MEGAHORN",
+                "CLOSE_COMBAT",
+                "NIGHT_SLASH",
+                "STONE_EDGE"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 79,
+            "species": "RAPIDASH",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FIRE_BLAST",
+                "SUNNY_DAY",
+                "MEGAHORN",
+                "WILL_O_WISP"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 83,
+            "species": "SNORLAX",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GIGA_IMPACT",
+                "CRUNCH",
+                "EARTHQUAKE",
+                "ZEN_HEADBUTT"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 85,
+            "species": "EMPOLEON",
+            "form": 0,
+            "ball_seal": 24,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "HYDRO_PUMP",
+                "METAL_CLAW",
+                "DRILL_PECK",
+                "ICE_BEAM"
+            ]
+        }
+    ]
+}

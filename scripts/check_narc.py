@@ -16,6 +16,8 @@ INPUT_DICT = {
     'encdata': ('narcs', 'base/data/fielddata/encountdata/pl_enc_data.narc', 'build/narc/pl_enc_data.narc', False),
     'heights': ('narcs', 'base/data/poketool/pokegra/height.narc', 'build/narc/height.narc', False),
     'sprite_ofs': ('narcs', 'base/data/poketool/poke_edit/pl_poke_data.narc', 'build/narc/pl_poke_data.narc', False),
+    'trdata': ('narcs', 'base/data/poketool/trainer/trdata.narc', 'build/narc/trdata.narc', False),
+    'trpoke': ('narcs', 'base/data/poketool/trainer/trpoke.narc', 'build/narc/trpoke.narc', False),
 }
 
 def compare_narcs(orig_f, made_f, word_mode):

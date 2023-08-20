@@ -1,0 +1,46 @@
+{
+    "name": "Laura",
+    "class": "ACE_TRAINER_SNOW_FEMALE",
+    "double_battle": false,
+    "party_size": 1,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 42,
+            "species": "TROPIUS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AIR_SLASH",
+                "BODY_SLAM",
+                "MAGICAL_LEAF",
+                "SWEET_SCENT"
+            ]
+        }
+    ]
+}

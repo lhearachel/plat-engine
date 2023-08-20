@@ -26,8 +26,9 @@
                 "-Os",
                 "-fira-loop-pressure",
                 "-fipa-pta"
-            ]
-        },
+            ],
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
     ],
     "version": 4
 }

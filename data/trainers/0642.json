@@ -1,0 +1,71 @@
+{
+    "name": "Jennifer",
+    "class": "BREEDER_FEMALE",
+    "double_battle": false,
+    "party_size": 4,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": false,
+        "expert": false,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": false,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 0,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "ROSELIA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": []
+        },
+        {
+            "difficulty_value": 0,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "MIME_JR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": []
+        },
+        {
+            "difficulty_value": 0,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "CLEFAIRY",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": []
+        },
+        {
+            "difficulty_value": 0,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "EEVEE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": []
+        }
+    ]
+}

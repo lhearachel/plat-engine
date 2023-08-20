@@ -1,0 +1,61 @@
+{
+    "name": "Rafael",
+    "class": "BLACK_BELT",
+    "double_battle": false,
+    "party_size": 2,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": false,
+        "expert": false,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": true,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 40,
+            "ability_slot": 0,
+            "level": 26,
+            "species": "CROAGUNK",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SWAGGER",
+                "REVENGE",
+                "FAINT_ATTACK",
+                "NONE"
+            ]
+        },
+        {
+            "difficulty_value": 40,
+            "ability_slot": 0,
+            "level": 26,
+            "species": "MACHOKE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "KARATE_CHOP",
+                "FORESIGHT",
+                "NONE",
+                "NONE"
+            ]
+        }
+    ]
+}

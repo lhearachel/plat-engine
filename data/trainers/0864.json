@@ -1,0 +1,106 @@
+{
+    "name": "Mira",
+    "class": "TRAINER_5",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "FULL_RESTORE",
+        "FULL_RESTORE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "PORYGON_Z",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "TRI_ATTACK",
+                "PSYCHIC",
+                "THUNDERBOLT",
+                "DARK_PULSE"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 61,
+            "species": "GENGAR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SHADOW_BALL",
+                "PSYCHIC",
+                "SLUDGE_BOMB",
+                "ENERGY_BALL"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 62,
+            "species": "MAGNEZONE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "THUNDER",
+                "FLASH_CANNON",
+                "THUNDER_WAVE",
+                "HYPER_BEAM"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 63,
+            "species": "TOGEKISS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "EXTREME_SPEED",
+                "AIR_SLASH",
+                "AURA_SPHERE",
+                "PSYCHIC"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 65,
+            "species": "ALAKAZAM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "PSYCHIC",
+                "FOCUS_BLAST",
+                "CALM_MIND",
+                "HYPER_BEAM"
+            ]
+        }
+    ]
+}

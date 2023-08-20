@@ -1,0 +1,76 @@
+{
+    "name": "Ernest",
+    "class": "ACE_TRAINER_MALE",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "SCYTHER",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SLASH",
+                "WING_ATTACK",
+                "PURSUIT",
+                "QUICK_ATTACK"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 31,
+            "species": "PROBOPASS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "THUNDER_WAVE",
+                "ROCK_SLIDE",
+                "MAGNET_BOMB",
+                "IRON_DEFENSE"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 34,
+            "species": "LUXIO",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "THUNDERBOLT",
+                "CRUNCH",
+                "SWAGGER",
+                "DOUBLE_TEAM"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "name": "Brian",
+    "class": "VETERAN",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 44,
+            "species": "TANGELA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "INGRAIN",
+                "GIGA_DRAIN",
+                "ANCIENT_POWER",
+                "TOXIC"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 44,
+            "species": "RAPIDASH",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FIRE_SPIN",
+                "STOMP",
+                "TAKE_DOWN",
+                "FIRE_BLAST"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 44,
+            "species": "FLOATZEL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AQUA_JET",
+                "WHIRLPOOL",
+                "PURSUIT",
+                "QUICK_ATTACK"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "name": "Maylene",
+    "class": "LEADER_4",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 28,
+            "species": "MEDITITE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DRAIN_PUNCH",
+                "CONFUSION",
+                "ROCK_TOMB",
+                "FAKE_OUT"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 29,
+            "species": "MACHOKE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "KARATE_CHOP",
+                "ROCK_TOMB",
+                "STRENGTH",
+                "FOCUS_ENERGY"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "LUCARIO",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DRAIN_PUNCH",
+                "FORCE_PALM",
+                "METAL_CLAW",
+                "BONE_RUSH"
+            ]
+        }
+    ]
+}

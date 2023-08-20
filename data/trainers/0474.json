@@ -1,0 +1,91 @@
+{
+    "name": "Cedric",
+    "class": "RIVAL",
+    "double_battle": false,
+    "party_size": 4,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 80,
+            "ability_slot": 0,
+            "level": 34,
+            "species": "STARAVIA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "WING_ATTACK",
+                "QUICK_ATTACK",
+                "ENDEAVOR",
+                "DOUBLE_TEAM"
+            ]
+        },
+        {
+            "difficulty_value": 80,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "BUIZEL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AQUA_JET",
+                "QUICK_ATTACK",
+                "PURSUIT",
+                "GROWL"
+            ]
+        },
+        {
+            "difficulty_value": 80,
+            "ability_slot": 0,
+            "level": 32,
+            "species": "ROSELIA",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "MEGA_DRAIN",
+                "POISON_STING",
+                "LEECH_SEED",
+                "MAGICAL_LEAF"
+            ]
+        },
+        {
+            "difficulty_value": 80,
+            "ability_slot": 0,
+            "level": 36,
+            "species": "MONFERNO",
+            "form": 0,
+            "ball_seal": 10,
+            "held_item": "NONE",
+            "moves": [
+                "FLAME_WHEEL",
+                "MACH_PUNCH",
+                "FURY_SWIPES",
+                "LEER"
+            ]
+        }
+    ]
+}

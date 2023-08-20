@@ -1,0 +1,76 @@
+{
+    "name": "Fantina",
+    "class": "LEADER_5",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "SUPER_POTION",
+        "SUPER_POTION",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 24,
+            "species": "DUSKULL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "WILL_O_WISP",
+                "PURSUIT",
+                "SHADOW_SNEAK",
+                "FUTURE_SIGHT"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 24,
+            "species": "HAUNTER",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SHADOW_CLAW",
+                "SUCKER_PUNCH",
+                "HYPNOSIS",
+                "CONFUSE_RAY"
+            ]
+        },
+        {
+            "difficulty_value": 100,
+            "ability_slot": 0,
+            "level": 26,
+            "species": "MISMAGIUS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "SHADOW_BALL",
+                "PSYBEAM",
+                "MAGICAL_LEAF",
+                "CONFUSE_RAY"
+            ]
+        }
+    ]
+}

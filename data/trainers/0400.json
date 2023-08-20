@@ -1,0 +1,76 @@
+{
+    "name": "Kendra",
+    "class": "PSYCHIC_FEMALE",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": false,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 0,
+            "ability_slot": 0,
+            "level": 52,
+            "species": "CHIMECHO",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "EXTRASENSORY",
+                "SHADOW_BALL",
+                "ENERGY_BALL",
+                "CHARGE_BEAM"
+            ]
+        },
+        {
+            "difficulty_value": 0,
+            "ability_slot": 0,
+            "level": 52,
+            "species": "HAUNTER",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SHADOW_PUNCH",
+                "DARK_PULSE",
+                "CONFUSE_RAY",
+                "TOXIC"
+            ]
+        },
+        {
+            "difficulty_value": 0,
+            "ability_slot": 0,
+            "level": 55,
+            "species": "GENGAR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SHADOW_BALL",
+                "DARK_PULSE",
+                "FRUSTRATION",
+                "SLUDGE_BOMB"
+            ]
+        }
+    ]
+}

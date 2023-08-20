@@ -1,0 +1,76 @@
+{
+    "name": "Jupiter",
+    "class": "COMMANDER_2",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": true,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 58,
+            "species": "BRONZONG",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GYRO_BALL",
+                "EXTRASENSORY",
+                "ROCK_SLIDE",
+                "REFLECT"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 58,
+            "species": "GOLBAT",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SLUDGE_BOMB",
+                "AIR_CUTTER",
+                "GIGA_DRAIN",
+                "MEAN_LOOK"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 60,
+            "species": "SKUNTANK",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "SITRUS_BERRY",
+            "moves": [
+                "NIGHT_SLASH",
+                "POISON_JAB",
+                "FLAMETHROWER",
+                "SMOKESCREEN"
+            ]
+        }
+    ]
+}

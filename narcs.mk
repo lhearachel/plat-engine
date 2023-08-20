@@ -169,6 +169,24 @@ $(ENCDATA_NARC): $(ENCDATA_SRCS)
 
 NARC_FILES += $(ENCDATA_NARC)
 
+# Trainer Data
+
+TRDATA_DATA_DIR := $(BUILD)/trainers/trdata
+TRPOKE_DATA_DIR := $(BUILD)/trainers/trpoke
+TRDATA_NARC := $(BUILD_NARC)/trdata.narc
+TRPOKE_NARC := $(BUILD_NARC)/trpoke.narc
+TRDATA_TARGET := $(FILESYS)/poketool/trainer/trdata.narc
+TRPOKE_TARGET := $(FILESYS)/poketool/trainer/trpoke.narc
+
+TRAINER_SRCS := $(wildcard data/trainers/*.json)
+
+$(TRDATA_NARC): $(TRAINER_SRCS)
+	$(PYTHON) scripts/build/trainer_data.py build
+	$(NARCHIVE) create $(TRDATA_NARC) $(TRDATA_DATA_DIR) -nf
+	$(NARCHIVE) create $(TRPOKE_NARC) $(TRPOKE_DATA_DIR) -nf
+
+NARC_FILES += $(TRDATA_NARC)	# Only track trdata since they both get built at the same time
+
 # Text Archives
 
 CHARMAP = data/charmap.txt

@@ -1,0 +1,76 @@
+{
+    "name": "Erick",
+    "class": "FISHERMAN",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": false,
+        "expert": false,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 10,
+            "ability_slot": 0,
+            "level": 28,
+            "species": "GOLDEEN",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "WATER_PULSE",
+                "PECK",
+                "FLAIL",
+                "SUPERSONIC"
+            ]
+        },
+        {
+            "difficulty_value": 10,
+            "ability_slot": 0,
+            "level": 31,
+            "species": "SEAKING",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "WATER_PULSE",
+                "FURY_ATTACK",
+                "FLAIL",
+                "SUPERSONIC"
+            ]
+        },
+        {
+            "difficulty_value": 10,
+            "ability_slot": 0,
+            "level": 31,
+            "species": "GYARADOS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "THRASH",
+                "BITE",
+                "NONE",
+                "NONE"
+            ]
+        }
+    ]
+}

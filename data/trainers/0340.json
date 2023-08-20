@@ -1,0 +1,46 @@
+{
+    "name": "Chance",
+    "class": "SCHOOL_KID_MALE",
+    "double_battle": false,
+    "party_size": 1,
+    "items": [
+        "X_DEFENSE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": false,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 10,
+            "ability_slot": 0,
+            "level": 23,
+            "species": "GASTLY",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "NIGHT_SHADE",
+                "SUCKER_PUNCH",
+                "CONFUSE_RAY",
+                "HYPNOSIS"
+            ]
+        }
+    ]
+}

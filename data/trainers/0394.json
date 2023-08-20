@@ -1,0 +1,76 @@
+{
+    "name": "Clarice",
+    "class": "ACE_TRAINER_FEMALE",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 53,
+            "species": "SWALOT",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "GUNK_SHOT",
+                "YAWN",
+                "BODY_SLAM",
+                "PROTECT"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 54,
+            "species": "NINETALES",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "WILL_O_WISP",
+                "FLAMETHROWER",
+                "DARK_PULSE",
+                "EXTRASENSORY"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 56,
+            "species": "MAGNEZONE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FLASH_CANNON",
+                "MIRROR_COAT",
+                "DISCHARGE",
+                "HYPER_BEAM"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "name": "Arthur",
+    "class": "ACE_TRAINER_MALE",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 54,
+            "species": "GASTRODON",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "MUDDY_WATER",
+                "RECOVER",
+                "TOXIC",
+                "WATER_PULSE"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 54,
+            "species": "BEEDRILL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "POISON_JAB",
+                "U_TURN",
+                "AERIAL_ACE",
+                "SWORDS_DANCE"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 55,
+            "species": "ELECTRODE",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "THUNDERBOLT",
+                "HYPER_BEAM",
+                "ENDURE",
+                "EXPLOSION"
+            ]
+        }
+    ]
+}

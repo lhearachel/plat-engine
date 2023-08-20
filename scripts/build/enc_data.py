@@ -184,7 +184,7 @@ def build_encounters():
     if not os.path.exists('build/encdata'):
         os.makedirs('build/encdata')
     
-    for i, name in enumerate(os.listdir('data/encounters')):
+    for i, name in enumerate(sorted(os.listdir('data/encounters'))):
         fin = open(os.path.join('data/encounters', name), 'r', encoding='utf8')
         encjson = json.load(fin)
         encdata = build_encfile(encjson)

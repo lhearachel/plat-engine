@@ -1,0 +1,121 @@
+{
+    "name": "Cedric",
+    "class": "RIVAL",
+    "double_battle": false,
+    "party_size": 6,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 53,
+            "species": "STARAPTOR",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "CLOSE_COMBAT",
+                "AERIAL_ACE",
+                "STEEL_WING",
+                "U_TURN"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 52,
+            "species": "FLOATZEL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "AQUA_JET",
+                "CRUNCH",
+                "ICE_FANG",
+                "BRICK_BREAK"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 53,
+            "species": "HERACROSS",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "CLOSE_COMBAT",
+                "ROCK_SLIDE",
+                "NIGHT_SLASH",
+                "AERIAL_ACE"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 52,
+            "species": "RAPIDASH",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FIRE_BLAST",
+                "SUNNY_DAY",
+                "BOUNCE",
+                "WILL_O_WISP"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 54,
+            "species": "SNORLAX",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "BODY_SLAM",
+                "CRUNCH",
+                "EARTHQUAKE",
+                "REST"
+            ]
+        },
+        {
+            "difficulty_value": 200,
+            "ability_slot": 0,
+            "level": 56,
+            "species": "TORTERRA",
+            "form": 0,
+            "ball_seal": 24,
+            "held_item": "NONE",
+            "moves": [
+                "LEAF_STORM",
+                "EARTHQUAKE",
+                "CRUNCH",
+                "SYNTHESIS"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "name": "Moira",
+    "class": "ACE_TRAINER_FEMALE",
+    "double_battle": false,
+    "party_size": 3,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": false
+    },
+    "party": [
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 59,
+            "species": "SANDSLASH",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "SLASH",
+                "GYRO_BALL",
+                "DIG",
+                "X_SCISSOR"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 59,
+            "species": "GASTRODON",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "MUDDY_WATER",
+                "RECOVER",
+                "BODY_SLAM",
+                "PROTECT"
+            ]
+        },
+        {
+            "difficulty_value": 50,
+            "ability_slot": 0,
+            "level": 60,
+            "species": "CLAYDOL",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "EARTHQUAKE",
+                "PSYCHIC",
+                "ANCIENT_POWER",
+                "COSMIC_POWER"
+            ]
+        }
+    ]
+}

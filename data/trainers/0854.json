@@ -1,0 +1,106 @@
+{
+    "name": "Maylene",
+    "class": "LEADER_4",
+    "double_battle": false,
+    "party_size": 5,
+    "items": [
+        "NONE",
+        "NONE",
+        "NONE",
+        "NONE"
+    ],
+    "ai_flags": {
+        "prioritize_effectiveness": true,
+        "check_bad_move": true,
+        "expert": true,
+        "setup_first_turn": false,
+        "risky": false,
+        "prioritize_damage": false,
+        "partner": false,
+        "doubles": false,
+        "check_hp": false,
+        "weather": false,
+        "harrassment": false
+    },
+    "data_flags": {
+        "defined_moveset": true,
+        "defined_held_items": true
+    },
+    "party": [
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 62,
+            "species": "HITMONTOP",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "TRIPLE_KICK",
+                "AERIAL_ACE",
+                "QUICK_ATTACK",
+                "FAKE_OUT"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 63,
+            "species": "MEDICHAM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "FIRE_PUNCH",
+                "ICE_PUNCH",
+                "THUNDER_PUNCH",
+                "HIGH_JUMP_KICK"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 62,
+            "species": "BRELOOM",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "STONE_EDGE",
+                "SPORE",
+                "MACH_PUNCH",
+                "SEED_BOMB"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 64,
+            "species": "MACHAMP",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "CROSS_CHOP",
+                "ROCK_CLIMB",
+                "EARTHQUAKE",
+                "STONE_EDGE"
+            ]
+        },
+        {
+            "difficulty_value": 250,
+            "ability_slot": 0,
+            "level": 66,
+            "species": "LUCARIO",
+            "form": 0,
+            "ball_seal": 0,
+            "held_item": "NONE",
+            "moves": [
+                "DRAIN_PUNCH",
+                "CLOSE_COMBAT",
+                "EXTREME_SPEED",
+                "BONE_RUSH"
+            ]
+        }
+    ]
+}
