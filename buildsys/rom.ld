@@ -80,7 +80,6 @@ Server_Get = 0x0225B45C | 1;
 Server_Ability = 0x02255A4C | 1;
 Server_CheckActiveMoveEffect = 0x02255F68 | 1;
 Server_CheckAbility = 0x022555A4 | 1;
-Server_CheckDefenderAbility = 0x02255AB4 | 1;
 Server_HeldItemEffect = 0x02258AB8 | 1;
 Server_HeldItemPower = 0x02258ACC | 1;
 Server_HitCount = 0x022554E0 | 1;
