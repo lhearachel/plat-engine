@@ -312,6 +312,7 @@
 #define SUBSCR_CHECK_TRIGGER_GEM                (298)
 #define SUBSCR_CHECK_REMOVE_GEM                 (299)
 #define SUBSCR_LIGHTNING_ROD_STORM_DRAIN        (300)
+#define SUBSCR_SAP_SIPPER                       (301)
 #define SUBSCR_TERAVOLT                         (302)
 #define SUBSCR_TURBOBLAZE                       (303)
 
