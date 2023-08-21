@@ -1,7 +1,7 @@
 #include "global.h"
 #include "overlay.h"
 
-struct LinkedOverlayPair gLinkedOverlayPairs[1] = {
+struct LinkedOverlayPair gLinkedOverlayPairs[] = {
     { 16, 123}, // battle overlay extension
     {  6, 124}, // field overlay extension
 };
