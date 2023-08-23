@@ -219,13 +219,8 @@ u16 Pokemon_FormTarget(int species, int form)
     return species;
 }
 
-void BoxPokemon_CalcAbility(struct BoxPokemon *pokemon)
+void BoxPokemon_SetAbility(struct BoxPokemon *pokemon, int species, int formNum, u32 pid)
 {
-    BOOL locked = BoxPokemon_Lock(pokemon);
-    int species = BoxPokemon_Get(pokemon, MON_PARAM_SPECIES,     NULL);
-    int formNum = BoxPokemon_Get(pokemon, MON_PARAM_FORM_NUMBER, NULL);
-    u32 pid     = BoxPokemon_Get(pokemon, MON_PARAM_PID,         NULL);
-
     int slot1 = PokemonBaseStats_GetWithForm(species, formNum, PERSONAL_ABILITY_1);
     int slot2 = PokemonBaseStats_GetWithForm(species, formNum, PERSONAL_ABILITY_2);
 
@@ -238,6 +233,16 @@ void BoxPokemon_CalcAbility(struct BoxPokemon *pokemon)
     } else {
         BoxPokemon_Set(pokemon, MON_PARAM_ABILITY, &slot1);
     }
+}
+
+void BoxPokemon_CalcAbility(struct BoxPokemon *pokemon)
+{
+    BOOL locked = BoxPokemon_Lock(pokemon);
+    int species = BoxPokemon_Get(pokemon, MON_PARAM_SPECIES,     NULL);
+    int formNum = BoxPokemon_Get(pokemon, MON_PARAM_FORM_NUMBER, NULL);
+    u32 pid     = BoxPokemon_Get(pokemon, MON_PARAM_PID,         NULL);
+
+    BoxPokemon_SetAbility(pokemon, species, formNum, pid);
 
     BoxPokemon_Unlock(pokemon, locked);
 }

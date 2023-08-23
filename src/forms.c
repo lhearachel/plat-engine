@@ -8,7 +8,6 @@
 
 #include "battle/common.h"
 
-// Called from Pokemon_LoadSprite
 u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, u8 shiny, u8 formNum)
 {
     if (!formNum) {
@@ -28,13 +27,8 @@ u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, 
     return FALSE;
 }
 
-// this needs to be invoked inside of GetBoxMonData for the gender case
 u8 PokemonForm_CalcGender(u16 species, u8 form, u32 pid)
 {
-    u8 buf[128];
-    sprintf(buf, "PLAT-ENGINE | Invoking PokemonForm_CalcGender\n");
-    debugsyscall();
-
     u32 trueSpecies = Form_GetTrueSpecies(species, form);
     u32 genderRatio = PokemonBaseStats_Get(trueSpecies, PERSONAL_GENDER_RATIO);
     

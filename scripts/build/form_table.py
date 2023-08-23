@@ -1,115 +1,163 @@
 from scripts.build.util import Species
 
 '''
-    This table is only meant to be used to map Species values to
-    appropriate base species + form number combinations for
-    compatibility with the evotable data NARC. It is, thus, limited
-    in scope compared to the full set of forms.
+    This table is meant to be a mapping used by both evolution data
+    and encounter data compilation scripts. It maps entries for either
+    of those data files into base species + form numbers. It does NOT
+    include data for battle-exclusive forms (megas, primals, etc.)
 '''
 FORM_TABLE = {
-    'RATICATE_ALOLA': (Species.RATICATE, 1),
+    'RATTATA_ALOLA':    (Species.RATTATA, 1),
+    'RATICATE_ALOLA':   (Species.RATICATE, 1),
+    'RAICHU_ALOLA':     (Species.RAICHU, 1),
+    'SANDSHREW_ALOLA':  (Species.SANDSHREW, 1),
+    'SANDSLASH_ALOLA':  (Species.SANDSLASH, 1),
+    'VULPIX_ALOLA':     (Species.VULPIX, 1),
+    'NINETALES_ALOLA':  (Species.NINETALES, 1),
+    'DIGLETT_ALOLA':    (Species.DIGLETT, 1),
+    'DUGTRIO_ALOLA':    (Species.DUGTRIO, 1),
+    'MEOWTH_ALOLA':     (Species.MEOWTH, 1),
+    'PERSIAN_ALOLA':    (Species.PERSIAN, 1),
+    'GEODUDE_ALOLA':    (Species.GEODUDE, 1),
+    'GRAVELER_ALOLA':   (Species.GRAVELER, 1),
+    'GOLEM_ALOLA':      (Species.GOLEM, 1),
+    'GRIMER_ALOLA':     (Species.GRIMER, 1),
+    'MUK_ALOLA':        (Species.MUK, 1),
+    'EXEGGUTOR_ALOLA':  (Species.EXEGGUTOR, 1),
+    'MAROWAK_ALOLA':    (Species.MAROWAK, 1),
+    'MEOWTH_GALAR':     (Species.MEOWTH, 2),
+    'PONYTA_GALAR':     (Species.PONYTA, 1),
+    'RAPIDASH_GALAR':   (Species.RAPIDASH, 1),
+    'SLOWPOKE_GALAR':   (Species.SLOWPOKE, 1),
+    'SLOWBRO_GALAR':    (Species.SLOWBRO, 1),    # form 2 is mega
+    'FARFETCHD_GALAR':  (Species.FARFETCHD, 1),
+    'WEEZING_GALAR':    (Species.WEEZING, 1),
+    'MR_MIME_GALAR':    (Species.MR_MIME, 1),
+    'ARTICUNO_GALAR':   (Species.ARTICUNO, 1),
+    'ZAPDOS_GALAR':     (Species.ZAPDOS, 1),
+    'MOLTRES_GALAR':    (Species.MOLTRES, 1),
+    'SLOWKING_GALAR':   (Species.SLOWKING, 1),
+    'CORSOLA_GALAR':    (Species.CORSOLA, 1),
+    'ZIGZAGOON_GALAR':  (Species.ZIGZAGOON, 1),
+    'LINOONE_GALAR':    (Species.LINOONE, 1),
+    'DARUMAKA_GALAR':   (Species.DARUMAKA, 2),      # need to match Darmanitan-G non-zen
+    'DARMANITAN_GALAR': (Species.DARMANITAN, 2),    # form 1 is zen-form
+    'YAMASK_GALAR':     (Species.YAMASK, 1),
+    'STUNFISK_GALAR':   (Species.STUNFISK, 1),
 
-    'RAICHU_ALOLA': (Species.RAICHU, 1),
+    'GASTRODON_EAST_SEA':       (Species.GASTRODON, 1),   # not actually used, but here anyways
 
-    'SANDSLASH_ALOLA': (Species.SANDSLASH, 1),
+    'BASCULIN_RED_STRIPED':     (Species.BASCULIN, 1),
+    'BASCULIN_BLUE_STRIPED':    (Species.BASCULIN, 2),
+    'DEERLING_SUMMER':          (Species.DEERLING, 1),
+    'DEERLING_AUTUMN':          (Species.DEERLING, 2),
+    'DEERLING_WINTER':          (Species.DEERLING, 3),
+    'SAWSBUCK_SUMMER':          (Species.SAWSBUCK, 1),
+    'SAWSBUCK_AUTUMN':          (Species.SAWSBUCK, 2),
+    'SAWSBUCK_WINTER':          (Species.SAWSBUCK, 3),
+    'TORNADUS_THERIAN':         (Species.TORNADUS, 1),
+    'THUNDURUS_THERIAN':        (Species.THUNDURUS, 1),
+    'LANDORUS_THERIAN':         (Species.LANDORUS, 1),
+    'KYUREM_WHITE':             (Species.KYUREM, 1),
+    'KYUREM_BLACK':             (Species.KYUREM, 2),
 
-    'NINETALES_ALOLA': (Species.NINETALES, 1),
+    'VIVILLON_POLAR':           (Species.VIVILLON, 1),
+    'VIVILLON_TUNDRA':          (Species.VIVILLON, 2),
+    'VIVILLON_CONTINENTAL':     (Species.VIVILLON, 3),
+    'VIVILLON_GARDEN':          (Species.VIVILLON, 4),
+    'VIVILLON_ELEGANT':         (Species.VIVILLON, 5),
+    'VIVILLON_MEADOW':          (Species.VIVILLON, 6),
+    'VIVILLON_MODERN':          (Species.VIVILLON, 7),
+    'VIVILLON_MARINE':          (Species.VIVILLON, 8),
+    'VIVILLON_ARCHIPELAGO':     (Species.VIVILLON, 9),
+    'VIVILLON_HIGH_PLAINS':     (Species.VIVILLON, 10),
+    'VIVILLON_SANDSTORM':       (Species.VIVILLON, 11),
+    'VIVILLON_RIVER':           (Species.VIVILLON, 12),
+    'VIVILLON_MONSOON':         (Species.VIVILLON, 13),
+    'VIVILLON_SAVANNA':         (Species.VIVILLON, 14),
+    'VIVILLON_SUN':             (Species.VIVILLON, 15),
+    'VIVILLON_OCEAN':           (Species.VIVILLON, 16),
+    'VIVILLON_JUNGLE':          (Species.VIVILLON, 17),
+    'VIVILLON_FANCY':           (Species.VIVILLON, 18),
+    'VIVILLON_POKE_BALL':       (Species.VIVILLON, 19),
 
-    'DUGTRIO_ALOLA': (Species.DUGTRIO, 1),
+    'FLABEBE_YELLOW_FLOWER':    (Species.FLABEBE, 1),
+    'FLABEBE_ORANGE_FLOWER':    (Species.FLABEBE, 2),
+    'FLABEBE_BLUE_FLOWER':      (Species.FLABEBE, 3),
+    'FLABEBE_WHITE_FLOWER':     (Species.FLABEBE, 4),
+    'FLOETTE_YELLOW_FLOWER':    (Species.FLOETTE, 1),
+    'FLOETTE_ORANGE_FLOWER':    (Species.FLOETTE, 2),
+    'FLOETTE_BLUE_FLOWER':      (Species.FLOETTE, 3),
+    'FLOETTE_WHITE_FLOWER':     (Species.FLOETTE, 4),
+    'FLORGES_YELLOW_FLOWER':    (Species.FLORGES, 1),
+    'FLORGES_ORANGE_FLOWER':    (Species.FLORGES, 2),
+    'FLORGES_BLUE_FLOWER':      (Species.FLORGES, 3),
+    'FLORGES_WHITE_FLOWER':     (Species.FLORGES, 4),
 
-    'PERSIAN_ALOLA': (Species.PERSIAN, 1),
+    'PUMPKABOO_SMALL':          (Species.PUMPKABOO, 1),
+    'PUMPKABOO_LARGE':          (Species.PUMPKABOO, 2),
+    'PUMPKABOO_SUPER':          (Species.PUMPKABOO, 3),
+    'GOURGEIST_SMALL':          (Species.GOURGEIST, 1),
+    'GOURGEIST_LARGE':          (Species.GOURGEIST, 2),
+    'GOURGEIST_SUPER':          (Species.GOURGEIST, 3),
 
-    'GRAVELER_ALOLA': (Species.GRAVELER, 1),
-    'GOLEM_ALOLA': (Species.GOLEM, 1),
+    'ORICORIO_POM_POM':         (Species.ORICORIO, 1),
+    'ORICORIO_PAU':             (Species.ORICORIO, 1),
+    'ORICORIO_SENSU':           (Species.ORICORIO, 1),
+    'ROCKRUFF_OWN_TEMPO':       (Species.ROCKRUFF, 1),
+    'LYCANROC_DUSK':            (Species.LYCANROC, 1),   # match up with Own Tempo Rockruff
+    'LYCANROC_MIDNIGHT':        (Species.LYCANROC, 2),
 
-    'MUK_ALOLA': (Species.MUK, 1),
+    'MINIOR_ORANGE_METEOR':     (Species.MINIOR, 1),
+    'MINIOR_YELLOW_METEOR':     (Species.MINIOR, 2),
+    'MINIOR_GREEN_METEOR':      (Species.MINIOR, 3),
+    'MINIOR_BLUE_METEOR':       (Species.MINIOR, 4),
+    'MINIOR_INDIGO_METEOR':     (Species.MINIOR, 5),
+    'MINIOR_VIOLET_METEOR':     (Species.MINIOR, 6),
+    'MINIOR_RED':               (Species.MINIOR, 7),
+    'MINIOR_ORANGE':            (Species.MINIOR, 8),
+    'MINIOR_YELLOW':            (Species.MINIOR, 9),
+    'MINIOR_GREEN':             (Species.MINIOR, 10),
+    'MINIOR_BLUE':              (Species.MINIOR, 11),
+    'MINIOR_INDIGO':            (Species.MINIOR, 12),
+    'MINIOR_VIOLET':            (Species.MINIOR, 13),
 
-    'EXEGGUTOR_ALOLA': (Species.EXEGGUTOR, 1),
+    'SINISTEA_ANTIQUE':         (Species.SINISTEA, 1),
+    'POLTEAGEIST_ANTIQUE':      (Species.POLTEAGEIST, 1),
+    'ALCREMIE_BERRY_SWEET':     (Species.ALCREMIE, 1),
+    'ALCREMIE_LOVE_SWEET':      (Species.ALCREMIE, 2),
+    'ALCREMIE_STAR_SWEET':      (Species.ALCREMIE, 3),
+    'ALCREMIE_CLOVER_SWEET':    (Species.ALCREMIE, 4),
+    'ALCREMIE_FLOWER_SWEET':    (Species.ALCREMIE, 5),
+    'ALCREMIE_RIBBON_SWEET':    (Species.ALCREMIE, 6),
+    'ALCREMIE_FILLER_1':        (Species.ALCREMIE, 7),
+    'ALCREMIE_FILLER_2':        (Species.ALCREMIE, 8),
+    'TOXTRICITY_LOW_KEY':       (Species.TOXTRICITY, 1),
+    'URSHIFU_RAPID_STRIKE':     (Species.URSHIFU, 1),
 
-    'MAROWAK_ALOLA': (Species.MAROWAK, 1),
+    'ENAMORUS_THERIAN':         (Species.ENAMORUS, 1),
 
-    'RAPIDASH_GALAR': (Species.RAPIDASH, 1),
+    'GROWLITHE_HISUI':          (Species.GROWLITHE, 1),
+    'ARCANINE_HISUI':           (Species.ARCANINE, 1),
+    'VOLTORB_HISUI':            (Species.VOLTORB, 1),
+    'ELECTRODE_HISUI':          (Species.ELECTRODE, 1),
+    'TYPHLOSION_HISUI':         (Species.TYPHLOSION, 1),
+    'QWILFISH_HISUI':           (Species.QWILFISH, 1),
+    'SNEASEL_HISUI':            (Species.SNEASEL, 1),
+    'SAMUROTT_HISUI':           (Species.SAMUROTT, 1),
+    'LILLIGANT_HISUI':          (Species.LILLIGANT, 1),
+    'ZORUA_HISUI':              (Species.ZORUA, 1),
+    'ZOROARK_HISUI':            (Species.ZOROARK, 1),
+    'BRAVIARY_HISUI':           (Species.BRAVIARY, 1),
+    'SLIGGOO_HISUI':            (Species.SLIGGOO, 1),
+    'GOODRA_HISUI':             (Species.GOODRA, 1),
+    'AVALUGG_HISUI':            (Species.AVALUGG, 1),
+    'DECIDUEYE_HISUI':          (Species.DECIDUEYE, 1),
 
-    'SLOWBRO_GALAR': (Species.SLOWBRO, 1),    # form 2 is mega
-
-    'WEEZING_GALAR': (Species.WEEZING, 1),
-
-    'MR_MIME_GALAR': (Species.MR_MIME, 1),
-
-    'SLOWKING_GALAR': (Species.SLOWKING, 1),
-
-    'LINOONE_GALAR': (Species.LINOONE, 1),
-
-    'DARMANITAN_GALAR': (Species.DARMANITAN, 2),
-
-    'GASTRODON_EAST_SEA': (Species.GASTRODON, 1), # not actually used, but here anyways
-
-    'SAWSBUCK_SUMMER': (Species.SAWSBUCK, 1),
-    'SAWSBUCK_AUTUMN': (Species.SAWSBUCK, 2),
-    'SAWSBUCK_WINTER': (Species.SAWSBUCK, 3),
-
-    'FLOETTE_YELLOW_FLOWER': (Species.FLOETTE, 1),
-    'FLOETTE_ORANGE_FLOWER': (Species.FLOETTE, 2),
-    'FLOETTE_BLUE_FLOWER': (Species.FLOETTE, 3),
-    'FLOETTE_WHITE_FLOWER': (Species.FLOETTE, 4),
-
-    'FLORGES_YELLOW_FLOWER': (Species.FLORGES, 1),
-    'FLORGES_ORANGE_FLOWER': (Species.FLORGES, 2),
-    'FLORGES_BLUE_FLOWER': (Species.FLORGES, 3),
-    'FLORGES_WHITE_FLOWER': (Species.FLORGES, 4),
-
-    'GOURGEIST_SMALL': (Species.GOURGEIST, 1),
-    'GOURGEIST_LARGE': (Species.GOURGEIST, 2),
-    'GOURGEIST_SUPER': (Species.GOURGEIST, 3),
-
-    'LYCANROC_DUSK': (Species.LYCANROC, 1),   # match up with Lycanroc-Own-Tempo
-    'LYCANROC_MIDNIGHT': (Species.LYCANROC, 2),
-
-    'POLTEAGEIST_ANTIQUE': (Species.POLTEAGEIST, 1),
-
-    'ALCREMIE_BERRY_SWEET': (Species.ALCREMIE, 1),
-    'ALCREMIE_LOVE_SWEET': (Species.ALCREMIE, 2),
-    'ALCREMIE_STAR_SWEET': (Species.ALCREMIE, 3),
-    'ALCREMIE_CLOVER_SWEET': (Species.ALCREMIE, 4),
-    'ALCREMIE_FLOWER_SWEET': (Species.ALCREMIE, 5),
-    'ALCREMIE_RIBBON_SWEET': (Species.ALCREMIE, 6),
-    'ALCREMIE_FILLER_1': (Species.ALCREMIE, 7),
-    'ALCREMIE_FILLER_2': (Species.ALCREMIE, 8),
-
-    'TOXTRICITY_LOW_KEY': (Species.TOXTRICITY, 1),
-
-    'URSHIFU_RAPID_STRIKE': (Species.URSHIFU, 1),
-
-    'ARCANINE_HISUI': (Species.ARCANINE, 1),
-
-    'ELECTRODE_HISUI': (Species.ELECTRODE, 1),
-
-    'TYPHLOSION_HISUI': (Species.TYPHLOSION, 1),
-
-    'SAMUROTT_HISUI': (Species.SAMUROTT, 1),
-
-    'LILLIGANT_HISUI': (Species.LILLIGANT, 1),
-
-    'ZOROARK_HISUI': (Species.ZOROARK, 1),
-
-    'BRAVIARY_HISUI': (Species.BRAVIARY, 1),
-
-    'SLIGGOO_HISUI': (Species.SLIGGOO, 1),
-    'GOODRA_HISUI': (Species.GOODRA, 1),
-
-    'AVALUGG_HISUI': (Species.AVALUGG, 1),
-
-    'DECIDUEYE_HISUI': (Species.DECIDUEYE, 1),
-
-    'UNFEZANT_FEMALE': (Species.UNFEZANT, 1),
-
-    'JELLICENT_FEMALE': (Species.JELLICENT, 1),
-
-    'PYROAR_FEMALE': (Species.PYROAR, 1),
-
-    'MEOWSTIC_FEMALE': (Species.MEOWSTIC, 1),
-
-    'INDEEDEE_FEMALE': (Species.INDEEDEE, 1),
-
-    'BASCULEGION_FEMALE': (Species.BASCULEGION, 3),   # need to keep room for forms 1 and 2 of basculin
+    'UNFEZANT_FEMALE':          (Species.UNFEZANT, 1),
+    'JELLICENT_FEMALE':         (Species.JELLICENT, 1),
+    'PYROAR_FEMALE':            (Species.PYROAR, 1),
+    'MEOWSTIC_FEMALE':          (Species.MEOWSTIC, 1),
+    'INDEEDEE_FEMALE':          (Species.INDEEDEE, 1),
+    'BASCULEGION_FEMALE':       (Species.BASCULEGION, 3),   # need to keep room for forms 1 and 2 of basculin
 }

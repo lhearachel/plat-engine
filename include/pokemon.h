@@ -560,6 +560,13 @@ BOOL __attribute__((long_call)) BoxPokemon_Lock(struct BoxPokemon *boxMon);
 BOOL __attribute__((long_call)) BoxPokemon_Unlock(struct BoxPokemon *boxMon, BOOL flag);
 
 /**
+ * @brief Initializes the BoxPokemon structure.
+ * 
+ * Original function: 0x02073C54 (arm9)
+ */
+void __attribute__((long_call)) BoxPokemon_Init(struct BoxPokemon *boxMon);
+
+/**
  * @brief Initializes the moveset for a Pokemon by picking the 4 most-
  * recently learnable moves for its level.
  * 

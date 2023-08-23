@@ -25,6 +25,7 @@ BoxPokemon_Get = 0x02074570 | 1;
 BoxPokemon_Set = 0x02074C60 | 1;
 BoxPokemon_Lock = 0x02073D20 | 1;
 BoxPokemon_Unlock = 0x02073D48 | 1;
+BoxPokemon_Init = 0x02073C54 | 1;
 /* BoxPokemon_CalcAbility = 0x02078044 | 1; */
 BoxPokemon_InitMoveset = 0x02077020 | 1;
 Pokemon_Get = 0x02074470 | 1;

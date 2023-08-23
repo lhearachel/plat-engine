@@ -3,6 +3,7 @@ import os
 import sys
 
 from ndspy.narc import NARC
+from form_table import FORM_TABLE
 from util import Species
 
 
@@ -101,11 +102,24 @@ def dump_encfile(encfile: bytes) -> dict:
     }
 
 
+def species_and_form(raw_species: Species) -> bytes:
+    binary = bytearray([])
+
+    if raw_species.value > Species.ENAMORUS.value:  # this is a form of another mon
+        species, form = FORM_TABLE[raw_species.name]
+        table_entry = ((form & 0x1F) << 11) | (species.value & 0x07FF)    # 5 bits for form, 11 for species
+        binary = binary + table_entry.to_bytes(4, 'little')
+    else:
+        binary = binary + raw_species.value.to_bytes(4, 'little')
+    
+    return binary
+
+
 def build_grass_slots(grass_slots: list) -> bytes:
     binary = bytearray([])
     for slot in grass_slots:
         binary = binary + slot['level'].to_bytes(4, 'little')
-        binary = binary + Species[slot['species']].value.to_bytes(4, 'little')
+        binary = binary + species_and_form(Species[slot['species']])
     
     return binary
 
@@ -128,36 +142,36 @@ def build_44_chunk(chunk: dict):
         binary = binary + chunk['slots'][i]['max_level'].to_bytes(1, 'little')
         binary = binary + chunk['slots'][i]['min_level'].to_bytes(1, 'little')
         binary = binary + (0).to_bytes(2, 'little') # 2 bytes of padding
-        binary = binary + Species[chunk['slots'][i]['species']].value.to_bytes(4, 'little')
+        binary = binary + species_and_form(Species[chunk['slots'][i]['species']])
     
     return binary
-
+    
 
 def build_encfile(encjson: dict) -> bytes:
     binary = bytearray([])
     binary = binary + encjson['grass']['rate'].to_bytes(4, 'little')
     binary = binary + build_grass_slots(encjson['grass']['slots'])
-    binary = binary + Species[encjson['grass']['swarm'][0]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['swarm'][1]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['day_only'][0]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['day_only'][1]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['night_only'][0]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['night_only'][1]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['poke_radar'][0]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['poke_radar'][1]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['poke_radar'][2]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['poke_radar'][3]].value.to_bytes(4, 'little')
+    binary = binary + species_and_form(Species[encjson['grass']['swarm'][0]])
+    binary = binary + species_and_form(Species[encjson['grass']['swarm'][1]])
+    binary = binary + species_and_form(Species[encjson['grass']['day_only'][0]])
+    binary = binary + species_and_form(Species[encjson['grass']['day_only'][1]])
+    binary = binary + species_and_form(Species[encjson['grass']['night_only'][0]])
+    binary = binary + species_and_form(Species[encjson['grass']['night_only'][1]])
+    binary = binary + species_and_form(Species[encjson['grass']['poke_radar'][0]])
+    binary = binary + species_and_form(Species[encjson['grass']['poke_radar'][1]])
+    binary = binary + species_and_form(Species[encjson['grass']['poke_radar'][2]])
+    binary = binary + species_and_form(Species[encjson['grass']['poke_radar'][3]])
     binary = binary + build_forms_data(encjson['forms'])
-    binary = binary + Species[encjson['grass']['dual_pack']['ruby'][0]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['dual_pack']['ruby'][1]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['dual_pack']['sapphire'][0]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['dual_pack']['sapphire'][1]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['dual_pack']['emerald'][0]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['dual_pack']['emerald'][1]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['dual_pack']['fire_red'][0]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['dual_pack']['fire_red'][1]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['dual_pack']['leaf_green'][0]].value.to_bytes(4, 'little')
-    binary = binary + Species[encjson['grass']['dual_pack']['leaf_green'][1]].value.to_bytes(4, 'little')
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['ruby'][0]])
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['ruby'][1]])
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['sapphire'][0]])
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['sapphire'][1]])
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['emerald'][0]])
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['emerald'][1]])
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['fire_red'][0]])
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['fire_red'][1]])
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['leaf_green'][0]])
+    binary = binary + species_and_form(Species[encjson['grass']['dual_pack']['leaf_green'][1]])
     binary = binary + build_44_chunk(encjson['surfing'])
     # 44 bytes of padding (will use this eventually for rock smash)
     binary = binary + (0).to_bytes(44, 'little')

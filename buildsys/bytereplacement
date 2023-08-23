@@ -74,7 +74,4 @@
 # Encounter_Set hook setup: 02241CC4 - 4
 # push {r5, r6}
 # no-op
-#
-# Also replace a trailing add to sp with a no-op
 0006 02241CC0 60 B4 C0 46
-# 0006 022425C4 C0 46
