@@ -27,10 +27,6 @@ void Encounter_Set(
     struct BattleParams *battleParamsOutput
 )
 {
-    u8 buf[128];
-    sprintf(buf, "PLAT-ENGINE | Invoking Encounter_Set\n");
-    debugsyscall();
-
     // speciesAndForm is a composite input from the encounter file
     u16 form    = (speciesAndForm & 0xF800) >> 11; // top 5 bits are the form
     u16 species = (speciesAndForm & 0x07FF);       // bottom 11 bits are the species
@@ -86,16 +82,8 @@ void Encounter_Set(
     Free(encounter);
 }
 
-BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo, struct Pokemon *encounter, struct BattleParams *battleParams)
+BOOL Encounter_AddToWildParty(int partyIdx, const struct EncounterInfo *encounterInfo, struct Pokemon *encounter, struct BattleParams *battleParams)
 {
-    #ifdef DEBUG_FORMS
-    u8 buf[128];
-    sprintf(buf, "PLAT-ENGINE | Invoking Encounter_AddToWildParty\n");
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | -- partyIdx: %d\n", partyIdx);
-    debugsyscall(buf);
-    #endif
-
     int itemRange = 0;
     if (encounterInfo->isEgg == FALSE && encounterInfo->playerLeadAbility == ABILITY_COMPOUND_EYES) {
         itemRange = 1;
@@ -111,43 +99,18 @@ BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo,
     if (species == SPECIES_SHELLOS) {
         formChange = TRUE;
         if (!encounterInfo->formChance[0]) {
-            #ifdef DEBUG_FORMS
-            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies West-Sea Shellos\n");
-            debugsyscall(buf);
-            #endif
-
             formNum = 0;
         } else {
-            #ifdef DEBUG_FORMS
-            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies East-Sea Shellos\n");
-            debugsyscall(buf);
-            #endif
-
             formNum = 1;
         }
     } else if (species == SPECIES_GASTRODON) {
         formChange = TRUE;
         if (!encounterInfo->formChance[1]) {
-            #ifdef DEBUG_FORMS
-            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies West-Sea Gastrodon\n");
-            debugsyscall(buf);
-            #endif
-
             formNum = 0;
         } else {
-            #ifdef DEBUG_FORMS
-            sprintf(buf, "PLAT-ENGINE | -- Encounter table specifies East-Sea Gastrodon\n");
-            debugsyscall(buf);
-            #endif
-
             formNum = 1;
         }
     } else if (species == SPECIES_UNOWN) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Unown; consulting the Unown form table\n");
-        debugsyscall(buf);
-        #endif
-
         formChange = TRUE;
         u8 tableSize = gUnownTable[encounterInfo->unownTableType].size;
         formNum = gUnownTable[encounterInfo->unownTableType].table[GF_RAND() % tableSize];
@@ -156,31 +119,13 @@ BOOL Encounter_AddToWildParty(int partyIdx, struct EncounterInfo *encounterInfo,
     }
 
     if (formChange) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Recomputing stats, ability, moves...\n");
-        debugsyscall(buf);
-        #endif
-
         Pokemon_Set(encounter, MON_PARAM_FORM_NUMBER, &formNum);
         Pokemon_CalcStats(encounter);
         BoxPokemon_CalcAbility(&encounter->boxParams);
         BoxPokemon_InitMoveset(&encounter->boxParams);
     }
 
-    #ifdef DEBUG_FORMS
-    sprintf(buf, "PLAT-ENGINE | -- Done; expected species and form:\n");
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | ---- species: 0x%X\n", species);
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | ---- form:    %d\n", formNum);
-    debugsyscall(buf);
-    #endif
-
     BOOL result = Party_Add(battleParams->parties[partyIdx], encounter);
-    #ifdef DEBUG_FORMS
-    sprintf(buf, "PLAT-ENGINE | -- Returning\n");
-    debugsyscall(buf);
-    #endif
 
     return result;
 }

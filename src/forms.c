@@ -11,42 +11,12 @@
 // Called from Pokemon_LoadSprite
 u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, u8 shiny, u8 formNum)
 {
-    #ifdef DEBUG_FORMS
-    u8 buf[128];
-    sprintf(buf, "PLAT-ENGINE | Invoking Form_LoadSprite\n");
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | -- species:   0x%X\n", species);
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | -- direction: %s\n", (direction == 0 ? "BACK": "FRONT"));
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | -- shiny?     %s\n", (shiny ? "YES" : "NO"));
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | -- formNum:   %d\n", formNum);
-    debugsyscall(buf);
-    #endif
-
-    // gFormWord = formNum;
-
     if (!formNum) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Not an alt-form; exiting\n");
-        debugsyscall(buf);
-        #endif
-
         return FALSE;
     }
 
-    #ifdef DEBUG_FORMS
-    sprintf(buf, "PLAT-ENGINE | -- Will check the alt-form table...\n");
-    debugsyscall(buf);
-    #endif
     for (unsigned int i = 0; i < NELEMS(gPokemonFormTable); i++) {
         if (species == gPokemonFormTable[i].species && formNum == gPokemonFormTable[i].formNum) {
-            #ifdef DEBUG_FORMS
-            sprintf(buf, "PLAT-ENGINE | -- Found alt-form; target: %d\n", gPokemonFormTable[i].target);
-            debugsyscall(buf);
-            #endif
-
             pokeSprite->archiveNum = ARCHIVE_POKESPRITE;
             pokeSprite->indexPic   = (gPokemonFormTable[i].target) * 6 + direction;
             pokeSprite->indexPal   = (gPokemonFormTable[i].target) * 6 + 4 + shiny;
@@ -55,12 +25,26 @@ u8 Form_LoadSprite(struct PokemonSprite *pokeSprite, u16 species, u8 direction, 
         }
     }
 
-    #ifdef DEBUG_FORMS
-    sprintf(buf, "PLAT-ENGINE | -- No matching alt-form found; use base species\n\n");
-    debugsyscall(buf);
-    #endif
-
     return FALSE;
+}
+
+// this needs to be invoked inside of GetBoxMonData for the gender case
+u8 PokemonForm_CalcGender(u16 species, u8 form, u32 pid)
+{
+    u8 buf[128];
+    sprintf(buf, "PLAT-ENGINE | Invoking PokemonForm_CalcGender\n");
+    debugsyscall();
+
+    u32 trueSpecies = Form_GetTrueSpecies(species, form);
+    u32 genderRatio = PokemonBaseStats_Get(trueSpecies, PERSONAL_GENDER_RATIO);
+    
+    switch (genderRatio) {
+    case GENDER_RATIO_ALL_MALE:    return GENDER_MALE;
+    case GENDER_RATIO_ALL_FEMALE:  return GENDER_FEMALE;
+    case GENDER_RATIO_NONE:        return GENDER_NONE;
+    }
+    
+    return (genderRatio > (pid & 0xFF)) ? GENDER_FEMALE : GENDER_MALE;
 }
 
 void Pokemon_CalcPassiveForm(struct Pokemon *pokemon)
@@ -68,14 +52,6 @@ void Pokemon_CalcPassiveForm(struct Pokemon *pokemon)
     u32  species = Pokemon_Get(pokemon, MON_PARAM_SPECIES, NULL);
     u8   form    = 0;
     BOOL update  = TRUE;
-
-    #ifdef DEBUG_FORMS
-    u8 buf[128];
-    sprintf(buf, "PLAT-ENGINE | Invoking Pokemon_UpdatePassiveForm\n");
-    debugsyscall(buf);
-    sprintf(buf, "PLAT-ENGINE | -- species: 0x%X\n", species);
-    debugsyscall(buf);
-    #endif
 
     switch (species) {
     case SPECIES_BASCULEGION:   // 50% male/female split
@@ -87,29 +63,16 @@ void Pokemon_CalcPassiveForm(struct Pokemon *pokemon)
     case SPECIES_INDEEDEE:
     case SPECIES_UNFEZANT:
         form = form + (GF_RAND() & 1);  // form usually starts at 0 here, but starts at 2 for Basculegion
-
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- 1:1 M:F split; form: %d\n", form);
-        debugsyscall(buf);
-        #endif
         break;
     
     case SPECIES_PYROAR:        // 12.5% male
         form = (GF_RAND() % 8 != 0);
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- 1:7 M:F split; form: %d\n", form);
-        debugsyscall(buf);
-        #endif
         break;
     
     case SPECIES_DEERLING:
     case SPECIES_SAWSBUCK:
         // TODO: Make this RTC-based
         form = (GF_RAND() % 4);
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Random seasonals; form: %d\n", form);
-        debugsyscall(buf);
-        #endif
         break;
     
     default:
@@ -117,38 +80,8 @@ void Pokemon_CalcPassiveForm(struct Pokemon *pokemon)
     }
 
     if (update) {
-        #ifdef DEBUG_FORMS
-        sprintf(buf, "PLAT-ENGINE | -- Setting form number\n");
-        debugsyscall(buf);
-        #endif
         Pokemon_Set(pokemon, MON_PARAM_FORM_NUMBER, &form);
     }
-
-    // Perform any and all recalcs needed for a form regardless of the update flag
-    // for some reason the game hates these being in ASM; I'd like to pull them out
-    // of here, but functionality > cleanliness I guess
-    // #ifdef DEBUG_FORMS
-    // sprintf(buf, "PLAT-ENGINE | -- Resetting stats\n");
-    // debugsyscall();
-    // #endif
-    // Pokemon_CalcStats(pokemon);
-    
-    // #ifdef DEBUG_FORMS
-    // sprintf(buf, "PLAT-ENGINE | -- Resetting ability\n");
-    // debugsyscall();
-    // #endif
-    // BoxPokemon_CalcAbility(&pokemon->boxParams);
-    
-    // #ifdef DEBUG_FORMS
-    // sprintf(buf, "PLAT-ENGINE | -- Resetting moveset\n");
-    // debugsyscall();
-    // #endif
-    // BoxPokemon_InitMoveset(&pokemon->boxParams);
-
-    // #ifdef DEBUG_FORMS
-    // sprintf(buf, "PLAT-ENGINE | -- Invocation done\n\n");
-    // debugsyscall(buf);
-    // #endif
 }
 
 const struct PokemonForm gPokemonFormTable[256] = {

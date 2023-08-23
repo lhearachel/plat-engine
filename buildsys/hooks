@@ -45,6 +45,8 @@ arm9 Summary_Entry_Hook 08090A3A 1
 # Forms
 arm9 BoxPokemon_Form 02079E44 1
 arm9 Form_GetTrueSpecies 02078740 2
+arm9 BoxPokemon_Gender 02075D74 1
+arm9 BoxPokemon_Get_Gender 0207493A 1
 ## Sprites and Icons
 arm9 Pokemon_LoadSprite 02075FBC 1
 arm9 Pokemon_IconGraphicsID 02079D8C 3

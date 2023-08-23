@@ -165,7 +165,7 @@ ENCDATA_SRCS := $(wildcard data/encounters/*.json)
 
 $(ENCDATA_NARC): $(ENCDATA_SRCS)
 	$(PYTHON) scripts/build/enc_data.py build
-	$(NARCHIVE) create $(ENCDATA_NARC) $(ENCDATA_DATA_DIR) -nf
+	$(NARCHIVE) create $@ $(ENCDATA_DATA_DIR) -nf
 
 NARC_FILES += $(ENCDATA_NARC)
 

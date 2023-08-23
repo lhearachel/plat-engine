@@ -12,6 +12,10 @@
 #define GENDER_RATIO_ALL_FEMALE 254
 #define GENDER_RATIO_NONE       255
 
+#define GENDER_MALE     0
+#define GENDER_FEMALE   1
+#define GENDER_NONE     2
+
 /**
  * @brief Base Stats data structure for all data unique to a particular species.
  */
@@ -103,7 +107,7 @@ struct PokemonDataBlockB {
     u32 oldRibbons;         // ribbons from gen 3
 
     u8  eventDistributed    :1,
-        sex                 :2,
+        gender              :2,
         formNumber          :5;
 
     u8  _dummyB_1;          // 24 bits of unused space
@@ -415,7 +419,7 @@ enum PokemonField {
     MON_PARAM_PARTYPOKEMON_MAX,
 
     // Extra data param definitions
-	MON_PARAM_DOES_SPECIES_EXIST,
+	MON_PARAM_DOES_SPECIES_EXIST = MON_PARAM_PARTYPOKEMON_MAX,
 	MON_PARAM_MAYBE_EGG,                        // returns the bad egg flag if flipped, else the value of the egg flag
 
     MON_PARAM_SPECIES_OR_EGG,                   // returns the species number, or the egg species (if this is an egg)
@@ -933,6 +937,15 @@ BOOL __attribute__((long_call)) Party_Add(struct Party *party, struct Pokemon *p
 u16  __attribute__((long_call)) BoxPokemon_Form(const struct BoxPokemon *pokemon);
 
 /**
+ * @brief Get the gender of an input BoxPokemon.
+ * 
+ * This is a modification of the original function to support gendered forms.
+ * 
+ * Original function: 0x02075D74 (arm9)
+ */
+u8   __attribute__((long_call)) BoxPokemon_Gender(struct BoxPokemon *pokemon);
+
+/**
  * @brief Get the ID for the graphics used by a Pokemon's chibi icon.
  * 
  * Accounts for forms when choosing which palette to load.
@@ -979,10 +992,12 @@ u16  __attribute__((long_call)) Pokemon_FormTarget(int species, int form);
 
 BOOL __attribute__((long_call)) Encounter_AddToWildParty(
     int partyIdx,
-    struct EncounterInfo *encounterInfo,
+    const struct EncounterInfo *encounterInfo,
     struct Pokemon *encounter,
     struct BattleParams *battleParams
 );
+
+u8   __attribute__((long_call)) PokemonForm_CalcGender(u16 species, u8 form, u32 pid);
 
 void __attribute__((long_call)) Pokemon_CalcPassiveForm(struct Pokemon *pokemon);
 
