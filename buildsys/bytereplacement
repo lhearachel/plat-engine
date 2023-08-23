@@ -75,3 +75,6 @@
 # push {r5, r6}
 # no-op
 0006 02241CC0 60 B4 C0 46
+
+# Pokemon_CheckEvolution hook setup
+arm9 02076B94 60 B4 C0 46

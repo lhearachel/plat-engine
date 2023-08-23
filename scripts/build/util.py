@@ -1943,17 +1943,17 @@ class EvoMethod(Enum):
     ELECTRIC_FIELD      = 24
     MOSSY_STONE         = 25
     ICY_STONE           = 26
-    LEVEL_DAY           = 27
-    LEVEL_NIGHT         = 28
-    LEVEL_DUSK          = 29
-    LEVEL_RAIN          = 30
-    HAS_MOVE_TYPE       = 31
-    DARK_TYPE_IN_PARTY  = 32
-    TRADE_SPECIFIC_MON  = 33
-    NATURE_AMPED        = 34
-    NATURE_LOW_KEY      = 35
-    NUM_CRITICAL_HITS   = 36
-    HURT_IN_BATTLE      = 37
+    LEVEL_DAY           = 27    # Lycanroc-Midday
+    LEVEL_NIGHT         = 28    # Lycanroc-Midnight
+    LEVEL_DUSK          = 29    # Lycanroc-Dusk
+    LEVEL_RAIN          = 30    # Goodra
+    HAS_MOVE_TYPE       = 31    # Sylveon
+    DARK_TYPE_IN_PARTY  = 32    # Pangoro
+    TRADE_SPECIFIC_MON  = 33    # Accelgor, Escavalier (probably cut)
+    NATURE_AMPED        = 34    # Toxtricity-Amped
+    NATURE_LOW_KEY      = 35    # Toxtricity-LowKey
+    NUM_CRITICAL_HITS   = 36    # Sirfetch'd
+    HURT_IN_BATTLE      = 37    # Basculegion (probably cut)
 
 
 class Species(Enum):

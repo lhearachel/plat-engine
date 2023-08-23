@@ -292,6 +292,32 @@ void Pokemon_SetGenderAndNature(
     Pokemon_Make(pokemon, species, level, ivs, 1, rand, 0, 0);
 }
 
+BOOL Pokemon_Equals(struct Pokemon *this, struct Pokemon *that)
+{
+    if (this == that) {
+        return TRUE;
+    }
+
+    if (Pokemon_Get(this, MON_PARAM_SPECIES, NULL) == Pokemon_Get(that, MON_PARAM_SPECIES, NULL)
+            && Pokemon_Get(this, MON_PARAM_PID, NULL) == Pokemon_Get(that, MON_PARAM_PID, NULL)
+            && Pokemon_Get(this, MON_PARAM_OT_ID, NULL) == Pokemon_Get(that, MON_PARAM_OT_ID, NULL)) {
+        for (int i = MON_PARAM_CONDITION; i <= MON_PARAM_SPDEFENSE; i++) {
+            if (Pokemon_Get(this, i, NULL) != Pokemon_Get(that, i, NULL)) {
+                return FALSE;
+            }
+        }
+        for (int i = MON_PARAM_MOVE_1; i <= MON_PARAM_SPDEFENSE_IV; i++) {
+            if (Pokemon_Get(this, i, NULL) != Pokemon_Get(that, i, NULL)) {
+                return FALSE;
+            }
+        }
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 #if 0
 
 u16 __attribute__((long_call)) Pokemon_GetHiddenAbility(u16 species, u32 form)

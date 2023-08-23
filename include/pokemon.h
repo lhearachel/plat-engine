@@ -189,6 +189,8 @@ struct Party {
     s32 count;
 };
 
+#define MAX_EVOLUTIONS 7
+
 struct __attribute__((packed)) EvoData {
     u16 condition;
     u16 param;
@@ -196,7 +198,7 @@ struct __attribute__((packed)) EvoData {
 };
 
 struct EvoTable {
-    struct EvoData data[7];
+    struct EvoData data[MAX_EVOLUTIONS];
 };
 
 struct PokemonForm {
@@ -859,6 +861,13 @@ u8   __attribute__((long_call)) Pokemon_NormalizedForm(u16 species, u8 form);
 void __attribute__((long_call)) Pokemon_SetItem(struct Pokemon *pokemon, u32 battleType, int range);
 
 /**
+ * @brief Checks if a Pokemon knows a given move.
+ * 
+ * Original function: 0x0207749C (arm9)
+ */
+BOOL __attribute__((long_call)) Pokemon_KnowsMove(struct Pokemon *pokemon, u16 moveID);
+
+/**
  * @brief Opens the base stats entry for a given species + form combination.
  * 
  * Form == 0 specifies the base form.
@@ -930,6 +939,13 @@ struct Pokemon* __attribute__((long_call)) Party_Member(const struct Party *part
  * Original function: 0x0207A048 (arm9)
  */
 BOOL __attribute__((long_call)) Party_Add(struct Party *party, struct Pokemon *pokemon);
+
+/**
+ * @brief Checks if a given species of Pokemon is in the party.
+ * 
+ * Original function: 0x0207A230 (arm9)
+ */
+BOOL __attribute__((long_call)) Party_HasPokemon(struct Party *party, int species);
 
 // ===== BASE GAME CODE FUNCTIONS (MODIFIED) ===== //
 
@@ -1030,6 +1046,10 @@ void __attribute__((long_call)) Pokemon_SetGenderAndNature(
     u8 gender,
     u8 nature
 );
+
+u16  __attribute__((long_call)) Pokemon_CheckEvolution(struct Party *party, struct Pokemon *pokemon, u8 evoType, u16 itemID, int *methodOut);
+
+BOOL __attribute__((long_call)) Pokemon_Equals(struct Pokemon *this, struct Pokemon *that);
 
 extern const struct PokemonForm gPokemonFormTable[256]; // maybe move this to an ARMIPS def
 

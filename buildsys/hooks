@@ -58,3 +58,5 @@ arm9 Pokemon_IconPaletteID 02079EDC 3
 #0006 Hook_Encounter_AddToWildParty 02242518 5
 #0016 Hook_Client_SetEncounter 0225CC88 2
 #0016 Hook_Client_ShowEncounter 0225CE82 2
+## Evolution
+arm9 Hook_Pokemon_CheckEvolution 02076B98 5

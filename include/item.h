@@ -28,4 +28,23 @@ struct __attribute__((packed)) ItemData {
     u8  work[20];
 };
 
+enum ItemDataParam {
+    ITEM_PARAM_PRICE,
+    ITEM_PARAM_HOLD_EFFECT,
+    ITEM_PARAM_HOLD_POWER,
+    ITEM_PARAM_IMPORTANT,
+    ITEM_PARAM_CAN_REGISTER,
+    ITEM_PARAM_POCKET,
+    ITEM_PARAM_FIELD_FUNC,
+    ITEM_PARAM_BATTLE_FUNC,
+    // ...
+};
+
+/**
+ * @brief Get a value from the item data table.
+ * 
+ * Original function: 0x0207CFF0 (arm9)
+ */
+s32 __attribute__((long_call)) Item_Get(u16 itemID, u16 param, u32 heapID);
+
 #endif // __ITEM_H

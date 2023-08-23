@@ -3,6 +3,7 @@
 
 #define ARCHIVE_SUBSCR      1
 #define ARCHIVE_POKESPRITE  4
+#define ARCHIVE_EVOLUTIONS 34
 
 /**
  * @brief Load data from an archive into an allocated buffer.

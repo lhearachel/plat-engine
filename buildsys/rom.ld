@@ -10,6 +10,12 @@ LoadFromNARC_Malloc = 0x02006AC0 | 1;
 LoadFromNARC_Offset = 0x02006AFC | 1;
 LoadFromNARC_OffsetAndMalloc = 0x02006B18 | 1;
 
+/* item.h */
+Item_Get = 0x0207CFF0 | 1;
+
+/* rtc.h */
+RTC_IsNight = 0x02013948 | 1;
+
 /* overlay.h */
 FS_SetDefaultDMA = 0x020C84E0 | 1;
 Overlay_MemoryRegion = 0x02006544 | 1;
@@ -51,6 +57,7 @@ Pokemon_Lock = 0x02073C88 | 1;
 Pokemon_Unlock = 0x02073CD4 | 1;
 Pokemon_NormalizedForm = 0x020761E8 | 1;
 Pokemon_SetItem = 0x02077F0C | 1;
+Pokemon_KnowsMove = 0x0207749C | 1;
 PokemonBaseStats_OpenForm = 0x02075874 | 1;
 PokemonBaseStats_Close = 0x020759B8 | 1;
 PokemonBaseStats_Get = 0x020759F0 | 1;
@@ -59,6 +66,7 @@ PokemonBaseStats_CalcGender = 0x02075DD0 | 1;
 Party_Count = 0x02054B04 | 1;
 Party_Member = 0x0207A0FC | 1;
 Party_Add = 0x0207A048 | 1;
+Party_HasPokemon = 0x0207A230 | 1;
 
 /* src/forms.c */
 gUnownTable = 0x02248FF0;
