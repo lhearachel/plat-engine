@@ -86,6 +86,13 @@ __pycache__/*
 /*.rep/
 /*.i64
 
+# IDA stuff
+/*.bin
+/*.id0
+/*.id1
+/*.nam
+/*.til
+
 /offsets.ini
 /buildsys/rom_gen.ld
 
