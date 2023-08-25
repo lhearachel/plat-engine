@@ -2,7 +2,7 @@ import json
 import re
 import requests
 
-from scripts.build.util import GenderRatio, GrowthRate, EggGroup, BodyColor, Move, EvoMethod, MoveEffect, MoveTarget
+from scripts.build.util import Species, GenderRatio, GrowthRate, EggGroup, BodyColor, Move, EvoMethod, MoveEffect, MoveTarget
 
 
 POKEMON_DATA_DIR = 'data/pokemon'
