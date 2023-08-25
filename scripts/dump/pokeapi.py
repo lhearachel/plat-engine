@@ -2,7 +2,7 @@ import json
 import re
 import requests
 
-from scripts.build.util import GenderRatio, GrowthRate, EggGroup, BodyColor, Move, EvoMethod
+from scripts.build.util import GenderRatio, GrowthRate, EggGroup, BodyColor, Move, EvoMethod, MoveEffect, MoveTarget
 
 
 POKEMON_DATA_DIR = 'data/pokemon'
@@ -55,7 +55,7 @@ BASIC_MOVES = {
     'PSYCHIC': Move.CONFUSION,
     'ICE': Move.POWDER_SNOW,
     'DRAGON': Move.DRAGON_RAGE,
-    'DARK': Move.FAINT_ATTACK
+    'DARK': Move.FEINT_ATTACK
 }
 
 GROWTH_RATES = {
@@ -153,7 +153,7 @@ def parse_evo(evo_details: dict, target: str) -> list:
     return evo
 
 
-def build_json(species_json: dict, poke_json: dict) -> dict:
+def build_species_json(species_json: dict, poke_json: dict) -> dict:
     poke = {}
     
     # name
@@ -257,13 +257,80 @@ def build_json(species_json: dict, poke_json: dict) -> dict:
 def build_species(species: int) -> (str, dict):
     species_json = get_pokeapi_species(species)
     poke_json = get_pokeapi_pokemon(species)
-    return (snake_case(poke_json['name']), build_json(species_json, poke_json))
+    return (snake_case(poke_json['name']), build_species_json(species_json, poke_json))
 
 
-def build_range(start: int, end: int) -> dict:
+def build_species_range(start: int, end: int) -> dict:
     for i in range(start, end + 1):
         print(f'Dumping {i}')
         name, j = build_species(i)
         f = open(f'data/pokemon/{name}.json', 'w', encoding='utf8')
+        json.dump(j, f, indent=4, ensure_ascii=False)
+        f.close()
+
+
+### MOVES ###
+
+POKEAPI_TARGET_TYPES = {
+    'specific-move':             MoveTarget.AUTOMATIC,
+    'selected-pokemon-me-first': MoveTarget.ME_FIRST,
+    'ally':                      MoveTarget.HELPING_HAND,
+    'users-field':               MoveTarget.USER_SIDE,
+    'user-or-ally':              MoveTarget.ACUPRESSURE,
+    'opponents-field':           MoveTarget.OPPONENT_SIDE,
+    'user':                      MoveTarget.USER,
+    'random-opponent':           MoveTarget.RANDOM,
+    'all-other-pokemon':         MoveTarget.ALL_BATTLERS,
+    'selected-pokemon':          MoveTarget.ANY_SINGLE,
+    'all-opponents':             MoveTarget.BOTH_OPPONENTS,
+    'entire-field':              MoveTarget.ENTIRE_FIELD,
+    'user-and-allies':           MoveTarget.USER_SIDE,
+    'all-pokemon':               MoveTarget.ENTIRE_FIELD,
+    'all-allies':                MoveTarget.USER_SIDE,
+    #'fainting-pokemon'         lolololol
+}
+
+def get_pokeapi_move(move: int) -> dict:
+    return requests.get(f'https://pokeapi.co/api/v2/move/{move}').json()
+
+
+def build_move(move: int) -> (str, dict):
+    move_json = get_pokeapi_move(move)
+    move_name = ''
+    for entry in move_json['names']:
+        if entry['language']['name'] == 'en':
+            move_name = entry['name']
+    
+    return (snake_case(move_json['name']), {
+        'name': move_name,
+        'type': move_json['type']['name'].upper(),
+        'category': move_json['damage_class']['name'].upper(),
+        'power': 0 if not move_json['power'] else move_json['power'],
+        'accuracy': 0 if not move_json['accuracy'] else move_json['accuracy'],
+        'base_pp': move_json['pp'],
+        'effect': MoveEffect.NONE.name,
+        'effect_chance': 0 if not move_json['effect_chance'] else move_json['effect_chance'],
+        'target_type': POKEAPI_TARGET_TYPES[move_json['target']['name']].name,
+        'priority': move_json['priority'],
+        'flags': {
+            'make_contact': False,
+            'blocked_by_protect': False,
+            'bounced_by_magic_coat': False,
+            'stolen_by_snatch': False,
+            'can_be_mirror_moved': False,
+            'triggers_kings_rock': False,
+            'animation_hides_hp_bars': False,
+            'animation_hides_shadows': False,
+        },
+        'contest_effect': 0,
+        'contest_type': 0,
+    })
+
+
+def build_moves_range(start: int, end: int):
+    for i in range(start, end + 1):
+        print(f'Dumping {i}')
+        name, j = build_move(i)
+        f = open(f'data/moves/{name}.json', 'w', encoding='utf8')
         json.dump(j, f, indent=4, ensure_ascii=False)
         f.close()
