@@ -39,7 +39,7 @@
                 "ICY_WIND",
                 "SLASH",
                 "SCREECH",
-                "FAINT_ATTACK"
+                "FEINT_ATTACK"
             ]
         },
         {
@@ -54,7 +54,7 @@
                 "ICY_WIND",
                 "SLASH",
                 "SCREECH",
-                "FAINT_ATTACK"
+                "FEINT_ATTACK"
             ]
         }
     ]

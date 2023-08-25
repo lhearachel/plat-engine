@@ -45,7 +45,7 @@
     "learnset": {
         "tms": [],
         "level_up": {
-            "1": "FAINT_ATTACK"
+            "1": "FEINT_ATTACK"
         }
     },
     "evolutions": [

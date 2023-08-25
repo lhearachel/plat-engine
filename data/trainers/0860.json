@@ -37,7 +37,7 @@
             "held_item": "NONE",
             "moves": [
                 "SHADOW_CLAW",
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "THUNDERBOLT",
                 "WILL_O_WISP"
             ]

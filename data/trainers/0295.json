@@ -51,7 +51,7 @@
             "ball_seal": 0,
             "held_item": "ORAN_BERRY",
             "moves": [
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "SCRATCH",
                 "FAKE_OUT",
                 "NONE"

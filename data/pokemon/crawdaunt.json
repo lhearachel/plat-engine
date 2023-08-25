@@ -90,11 +90,11 @@
             "1": [
                 "BUBBLE",
                 "HARDEN",
-                "VICE_GRIP",
+                "VISE_GRIP",
                 "LEER"
             ],
             "7": "HARDEN",
-            "10": "VICE_GRIP",
+            "10": "VISE_GRIP",
             "13": "LEER",
             "20": "BUBBLE_BEAM",
             "23": "PROTECT",

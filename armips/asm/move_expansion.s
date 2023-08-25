@@ -355,7 +355,7 @@ _Optimized3188:
     // this is the new load
     mov     r0, #0x31
     lsl     r0, r0, #8
-    add     r0, r0, #0x84   // r0 := 0x3184 (pp offset)
+    add     r0, #0x84       // r0 := 0x3184 (pp offset)
 
 
 // pp
@@ -363,7 +363,7 @@ _Optimized3188:
 // which means we can just reload that value and add to it
 .org 0x02244568
     ldr     r1, =0x30AC
-    add     r1, r1, #0xD8   // r1 := 0x3184 (pp offset)
+    add     r1, #0xD8       // r1 := 0x3184 (pp offset)
 
 .org 0x022445C4 // this is the actual location of 0x3184
 

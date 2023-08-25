@@ -9,7 +9,7 @@ MOVE_FIRE_PUNCH                         equ   7
 MOVE_ICE_PUNCH                          equ   8
 MOVE_THUNDER_PUNCH                      equ   9
 MOVE_SCRATCH                            equ  10
-MOVE_VICE_GRIP                          equ  11
+MOVE_VISE_GRIP                          equ  11
 MOVE_GUILLOTINE                         equ  12
 MOVE_RAZOR_WIND                         equ  13
 MOVE_SWORDS_DANCE                       equ  14
@@ -183,7 +183,7 @@ MOVE_POWDER_SNOW                        equ 181
 MOVE_PROTECT                            equ 182
 MOVE_MACH_PUNCH                         equ 183
 MOVE_SCARY_FACE                         equ 184
-MOVE_FAINT_ATTACK                       equ 185
+MOVE_FEINT_ATTACK                       equ 185
 MOVE_SWEET_KISS                         equ 186
 MOVE_BELLY_DRUM                         equ 187
 MOVE_SLUDGE_BOMB                        equ 188
@@ -263,7 +263,7 @@ MOVE_WILL_O_WISP                        equ 261
 MOVE_MEMENTO                            equ 262
 MOVE_FACADE                             equ 263
 MOVE_FOCUS_PUNCH                        equ 264
-MOVE_SMELLING_SALT                      equ 265
+MOVE_SMELLING_SALTS                      equ 265
 MOVE_FOLLOW_ME                          equ 266
 MOVE_NATURE_POWER                       equ 267
 MOVE_CHARGE                             equ 268

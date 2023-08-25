@@ -93,7 +93,7 @@
         ],
         "level_up": {
             "1": [
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "WHIRLWIND",
                 "NASTY_PLOT",
                 "RAZOR_LEAF"

@@ -107,7 +107,7 @@
             ],
             "11": "QUICK_ATTACK",
             "20": "HYPNOSIS",
-            "29": "FAINT_ATTACK",
+            "29": "FEINT_ATTACK",
             "38": "NIGHTMARE",
             "47": "DOUBLE_TEAM",
             "57": "HAZE",

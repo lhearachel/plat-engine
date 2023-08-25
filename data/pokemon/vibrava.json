@@ -82,11 +82,11 @@
             "1": [
                 "SONIC_BOOM",
                 "SAND_ATTACK",
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "SAND_TOMB"
             ],
             "9": "SAND_ATTACK",
-            "17": "FAINT_ATTACK",
+            "17": "FEINT_ATTACK",
             "25": "SAND_TOMB",
             "33": "SUPERSONIC",
             "35": "DRAGON_BREATH",

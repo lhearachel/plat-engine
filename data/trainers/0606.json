@@ -67,7 +67,7 @@
             "held_item": "NONE",
             "moves": [
                 "LEAF_STORM",
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "EXTRASENSORY",
                 "QUICK_ATTACK"
             ]

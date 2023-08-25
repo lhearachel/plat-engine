@@ -44,7 +44,7 @@
         "tms": [],
         "level_up": {
             "1": [
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "DRAGON_RAGE"
             ]
         }

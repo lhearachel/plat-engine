@@ -47,7 +47,7 @@
         "level_up": {
             "1": [
                 "MUD_SHOT",
-                "FAINT_ATTACK"
+                "FEINT_ATTACK"
             ]
         }
     },

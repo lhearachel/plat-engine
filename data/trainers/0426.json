@@ -37,7 +37,7 @@
             "held_item": "NONE",
             "moves": [
                 "FURY_SWIPES",
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "GROWL",
                 "FAKE_OUT"
             ]
@@ -66,7 +66,7 @@
             "ball_seal": 0,
             "held_item": "NONE",
             "moves": [
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "NIGHT_SHADE",
                 "WING_ATTACK",
                 "NONE"

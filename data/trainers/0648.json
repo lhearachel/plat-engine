@@ -52,7 +52,7 @@
             "held_item": "NONE",
             "moves": [
                 "FLAMETHROWER",
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "SMOG",
                 "WILL_O_WISP"
             ]

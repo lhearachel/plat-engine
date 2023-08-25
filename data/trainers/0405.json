@@ -67,7 +67,7 @@
             "held_item": "SITRUS_BERRY",
             "moves": [
                 "SLASH",
-                "FAINT_ATTACK",
+                "FEINT_ATTACK",
                 "HYPNOSIS",
                 "FAKE_OUT"
             ]
