@@ -561,7 +561,7 @@ static u16 Calc_ModifiedBasePower(
             /*
              * 1.3x if the attacker's ability is Tough Claws and the used move makes contact.
              */
-            if (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT) {
+            if (server->aiWork.moveTable[moveID].flags & MOVE_FLAG_MAKES_CONTACT) {
                 #ifdef DEBUG_DAMAGE_CALC
                 sprintf(buf, "[PLAT-ENGINE] -- Tough Claws active: 1.3x\n");
                 debugsyscall(buf);
@@ -2211,7 +2211,7 @@ _NoScreenReduction:
     // 0.5x if the target has Fluffy, the move makes contact, and the attacker does not have Long Reach.
     if (Server_CheckDefenderAbility(server, server->attacker, server->defender, ABILITY_FLUFFY)
             && (attacker->ability != ABILITY_LONG_REACH)
-            && (server->aiWork.moveTable[moveID].flag & MOVE_FLAG_MAKES_CONTACT)) {
+            && (server->aiWork.moveTable[moveID].flags & MOVE_FLAG_MAKES_CONTACT)) {
         #ifdef DEBUG_DAMAGE_CALC
         sprintf(buf, "[PLAT-ENGINE] -- Fluffy (contact): 0.5x\n");
         debugsyscall(buf);
@@ -2425,7 +2425,6 @@ void Calc_MoveDamage(struct Battle *battle, struct BattleServer *server)
     sprintf(buf, "[PLAT-ENGINE] Base damage: %d\n", damage);
     debugsyscall(buf);
     #endif
-
 
     // Step 2: 0.75x if the move has more than one target upon execution.
     u32 battleType = Battle_Type(battle);

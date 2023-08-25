@@ -11,18 +11,18 @@
 #define ACROSS(battler)     (battler ^ 3)
 
 struct __attribute__((packed)) BattleMove {
-    u16 effect;
-    u8  pss;
-    u8  power;
-    u8  type;
-    u8  accuracy;
-    u8  pp;
-    u8  secondaryChance;
-    u16 target;
-    s8  priority;
-    u8  flag;
-    u8  unk[4];
-};
+    u16 effect;                 // 0x00..0x01   ; 0x03DE    ; 0x317E
+    u8  pss;                    // 0x02         ; 0x03E0    ; 0x3180
+    u8  power;                  // 0x03         ; 0x03E1    ; 0x3181
+    u8  type;                   // 0x04         ; 0x03E2    ; 0x3182
+    u8  accuracy;               // 0x05         ; 0x03E3    ; 0x3183
+    u8  pp;                     // 0x06         ; 0x03E4    ; 0x3184
+    u8  secondaryChance;        // 0x07         ; 0x03E5    ; 0x3185
+    u16 target;                 // 0x08..0x09   ; 0x03E6    ; 0x3186
+    s8  priority;               // 0x0A         ; 0x03E8    ; 0x3188
+    u8  flags;                  // 0x0B         ; 0x03E9    ; 0x3189
+    u8  unk[4];                 // 0x0C..0x0F   ; 0x03EA    ; 0x318A
+};  // size: 0x10
 
 struct DamageDealtToMon {
     int dealt[4];       // This is the amount of damage dealt to a given mon by each client
@@ -265,50 +265,50 @@ struct __attribute__((packed)) MessageParams {
 // mostly just what the fields actually are and do,
 // not its structure
 struct __attribute__((packed)) AIWork {
-    u8  seqNum;
-    u8  movePos;
-    u16 moveID;
-    s8  movePP[4];
+    u8  seqNum;                 // 0x00
+    u8  movePos;                // 0x01
+    u16 moveID;                 // 0x02..0x03
+    s8  movePP[4];              // 0x04..0x07
 
-    int calcWork;
-    u32 thinkingMask;
+    int calcWork;               // 0x08..0x0B
+    u32 thinkingMask;           // 0x0C..0x0F
 
-    u8  statusFlag;
-    u8  thinkingSeq;
-    u8  moveCheckLoopCount;
-    u8  moveCheckStackPtr;
-    u8  *moveCheckLoopAddr;
-    u8  damageForMove[4];
-    u16 defenderMoves[4][4];
-    u8  abilityNums[4];
-    u16 heldItems[4];
-    u16 bagItems[2][4];
+    u8  statusFlag;             // 0x10
+    u8  thinkingSeq;            // 0x11
+    u8  moveCheckLoopCount;     // 0x12
+    u8  moveCheckStackPtr;      // 0x13
+    u8  *moveCheckLoopAddr;     // 0x14..0x17
+    u8  damageForMove[4];       // 0x18..0x1B
+    u16 defenderMoves[4][4];    // 0x1C..0x3B
+    u8  abilityNums[4];         // 0x3C..0x3F
+    u16 heldItems[4];           // 0x40..0x47
+    u16 bagItems[2][4];         // 0x48..0x57
 
-    u32 stack[8];
-    u8  stackSize;
+    u32 stack[8];               // 0x58..0x77
+    u8  stackSize;              // 0x78
 
-    u8  itemCounts[2];
+    u8  itemCounts[2];          // 0x79..0x7A
 
-    u8  attacker;
-    u8  defender;
-    u8  itemType[2];
-    u8  itemCondition[2];
+    u8  attacker;               // 0x7B
+    u8  defender;               // 0x7C
+    u8  itemType[2];            // 0x7D..0x7E
+    u8  itemCondition[2];       // 0x7F..0x80
 
     u8  _pad_0081;  // implicit padding, one byte
 
-    u16 itemIDs[2];
+    u16 itemIDs[2];             // 0x82..0x85
 
-    u8  dirSelectClient[4]; // ?
+    u8  dirSelectClient[4];     // 0x86..0x89
 
-    struct BattleMove moveTable[468];   // this becomes unusable with move expansion, neat
+    struct BattleMove moveTable[468];   // 0x8A, length = 468 * 0x10 = 0x1D40; this is also 0x03DE in BattleServer
 
-    u16 _pad_1DCA; // implicit padding, two bytes
+    u16 _pad_1DCA;              // 0x1DCA..0x1DCB
 
-    struct ItemData   *itemTable;
+    struct ItemData   *itemTable;       // 0x1DCC..0x1DCF
 
-    u16 calcCount[4];
-    u16 calcInProgress[4];
-};
+    u16 calcCount[4];           // 0x1DD0..0x1DD7
+    u16 calcInProgress[4];      // 0x1DD8..0x1DDF
+};  // size: 0x1DE0
 
 struct __attribute__((packed)) BattleServer {
 /* 0x0000 */  u8      comSeqNum[4];
@@ -394,116 +394,116 @@ struct __attribute__((packed)) BattleServer {
 /* 0x01BC */  struct SideConditions        sideConditions;
 /* 0x01D4 */  struct SingleTurnEffects     stFX[4];
 /* 0x02D4 */  struct SelfSingleTurnEffects stSelfFX[4];
-/* 0x0334 */  struct MoveFailedChecks      moveFailChecks[4];
+/* 0x0344 */  struct MoveFailedChecks      moveFailChecks[4];
 
-    struct AIWork aiWork;
-    u32           *aiSeqWork;
-    u32           aiSeqAddr;
+/* 0x0354 */  struct AIWork aiWork;
+/* 0x2134 */  u32           *aiSeqWork;
+/* 0x2138 */  u32           aiSeqAddr;
 
-    u32     serverStatusFlag;
-    u32     serverStatusFlag2;
+/* 0x213C */  u32     serverStatusFlag;
+/* 0x2140 */  u32     serverStatusFlag2;
 
-    int     damage;
-    int     trueDamage;     // this is the amount of HP actually reduced (so it accounts for fainted mons)
-    int     criticalCount;
-    BOOL    critical;
-    int     movePower;      // stores the final power of a move (mostly important for variable power moves)
-    u32     powerModifier; // stores any move-specific contextual damage multipliers (e.g. Revenge)
-    int     hpCalcWork;
-    int     moveType;
-    int     moveEffectCounter;
-    int     moneyMultiplier;    // amulet coin
-    u32     moveStatusFlag;
-    u32     addlDirectStatus;
-    u32     addlIndirectStatus;
-    u32     addlAbilityStatus;
-    u8      multiHitCounter;
-    u8      multiHitCounterTemp;
-    u8      multiHitLoopCounter;    // for spread moves
-    u8      beatUpCount;
+/* 0x2144 */  int     damage;
+/* 0x2148 */  int     trueDamage;     // this is the amount of HP actually reduced (so it accounts for fainted mons)
+/* 0x214C */  int     criticalCount;
+/* 0x2150 */  BOOL    critical;
+/* 0x2154 */  int     movePower;      // stores the final power of a move (mostly important for variable power moves)
+/* 0x2158 */  u32     powerModifier; // stores any move-specific contextual damage multipliers (e.g. Revenge)
+/* 0x215C */  int     hpCalcWork;
+/* 0x2160 */  int     moveType;
+/* 0x2164 */  int     moveEffectCounter;
+/* 0x2168 */  int     moneyMultiplier;    // amulet coin
+/* 0x216C */  u32     moveStatusFlag;
+/* 0x2170 */  u32     addlDirectStatus;
+/* 0x2174 */  u32     addlIndirectStatus;
+/* 0x2178 */  u32     addlAbilityStatus;
+/* 0x217C */  u8      multiHitCounter;
+/* 0x217D */  u8      multiHitCounterTemp;
+/* 0x217E */  u8      multiHitLoopCounter;    // for spread moves
+/* 0x217F */  u8      beatUpCount;
 
-    u32     loopingFlag;
-    u32     moveFailedCheck;
-    u32     loopingHitCheck;
+/* 0x2180 */  u32     loopingFlag;
+/* 0x2184 */  u32     moveFailedCheck;
+/* 0x2188 */  u32     loopingHitCheck;
 
-    u32     condition2ClearRequest[4];
+/* 0x218C */  u32     condition2ClearRequest[4];
 
-    u8      selectedMonNum[4];
-    u8      switchSelectedMonNum[4];
-    u8      aiSwitchSelectedMonNum[4];
-    u32     clientActionWork[4][4];
-    u8      clientSpeedWork[4];
-    u8      pokemonSpeedWork[4];
-    u32     pokemonSpeedValues[4];
+/* 0x219C */  u8      selectedMonNum[4];
+/* 0x21A0 */  u8      switchSelectedMonNum[4];
+/* 0x21A4 */  u8      aiSwitchSelectedMonNum[4];
+/* 0x21A8 */  u32     clientActionWork[4][4];
+/* 0x21E8 */  u8      clientSpeedWork[4];
+/* 0x21EC */  u8      pokemonSpeedWork[4];
+/* 0x21F0 */  u32     pokemonSpeedValues[4];
 
-    u8      serverQueue[4][4][16];
-    u8      serverBuffer[4][256];
+/* 0x2200 */  u8      serverQueue[4][4][16];
+/* 0x2300 */  u8      serverBuffer[4][256];
 
-    int     moveSeqWork[400];
+/* 0x2700 */  int     moveSeqWork[400];
 
-    struct BattlePokemon    activePokemon[4];
+/* 0x2D40 */  struct BattlePokemon    activePokemon[4];
 
-    u32     moveIDTemp;
-    u32     moveIDCurr;
-    u32     moveIDLast;
-    u32     moveIDMultiTurn[4];
+/* 0x3040 */  u32     moveIDTemp;
+/* 0x3044 */  u32     moveIDCurr;
+/* 0x3048 */  u32     moveIDLast;
+/* 0x304C */  u32     moveIDMultiTurn[4];
     
-    u16     moveIDProtect[4];
-    u16     moveIDHit[4];
-    u16     moveIDHitClient[4];
-    u16     moveIDHitType[4];
-    u16     moveIDOld[4];
-    u16     moveIDMirrorMove[4];
-    u16     moveIDMirrorMoveHit[4][4];
-    u16     moveIDSketch[4];
-    u16     moveIDSelected[4];
-    u16     moveIDPos[4];
-    u16     moveIDConversion2[4];
-    u16     moveIDConversion2Client[4];
-    u16     moveIDConversion2Type[4];
-    u16     moveIDMetronome[4];     // for the item, not the move
+/* 0x305C */  u16     moveIDProtect[4];
+/* 0x3064 */  u16     moveIDHit[4];
+/* 0x306C */  u16     moveIDHitClient[4];
+/* 0x3074 */  u16     moveIDHitType[4];
+/* 0x307C */  u16     moveIDOld[4];
+/* 0x3084 */  u16     moveIDMirrorMove[4];
+/* 0x308C */  u16     moveIDMirrorMoveHit[4][4];
+/* 0x30AC */  u16     moveIDSketch[4];
+/* 0x30B4 */  u16     moveIDSelected[4];
+/* 0x30BC */  u16     moveIDPos[4];
+/* 0x30C4 */  u16     moveIDConversion2[4];
+/* 0x30CC */  u16     moveIDConversion2Client[4];
+/* 0x30D4 */  u16     moveIDConversion2Type[4];
+/* 0x30DC */  u16     moveIDMetronome[4];     // for the item, not the move
 
-    int     storedDamage[4];        // for Bide
-    int     clientNumHit[4];
-    int     clientNumSpeed;
-    u8      clientSwitchingTo;
-    u8      pokemonLevelUp;
-    u16     queueCheckWait;
+/* 0x30E4 */  int     storedDamage[4];        // for Bide
+/* 0x30F4 */  int     clientNumHit[4];
+/* 0x3104 */  int     clientNumSpeed;
+/* 0x3108 */  u8      clientSwitchingTo;
+/* 0x3109 */  u8      pokemonLevelUp;
+/* 0x310A */  u16     queueCheckWait;
 
-    u16     speedRand[4];           // for breaking speed ties
+/* 0x310C */  u16     speedRand[4];           // for breaking speed ties
 
-    int     flingWork;
-    int     flingSeqNum;
+/* 0x3114 */  int     flingWork;
+/* 0x3118 */  int     flingSeqNum;
 
-    u8      safariCatchRateCounter;
-    u8      safariFleeRateCounter;
-    u8      fleeRateCounter;
-    u8      fightOver;
+/* 0x311C */  u8      safariCatchRateCounter;
+/* 0x311D */  u8      safariFleeRateCounter;
+/* 0x311E */  u8      fleeRateCounter;
+/* 0x311F */  u8      fightOver;
 
-    u8      magnitude;
+/* 0x3120 */  u8      magnitude;
 
-    u8      fieldWeatherChecked;
+/* 0x3121 */  u8      fieldWeatherChecked;
     
-    s16     hpTemp;
+/* 0x3122 */  s16     hpTemp;
 
-    u16     recyclableItem[4];
+/* 0x3124 */  u16     recyclableItem[4];
 
-    u8      partyOrder[4][6];
+/* 0x312C */  u8      partyOrder[4][6];
 
-    BOOL    jingle;
+/* 0x3144 */  BOOL    jingle;
 
-    int     serverQueueTimeOut;
+/* 0x3148 */  int     serverQueueTimeOut;
 
-    u8      recordingFlags[4];
+/* 0x314C */  u8      recordingFlags[4];
 
-    int     clientWorkingCounter;
+/* 0x3150 */  int     clientWorkingCounter;
 
-    u32     battleProgressFlag;
+/* 0x3154 */  u32     battleProgressFlag;
 
     // new stuff starts here
-    u8      padding_3158[0x26];     // gets the move table to 317E (for convenience of 3180 in ASM)
+/* 0x3158 */  u8      padding_3158[0x26];     // gets the move table to 317E (for convenience of 3180 in ASM)
 
-    struct BattleMove moveTable[TOTAL_NUM_MOVES];
+/* 0x317E */  struct BattleMove moveTable[TOTAL_NUM_MOVES];
 };
 
 enum BattleServerParam {
