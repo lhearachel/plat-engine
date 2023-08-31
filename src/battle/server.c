@@ -341,6 +341,28 @@ BOOL Server_CheckAbilityOnHit(struct Battle *battle, struct BattleServer *server
         break;
     }
 
+    switch (Server_Ability(server, server->attacker)) {
+    case ABILITY_POISON_TOUCH:
+        // Defender is still alive after the attack
+        if (server->activePokemon[server->defender].curHP
+                // Defender has no present status condition
+                && server->activePokemon[server->defender].condition == 0
+                // Move makes contact
+                && server->aiWork.moveTable[server->moveIDCurr].flag & MOVE_FLAG_MAKES_CONTACT
+                // Activate 30% of the time
+                && Battle_Random(battle) % 10 < 3){
+            server->addlEffectType   = ADDL_EFFECT_FROM_ABILITY;
+            server->addlEffectClient = server->defender;
+            server->clientWork       = server->attacker;
+            *seqNum = SUBSCR_APPLY_POISON;
+            result  = TRUE;
+        }
+        break;
+
+    default:
+        break;
+    }    
+
     return result;
 }
 
