@@ -25,6 +25,7 @@ subscr_016:
     // Check for Anger Point; only boost Attack if the defender is still alive and
     // has not already maximized its Attack stages.
     CheckAbility                        MODE_NOT_HAVE, BATTLER_DEFENDER, ABILITY_ANGER_POINT, subscr_016_End
+    CheckSubstitute                     BATTLER_DEFENDER, subscr_016_End
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_HP, 0, subscr_016_End
     IfMonData                           EQUAL, BATTLER_DEFENDER, BATTLE_MON_ATK_STAGE, 12, subscr_016_End
     // Got this far, apply the boost.
